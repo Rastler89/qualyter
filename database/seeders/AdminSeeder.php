@@ -35,6 +35,13 @@ class AdminSeeder extends Seeder {
             'password' => Hash::make('123456')
         ]);
 
+        DB::table('users')->insert([
+            'name' => 'Banejat',
+            'email' => 'banned@test.es',
+            'password' => Hash::make('123456'),
+            'status' => 0
+        ]);
+
         DB::table('roles_permissions')->insert([
             'role_id' => 1,
             'permission_id' => 1
