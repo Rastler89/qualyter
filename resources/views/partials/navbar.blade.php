@@ -6,88 +6,55 @@
 
         <ul class="sidebar-nav">
             <li class="sidebar-header">
-                Pagines
+                {{__('Reports')}}
             </li>
 
-            <li class="sidebar-item active">
+            <li class="sidebar-item">
                 <a class="sidebar-link" href="index.html">
-                    <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
+                    <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">{{__('Dashboard')}}</span>
                 </a>
             </li>
-
             <li class="sidebar-item">
-                <a class="sidebar-link" href="pages-profile.html">
-                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">Profile</span>
-                </a>
-            </li>
-
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="pages-sign-in.html">
-                    <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Sign In</span>
-                </a>
-            </li>
-
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="pages-sign-up.html">
-                    <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">Sign Up</span>
-                </a>
-            </li>
-
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="pages-blank.html">
-                    <i class="align-middle" data-feather="book"></i> <span class="align-middle">Blank</span>
+                <a class="sidebar-link" href="#">
+                    <i class="align-middle" data-feather="list"></i>
+                    <span class="align-middle">{{__('Tasks')}}</span>
                 </a>
             </li>
 
             <li class="sidebar-header">
-                Tools & Components
+                {{__('Tools')}}
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="ui-buttons.html">
-                    <i class="align-middle" data-feather="square"></i> <span class="align-middle">Buttons</span>
-                </a>
-            </li>
-
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="ui-forms.html">
-                    <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Forms</span>
-                </a>
-            </li>
-
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="ui-cards.html">
-                    <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Cards</span>
-                </a>
-            </li>
-
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="ui-typography.html">
-                    <i class="align-middle" data-feather="align-left"></i> <span class="align-middle">Typography</span>
-                </a>
-            </li>
-
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="icons-feather.html">
-                    <i class="align-middle" data-feather="coffee"></i> <span class="align-middle">Icons</span>
+                <a class="sidebar-link" href="/translations" target="_blank">
+                    <i class="align-middle" data-feather="type"></i>
+                    <span class="align-middle">{{__('Translations')}}</span>
                 </a>
             </li>
 
             <li class="sidebar-header">
-                Plugins & Addons
+                {{__('Administration')}}
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="charts-chartjs.html">
-                    <i class="align-middle" data-feather="bar-chart-2"></i> <span class="align-middle">Charts</span>
+                <a class="sidebar-link" href="#">
+                    <i class="align-middle" data-feather="user"></i>
+                    <span class="align-middle">{{__('Users')}}</span>
                 </a>
             </li>
-
             <li class="sidebar-item">
-                <a class="sidebar-link" href="maps-google.html">
-                    <i class="align-middle" data-feather="map"></i> <span class="align-middle">Maps</span>
+                <a class="sidebar-link" href="#">
+                    <i class="align-middle" data-feather="lock"></i>
+                    <span class="align-middle">{{__('Roles')}}</span>
                 </a>
             </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="#">
+                    <i class="align-middle" data-feather="upload"></i>
+                    <span class="align-middle">{{__('Upload')}}</i>
+                </a>
+            </li>
+            
         </ul>
 
         <!--<div class="sidebar-cta">
