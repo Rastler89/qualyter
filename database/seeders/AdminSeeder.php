@@ -26,6 +26,12 @@ class AdminSeeder extends Seeder {
             ], [
                 'slug' => 'edit-users',
                 'name' => 'Modificar Usuarios'
+            ], [
+                'slug' => 'create-users',
+                'name' => 'Crear Usuarios'
+            ], [
+                'slug' => 'view-users',
+                'name' => 'Ver Usuarios'
             ]
         ]);
 
@@ -64,6 +70,12 @@ class AdminSeeder extends Seeder {
             ], [
                 'role_id' => 1,
                 'permission_id' => 5
+            ], [
+                'role_id' => 1,
+                'permission_id' => 6
+            ], [
+                'role_id' => 1,
+                'permission_id' => 7
             ]
         ]);
 

@@ -30,8 +30,41 @@ class UserController extends Controller
 
         $user->roles()->detach();
 
-        $role = Role::where('slug',$request->get('role'))->first();
-        $user->roles()->attach($role);
+        
+        if($request->get('role') != '---') {
+            $role = Role::where('slug',$request->get('role'))->first();
+            $user->roles()->attach($role);
+        }
+
+        return redirect()->route('users');
+    }
+
+    public function new() {
+        $roles = Role::all();
+        return view('admin.users.create', ['roles' => $roles]);
+    }
+
+    public function create(Request $request) {
+        $validated = $request->validate([
+            'name' => 'required',
+            'email' => 'required|unique:users', 
+            'password' => ['required', 
+                'min:6', 
+                'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/', 
+                'confirmed'],
+        ]);
+
+        $user = new User;
+        $user->name = $request->get('name');
+        $user->email = $request->get('email');
+        $user->password = $request->get('password');
+
+        $user->save();
+
+        if($request->get('role') != '---') {
+            $role = Role::where('slug',$request->get('role'))->first();
+            $user->roles()->attach($role);
+        }
 
         return redirect()->route('users');
     }
