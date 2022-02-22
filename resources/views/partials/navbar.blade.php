@@ -36,18 +36,22 @@
                 {{__('Administration')}}
             </li>
 
+            @can('view-users')
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{route('users')}}">
                     <i class="align-middle" data-feather="user"></i>
                     <span class="align-middle">{{__('Users')}}</span>
                 </a>
             </li>
+            @endcan
+            @can('view-roles')
             <li class="sidebar-item">
-                <a class="sidebar-link" href="#">
+                <a class="sidebar-link" href="{{route('roles')}}">
                     <i class="align-middle" data-feather="lock"></i>
                     <span class="align-middle">{{__('Roles')}}</span>
                 </a>
             </li>
+            @endcan
             <li class="sidebar-item">
                 <a class="sidebar-link" href="#">
                     <i class="align-middle" data-feather="upload"></i>

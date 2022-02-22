@@ -27,8 +27,17 @@ Route::post('/password/email', [App\Http\Controllers\Auth\ForgotPasswordControll
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->name('users');
+    // USERS
+    Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->middleware('permission:view-users')->name('users');
     Route::put('/users/edit', [App\Http\Controllers\UserController::class, 'update'])->middleware('permission:edit-users')->name('users.edit');
     Route::get('/users/new', [App\Http\Controllers\UserController::class, 'new'])->middleware('permission:create-users')->name('users.new');
     Route::post('/users/new', [App\Http\Controllers\UserController::class, 'create'])->middleware('permission:create-users')->name('users.create');
+    // ROLES
+    Route::get('/roles', [App\Http\Controllers\RoleController::class, 'index'])->middleware('permission:view-roles')->name('roles');
+    Route::get('/roles/new', [App\Http\Controllers\RoleController::class, 'new'])->middleware('permission:create-roles')->name('roles.new');
+    Route::post('/roles/new', [App\Http\Controllers\RoleController::class, 'create'])->middleware('permission:create-roles')->name('roles.create');
+    // UPLOAD
+    
+    // TASK
+
 });
