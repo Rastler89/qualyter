@@ -28,4 +28,5 @@ Route::post('/password/email', [App\Http\Controllers\Auth\ForgotPasswordControll
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->name('users');
+    Route::put('/users/edit', [App\Http\Controllers\UserController::class, 'update'])->middleware('permission:edit-users')->name('users.edit');
 });

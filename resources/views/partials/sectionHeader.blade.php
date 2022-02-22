@@ -5,7 +5,7 @@
 
     <div class="navbar-collapse collapse">
         <ul class="navbar-nav navbar-align">
-            <!--<li class="nav-item dropdown">
+            <li class="nav-item dropdown">
                 <a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown" data-bs-toggle="dropdown">
                     <div class="position-relative">
                         <i class="align-middle" data-feather="bell"></i>
@@ -136,7 +136,7 @@
                         <a href="#" class="text-muted">Show all messages</a>
                     </div>
                 </div>
-            </li>-->
+            </li>
             <li class="nav-item dropdown">
                 <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
                     <i class="align-middle" data-feather="settings"></i>

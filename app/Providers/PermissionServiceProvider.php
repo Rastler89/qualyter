@@ -27,7 +27,7 @@ class PermissionServiceProvider extends ServiceProvider
     public function boot()
     {
         try {
-            Permission::get()->map(function ($permissions) {
+            Permission::get()->map(function ($permission) {
                 Gate::define($permission->slug, function ($user) use ($permission) {
                     return $user->hasPermissionTo($permission);
                 });
@@ -37,12 +37,8 @@ class PermissionServiceProvider extends ServiceProvider
             return false;
         }
 
-        Blade::directive('role', function($role) {
-            return "if(auth()->check() && auth()->user()->hasRole({$role})) :";
-        });
-
-        Blade::directive('endrole', function($role) {
-            return "endif;";
+        Blade::if('role', function ($role) {
+            return (auth()->check() && auth()->user()->hasRole($role)); 
         });
 
     }
