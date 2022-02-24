@@ -20,6 +20,26 @@
                     <span class="align-middle">{{__('Tasks')}}</span>
                 </a>
             </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="#">
+                    <i class="align-middle" data-feather="alert-triangle"></i>
+                    <span class="align-middle">{{__('Incidence')}}</span>
+                </a>
+            </li>
+
+            <li class="sidebar-header">
+                {{__('Contacts')}}
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="#">
+                    <i class="align-middle" data-feather="users"></i><span class="align-middle">{{__('Clients')}}</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="#">
+                    <i class="align-middle" data-feather="shopping-bag"></i><span class="align-middle">{{__('Stores')}}</span>
+                </a>
+            </li>
 
             <li class="sidebar-header">
                 {{__('Tools')}}
@@ -52,8 +72,11 @@
                 </a>
             </li>
             @endcan
+            <li class="sidebar-header">
+                    {{__('Bulk data upload')}}
+            </li>
             <li class="sidebar-item">
-                <a class="sidebar-link" href="#">
+                <a class="sidebar-link" href="{{route('uploads')}}">
                     <i class="align-middle" data-feather="upload"></i>
                     <span class="align-middle">{{__('Upload')}}</i>
                 </a>

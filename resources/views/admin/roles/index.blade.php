@@ -20,7 +20,14 @@
             <td>{{$role->name}}</td>
             <td>{{$role->slug}}</td>
             @can('edit-roles')
-            <td><a href="#" class="btn btn-warning">{{__('Edit Role')}}</a></td>
+            <td>
+                <form method="post" action="{{route('roles.delete', ['id'=>$role->id])}}">
+                    <a href="{{route('roles.edit',['id'=>$role->id])}}" class="btn btn-warning"><i class="align-middle" data-feather="edit"></i></a>
+                    @method('DELETE')
+                    @csrf
+                    <button href="#" class="btn btn-danger"><i class="align-middle" data-feather="trash-2"></i></button>
+                </form>
+            </td>
             @endcan
         </tr>
         @endforeach

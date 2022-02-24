@@ -36,8 +36,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/roles', [App\Http\Controllers\RoleController::class, 'index'])->middleware('permission:view-roles')->name('roles');
     Route::get('/roles/new', [App\Http\Controllers\RoleController::class, 'new'])->middleware('permission:create-roles')->name('roles.new');
     Route::post('/roles/new', [App\Http\Controllers\RoleController::class, 'create'])->middleware('permission:create-roles')->name('roles.create');
+    Route::get('/roles/edit/{id}', [App\Http\Controllers\RoleController::class, 'edit'])->middleware('permission:edit-roles')->name('roles.edit');
+    Route::put('/roles/edit/{id}', [App\Http\Controllers\RoleController::class, 'update'])->middleware('permission:edit-roles')->name('roles.update');
+    Route::delete('/roles/{id}', [App\Http\Controllers\RoleController::class, 'delete'])->middleware('permission:edit-roles')->name('roles.delete');
     // UPLOAD
-    
+    Route::get('/uploads', [App\Http\Controllers\UploadController::class, 'index'])->name('uploads');
+    Route::post('/uploads/tasks', [App\Http\Controllers\UploadController::class, 'pushTasks'])->name('uploads.tasks');
+    Route::post('/uploads/agents', [App\Http\Controllers\UploadController::class, 'pushAgents'])->name('uploads.agents');
+    Route::post('/uploads/stores', [App\Http\Controllers\UploadController::class, 'pushStores'])->name('upload.stores');
+    Route::post('/uploads/clients', [App\Http\Controllers\UploadController::class, 'pushClients'])->name('upload.clients');
     // TASK
 
 });
