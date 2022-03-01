@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Agent;
 use App\Models\Client;
 use App\Models\Store;
 use Illuminate\Http\Request;
@@ -18,6 +19,17 @@ class UploadController extends Controller
     
     public function pushAgents(Request $request) {
 
+        $respuesta = $this->exportCSV($request);
+
+        foreach($respuesta as $resp) {
+            $agent = new Agent;
+
+            $agent->name = htmlentities($resp[0], ENT_QUOTES, 'UTF-8', false);
+            $agent->email = $resp[1];
+
+            $agent->save();
+        }
+        return back()->with('success','Upload agents successfuly!');
     }
 
     public function pushStores(Request $request) {
