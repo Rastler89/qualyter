@@ -11,11 +11,11 @@
                 <form method="POST" action="{{route('uploads.tasks')}}" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
-                        <label for="formFile" class="form-label">{{__('To bulk upload task data')}}</label>
-                        <input class="form-control" type="file" id="formFile" name="formFile" />
+                        <label for="file" class="form-label">{{__('To bulk upload task data')}}</label>
+                        <input class="form-control" type="file" id="file" name="file" />
                     </div>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button class="btn btn-success" type="button">{{__("Upload File")}}</button>
+                        <button class="btn btn-success" >{{__("Upload File")}}</button>
                     </div>
                 </form>
             </div>
@@ -30,11 +30,11 @@
                 <form method="POST" action="{{route('uploads.agents')}}" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
-                        <label for="formFile" class="form-label">{{__('To bulk upload agent data')}}</label>
-                        <input class="form-control" type="file" id="formFile" name="formFile" />
+                        <label for="file" class="form-label">{{__('To bulk upload agent data')}}</label>
+                        <input class="form-control" type="file" id="file" name="file" />
                     </div>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button class="btn btn-success" type="button">{{__("Upload File")}}</button>
+                        <button class="btn btn-success" >{{__("Upload File")}}</button>
                     </div>
                 </form>
             </div>
@@ -49,11 +49,11 @@
                 <form method="POST" action="{{route('uploads.stores')}}" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
-                        <label for="formFile" class="form-label">{{__('To bulk upload store data')}}</label>
-                        <input class="form-control" type="file" id="formFile" name="formFile" />
+                        <label for="file" class="form-label">{{__('To bulk upload store data')}}</label>
+                        <input class="form-control" type="file" id="file" name="file" />
                     </div>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button class="btn btn-success" type="button">{{__("Upload File")}}</button>
+                        <button class="btn btn-success">{{__("Upload File")}}</button>
                     </div>
                 </form>
             </div>
@@ -68,11 +68,11 @@
                 <form method="POST" action="{{route('uploads.clients')}}" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
-                        <label for="formFile" class="form-label">{{__('To bulk upload client data')}}</label>
-                        <input class="form-control" type="file" id="formFile" name="formFile" />
+                        <label for="file" class="form-label">{{__('To bulk upload client data')}}</label>
+                        <input class="form-control" type="file" id="file" name="file" />
                     </div>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button class="btn btn-success" type="button">{{__("Upload File")}}</button>
+                        <button class="btn btn-success">{{__("Upload File")}}</button>
                     </div>
                 </form>
             </div>

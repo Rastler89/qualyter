@@ -40,11 +40,17 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/roles/edit/{id}', [App\Http\Controllers\RoleController::class, 'update'])->middleware('permission:edit-roles')->name('roles.update');
     Route::delete('/roles/{id}', [App\Http\Controllers\RoleController::class, 'delete'])->middleware('permission:edit-roles')->name('roles.delete');
     // UPLOAD
-    Route::get('/uploads', [App\Http\Controllers\UploadController::class, 'index'])->name('uploads');
-    Route::post('/uploads/tasks', [App\Http\Controllers\UploadController::class, 'pushTasks'])->name('uploads.tasks');
-    Route::post('/uploads/agents', [App\Http\Controllers\UploadController::class, 'pushAgents'])->name('uploads.agents');
-    Route::post('/uploads/stores', [App\Http\Controllers\UploadController::class, 'pushStores'])->name('upload.stores');
-    Route::post('/uploads/clients', [App\Http\Controllers\UploadController::class, 'pushClients'])->name('upload.clients');
+    Route::get('/bulk', [App\Http\Controllers\UploadController::class, 'index'])->name('uploads');
+    Route::post('/bulk/tasks', [App\Http\Controllers\UploadController::class, 'pushTasks'])->name('uploads.tasks');
+    Route::post('/bulk/agents', [App\Http\Controllers\UploadController::class, 'pushAgents'])->name('uploads.agents');
+    Route::post('/bulk/stores', [App\Http\Controllers\UploadController::class, 'pushStores'])->name('uploads.stores');
+    Route::post('/bulk/clients', [App\Http\Controllers\UploadController::class, 'pushClients'])->name('uploads.clients');
+    // CLIENT
+    
+    // STORE
+    
     // TASK
+    
+    //INCIDENCE
 
 });

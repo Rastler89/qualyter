@@ -17,6 +17,9 @@
 	<title>{{ config('app.name', 'Laravel') }}</title>
 
 	<link rel="stylesheet" href="https://unpkg.com/@adminkit/core@latest/dist/css/app.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 	@yield('styles')
 </head>
@@ -30,6 +33,7 @@
 			@include('partials.sectionHeader')
 			<main class="content">
 				<div class="container-fluid p-0">
+					@include('partials.alerts')
 					@yield('content')
 				</div>
 			</main>
