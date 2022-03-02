@@ -15,6 +15,9 @@ class UploadController extends Controller
 
     public function pushTasks(Request $request) {
 
+        $respuesta = $this->exportCSV($request, false);
+
+        echo"<pre>";var_dump($respuesta);echo"</pre>";
     }
     
     public function pushAgents(Request $request) {

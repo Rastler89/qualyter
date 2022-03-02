@@ -1,0 +1,469 @@
+Código;Nombre;Referencia;Fecha;Fecha Vencimiento;Fecha Finalización;Base imponible;Total;Responsable;Código estado;Estado;Código prioridad;Prioridad;Código tipo orden;Tipo Orden;Proyecto Código;Subtipo Orden;Proyecto Nombre;Proyecto Total;Código tipo proyecto;Tipo Proyecto;Referencia Proyecto;Código cliente;Cliente;idDelegacion;Coste total;Trabajo a realizar;Trabajo realizado;Codigo subTipo;Nombre subtipo;idOrdenTrabajo
+OT22/06553;WC CISTERNA ROTA ;;02/03/2022;02/03/2022;;0;0;Josep Crespo - Optima Retail (EQ9);803;En Progreso;P2;CÓDIGO ROJO - URGENCIA;TO3;Fontanería;P22/00137;;GETIR - SPAIN, Zaragoza, Paseo Cuellar 47 - PIGNATELLI;0;TP1;General;;316;GETIR SPAIN SL ;15;0;<p>WC masculino cisterna rota, no funciona</p>;;;;
+OT22/06546;LIMPIEZA SERRANO 5;OOH ALBERT;01/03/2022;02/03/2022;;0;0;Alberto Lahoz - Optima Retail (EQ5);803;En Progreso;P2;CÓDIGO ROJO - URGENCIA;TO9;Limpieza;P21S/03842;;ADOLFO DOMINGUEZ - SPAIN, Madrid, C/ Serrano 5;0;TP1;General;;218;Adolfo Dominguez S.A.;15;0;<p>Claudia nos solicita servicio de limpieza para serrano 5 los días 92 y 03 de 09.00 a 17. Necesita 4 limpieza</p>;;;;
+OT22/06530;Reparar peldaño CH Roma;559649;01/03/2022;02/03/2022;;0;0;Laia Navarro - Optima Retail (EQ3);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;T14;Obras/Reformas;P20/01301;;CAROLINA HERRERA - ITALIA, Roma, Via Borgognona, 24 - CLI;0;TP1;General;;336;Sociedad Textil Lonia, Srl;15;0;"<p class=""cs2654ae3a""><span class=""cs416e45a41""><span style=""font-size: 10.0pt;"">Buenos dias,</span></span></p>
+<p class=""cs2654ae3a""><span class=""cs416e45a41""><span style=""font-size: 10.0pt;"">Os paso esta incidencia para reparación de uno de los peldaños de nuestra tienda de Roma.</span></span></p>
+<p class=""cs2654ae3a""><span class=""cs416e45a41""><span style=""font-size: 10.0pt;"">Revisarlo y decirnos si podemos repararlo en la intervención de mañana.</span></span></p>
+<p class=""cs2654ae3a""><span class=""cs416e45a41""><span style=""font-size: 10.0pt;"">Un saludo y gracias,</span></span></p>
+<p class=""cs2654ae3a""><span class=""cs416e45a41""><span style=""font-size: 10.0pt;"">Manuel.</span></span></p>";;;;
+OT22/06520;Revisión central alarma;;01/03/2022;02/03/2022;;0;0;Alba Malé - Optima Retail (EQ6);803;En Progreso;P4;CÓDIGO AMARILLO - MEDIO IMPACTO;TO12;PCI;P20/00791;;KENZO - SPAIN, Madrid CC Las Rozas Village;0;TP1;General;;174;LVMH IBERIA, S.L.;15;0;;;;;
+OT22/06495;Pérdida de agua en pileta de manos;;01/03/2022;02/03/2022;;0;0;Bruno Riva - Optima Retail (EQ5);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;T14;Obras/Reformas;P21S/05230;;MOTOCARD - SPAIN - VALENCIA , Alfons Magnanim;0;TP1;General;;259;MOTOCARD BIKE SL;15;0;<p>La pileta de manos pierde agua por la parte trasera del mismo.</p>;;;;
+OT22/06476;MAQUINA AIRE DE TERRAZA ;;01/03/2022;02/03/2022;;0;0;Josep Crespo - Optima Retail (EQ9);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;T14;Obras/Reformas;P20/01135;;PRIMOR - SPAIN, Barcelona, C.C.La maquinista local c-15-Paseo Potosí nº2 (76) - BLLI;232;TP1;General;BLANCO LIMON;196;BLANCO LIMON, S.L;15;0;;;;;
+OT22/06451;colocar losas suelo;;01/03/2022;02/03/2022;;0;0;Alberto Castillo - Optima Retail (EQ9);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;T14;Obras/Reformas;P20/01276;;PRIMOR - SPAIN, Barcelona, C/Pelayo nº10 (68) - ROCR;0;TP1;General;;196;BLANCO LIMON, S.L;15;0;"<p>01/03 AC</p>
+<p>realizar colocacion de losas que estan en tienda y deteccion de otros trabajos</p>";;;;
+OT22/06446; RAIL CAJA WOMAN PLANTA BAJA ROTO ;22006593;01/03/2022;02/03/2022;;71;71;Suleiman Daimoussi - Optima Retail (EQ4);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;T14;Obras/Reformas;P19/00499;;MANGO - SPAIN, Tenerife, Calle Castillo, 29 - 10105;0;TP1;General;;119;PUNTO FA, S.L. (MANGO ESPAÑA);15;0;;;;;
+OT22/06445;BARRAS DE SEGURIDAD ;;01/03/2022;02/03/2022;02/03/2022;401,1;485,33;Bruno Riva - Optima Retail (EQ5);805;Finalizada;P5;CÓDIGO VERDE - BAJO IMPACTO;TO10;Otros;P21S/05890;; SKECHERS - SPAIN, Barcelona, C/ Portaferrisa 25 - SK1086;0;TP1;General;;302;SKECHERS USA IBERIA SL;15;0;;;;;
+OT22/06442;AIRE ACONDICIONADO NO FUNCIONA;;01/03/2022;02/03/2022;;0;0;Alberto Castillo - Optima Retail (EQ9);803;En Progreso;P4;CÓDIGO AMARILLO - MEDIO IMPACTO;TO1;Aire Acondicionado / Clima;P21S/06023;;PRIMOR - SPAIN, CANARIAS,  Puerto del Rosario, CC Las Rotondas, Loc PB-P18/19/20/21 - TITI - 232;1.552,00;TP1;General;LA TIRANIA DEL TIEMPO;196;BLANCO LIMON, S.L;15;0;"<p>Buenos días,</p>
+<p>El aire acondicionado no funciona<br />01/03</p>
+<p>recibido tiquet, confirmando centro abierto</p>
+<p>confirmado con PRIMOR atencion dia 02/03 al ser festivo en la isla</p>";;;;
+OT22/06398;CERRADURA ARMARIO NO ABRE;;28/02/2022;02/03/2022;;0;0;Anna Oliva - Optima Retail (EQ8);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;TO8;Cerrajería;P21S/06491;;ARISTOCRAZY - SPAIN, MADRID, ECI  SERRANO, C/ SERRANO 47 - C036;0;TP1;General;;313;ARISTOCRAZY S.L.;15;0;<p>NO PODEMOS ABRIR EL ARMARIO</p>;;;;
+OT22/06397;CERRADURA SE QUEDA ATASCADA, ;;28/02/2022;02/03/2022;;0;0;ARISTOCRAZY - SPAIN, MADRID, ECI SERRANO, C/ SERRANO 47 - C036;803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;TO8;Cerrajería;P21S/06491;;ARISTOCRAZY - SPAIN, MADRID, ECI  SERRANO, C/ SERRANO 47 - C036;0;TP1;General;;313;ARISTOCRAZY S.L.;15;0;"<p>LA CERRADURA SE QUEDA ATASCADA Y NOS CUESTA MUCHO ABRIR LA VITRINA, INCLUSO NOS DA LA SENSACION DE QUE LA LLAVE PODRIA PARTIR </p>
+<p>01/03 ANNA : Julia, de la OT22/06398 q nos has puesto OK,  quieres que hagamos las ots abiertas de esta tienda también? </p>";;;;
+OT22/06392;Media tienda sin luz / Cambio diferencial;22006503;28/02/2022;02/03/2022;28/02/2022;111;111;Suleiman Daimoussi - Optima Retail (EQ4);803;En Progreso;P4;CÓDIGO AMARILLO - MEDIO IMPACTO;TO2;Electricidad;P19/00710;;MANGO - SPAIN, CC Vaguada SC VI, Av. de Monforte de Lemos, 36, Local 4 (1811);0;TP1;General;;119;PUNTO FA, S.L. (MANGO ESPAÑA);15;0;;"<p>SD 28/02 : Media tienda sin luz, Francisco pasara por las 4 </p>
+<p>SD 28/02 : Diferencial circuito alumbrado L25 y L44 en mal estado se tendría que<br />sustituir se comprueba derivaciones a cuadro y no se encuentra ninguna <br />Diferencial 40A 30 mA</p>";;;
+OT22/06383;Imán puerta almacén y toma luz para regletas desde encima falso techo;;28/02/2022;02/03/2022;;0;0;Laia Navarro - Optima Retail (EQ3);803;En Progreso;P4;CÓDIGO AMARILLO - MEDIO IMPACTO;TO2;Electricidad;P21S/03767;;JYSK - SPAIN, Valencia, Vidanova Parc, Avenida Fausto Caruana (E164) - E00203;0;TP1;General;Jorge Martín;233;JYSK DBL IBERIA S.L.U;15;0;"<p>Notificación de llamada: Sr. Alejandro Gómez 11:10, 28 feb 2022<br />Caller: Sr. Alejandro Gómez<br />Empresa: Tienda JYSK Sagunto</p>
+<p>----------</p>
+<p>Motivo de la llamada: Clientes<br />Teléfono principal: +34685166088<br />Problema/Incidencia: Puerta del Almacén<br />Dirección: Parque Comercial Vilanova Park, Avenida Fausto Caduana, Sagunto<br />Sr. Gómez le comunica que tienen una avería en la puerta del almacén falla el imán y también quiere consultar si pueden realizar la instalación de una regleta de luz.</p>";;;;
+OT22/06378;12 m BURLETE + CANTONERA EMBELLECEDORA ;;28/02/2022;02/03/2022;;271,99;271,99;Josep Crespo - Optima Retail (EQ9);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;TO10;Otros;P19/00264;;PUNT ROMA - SPAIN, Santander, C/ Amos de Escalante, 2 (253);0;TP1;General;;89;PUNT ROMA, S.L;15;150;;;;;
+OT22/06372;Tuberia cocina ;#38790 ;28/02/2022;02/03/2022;;0;0;Raul Medina - Optima Retail (EQ3);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;T14;Obras/Reformas;P18/00017;;DESIGUAL - ESP BARNA PLAZA CATALUÑA (R509);21.363,91;TP1;General;;18;Sepalememe, S.L.U. (DESIGUAL ESPAÑA);15;0;<p>La tubería del desagüe de la cocina estaba dando agua</p>;;;;
+OT22/06366;Incidencias Varias;#1000;28/02/2022;02/03/2022;;0;0;Alba Malé - Optima Retail (EQ6);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;TO10;Otros;P21S/05645;;ADIDAS - SPAIN, Aldaia  - Ctro. Cial. Factory Bonaire-Local A17-18 Ctra. Nacional III-Km 345 - 3461;0;TP1;General;;270; ADIDAS ESPAÑA SAU;15;0;<p>PUNTOS DE LUZ EN PROBADORES, HAY 3 FUNDIDOS<br />LUCES DE ESPEJOS EN PROBADOR<br />MESA DE REPOSICION DE TEXTIL. ESTA INESTEBLE EN LAS JUNTAS<br /><br /><br /></p>;;;;
+OT22/06365;Incidencias Varias;#999;28/02/2022;02/03/2022;;0;0;Alba Malé - Optima Retail (EQ6);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;TO10;Otros;P21S/05663;;ADIDAS - SPAIN, Jerez de la Frontera,  - Centro Comercial LUZ Shopping-Local 7A-B-C - Ronda de Aurora Boreal, s/n - 3462;0;TP1;General;;270; ADIDAS ESPAÑA SAU;15;0;<p>- Sustituir 2 fluerescentes del almacén. Hay que traer los fluorescentes nuevos (Adjunto foto)<br />- WC con bomba rota. Se arregló en la última visita pero sigue perdiendo agua. Se dijo que había que cambiar la bomba y que la pedían para el próximo mes (sería en esta visita)<br />- Transformador Fermax de acceso al almacén. Llevamos varios meses con el acceso abierto y por seguridad es necesario subsanarlo ya.<br />- A/C sala de descanso. No funciona la bomba de calor, solo aire frío.<br />- Sustituir 3 bombines rotos de taquillas (Adjunto fotos)<br />- Instalar canaleta con 12 enchufes en sala de descanso para cargar los walkies (adjunto foto)</p>;;;;
+OT22/06364;Limpieza difusores retorno zona ventas ;DETECTADO EN PREVENTIVO;28/02/2022;02/03/2022;;0;0;Alba Malé - Optima Retail (EQ6);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;TO1;Aire Acondicionado / Clima;P21S/05790;;ADIDAS - SPAIN, Getafe - The Style Outlets Getafe-Local 77-Avda. Rio Guadalquivir, 15 - 3471;136,41;TP1;General;;270; ADIDAS ESPAÑA SAU;15;0;<p>Se necesitan 2 técnicos para realizar este trabajo. </p>;;;;
+OT22/06332;EMERGENCIA ROTA ;OT22/04762;27/02/2022;02/03/2022;;0;0;Josep Crespo - Optima Retail (EQ9);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;T14;Obras/Reformas;P22/00123;;GETIR - SPAIN, Madrid, Fermín Caballero 28 - LA PAZ;0;TP1;General;;316;GETIR SPAIN SL ;15;0;;;;;
+OT22/06305;plancha del techo rota; #95919;26/02/2022;02/03/2022;;71;71;Raul Medina - Optima Retail (EQ3);803;En Progreso;P2;CÓDIGO ROJO - URGENCIA;TO10;Otros;P18/00275;;DESIGUAL - ESP TNRFE CASTILLO (R065);0;TP1;General;;38;NTS IT'S NOT THE SAME CANARY (DESIGUAL CANARIAS);15;0;"<p>Buenos días, nada más llegar nos hemos encontrado con la plancha de la azotea rota, el viento ha arrancado una plancha por completo! por lo que hay goteras directas en la tienda..</p>
+<p>OL 26/02</p>
+<p>Al asistir a la urgencia una de las chapas del tragaluz se habia caido entera, ya que estan resecas y viejas, se pone una plancha de plastico y se rejunta, volvemos el lunes para darle un repaso ya que es algo provisional, ya he solicitado el presupuesto para sustituir las 6 placas que estan igual.</p>
+<p>RM 28/02 producto de la caída de las planchas se ha originado un orificio en el techo de la tienda, justo arriba en la parte de probadores. </p>";;;;
+OT22/06268;Pintado pasillo y probadores CH;;25/02/2022;02/03/2022;;0;0;Laia Navarro - Optima Retail (EQ3);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;TO5;Pintura;P20/01301;;CAROLINA HERRERA - ITALIA, Roma, Via Borgognona, 24 - CLI;0;TP1;General;;336;Sociedad Textil Lonia, Srl;15;0;<p>Pintar 30m2 pasillo y probadores con pintura al agua transparente</p>;<p>Presupuesto aceptado de 517?</p>;;;
+OT22/06258;Pintar puertas almacén;;25/02/2022;02/03/2022;;0;0;Laia Navarro - Optima Retail (EQ3);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;TO5;Pintura;P21S/03793;;JYSK - PORTUGAL, Tavira, Tavira Gran Plaza Rua Almirante Cândido dos Reis, 247 (P101);5.430,50;TP1;General;;265;JYSK UNIPESSOAL LDA;15;0;"<p>Buenas tardes Laia,</p>
+<p>Hace un tiempo cambiamos las puertas del almacén de Tavira, el centro comercial quiere que las pintemos con el RAL y especificaciones indicadas en el hilo del mail.</p>
+<p>Ya me dices cuando conseguimos hacer esto y como siempre, envíame Empresa,Nombres y DNI por favor.</p>
+<p>Un Saludo, <br />Melhores cumprimentos / Best regards</p>
+<p><strong>Braulio Da Rocha Marcé</strong></p>
+<p> </p>
+<p>Boa tarde.</p>
+<p>No seguimento do certificado que partilhou connosco, das portas corta-fogo que foram aplicadas na arrecadação da Jysk, confirmamos que as mesmas cumprem os requisitos técnicos para o efeito em PT/União europeia, apesar de ao nível da imagem, diferirem das portas existentes do Centro. Neste sentido, as mesmas estão autorizadas a continuar no local, contudo, terão de as pintar na cor das portas existentes no CCTGP - RAL nº 7038. A tinta deverá ser intumescente e à base de água.</p>";;;;
+OT22/06255;"Sacar cartel CC ""Desigual""";;25/02/2022;02/03/2022;;0;0;Noelia Gómez - Optima Retail (EQ3);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;T14;Obras/Reformas;P18/00216;;DESIGUAL - ESP VIGO_ A LAXE (R077);0;TP1;General;;18;Sepalememe, S.L.U. (DESIGUAL ESPAÑA);15;0;;;;;
+OT22/06218;Incidencias Varias;#989;25/02/2022;02/03/2022;;0;0;Alba Malé - Optima Retail (EQ6);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;T14;Obras/Reformas;P21S/05797;;ADIDAS - PORTUGAL, Almancil, - Centro Comercial Designer Outlet Algarve-Avda. Algarve, s/nº - Local 48-49-50 - 3582;0;TP1;General;;308;ADIDAS PORTUGAL - ARTIGOS DE DESPORTO, LDA;21;0;<p>- Bomba Hidraulica Cierra Puerta que se rompió ( Foto Anexada ) - cierrapuertas Telesco<br />- Puerta de aceso al almacen desde tienda que no cierra bien.<br />- Los otros puntos ya hablados con los tecnicos en la ultima visita.</p>;;;;
+OT22/06200;Montaje alfombra + mobiliario;;24/02/2022;02/03/2022;;0;0;Ariadna Toquero - Optima Retail (EQ7);803;En Progreso;P3;CÓDIGO NARANJA - GRAN IMPACTO;PR-0100;[PF] - MOBILIARIO;P21S/05603;;PARFOIS - SPAIN, Barcelona, Calle Pelayo, C/ Pelayo 12 (15927);0;TP1;General;;250; PARFOIS - Dismoda -comercio Y Distribucion Sl  ;15;0;;;;;
+OT22/06194;PUERTA VETRINA ESTANTERIA BOLSOS CLJ ROMA;558875;24/02/2022;02/03/2022;;0;0;Laia Navarro - Optima Retail (EQ3);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;T14;Obras/Reformas;P20/01301;;CAROLINA HERRERA - ITALIA, Roma, Via Borgognona, 24 - CLI;0;TP1;General;;336;Sociedad Textil Lonia, Srl;15;0;"<p class=""cs2654ae3a""><span class=""csc8f6d761"">Esta tarde limpiando una de las vetrinas de las estanterías, una de las puertas se ha descolgado. No ha llegado a romperse del todo pero se ha hecho una pequeña grieta en la inferior izquierda (foto adjunta).  He aprovechado para ajustar la otra vitrina de accesorio porque también tenia los tornillos de las bisagras casi a la mitad. He dejado la puerta montada pero no cierra bien, ya que igual se había dejado un poco más suelta para que coincidiese con el cierre.</span></p>
+<p class=""cs2654ae3a""><span class=""csc8f6d761"">Un saludo!</span></p>
+<p class=""cs2654ae3a""><span class=""cs416e45a41""><span style=""font-size: 10.0pt;"">José Manuel Iguaz</span></span></p>";<p>Giovanni aprovechará la visita de pintura en CH para revisar tema vitrina.</p>;;;
+OT22/06188;NECESITAMOS QUE VENGA A PONER EL CARTEL DE CCTV ;#958 ;24/02/2022;02/03/2022;;0;0;Ainoa Sebastián - Optima Retai (EQ3);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;T14;Obras/Reformas;P18/00003;;DESIGUAL - ESP MADRD PRECIADOS (R064);0;TP1;General;;18;Sepalememe, S.L.U. (DESIGUAL ESPAÑA);15;0;"<p>NURIA CHICO NOS HA ENVIADO UN CARTEL PARA QUE PONGAMOS EN UNA PARTE VISIBLE DE LA TIENDA , YA QUE DESPUES DE LA REFORMA NOS E INSTALÓ<br /><br /></p>
+<p>RM 24/02 hable con Cristina y me dice de pegar el cartel nosotros durante el preventivo. </p>";;;;
+OT22/06179;Hilo musical;;24/02/2022;02/03/2022;;0;0;Alberto Lahoz - Optima Retail (EQ5);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;T14;Obras/Reformas;P20/01076;;GRUPOSTOP - SPAIN, Sevilla, Triana, Ronda de Triana, 8 bajo;0;TP1;General;;187;SERVICIOS DE DEPILACION BLOC S.L.U. (GRUPOSTOP);15;0;"<p>Buenas tardes, Alberto.</p>
+<p> </p>
+<p>Por favor, mando un técnico a revisar los problemas con el hilo musical que nos presenta este centro. Puede que simplemente sufran algún tipo de desconexión.</p>
+<p> </p>
+<p>Saludos</p>";;;;
+OT22/06133;PINTAR Y SEÑALIZAR PARKING MOTOS;;24/02/2022;02/03/2022;;1.984,20;1.984,20;Josep Crespo - Optima Retail (EQ9);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;TO10;Otros;P22/00103;;GETIR - SPAIN, Barcelona, Ctra d'Esplugues 139 - CORNELLA;0;TP1;General;;316;GETIR SPAIN SL ;15;1.200,00;;;;;
+OT22/06130;luz fundida;;24/02/2022;02/03/2022;;0;0;Alba Malé - Optima Retail (EQ6);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;TO2;Electricidad;P21S/03360;;TOUS - SPAIN, Pamplona, Av. de Carlos III el Noble, 14 (T059);348,48;TP1;General;;223;JOYERIA TOUS SA;15;0;"<p> </p>
+<p>---------------------------------------------------</p>
+<p>FL 24/02: Ticket recibido. Gracias</p>";;;;
+OT22/06096;PERFIL LEVANTADO ENTRADA TIENDA;;24/02/2022;02/03/2022;;0;0;Alberto Castillo - Optima Retail (EQ9);803;En Progreso;P4;CÓDIGO AMARILLO - MEDIO IMPACTO;TO11;Albañilería;P20/01177;;PRIMOR - SPAIN, Málaga, Arroyo de la Miel, Avda. de la Constitución, 6 (17) - CRSU;0;TP1;General;CREADOR DE SUEÑOS S.L.;196;BLANCO LIMON, S.L;15;0;"<p>Buenos días,</p>
+<p>El perfil metálico de la alfombra de entrada a tienda se está levantando debido al paso de la traspaleta con los pallets, adjunto fotografía. </p>
+<p>24/02 </p>
+<p>TIQUET RECIBIDO</p>
+<p>25/02 AC</p>
+<p>acordamos revision trabajos en tienda el 02/03</p>";;;;
+OT22/05936;Reparación muelle puerta principal;DETECTADO EN PREVENTIVO;23/02/2022;02/03/2022;;0;0;Alba Malé - Optima Retail (EQ6);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;TO10;Otros;P21S/05616;;ADIDAS - SPAIN, Viladecans - The Style Outlets Viladecans-Local 30-34-Ctra. de la Vila, 90 - 3460;0;TP1;General;;270; ADIDAS ESPAÑA SAU;15;0;<p>Se detecta en preventivo que hay un muelle en la puerta principal roto (puerta abre y cierra). Se coge referencia para reparación.</p>;;;;
+OT22/05819;Presupuesto DENTAL - Calle Hernán Cortés 30. 39004 Cantabria. Cantabria ? España.;;22/02/2022;02/03/2022;;393,4;393,4;Francisco Luna - Optima Retail (EQ6);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;TO2;Electricidad;P22/00220;;DENTAL COMPANY - SPAIN, Santander, C/ Hernan Cortes 30;3.094,87;TP1;General;;349;DENTAL COMPANY PROYECTOS Y OBRAS S.L.;15;322;"<ul>
+<li>Cablear por canalización existente dos latiguillos UTP CAT6 acabados en RJ45.  Con sobrante en la zona del equipo de 4m y en la zona del PC de 50-80cm.</li>
+<li>Cablear por canalización existente Cable UTP CAT 6 para maniobra del equipo (pulsador). Solo cable.</li>
+<li>Tapar agujero en pladur una vez quitado la plataforma de la antigua máquina</li>
+</ul>";"<p> </p>
+<p> </p>";;;
+OT22/05773;VARIAS;;22/02/2022;02/03/2022;;0;0;Alberto Castillo - Optima Retail (EQ9);803;En Progreso;P4;CÓDIGO AMARILLO - MEDIO IMPACTO;TO10;Otros;P20/01189;;PRIMOR - SPAIN, Mallorca, C.C.Fan Mallorca, local 87 (79) - DALP;469,9;TP1;General;DALPESES S.L.;196;BLANCO LIMON, S.L;15;0;"<p>Buenos días,</p>
+<pre class=""moz-quote-pre"">-PLASTICO PRECIOS ROTOS (MUEBLE ESSENCE)                  
+-LUZ LED FOCO PEQUEñO (ESTEE LAUDER COLOR)                
+-BURBUJAS DE AIRE EN EL LETRERO DEL MUEBLE (LANCOME)      
+-LUZ FUNDIDA (LANCOME)                                    
+-LUCES FUNDIDA (MUEBLE COSMETICA CLINIQUE)                
+-ESTANTERIAS DOBLADAS (ALMACEN)                           
+-TODAS LAS LUCS FUNDIDAS (MUEBLE MAYBELLINE)             </pre>
+<pre class=""moz-quote-pre"">-ACRILICO DE CUCURUCHO ROTO (CUCURUCHO COSMETICA)         
+-BALDA ACRILICO ROTO Y SIN LUZ (MUEBLE CLINIQUE)          
+-LUZ FUNDIDA (CRUZ PARAFARMACIA)                          
+-INTERRUPTOR CUADRO ELECTRICO (TAI&amp;JON,MUEBLE LUZ ABAJO   
+NUBE,ESTANTERIA ESQUINA COLOR)                            
+-BALDAS ROTAS (MUEBLE GRATIS)                             
+-LUZ LED FUNDIDA (DERMACOL)                               
+-BALDOSA ROTA (TARTA VICTORIO Y LUCCINO)                  
+-LUZ FUNDIDA (ESTANTERIA LANCOME)     </pre>
+<pre class=""moz-quote-pre""> -GOMA PUERTA INCOMPLETA (PUERTA PERFUMERIA MUJER)</pre>";;;;
+OT22/05766;RETIRADA MUEBLE;;22/02/2022;02/03/2022;;0;0;Ariadna Toquero - Optima Retail (EQ7);803;En Progreso;P4;CÓDIGO AMARILLO - MEDIO IMPACTO;PF-0230;[PF] - MOBILIARIO;P21S/05197;[PF] - Muebles tienda;PARFOIS - SPAIN, Madrid, CC Parque Sur, Av. Gran Bretaña s/n (1867);0;TP1;General;;250; PARFOIS - Dismoda -comercio Y Distribucion Sl  ;15;0;"<p>Tenemos un mueble el cual deseamos tirar, pero nuestro Centro Comercial no nos permite dejarlo en el punto limpio. Necesitamos que alguien venga a llevárselo cuanto antes ya que nuestro almacén es muy pequeño y ocupa demasiado espacio</p>
+<p>---------------------------------------------</p>
+<p><strong>AT 22/02/22:</strong> Ticket recibido!</p>";;PF-0530;[PF] - Muebles tienda;
+OT22/05733;Metacrilato roto.;;21/02/2022;02/03/2022;;0;0;Alberto Castillo - Optima Retail (EQ9);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;TO10;Otros;P20/01151;;PRIMOR - SPAIN, Barcelona, Viladecans, Crta. De la Vila, 90. CC Viladecans Style Outlet local 036 (100) - COSP;5.096,67;TP1;General;CORAL SPRINGS S.L.;196;BLANCO LIMON, S.L;15;0;"<p>Metacrilato roto.</p>
+<p>JC 21/02</p>
+<p>Ok ticket recibido</p>
+<p>25/02 AC</p>
+<p>se pasa a tomar medidas el dia 02/03</p>";;;;
+OT22/05732;Cerradura armario y cerradura cajón;;21/02/2022;02/03/2022;;0;0;Alba Malé - Optima Retail (EQ6);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;TO8;Cerrajería;P21S/03363;;TOUS - SPAIN, Vitoria, ECI C/ La Paz, 2 (T096);0;TP1;General;;223;JOYERIA TOUS SA;15;0;"<p>Sustitución cerradura de cajón expositor.</p>
+<p>Sustitución o reparación cerradura armario<br /><br /></p>
+<p>Optima Retail 21/02<br />Buenas tardes, Ticket recibido.</p>
+<p> </p>
+<p>AM 22/02: Buenos días, agrupamos estas actuaciones para la visita de la próxima semana. Gracias!</p>";;;;
+OT22/05680;Colocar aparato fichaje;;21/02/2022;02/03/2022;02/03/2022;318,73;385,66;Bruno Riva - Optima Retail (EQ5);805;Finalizada;P5;CÓDIGO VERDE - BAJO IMPACTO;T14;Obras/Reformas;P22/00216;;MOTOCARD - SPAIN, Tomares, Av. del Aljarafe, 14;0;TP1;General;;259;MOTOCARD BIKE SL;15;0;"<p>Es necesario anclar el aparato de fichaje en la pared que da acceso a la sala de electrónica, haciendo los agujeros necesarios para la toma de corriente y de red.</p>
+<p>---------------------------------------------------------</p>
+<p>FL 25/02: Se añade aquí  OT22/05684      ----&gt;tenemos una pizarra que nos gustaría anclar a la pared de los vestuarios (azulejos)</p>";"<p>FL 25/02  Enviado correo para agendar</p>
+<p> </p>";;;
+OT22/05675;CLIMA ;;22/02/2022;02/03/2022;;0;0;Eduardo Conde - Optima Retail (EQ7);803;En Progreso;P3;CÓDIGO NARANJA - GRAN IMPACTO;PF-0120;[PF] - GENERAL;P21S/05845;;PARFOIS - SPAIN, Bilbao, CC Artea, Paseo de la Castellana, 33 (1771);0;TP1;General;;250; PARFOIS - Dismoda -comercio Y Distribucion Sl  ;15;0;"<p>El técnico ya nos dijo que el motor funciona pero el aire se queda arriba y no baja , es por ésto que no notamos ni frio ni calor cuando accionamos la máquina.</p>
+<p>Necesitamos nos lo revisen por favor.</p>
+<p>EC 21/02/22 Se generará reporte para soportar las opciones de soluciones de esta tienda, ya que en este CC es de las pocas que tienen equipo propio. se elaborará dictámen.</p>
+<p> </p>";;;;
+OT22/05524;Cierre Pepe Jeans Valmontone;;18/02/2022;02/03/2022;;0;0;Laia Navarro - Optima Retail (EQ3);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;T14;Obras/Reformas;P21S/03618;;PEPE JEANS - ITALY, Roma, Valmontone, Via Della Pace Outlet Valmontone, Unit - I036 - PJIT;0;TP1;General;Pepe Jeans Italy S.R.L.;228;PEPE JEANS CENTRAL;15;0;<p>Cerrar tienda del 02/03 al 04/03 </p>;;;;
+OT22/05498;DESFILE SERRANO 5;;18/02/2022;02/03/2022;;2.458,45;2.458,45;Alberto Lahoz - Optima Retail (EQ5);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;T14;Obras/Reformas;P21S/03704;;ADOLFO DOMINGUEZ - SPAIN, Madrid, Calle de Serrano 5;0;TP1;General;;218;Adolfo Dominguez S.A.;15;0;"<p>La semana del 28/02 se llevará a cabo un evento que durará toda la semana, nos solicitan,</p>
+<p>1. Asistencia de un electricista la semana del 21 para valorar requisitos</p>
+<p>2. Asistencia la semana del 28/02 el electricista tendrá que acudir de lunes a viernes de inicio a fin</p>";"<p>El 28/02 Claudia nos solicita la retirada a vertedero de más material, enviamos a clemente</p>
+<p>El 28/02 Claudia solicita la presencia de 2 electricistas más los días 1/03 y 2/03 en horario de 09 a 17</p>";;;
+OT22/05485;Puerta hace saltar alarma;22005452;18/02/2022;02/03/2022;;0;0;Rosina Motilla - Optima Retail (EQ4);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;TO8;Cerrajería;P20/00361;;MANGO- FRANCE- TOURS L'Heure Tranquille SC (11556);0;TP1;General;;115;MANGO FRANCE, SARL;21;0;"<p>Buenos días Rosina,</p>
+<p> </p>
+<p>Necesitamos una intervención en la tienda 11556 Tours L?Heure Tranquille Mango, tienen un problema con una puerta que no cierra bien y hace saltar la alarma.</p>
+<p>Esta incidencia la comprobó Tyco hace unos días y esperamos que una vez arreglada la puerta no vuelva a activarse.</p>
+<p> </p>
+<p>En adjunto os envío el pedido</p>
+<p> </p>
+<p>Gracias</p>
+<p> </p>
+<p>Un cordial saludo</p>
+<p> </p>
+<p> </p>
+<p><strong>Luca Palamara </strong></p>";"<p>Contacto con Jean Luc Multiservices à Tours: 0033688830693</p>
+<p><a href=""mailto:jean-luc.jusrendot@sfr.fr"" target=""_blank"" rel=""nofollow noopener"">jean-luc.jusrendot@sfr.fr</a></p>
+<p>Pendiente de su respuesta</p>";;;
+OT22/05471;Incidencias varias Marzo;#984;18/02/2022;02/03/2022;;0;0;Alba Malé - Optima Retail (EQ6);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;TO10;Otros;P21S/05784;;ADIDAS - SPAIN, Zaragoza - La Torre Outlet Zaragoza Shopping Village - Autovía de Logroño, Km 6,5 - 3464;0;TP1;General;;270; ADIDAS ESPAÑA SAU;15;0;"<p>- Puerta de acceso de la tienda al almacén se ha roto el cajetin donde pasamos la tarjeta para acceder y por tanto la puerta esta siempre abierta, adjunto foto para que veais el modelo correspondiente.<br />- Por otro lado, la puerta del almacén que da a la calle, lleva varios dias que se atasca y cuesta abrirla.</p>
+<p>- Arreglar el aglomerado del despacho de managers, ya que se ha despegado en una de las columnas.<br />- Arreglar baldas de calzado (mas hundidas de la cuenta)<br />- Arreglar hueco meter alarmas en caja, el protector esta suelto.</p>";;;;
+OT22/05426;SENSTORE DE PRESENCIA EN PROBADORES DÜSSELDORF;;17/02/2022;02/03/2022;;0;0;Diana Ginter - Optima Retail (EQ8);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;TO2;Electricidad;P17/00207;;...;0;TP1;General;;143;INTS IT´S NOT THE SAME GERMANY (DESIGUAL ALEMANIA);21;0;"<p>Hola Diana,</p>
+<p> </p>
+<p>Necesito que me movéis las cámaras de store analitic (sensores de presencia) en los probadores en Düsseldorf.</p>
+<p>Ahora mismo tenemos estos elementos en el techo (foco, rociador, detector de humo y cámara de store analitic).</p>
+<p> </p>
+<p>Habrá que mover los sensores de presencia si la distancia marcada no es correcta en los probadores.</p>
+<p> </p>
+<p>La colocación óptima del sensor es <strong>a 20 cms de la barra de la cortina y en el eje del centro geométrico</strong> del probador:</p>
+<p> </p>
+<p> </p>
+<p>Quizás no será necesario moverlos en todos los probadores. Seria genial si lo podéis mirar en estos días que tenéis los técnicos en la tienda.</p>
+<p> </p>
+<p>¿Lo podéis mirar por favor y decirme en cuantos probadores hay que cambiar la ubicación y que elementos habrá que mover (foco, rociador, detector de humo)?</p>
+<p> </p>
+<p>Gracias.</p>";;;;
+OT22/05411;REPRISE DE PEINTURE ET SPOT *;DI51768;17/02/2022;02/03/2022;;364,24;364,24;Carmen Enciso - Optima Retail (EQ4);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;TO5;Pintura;P21S/06238;;OKAIDI - FRANCE - NANTES, 13, rue Scribe,  (OK156);725,84;TP1;General;;235;Okaidi SAS;21;225;;"<p>Intervención organizada en dos dias:</p>
+<p>lunes 28/2/22- 9h00</p>
+<p>miercoles 02/03/22- 8h30</p>
+<p><strong>Pendiente que eclaragiste </strong>confirme si envia foco o tenemos que comprar</p>";;;
+OT22/05344;varios pendientes en tienda;;23/02/2022;02/03/2022;;0;0;Judit Neira - Optima Retail (EQ1);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;TO10;Otros;P19/01001;;KIKO MILANO - SPAIN, Málaga, CC Vialia Estación s/n (497);26.886,50;TP1;General;;131;KIKO RETAIL ESPAÑA SLU;15;0;"<p>ms 16/02</p>
+<ul>
+<li>baño pierde agua</li>
+<li>tubo almacén fundido</li>
+<li>falta iluminación de emergencia en la entrada (cartel colgante de salida) desde la reparación de la persiana que falta</li>
+<li>agujero en techo entrada</li>
+<li>rótulo entrada con poca iluminación</li>
+<li>fondo papeleras MUS en mal estado</li>
+<li><span style=""text-decoration: line-through;"">detectores en el suelo del almacén (no se ve que falte ninguna en el techo, quizás sean antiguos) <span style=""color: #b96ad9; text-decoration: line-through;"">- si son antiguos tirarlos</span></span></li>
+<li><span style=""text-decoration: line-through;"">cable suelto debajo layout</span></li>
+<li>techo entrada mal pintado desde reparación persiana </li>
+<li>cables visibles en iluminación indirecta superior de layout</li>
+<li>placa púrpura suelta detrás de mueble caja</li>
+<li>cajón completamente suelto, se cae.</li>
+<li><span style=""text-decoration: line-through;"">iluminación accessories amarilla y blanca y parpadeante</span></li>
+<li>loseta suelo en baño (una entera 120x60 y otras rotas) </li>
+<li>manchas de humedad en techo baño</li>
+<li>placas yeso almacén rotas (2)</li>
+<li>cuadro eléctrico sucio</li>
+</ul>";;;;
+OT22/05307;MARCH trimonthly preventive maintenance fee (CLIMA);;01/03/2022;02/03/2022;;274,65;332,33;Edgar Abillà - Optima Retail (EQ9);803;En Progreso;P6;PREVENTIVO;TO1;Aire Acondicionado / Clima;P21S/03486;;PRIMOR - SPAIN, Ceuta, C/Agustina nº2 L-9  - PEME (215);0;TP1;General;PERSIAN MELON S.L.;196;BLANCO LIMON, S.L;15;0;;;;;
+OT22/05306;MARCH trimonthly preventive maintenance fee (CLIMA);;01/03/2022;02/03/2022;;232,8;281,69;Edgar Abillà - Optima Retail (EQ9);803;En Progreso;P6;PREVENTIVO;TO1;Aire Acondicionado / Clima;P21S/05334;;PRIMOR - SPAIN, Calella, C/ Esglesia 263-265 - ROCR - 216;1.406,08;TP1;General;ROSA CREMA;196;BLANCO LIMON, S.L;15;0;;;;;
+OT22/05271;VARIOS;;16/02/2022;02/03/2022;;0;0;Alberto Castillo - Optima Retail (EQ9);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;T14;Obras/Reformas;P20/01142;;PRIMOR - SPAIN, Lérida, Avda. Blondel, 96 (161) - BLLI;0;TP1;General;BLANCO LIMON;196;BLANCO LIMON, S.L;15;0;"<p>16/02 continua la OT22/04333</p>
+<p>22/02 AC</p>
+<p>reclamado material se espera su llegada para final de semana </p>
+<p>25/02 AC</p>
+<p>material aun no disponible esperamos su llegada el lunes</p>
+<p>28/02 AC</p>
+<p>PENDIENTE CSTES MATERIAL, EL QUE HAY EN TIENDA ESTA DESCATALOGADO TRANSFORMADOR Y LED</p>
+<p>01/03 AC</p>
+<p>GESTIONAMOS CITA PARA LA COLOCACION LUCES DISPONIBLES 01/03 A LAS 8:00</p>
+<p>añadimos </p>
+<h3 class=""page-header""> Se mueve el punto de i y la T</h3>
+<p>Parpadea lineal Paco rabanne, adjunto video</p>";;;;
+OT22/05238;Visita para presupuesto de varios;;16/02/2022;02/03/2022;;0;0;Laia Navarro - Optima Retail (EQ3);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;T14;Obras/Reformas;P22/00212;;JYSK - SPAIN, Churra, CC Thader_, Av. Juan de Borbón - E186;0;TP1;General;;233;JYSK DBL IBERIA S.L.U;15;0;"<p> </p>
+<p>Solicitamos presupuesto para la siguiente obra en almacén anexo a nuestra tienda Jysk de Churra (Murcia):</p>
+<p> </p>
+<p><em>Lo primero sería completar las placas que faltan en el techo,</em></p>
+<p><em>Hay estructuras que tendrían que reforzar ya que están rotas,</em></p>
+<p><em>La segunda parte seria realizar una pared de pladur para dividir el local, </em></p>
+<p><em>Las medidas se las daremos el día que vengan,</em></p>
+<p><em>La tercera parte seria reforzar la luminaria,</em></p>
+<p><em>El tema de la puerta de exterior me ha comentado el gerente del parque que la habilitarían ellos,</em></p>
+<p><em>El vinilo de Decathlon que tenemos en la puerta lo quitaría también,</em></p>
+<p><em> </em></p>
+<p>Para realizar el presupuesto habrá que preguntar por el responsable de la tienda Adrián. Teléfono de contacto: 968022017/678502445</p>";;;;
+OT22/05143;CERRADURA VITRINA NO ENCAJA BIEN ;;15/02/2022;02/03/2022;;0;0;Anna Oliva - Optima Retail (EQ8);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;TO8;Cerrajería;P21S/06491;;ARISTOCRAZY - SPAIN, MADRID, ECI  SERRANO, C/ SERRANO 47 - C036;0;TP1;General;;313;ARISTOCRAZY S.L.;15;0;;;;;
+OT22/05023;VERIFICACIÓN DE PLANO10091 LAS ARENAS;22005190;14/02/2022;02/03/2022;;0;0;Ana Blasco - Optima Retail (EQ2);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;TO2;Electricidad;P21S/05909;;MANGO - SPAIN, Las Palmas, Carretera del Rincón, s/n, CC Las Arenas (10091);0;TP1;General;;119;PUNTO FA, S.L. (MANGO ESPAÑA);15;0;"<ul>
+<li>Inventario real con los siguientes datos por cada tipo de luminaria:</li>
+</ul>
+<p> </p>
+<ol>
+<ol>
+<li>Ficha técnica o, en su defecto, marca y modelo. O si no tenemos nada de nada:</li>
+</ol>
+</ol>
+<ol>
+<li>Potencia de la lampara (bombilla) que incorpora la luminaria</li>
+<li>Número de lámparas que incorpora cada luminaria<strong>. </strong></li>
+</ol>
+<p>                                                  iii.     Número de luminarias de este tipo instaladas.</p>
+<ol>
+<li>Metros de tiras de LED y su potencia w/ml, si las hay.</li>
+</ol>";<p>AB: 25/02 HOY VA TECNICO PARA VERIFICACIÓN DE PLANO PERO EL TRABAJO NO ACABA HASTA QUE NOS ENVIEN INVENTARIO. YA HE INFORMADO A TIENDA DE LO QUE HEMOS IDO HACIENDO.</p>;;;
+OT22/04969;réparation + peinture trou et fissure;;14/02/2022;02/03/2022;;248,24;248,24;Carmen Enciso - Optima Retail (EQ4);803;En Progreso;P4;CÓDIGO AMARILLO - MEDIO IMPACTO;TO5;Pintura;P21S/06288;;OKAIDI - FRANCE - CABRIES, ZC Plan de Campagne, Local 30 (OK1337);0;TP1;General;;235;Okaidi SAS;21;0;"<p> </p>
+<p>-----Mensaje original-----<br />De: noreply@gdm.com &lt;noreply@gdm.com&gt; En nombre de aalves@idkids.com<br />Enviado el: lunes, 14 de febrero de 2022 10:33<br />Para: Nico Duval - Optima Retail &lt;nico.duval@optimaretail.es&gt;; Carmen Enciso - Optima Retail &lt;carmen.enciso@optimaretail.es&gt;; Rosina Motilla - Optima Retail &lt;rosina.motilla@optimaretail.es&gt;; Isham Touba - OptimaRetail &lt;isham.touba@optimaretail.es&gt;<br />Asunto: Demande d'intervention de OKAIDI SAS N°51724 - Magasin E1337 - MARSEILLE AVANT CAP à réaliser au plus tard le 28/02/2022</p>
+<p> </p>
+<p>Bonjour,</p>
+<p>Merci de déclencher une intervention pour le problème cité en pièce jointe</p>
+<p> </p>
+<p>Cordialement</p>
+<p> </p>
+<p> </p>";"<p>14/02/22- envio mail</p>
+<p>15/028/22- reclamo  fecha</p>
+<p>16/02/2- me dice que deberá se para la primera semana de marzo, pero que me confirma</p>
+<p>17/02/22- Reclamo fecha :<strong> martes 02/03 ¿a que hora?</strong></p>
+<p><strong>18/02/22- envio mail a tienda proponiendo el 02/03 a las 08h00</strong></p>";;;
+OT22/04953;Arreglos tras cierre Spandau Berlin EMILIO;;14/02/2022;02/03/2022;21/02/2022;12.700,00;12.700,00;Diana Ginter - Optima Retail (EQ8);806;Aceptada;P5;CÓDIGO VERDE - BAJO IMPACTO;TO10;Otros;P20/01087;;DESIGUAL - GERMANY, Wustermark, Outlet Berlin, Alter Spandauer Weg 1;0;TP1;General;;143;INTS IT´S NOT THE SAME GERMANY (DESIGUAL ALEMANIA);21;3.500,00;;;;;
+OT22/04942;Luminaria emergencia fundida x1;DETECTADO PREVENTIVO;14/02/2022;02/03/2022;;0;0;Alba Malé - Optima Retail (EQ6);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;T10;Alumbrado;P21S/05795;;ADIDAS - PORTUGAL, Alcochete, - Factory Outlet Freeport Alcochete, Lojas H7 e H8, Av. Euro 2004 - 3551;693;TP1;General;;308;ADIDAS PORTUGAL - ARTIGOS DE DESPORTO, LDA;21;0;;;;;
+OT22/04938;Incidencias pendientes;#967;14/02/2022;02/03/2022;;0;0;Alba Malé - Optima Retail (EQ6);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;TO10;Otros;P21S/05645;;ADIDAS - SPAIN, Aldaia  - Ctro. Cial. Factory Bonaire-Local A17-18 Ctra. Nacional III-Km 345 - 3461;0;TP1;General;;270; ADIDAS ESPAÑA SAU;15;0;"<p>AM </p>
+<p> </p>
+<p>CABLE ROTO DE IMPRESORA CAJA 4 ? REVISADO, PENDIENTE<br />PULSADORES DE CAJA NO FUNCIONAN BIEN O NO FUNCIONAN ? REVISADO, PENDIENTE</p>";;;;
+OT22/04782;VERIFICACIÓN DE PLANO10262 TIRAJANA LAS PALMAS;22005192;11/02/2022;02/03/2022;;0;0;Ana Blasco - Optima Retail (EQ2);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;T14;Obras/Reformas;P22/00075;;MANGO - SPAIN, Las Palmas, Tirajana CC.ATLANTICO/VECINDARIO L19-20 (10262);0;TP1;General;;119;PUNTO FA, S.L. (MANGO ESPAÑA);15;0;"<p>Verificar si los planos adjuntados de tienda 10262 Tirajana corresponde con la realidad en la tienda mencionada y la siguiente información:</p>
+<p>Inventario real con los siguientes datos por cada tipo de luminaria:</p>
+<p>Ficha técnica o, en su defecto, marca y modelo. O si no tenemos nada de nada:</p>
+<ol>
+<li>Potencia de la lampara (bombilla) que incorpora la luminaria</li>
+<li>Número de lámparas que incorpora cada luminaria<strong>. </strong></li>
+</ol>
+<p>       iii.     Número de luminarias de este tipo instaladas.</p>
+<ol>
+<li>Metros de tiras de LED y su potencia w/ml, si las hay.</li>
+</ol>";"<p>AB: 23/02 Lorenzo me envía los 3 estudios de iluminación para que le envíe a cliente y decidan que iluminación poner y pintar techo, ya hay creadas OT´s para las 3 tiendas</p>
+<p>AB:25/02 PRIMERO VAN A TIENDA CON PLANO Y VERIFICAN ILUMINARIA, DESPUES EN ESTUDIO REALIZAN EL ESTUDIO E INVENTARIO. YA HE INFORMADO A CLIENTE QUE HEMOS ASISTIDO A TIENDA CON PLANO PARA VERIFICAR Y QUE AHORA ESTAMOS TRABAJANDO EN EL ESTUDIO E INVENTARIO, LA SEMANA PRÓXIMA SE LE PASA A CLIENTE EL ESTUDIO DE LAS TRES TIENDAS</p>";;;
+OT22/04409;CAJON DIOR ROTO;;09/02/2022;02/03/2022;;0;0;Alberto Castillo - Optima Retail (EQ9);803;En Progreso;P4;CÓDIGO AMARILLO - MEDIO IMPACTO;TO6;Carpintería madera;P21S/03487;;PRIMOR - SPAIN, Ibiza, Avda. Ignasi Wallis 11,13. Locales A,B, A bis y H - CRSU;0;TP1;General;CREADOR SUEÑOS;196;BLANCO LIMON, S.L;15;0;"<p>Buenas tardes,</p>
+<p>tenemos rota una puerta del cajón de Dior, adjunto fotografías</p>
+<p>OL 08/02</p>
+<p>Buenas tardes, ticket recibido.</p>
+<p>Gracias</p>
+<p>10/02 AC</p>
+<p>PASAMOS ESTA MISMA TARDE</p>
+<p>ALEJANDRO 21/02</p>
+<p>ESTO SIGUE PENDIENTE, ADEMÁS DE UNA CAJONERA DE SHISEIDO QUE CUESTA ABRIR Y UN LETRERO DE LANCOME MITAD APAGADO</p>
+<p>28/02 ac</p>
+<p>cambiamos tecnico que acude el 02/03 por festividad local</p>";;;;
+OT22/04377;MARCH preventive maintenance fee (REVISION MOBILIARIO, RELAMPING, ARREGLO PERFIL SUELO);;01/03/2022;02/03/2022;;150;181,5;Berta Vilamala - Optima Retail (EQ6);803;En Progreso;P6;PREVENTIVO;TO10;Otros;P21S/03363;;TOUS - SPAIN, Vitoria, ECI C/ La Paz, 2 (T096);0;TP1;General;;223;JOYERIA TOUS SA;15;0;"<p class=""page-header""><strong>OT22/05732 - Cerradura armario y cerradura cajón</strong></p>
+<p>Sustitución cerradura de cajón expositor.</p>
+<p>Sustitución o reparación cerradura armario</p>";;;;
+OT22/04373;Sustitución guías cajón pequeñas x3;DETECTADO PREVENTIVO FEBRERO;08/02/2022;02/03/2022;;0;0;Alba Malé - Optima Retail (EQ6);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;TO10;Otros;P21S/05797;;ADIDAS - PORTUGAL, Almancil, - Centro Comercial Designer Outlet Algarve-Avda. Algarve, s/nº - Local 48-49-50 - 3582;0;TP1;General;;308;ADIDAS PORTUGAL - ARTIGOS DE DESPORTO, LDA;21;0;;;;;
+OT22/04346;Problème d?éclairage de l?enseigne;DI51476;08/02/2022;02/03/2022;02/03/2022;796,15;796,15;Carmen Enciso - Optima Retail (EQ4);810;Finalizada - Pendiente de revisión;P4;CÓDIGO AMARILLO - MEDIO IMPACTO;TO2;Electricidad;P21S/06228;;OKAIDI - FRANCE - NIMES, CC Cap Costières, 400 av. du Dr Claude Baillet (OK280);0;TP1;General;;235;Okaidi SAS;21;0;"<p>De: noreply@gdm.com &lt;noreply@gdm.com&gt; En nombre de aalves@idkids.com<br />Enviado el: martes, 8 de febrero de 2022 15:14<br />Para: Nico Duval - Optima Retail &lt;nico.duval@optimaretail.es&gt;; Carmen Enciso - Optima Retail &lt;carmen.enciso@optimaretail.es&gt;; Rosina Motilla - Optima Retail &lt;rosina.motilla@optimaretail.es&gt;; Isham Touba - OptimaRetail &lt;isham.touba@optimaretail.es&gt;<br />Asunto: Demande d'intervention de OKAIDI SAS N°51476 - Magasin E0280 - NIMES CC CAP COSTIERES à réaliser au plus tard le 22/02/2022</p>
+<p> </p>
+<p>Bonjour,</p>
+<p>Merci de déclencher une intervention pour le problème cité en pièce jointe</p>
+<p> </p>
+<p>Cordialement</p>
+<p> </p>
+<p> </p>
+<p>OKAIDI SAS</p>
+<p>162 Boulevard de Fourmies</p>
+<p> </p>
+<p>59100</p>
+<p>ROUBAIX</p>
+<p> </p>
+<p>Antonio ALVES - Travaux</p>
+<p>Téléphone:  0328339933 Fax:  0328339966 <a href=""mailto:aalves@idkids.com"">aalves@idkids.com</a></p>
+<p> </p>
+<p> </p>
+<p>De: noreply@gdm.com &lt;noreply@gdm.com&gt; En nombre de aalves@idkids.com<br />Enviado el: martes, 8 de febrero de 2022 15:14<br />Para: Nico Duval - Optima Retail &lt;nico.duval@optimaretail.es&gt;; Carmen Enciso - Optima Retail &lt;carmen.enciso@optimaretail.es&gt;; Rosina Motilla - Optima Retail &lt;rosina.motilla@optimaretail.es&gt;; Isham Touba - OptimaRetail &lt;isham.touba@optimaretail.es&gt;<br />Asunto: Demande d'intervention de OKAIDI SAS N°51476 - Magasin E0280 - NIMES CC CAP COSTIERES à réaliser au plus tard le 22/02/2022</p>
+<p> </p>
+<p>Bonjour,</p>
+<p>Merci de déclencher une intervention pour le problème cité en pièce jointe</p>
+<p> </p>
+<p>Cordialement</p>
+<p> </p>
+<p> </p>
+<p>OKAIDI SAS</p>
+<p>162 Boulevard de Fourmies</p>
+<p> </p>
+<p>59100</p>
+<p>ROUBAIX</p>
+<p> </p>
+<p>Antonio ALVES - Travaux</p>
+<p>Téléphone:  0328339933 Fax:  0328339966 <a href=""mailto:aalves@idkids.com"">aalves@idkids.com</a></p>";"<p><strong>14/02/22- pendiente de la tienda, estan intentando organizar para las 07h00 de la mañana</strong></p>
+<p><strong>17/02/22- Reclamo a tienda</strong></p>";;;
+OT22/04335;baranda has el final de los escalones;;08/02/2022;02/03/2022;;0;0;Ariadna Toquero - Optima Retail (EQ7);803;En Progreso;P4;CÓDIGO AMARILLO - MEDIO IMPACTO;PF-0350;[PF] - PUERTA ALMACÉN;P21S/05833;[PF] - Puerta almacén;PARFOIS - SPAIN, Granada, Mesones, C/ Mesones, 57 (1896);0;TP1;General;;250; PARFOIS - Dismoda -comercio Y Distribucion Sl  ;15;0;"<p>Hola , buenas tardes</p>
+<p>Desde Prl nos indican q la escalera de subida al almacen , deberia de tener baranda has el final de los escalones. por ello nos indican q hagamos pedido para q nos lo solucionen lo mas pronto posible</p>
+<p>Saludos Gema</p>
+<p>-------------------------------------------------------</p>
+<p>AT 08/02/22: Ticket recibido!</p>";;PF-0710;[PF] - Puerta almacén;
+OT22/04269;cristal mueble versace roto;;08/02/2022;02/03/2022;;0;0;Alberto Castillo - Optima Retail (EQ9);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;T14;Obras/Reformas;P20/01265;;PRIMOR - SPAIN, Almería, Avenida Medico Francisco Perez Company, CC Torrecardenas, 19local FA8-FA9 (138) - RONI;0;TP1;General;ROJO NIEVE S.L.;196;BLANCO LIMON, S.L;15;0;"<p>08/02 AC</p>
+<p>viene de  OT22/03655:</p>
+<p>cristal versace, en espera de medidas para pedirlo.</p>
+<p>01/03 TENDREMOS MEDIDAS ESTA TARDE</p>";;;;
+OT22/04166;VARIAS INCIDENCIAS ;;16/02/2022;02/03/2022;;0;0;Laura Guillen - Optima Retail (EQ2);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;TO10;Otros;P20/00347;;PANDORA - SPAIN, ED, Santander, Nueva Montaña, s/n (P448);0;TP1;General;;87;PANDORA JEWELLERY SPAIN, S.L.;15;0;"<p>Focos tienda</p>
+<p>Carril roto cajonera</p>
+<p>Sustitucion bombillas techo</p>";;;;
+OT22/03958;PINTURA DE PAREDES MANCHADAS;;04/02/2022;02/03/2022;;201,14;201,14;Bruno Riva - Optima Retail (EQ5);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;TO10;Otros;P21S/05633;;HAWKERS - SPAIN, Sevilla, CC. LAGOH -- Av. de Palmas Altas 1, Local B53 (Lagoh);0;TP1;General;;298;Hawkers;15;0;;;;;
+OT22/03952;Reparación persiana metálica;22003760;04/02/2022;02/03/2022;;2.685,75;2.685,75;Rosina Motilla - Optima Retail (EQ4);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;TO7;Carpintería metálica;P20/00653;;MANGO - FRANCE, LA ROCHE SUR YON Flaneries SC (11834);0;TP1;General;;115;MANGO FRANCE, SARL;21;893,6;;"<p>Internvención confirmada en 3 fases:</p>
+<p>1- Lunes 28/02 AM visita técnica</p>
+<p>2- Martes 1/03 y miércoles 2/03 de 7:30 a 9:00</p>
+<p>La responsable de tienda pedía intervenir en horario comercial pero le decimos que no se puede</p>
+<p> </p>";;;
+OT22/03680;Burro de ropa necesario soldar en taller;DETECTADO PREVENTIVO;10/02/2022;02/03/2022;;0;0;Alba Malé - Optima Retail (EQ6);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;TO10;Otros;P21S/05645;;ADIDAS - SPAIN, Aldaia  - Ctro. Cial. Factory Bonaire-Local A17-18 Ctra. Nacional III-Km 345 - 3461;0;TP1;General;;270; ADIDAS ESPAÑA SAU;15;0;<p>AM 10/02: Se lleva la burra a taller para soldar, se devolverá en la próxima visita del mes de marzo</p>;;;;
+OT22/03538;No tienen luz en el showroom;#78281;14/02/2022;02/03/2022;;126,5;126,5;Noelia Gómez - Optima Retail (EQ3);803;En Progreso;P4;CÓDIGO AMARILLO - MEDIO IMPACTO;TO2;Electricidad;P18/00003;;DESIGUAL - ESP MADRD PRECIADOS (R064);0;TP1;General;;18;Sepalememe, S.L.U. (DESIGUAL ESPAÑA);15;59;<p>Revisar si es un conector que falla o es el carril entero. Cristina Marti tiene que mandar otra pieza de unión<br /><br />23/02 AS: He hablado con Cristina Marti, los focos y las piezas se encuentran en tienda. <br />Se deben cambiar los focos durante el preventivo del día 02/03.</p>;;;;
+OT22/03485;FEBRUARY - ANUAL PREVENTIVE MAINTENANCE (ELECTRICITY CUADROS/TOMA TIERRA + UPS/SAI);;15/02/2022;02/03/2022;;0;0;Berta Vilamala - Optima Retail (EQ6);803;En Progreso;P6;PREVENTIVO;TO2;Electricidad;P21S/05791;;ADIDAS - SPAIN, Santa Agnes de Malanyans - CC La Roca Village, Local 155-156-157 ? La Roca Village,s/nº - 3474;0;TP1;General;;270; ADIDAS ESPAÑA SAU;15;0;;;;;
+OT22/03466;FEBRUARY - ANUAL PREVENTIVE MAINTENANCE (ELECTRICITY CUADROS/TOMA TIERRA + UPS/SAI);;10/02/2022;02/03/2022;;0;0;Berta Vilamala - Optima Retail (EQ6);803;En Progreso;P6;PREVENTIVO;TO2;Electricidad;P21S/05788;;ADIDAS - SPAIN, Culleredo - The Style Outlets La Coruña -Local 62-65 - Avda. Alvedro, 5 - 3469;0;TP1;General;;270; ADIDAS ESPAÑA SAU;15;0;<p>BV 21/02 - Se realiza revisión eléctrica. Queda ptes. medir tomas de tierra + corte eléctrico general. Se terminará durante visita del preventivo el 02/03/2022.</p>;;;;
+OT22/03373;FEBRUARY - ANUAL PREVENTIVE MAINTENANCE (ELECTRICITY CUADROS/TOMA TIERRA + UPS/SAI);;15/02/2022;02/03/2022;;0;0;Berta Vilamala - Optima Retail (EQ6);803;En Progreso;P6;PREVENTIVO;TO2;Electricidad;P21S/05600;;ADIDAS - SPAIN, Leganes - Pol. Ind. San Jose de Valderas - C/Trueno, 32 - 3453;0;TP1;General;;270; ADIDAS ESPAÑA SAU;21;0;;;;;
+OT22/03009;MANGO - LINZ LANDSTRASSE 12 ST  / instalar un carril vertical en escaparate;;27/01/2022;02/03/2022;;0;0;Diana Ginter - Optima Retail (EQ8);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;TO10;Otros;P20/00481;;MANGO - AUSTRIA, LINZ Landstrasse 12 ST (11045);0;TP1;General;;85;MANGO ÖSTERREICH HANDELS GMBH;21;0;"<p>Podrías enviar un técnico a esta tienda a instalar un carril vertical en este escaparate:</p>
+<ul>
+<li>El material ya ha aparecido en tienda.</li>
+<li>Es carril de superficie.</li>
+</ul>";;;;
+OT22/02924;Suministro y sustitución filtros;DETECTADO PREVENTIVO;26/01/2022;02/03/2022;;0;0;Alba Malé - Optima Retail (EQ6);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;TO1;Aire Acondicionado / Clima;P21S/05790;;ADIDAS - SPAIN, Getafe - The Style Outlets Getafe-Local 77-Avda. Rio Guadalquivir, 15 - 3471;136,41;TP1;General;;270; ADIDAS ESPAÑA SAU;15;0;<p>BV 28/02 - Se toman medidas durante el preventivo de febrero.</p>;;;;
+OT22/02797;Iluminación fundida;;25/01/2022;02/03/2022;;0;0;Ariadna Toquero - Optima Retail (EQ7);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;PF-0400;[PF] - ILUMINACIÓN TECHOS;P21S/05833;;PARFOIS - SPAIN, Granada, Mesones, C/ Mesones, 57 (1896);0;TP1;General;;250; PARFOIS - Dismoda -comercio Y Distribucion Sl  ;15;0;"<p>Detectado en preventivo:</p>
+<p>-4x tubos fundidos TL5 28W en muebles</p>
+<p>-1x luz emergencia fundida</p>
+<p>-1x foco carril blanco en escaparate fundido (adjunto foto)</p>";;;;
+OT22/02796;Revisión cortina de aire;;25/01/2022;02/03/2022;;0;0;Ariadna Toquero - Optima Retail (EQ7);803;En Progreso;P4;CÓDIGO AMARILLO - MEDIO IMPACTO;PF-0220;[PF] - CLIMA;P21S/05833;;PARFOIS - SPAIN, Granada, Mesones, C/ Mesones, 57 (1896);0;TP1;General;;250; PARFOIS - Dismoda -comercio Y Distribucion Sl  ;15;0;"<p>Detectado en preventivo:</p>
+<p>Revisión en profundidad cortina de aire, no funciona correctamente. Se desconecta botonera y cableado y sigue funcionando a una pequeña velocidad, se desconecta desde diferencial y si se para. Puede haber algún cruce en el cableado</p>";;;;
+OT22/02767;PUERTA DESCOLGADA;;25/01/2022;02/03/2022;;0;0;Alberto Castillo - Optima Retail (EQ9);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;TO6;Carpintería madera;P21S/03491;;PRIMOR - SPAIN, Granada, C/. Recogidas, 2 - DOPA - 168;0;TP1;General;DOBLES PAREJAS S.L.;196;BLANCO LIMON, S.L;15;0;"<p>Buenas tardes,</p>
+<p>Puerta descolgada en mueble, adjunto fotografías</p>
+<p>ML 27/01<br />Ticket recibido.</p>
+<p>AC 01/03 </p>
+<p>confirmamos cita mañana 02/03 para realizar trabajos</p>";;;;
+OT22/02678;no funcionan los focos del escaparate, hay 4 focos; #53348;24/01/2022;02/03/2022;;0;0;Raul Medina - Optima Retail (EQ3);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;TO2;Electricidad;P18/00246;;DESIGUAL - ESP VLCIA BONAIRE OUTLET (R049);0;TP1;General;;18;Sepalememe, S.L.U. (DESIGUAL ESPAÑA);15;0;"<p>RM 10/02/22: El técnico no ha podido solucionar el problemas, los focos están inoperativos, estamos a la espera que lleguen los repuestos por parte del proveedor de la tienda.</p>
+<p>RM 16/02/22 los focos se encuentran en tienda. organizamos visita.</p>";;;;
+OT22/02632;Arreglar puerta acceso almacén desde tienda;;24/01/2022;02/03/2022;;0;0;Alba Malé - Optima Retail (EQ6);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;TO10;Otros;P21S/05663;;ADIDAS - SPAIN, Jerez de la Frontera,  - Centro Comercial LUZ Shopping-Local 7A-B-C - Ronda de Aurora Boreal, s/n - 3462;0;TP1;General;;270; ADIDAS ESPAÑA SAU;15;0;"<ul>
+<li>Arreglar la puerta de entrada desde tienda a almacén. En la visita anterior nos comentaron que se había roto el transformador y que era necesario cambiar la pieza. Así que os adjunto foto con la pieza necesaria.</li>
+</ul>
+<p>Optima Retail 09/02: está pedido el transformador pero todavía no ha llegado</p>";<p>26/01: SE TOMA REFERENCIA DEL TRANSFORMADOR, SE LLEVARÁ EN VISITA DE FEBRERO</p>;;;
+OT22/02592;remplacement 7 spots;;24/01/2022;02/03/2022;;142;142;Carmen Enciso - Optima Retail (EQ4);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;T14;Obras/Reformas;P21S/06228;;OKAIDI - FRANCE - NIMES, CC Cap Costières, 400 av. du Dr Claude Baillet (OK280);0;TP1;General;;235;Okaidi SAS;21;130;<p>changement de 5 spots interlight h15c16</p>;"<p><span style=""background-color: #ecf0f1;"">ND : material pedido el 24/01 à l'éclairagiste (Mr DESBROSSES) </span></p>
+<p><span style=""background-color: #ecf0f1;"">Alain mirara el diametro de corte de techo durante la visita para arreglar el logo para enviar informacion a Mr Desbrosses. </span></p>
+<p><strong><span style=""background-color: #f1c40f;"">31/01/22 ==&gt; aprovechan la visita del miercoles02/02 para tomar las medidas - OT22/02278</span></strong></p>
+<p><strong><span style=""background-color: #f1c40f;"">02/02 ==&gt; material pedido a Mr Desbrosses, debe llegar inicio de la semana del 07/02</span></strong></p>
+<p><strong><span style=""background-color: #f1c40f;"">07/02/22-+ envio mail proponiendo  11/2 a las 07h30</span></strong></p>
+<p>11/02/22- Se realiza intervención el 11/02/22 - solo ha llegado un spot, se vuelve a solicitar al eclaragiste. </p>
+<p>18/02/22- reclamo a eclaragiste - material enviado el 16/02</p>";;;
+OT22/02586;puerta almacén hace ruido al abrir y cerrar;;24/01/2022;02/03/2022;;0;0;Ariadna Toquero - Optima Retail (EQ7);803;En Progreso;P4;CÓDIGO AMARILLO - MEDIO IMPACTO;PF-0350;[PF] - PUERTA ALMACÉN;P21S/05833;[PF] - Puerta almacén;PARFOIS - SPAIN, Granada, Mesones, C/ Mesones, 57 (1896);0;TP1;General;;250; PARFOIS - Dismoda -comercio Y Distribucion Sl  ;15;0;"<p>Hola , buenos dias</p>
+<p>La puerta de almacen se le ha soltado el muelle q permitia q se cerara sola , tambien  hace ruido al abrir y cerrar , me da la sensacion de q roza abajo</p>
+<p>Ruiego lo solucionen cuando crean oportuno</p>
+<p>Saludos Gema</p>
+<p>-------------------------------------------------</p>
+<p>AT 24/01/22: ticket recibido!</p>";;PF-0710;[PF] - Puerta almacén;
+OT22/01373;ILUMINACION COLUMPIO; #41034;10/01/2022;02/03/2022;;0;0;Ainoa Sebastián - Optima Retai (EQ3);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;TO2;Electricidad;P18/00131;;DESIGUAL - ESP LEIDA CARME (R332);0;TP1;General;;18;Sepalememe, S.L.U. (DESIGUAL ESPAÑA);15;0;<p><strong>ILUMINACION COLUMPIO</strong><br /><br />ILUMINACION COLUMPO ENTRADA</p>;;;;
+OT22/01175;GRIFO DEL BAÑO ROTO;;07/01/2022;02/03/2022;;0;0;Alberto Castillo - Optima Retail (EQ9);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;TO3;Fontanería;P20/01130;;PRIMOR - SPAIN, Málaga, Marbella, Avda. Ricardo Soriano, 4 (30) - BLLI;0;TP1;General;BLANCO LIMON;196;BLANCO LIMON, S.L;15;0;"<p>jc 07/01</p>
+<p>Ok, ticket recibido</p>
+<p> </p>
+<p>08/02 AC </p>
+<p>vistos trabajos a realizar se pide grifo , en espera de obtencion del material</p>
+<p>21/02 AC</p>
+<p>dispondremos de material mañana 22/02 y concretamos fecha de colocacion</p>
+<p>23/02 AC</p>
+<p>AUN NO DISPONEMOS DE MATERIAL , SABREMOS DISPONIBILIDAD DRANTE EL DIA DE MAÑANA</p>
+<p>24/02 AC</p>
+<p>MATERIAL SE RETRASA A PROXIMA SEMANA</p>
+<p>01/03 AC</p>
+<p>TRABAJOS SE REALIZAN MAÑANA 02/03</p>";;;;
+OT21S/59409;Cierre mango mannheim;PO21037427;30/12/2021;02/03/2022;24/02/2022;50.646,20;50.646,20;Diana Ginter - Optima Retail (EQ8);809;Facturada;P5;CÓDIGO VERDE - BAJO IMPACTO;T14;Obras/Reformas;P20/00574;;MANGO - GERMANY, MANNHEIM O6 5 ST (11512);0;TP1;General;;30;MANGO DEUTSCHLAND GMBH;21;33.700,00;;<p>Trabajos de duración estimada 14-16 dias.</p>;;;
+OT21S/57812;MARCH  preventive maintenance fee (ACC COMPLET 1);;01/04/2022;02/03/2022;;250;250;Georgina Puyo - Optima Retail (EQ9);803;En Progreso;P6;PREVENTIVO;TO1;Aire Acondicionado / Clima;P21S/06597;;ORENES - SPAIN, Colmenar Viejo, CL REAL, 041 (COLMENAR, SALON) - PLOR - 1930;0;TP1;General;PLAY ORENES, S.L.u.;317;GRUPO ORENES S.L.;15;0;;;;;
+OT21S/57572;MARCH  preventive maintenance fee (ACC COMPLET 1);;01/03/2022;02/03/2022;;250;250;Georgina Puyo - Optima Retail (EQ9);803;En Progreso;P6;PREVENTIVO;TO1;Aire Acondicionado / Clima;P21S/06605;;ORENES - SPAIN, Leganes,  NUESTRA SEÑORA DEL PILAR, 003 005 Y  (CASINO SUR LEGANES - SALON) - PLOR - 1076;0;TP1;General;PLAY ORENES, S.L.u.;317;GRUPO ORENES S.L.;15;0;;;;;
+OT21S/56566;MARZO  mantenimiento preventivo PCI INICIAL;;02/03/2022;02/03/2022;;35;35;Roman Cabrero - Optima Retail (EQ7);803;En Progreso;P6;PREVENTIVO;TO12;PCI;P21S/03970;;PARFOIS - SPAIN, Málaga, CC El Ingenio, Av. del Rey Juan Carlos I, 18 (16520);0;TP1;General;;250; PARFOIS - Dismoda -comercio Y Distribucion Sl  ;15;0;;;;;
+OT21S/56481;MARZO mantenimiento preventivo PCI INICIAL;;02/03/2022;02/03/2022;;35;35;Roman Cabrero - Optima Retail (EQ7);803;En Progreso;P6;PREVENTIVO;TO12;PCI;P21S/05001;;PARFOIS - SPAIN, Pontevedra, Tui CC Outletui Fashion Center,  Autovia AP9/A55, s/n (1840);0;TP1;General;;250; PARFOIS - Dismoda -comercio Y Distribucion Sl  ;15;0;;;;;
+OT21S/56470;MARZO mantenimiento preventivo PCI INICIAL;;02/03/2022;02/03/2022;;35;35;Roman Cabrero - Optima Retail (EQ7);803;En Progreso;P6;PREVENTIVO;TO12;PCI;P21S/05228;;PARFOIS - SPAIN, Pontevedra, Vigo Calle Príncipe, C/ Príncipe, 31 (1859);1.019,00;TP1;General;;250; PARFOIS - Dismoda -comercio Y Distribucion Sl  ;15;0;;;;;
+OT21S/56465;MARZO mantenimiento preventivo PCI INICIAL;;02/03/2022;02/03/2022;;35;35;Roman Cabrero - Optima Retail (EQ7);803;En Progreso;P6;PREVENTIVO;TO12;PCI;P21S/05428;;PARFOIS - SPAIN, Pontevedra, Vigo Calle Urzaiz, C/ Urzaiz, 48 (14700);0;TP1;General;;250; PARFOIS - Dismoda -comercio Y Distribucion Sl  ;15;0;;;;;
+OT21S/55924;PINTURA SUELO ESCAPARATE;#41283;17/12/2021;02/03/2022;25/02/2022;0;0;Ainoa Sebastián - Optima Retai (EQ3);806;Aceptada;P5;CÓDIGO VERDE - BAJO IMPACTO;TO5;Pintura;P18/00131;;DESIGUAL - ESP LEIDA CARME (R332);0;TP1;General;;18;Sepalememe, S.L.U. (DESIGUAL ESPAÑA);15;394,8;"<div class=""panel panel-default"">
+<div class=""panel-body"">HUMEDAD DETECTADA EN EL SUELO DEL ESCAPARATE PRINCIPAL, JUSTO EN CONTACTO CON EL CRISTAL DE FACHADA. ESTE ES DE COLOR BLANCO ROTO.</div>
+</div>
+<div class=""panel panel-default  priv"">
+<div class=""panel-heading n1"">
+<h3 class=""panel-title""> </h3>
+</div>
+</div>";<p>Día 07/01- se pone silicona en el cristal de la fachada en el probador, esperamos a que seque para reparar la pintura. </p>;;;
+OT21S/55741;MARZO mantenimiento preventivo PCI INICIAL;;02/03/2022;02/03/2022;;35;35;Roman Cabrero - Optima Retail (EQ7);803;En Progreso;P6;PREVENTIVO;TO12;PCI;P21S/05320;;PARFOIS - SPAIN, Pontevedra, Benito Corbal, C/ Benito Corbal,17 (1800);0;TP1;General;;250; PARFOIS - Dismoda -comercio Y Distribucion Sl  ;15;0;;;;;
+OT21S/55635;MARZO mantenimiento preventivo PCI INCIAL;;02/03/2022;02/03/2022;;35;35;Roman Cabrero - Optima Retail (EQ7);803;En Progreso;P6;PREVENTIVO;TO12;PCI;P21S/05227;;PARFOIS - SPAIN, Alicante, Maisonave, C/ Maisonave, 23 (1783);0;TP1;General;;250; PARFOIS - Dismoda -comercio Y Distribucion Sl  ;15;0;;;;;
+OT21S/55322;MARCH preventive maintenance fee PCI ;;01/03/2022;02/03/2022;01/03/2022;60;60;Laura Guillen - Optima Retail (EQ2);805;Finalizada;P6;PREVENTIVO;TO12;PCI;P21S/05890;; SKECHERS - SPAIN, Barcelona, C/ Portaferrisa 25 - SK1086;0;TP1;General;;302;SKECHERS USA IBERIA SL;15;0;;;;;
+OT21S/55184;MARZO mantenimiento preventivo PCI INICIAL;;02/03/2022;02/03/2022;;35;35;Roman Cabrero - Optima Retail (EQ7);803;En Progreso;P6;PREVENTIVO;TO12;PCI;P21S/05081;;PARFOIS - SPAIN, Madrid, Fuencarral, C/ Fuencarral, 13 (1773);0;TP1;General;;250; PARFOIS - Dismoda -comercio Y Distribucion Sl  ;15;0;;;;;
+OT21S/53214;MARCH - Mantenimiento preventivo + Clima + Persiana Metálica;;01/03/2022;02/03/2022;;0;0;Ainoa Sebastián - Optima Retai (EQ3);803;En Progreso;P6;PREVENTIVO;TO1;Aire Acondicionado / Clima;P20/00983;;OKAIDI - SPAIN, Churra, CC Nueva Condomina,  a-7, kM 760 (OKA1499);0;TP1;General;;177;OKAIDI SPAIN SA;15;0;;;;;
+OT21S/53199;MARCH - Mantenimiento preventivo + Clima + Persiana Metálica;;01/03/2022;02/03/2022;;0;0;Ainoa Sebastián - Optima Retai (EQ3);803;En Progreso;P6;PREVENTIVO;TO1;Aire Acondicionado / Clima;P20/00954;;OKAIDI - SPAIN, Tarragona, C/ Sant Agustín, 10 (OKA967);0;TP1;General;;177;OKAIDI SPAIN SA;15;0;;;;;
+OT21S/53180;MARCH - Mantenimiento preventivo + Clima + Persiana Metálica;;01/03/2022;02/03/2022;;0;0;Ainoa Sebastián - Optima Retai (EQ3);803;En Progreso;P6;PREVENTIVO;TO1;Aire Acondicionado / Clima;P20/00976;;OKAIDI - SPAIN, San Bartolomé de Tirajana, CC Bellavista, local 126-127, C/ Leonorita Partera 22 San Fernando de Mas (OKA286);0;TP1;General;;177;OKAIDI SPAIN SA;15;0;;;;;
+OT21S/50695;MARCH monthly preventive maintenance fee;;01/03/2022;02/03/2022;;0;0;Berta Vilamala - Optima Retail (EQ6);803;En Progreso;P6;PREVENTIVO;TO1;Aire Acondicionado / Clima;P21S/05797;;ADIDAS - PORTUGAL, Almancil, - Centro Comercial Designer Outlet Algarve-Avda. Algarve, s/nº - Local 48-49-50 - 3582;0;TP1;General;;308;ADIDAS PORTUGAL - ARTIGOS DE DESPORTO, LDA;21;0;"<p class=""page-header""><strong>OT22/04373 - Sustitución guías cajón pequeñas x3</strong></p>
+<p class=""page-header""><strong>OT22/06218 - Incidencias Varias</strong></p>
+<p>- Bomba Hidraulica Cierra Puerta que se rompió ( Foto Anexada ) - cierrapuertas Telesco<br />- Puerta de aceso al almacen desde tienda que no cierra bien.<br />- Los otros puntos ya hablados con los tecnicos en la ultima visita.</p>";;;;
+OT21S/50671;MARCH monthly preventive maintenance fee;;01/03/2022;02/03/2022;;0;0;Berta Vilamala - Optima Retail (EQ6);803;En Progreso;P6;PREVENTIVO;TO1;Aire Acondicionado / Clima;P21S/05795;;ADIDAS - PORTUGAL, Alcochete, - Factory Outlet Freeport Alcochete, Lojas H7 e H8, Av. Euro 2004 - 3551;693;TP1;General;;308;ADIDAS PORTUGAL - ARTIGOS DE DESPORTO, LDA;21;0;"<p class=""page-header"">OT22/04942 - Luminaria emergencia fundida x1</p>
+<p class=""page-header"">Instalar rampa de madera</p>";;;;
+OT21S/50611;MARCH monthly preventive maintenance fee;;01/03/2022;02/03/2022;;0;0;Berta Vilamala - Optima Retail (EQ6);803;En Progreso;P6;PREVENTIVO;TO10;Otros;P21S/05790;;ADIDAS - SPAIN, Getafe - The Style Outlets Getafe-Local 77-Avda. Rio Guadalquivir, 15 - 3471;136,41;TP1;General;;270; ADIDAS ESPAÑA SAU;15;0;"<p>BV 28/02 - Queda pendiente del preventivo anterior la limpieza de difusores de retorno de la zona de ventas. Se necesitan 2pax</p>
+<p class=""page-header""><strong>OT22/06364 - Limpieza difusores retorno zona ventas</strong> </p>
+<p>Queda pendiente del preventivo anterior la limpieza de difusores de retorno de la zona de ventas. Se necesitan 2pax</p>
+<p class=""page-header""><strong>OT22/02924 - Suministro y sustitución filtros</strong></p>
+<p> </p>";;;;
+OT21S/50587;MARCH monthly preventive maintenance fee;;01/03/2022;02/03/2022;;0;0;Berta Vilamala - Optima Retail (EQ6);803;En Progreso;P6;PREVENTIVO;TO10;Otros;P21S/05788;;ADIDAS - SPAIN, Culleredo - The Style Outlets La Coruña -Local 62-65 - Avda. Alvedro, 5 - 3469;0;TP1;General;;270; ADIDAS ESPAÑA SAU;15;0;;;;;
+OT21S/50539;MARCH monthly preventive maintenance fee;;01/03/2022;02/03/2022;;0;0;Berta Vilamala - Optima Retail (EQ6);803;En Progreso;P6;PREVENTIVO;TO10;Otros;P21S/05784;;ADIDAS - SPAIN, Zaragoza - La Torre Outlet Zaragoza Shopping Village - Autovía de Logroño, Km 6,5 - 3464;0;TP1;General;;270; ADIDAS ESPAÑA SAU;15;0;"<h3 class=""page-header"">OT22/05471 - Incidencias varias Marzo</h3>
+<p>- Puerta de acceso de la tienda al almacén se ha roto el cajetin donde pasamos la tarjeta para acceder y por tanto la puerta esta siempre abierta (adjunto foto del modelo).<br />- Por otro lado, la puerta del almacén que da a la calle, lleva varios dias que se atasca y cuesta abrirla.</p>
+<p>- Arreglar el aglomerado del despacho de managers, ya que se ha despegado en una de las columnas.<br />- Arreglar baldas de calzado (mas hundidas de la cuenta)<br />- Arreglar hueco meter alarmas en caja, el protector esta suelto.</p>";;;;
+OT21S/50527;MARCH monthly preventive maintenance fee;;01/03/2022;02/03/2022;;0;0;Berta Vilamala - Optima Retail (EQ6);803;En Progreso;P6;PREVENTIVO;TO10;Otros;P21S/05663;;ADIDAS - SPAIN, Jerez de la Frontera,  - Centro Comercial LUZ Shopping-Local 7A-B-C - Ronda de Aurora Boreal, s/n - 3462;0;TP1;General;;270; ADIDAS ESPAÑA SAU;15;0;"<p class=""page-header""><strong>OT22/06365 - Incidencias Varias</strong></p>
+<p>- Sustituir 2 fluerescentes del almacén. Hay que traer los fluorescentes nuevos (Adjunto foto)<br />- WC con bomba rota. Se arregló en la última visita pero sigue perdiendo agua. Se dijo que había que cambiar la bomba y que la pedían para el próximo mes (sería en esta visita)<br />- Transformador Fermax de acceso al almacén. Llevamos varios meses con el acceso abierto y por seguridad es necesario subsanarlo ya.<br />- A/C sala de descanso. No funciona la bomba de calor, solo aire frío.<br />- Sustituir 3 bombines rotos de taquillas (Adjunto fotos)<br />- Instalar canaleta con 12 enchufes en sala de descanso para cargar los walkies (adjunto foto)</p>
+<p class=""page-header""><strong>OT22/02632 - Arreglar puerta acceso almacén desde tienda</strong></p>
+<p class=""page-header""> </p>";;;;
+OT21S/50514;MARCH monthly preventive maintenance fee;;01/03/2022;02/03/2022;;0;0;Berta Vilamala - Optima Retail (EQ6);803;En Progreso;P6;PREVENTIVO;TO10;Otros;P21S/05645;;ADIDAS - SPAIN, Aldaia  - Ctro. Cial. Factory Bonaire-Local A17-18 Ctra. Nacional III-Km 345 - 3461;0;TP1;General;;270; ADIDAS ESPAÑA SAU;15;0;"<p class=""page-header""><strong>OT22/04938 - Incidencias pendientes</strong></p>
+<p>CABLE ROTO DE IMPRESORA CAJA 4 <br />PULSADORES DE CAJA NO FUNCIONAN BIEN O NO FUNCIONAN </p>
+<p class=""page-header""><strong>OT22/03680 - Burro de ropa necesario soldar en taller (pte. de la última visita)</strong></p>
+<p class=""page-header""><strong>OT22/06366 - Incidencias Varias</strong></p>
+<p>PUNTOS DE LUZ EN PROBADORES, HAY 3 FUNDIDOS<br />LUCES DE ESPEJOS EN PROBADOR<br />MESA DE REPOSICION DE TEXTIL. ESTA INESTEBLE EN LAS JUNTAS</p>";;;;
+OT21S/50502;MARCH monthly preventive maintenance fee;;01/03/2022;02/03/2022;;0;0;Berta Vilamala - Optima Retail (EQ6);803;En Progreso;P6;PREVENTIVO;TO10;Otros;P21S/05616;;ADIDAS - SPAIN, Viladecans - The Style Outlets Viladecans-Local 30-34-Ctra. de la Vila, 90 - 3460;0;TP1;General;;270; ADIDAS ESPAÑA SAU;15;0;"<p class=""page-header"">OT22/05936 - Reparación muelle puerta principal</p>";;;;
+OT21S/49522;MARCH yearly preventive maintenance fee (REVISIÓN ELÉCTRICA);;01/03/2022;02/03/2022;;79;79;Marta Sanz - Optima Retail (EQ1);803;En Progreso;P6;PREVENTIVO;TO2;Electricidad;P19/00949;;KIKO MILANO - PORTUGAL, Viana do Castelo, Estaçao Viana, Rua Gen. Humberto Delogado, 101 (417);0;TP1;General;;131;KIKO RETAIL ESPAÑA SLU;21;0;;;;;
+OT21S/49385;ECI SIETE PALMAS_Vinilos columna zona infantil;;04/12/2021;02/03/2022;;0;0;Noelia Gómez - Optima Retail (EQ3);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;TO15;Imagen;P18/00201;;DESIGUAL - SPAIN, Siete Palmas, Corner CC Corte inglés Av Pintor Felo Monzón - Accesorios - ES11DW0240;0;TP1;General;;32;Abasic, S.A. (DESIGUAL ECIS);15;0;"<p>Necesitaría la instalación de dos vinilos en la columna del corner Eci Siete Palmas (Las Palmas de Gran Canaria). Los vinilos ya están allí y nos han informado que para esta instalación necesitamos que el vinilo se ponga encima de PVC.</p>
+<p>Deberán ser <strong>2 paneles de PVC </strong>de las siguientes medidas:</p>
+<p>280 alto x 110 de ancho (con agujero para toma de enchufes)</p>
+<p>Y otro de:</p>
+<p>280 alto x 70 ancho</p>
+<p>Y por último un esquinero/perfil de PVC que una ambas láminas.</p>
+<p>Adjunto fotos de la columna. El logo que se ve en las fotos los retiraría PPV, ya que lo taparian las láminas de PVC. </p>
+<p> </p>
+<p> </p>";"<p>IN 04/01 9:23H. Argimio no tiene ningun otro vinilero autonomo para andar a hacer el trabajo, nos mandara un conocido que tiene para hacerlo a partir del dia 17/01</p>
+<p>IN 04/01 16:27H. Hemos solicitado a Lorenzo de Algorplus que haga el trabajo y recoja el material de Argimio, confirmara dia y hora</p>
+<p>IN 05/01 9:14H. Reclamado a Lorenzo de Algorplus</p>
+<p>IN 05/01 14:02H. Ya hemos explicado los trabajos a Lorenzo y solicitado que nos diga fecha y que personal ira</p>
+<p>IN 07/01 12:01H. Argimio nos facturara el PVC y Lorenzo ara el trabajo, falta coordinar los permisos con Lorenzo</p>
+<p>IN 07/01 13:19H. Lorenzo nos pasara el nombre y DNI del operario que ira a hacer el trabajo</p>
+<p>IN 10/01 9:32H. Reclamado a Lorenzo para coordinar </p>
+<p>IN 12/01 10:52H. Reclamado a Lorenzo nombre Y DNI de la gente que va a ir a hacer los trabajos</p>
+<p>IN 17/01 18:19H. Lorenzo no responde buscar otra opcion</p>
+<p>IN 18/01 Argimio buscara a un vinilista que conoce que es autonomo para que nos haga el trabajo, hoy dira algo</p>
+<p>IN 20/01 He localizado a Lorenzo de Algorplus, mañana nos dira fecha y nombre de los tecnicos.</p>
+<p>IN 21/01 Lorenzo nos diar el luens que dia puede ir de la semana que viene.</p>";;;
+OT21S/49351;MARCH yearly preventive maintenance fee (PERSIANAS Y PUERTAS);;01/03/2022;02/03/2022;;44;44;Marta Sanz - Optima Retail (EQ1);803;En Progreso;P6;PREVENTIVO;TO7;Carpintería metálica;P19/00949;;KIKO MILANO - PORTUGAL, Viana do Castelo, Estaçao Viana, Rua Gen. Humberto Delogado, 101 (417);0;TP1;General;;131;KIKO RETAIL ESPAÑA SLU;15;0;;;;;
+OT21S/48022;MARCH quarterly preventive maintenance fee (CLIMA);;01/03/2022;02/03/2022;;388;388;Edgar Abillà - Optima Retail (EQ9);803;En Progreso;P6;PREVENTIVO;TO1;Aire Acondicionado / Clima;P21S/05338;;PRIMOR - SPAIN, Merida, C/ San Francisco 4-6 - COVA (230);469,48;TP1;General;CORAL VAINILLA;196;BLANCO LIMON, S.L;15;0;;;;;
+OT21S/47647;MARCH yearly preventive maintenance fee (PCI);;01/03/2022;02/03/2022;;144;144;Marta Sanz - Optima Retail (EQ1);803;En Progreso;P6;PREVENTIVO;TO12;PCI;P19/00989;;KIKO MILANO - SPAIN, Barcelona, Avinguda Portal de l'Angel, 16 (486);0;TP1;General;;131;KIKO RETAIL ESPAÑA SLU;15;0;;;;;
+OT21S/47646;MARCH yearly preventive maintenance fee (PCI);;01/03/2022;02/03/2022;;144;144;Marta Sanz - Optima Retail (EQ1);803;En Progreso;P6;PREVENTIVO;TO12;PCI;P19/01107;;KIKO MILANO - SPAIN, Barcelona, Carrer dels Boters, 1 (622)**;5.611,70;TP1;General;;131;KIKO RETAIL ESPAÑA SLU;15;0;;;;;
+OT21S/47297;FEBRUARY monthly maintenance visit (Multitecnico y clima);;01/02/2022;02/03/2022;;150;150;Alex Garriga - Optima Retail (EQ1);803;En Progreso;P6;PREVENTIVO;TO1;Aire Acondicionado / Clima;P21S/05823;;BIMBA Y LOLA - CHILE, Talcahuano,   Av. Pdte. Jorge Alessandri Rodriguez , mallplaza trébol;0;TP1;General;;300;BIMBA & LOLA CHILE, S.A.P;21;0;;;;;
+OT21S/47026;MARCH Mantenimiento anual (PCI);;01/03/2022;02/03/2022;;144;144;Laura Guillen - Optima Retail (EQ2);803;En Progreso;P6;PREVENTIVO;TO12;PCI;P20/01042;;GRUPOSTOP - SPAIN, Madrid, San Bernardo, C/ de San Bernardo, 109;0;TP1;General;;187;SERVICIOS DE DEPILACION BLOC S.L.U. (GRUPOSTOP);15;0;"<p>CS 25/03</p>
+<p>Queda pendiente cambiar luz fundida y devolver los extintores retimbrados. OT21S/31865</p>";;;;
+OT21S/45354;MARCH monthly preventive maintenance fee ;;01/03/2022;02/03/2022;;152,05;152,05;Ainoa Sebastián - Optima Retai (EQ3);803;En Progreso;P6;PREVENTIVO;TO10;Otros;P18/00221;;DESIGUAL - ESP BARNA VILADECANS OUTLET (R644);0;TP1;General;;18;Sepalememe, S.L.U. (DESIGUAL ESPAÑA);15;0;<p><strong>#57584:</strong> faltan dos botones de la cisterna wc</p>;;;;
+OT21S/43971;MARCH monthly preventive maintenance fee;;01/03/2022;02/03/2022;;380,86;380,86;Ainoa Sebastián - Optima Retai (EQ3);803;En Progreso;P6;PREVENTIVO;TO10;Otros;P18/00003;;DESIGUAL - ESP MADRD PRECIADOS (R064);0;TP1;General;;18;Sepalememe, S.L.U. (DESIGUAL ESPAÑA);15;0;"<p><span style=""background-color: #f1c40f;""><strong>02/03</strong></span></p>
+<p><span style=""background-color: #f1c40f;""><strong>09/03</strong></span></p>
+<p><span style=""background-color: #f1c40f;""><strong>16/03</strong></span></p>
+<p><span style=""background-color: #f1c40f;""><strong>23/03</strong></span></p>
+<p> </p>
+<p>-Sustituir 10x bombines taquillas (y revisar si se han sustituido antes hace poco)</p>";;;;
+OT21S/39775;MARCH - PREVENTIVE MAINTENANCE FEE - AC, RELAMPING, REVISION MOBILIARIO;;01/03/2022;02/03/2022;;283;342,43;Alba Malé - Optima Retail (EQ6);803;En Progreso;P6;PREVENTIVO;TO10;Otros;P21S/03360;;TOUS - SPAIN, Pamplona, Av. de Carlos III el Noble, 14 (T059);348,48;TP1;General;;223;JOYERIA TOUS SA;15;0;"<p class=""page-header""><strong>OT22/06130 - luz fundida </strong>(foto adjunta)</p>";;;;
+OT21S/37093;FEBRUARY Preventive Maintenance (CLIMA);;01/02/2022;02/03/2022;;264,4;264,4;Edgar Abillà - Optima Retail (EQ9);803;En Progreso;P6;PREVENTIVO;TO1;Aire Acondicionado / Clima;P20/01253;;PRIMOR - PORTUGAL, Amadora, C.C Dolce Vita, Avda Cruzeiro Seixas 5 e 7 (174) - PRIN;0;TP1;General;PRIMOR INTERNACIONAL S.L.;196;BLANCO LIMON, S.L;21;0;;;;;
+OT21S/37005;ganchos quitados;#23661;26/01/2022;02/03/2022;;0;0;Raul Medina - Optima Retail (EQ3);803;En Progreso;P5;CÓDIGO VERDE - BAJO IMPACTO;TO10;Otros;P18/00246;;DESIGUAL - ESP VLCIA BONAIRE OUTLET (R049);0;TP1;General;;18;Sepalememe, S.L.U. (DESIGUAL ESPAÑA);15;0;"<div class=""panel panel-default"">
+<div class=""panel-body"">Se han retirado unos ganchos y ha quedado el agujero en la pared y faltaria pintarlos.</div>
+<div class=""panel-body"">---</div>
+<div class=""panel-body"">RAL 7010 o RAL 7013</div>
+</div>
+<div class=""panel panel-default  priv"">
+<div class=""panel-heading n1"">
+<h3 class=""panel-title"">RM 10/02/22. No se ha podido realizar el servicio debido a que la tienda estaba abierta y se ha sugerido que se haga de noche, para permitir el secado. </h3>
+</div>
+</div>";;;;
+OT21S/35530;4a Visita Control de plagas desinsectización ;;14/03/2022;02/03/2022;;0;0;Edgar Abillà - Optima Retail (EQ9);803;En Progreso;P6;PREVENTIVO;TO9;Limpieza;P20/01143;;PRIMOR - SPAIN, Valladolid, C.C.Vallsur, local 01/02/03, Cmno. Viejo de Simancas, s/n (165) - BLLI;0;TP1;General;BLANCO LIMON;196;BLANCO LIMON, S.L;15;0;"<p>RR 18/06</p>
+<p>4a Visita Control de plagas desinsectización programada</p>";;;;
+OT21S/33074;MARCH preventive maintenance fee (AC, RELAMPING, REVISION MOBILIARIO);;01/03/2022;02/03/2022;;283;342,43;Alba Malé - Optima Retail (EQ6);803;En Progreso;P6;PREVENTIVO;TO10;Otros;P21S/03213;;TOUS - SPAIN, Cádiz, C/ Columela, 30 (T199);0;TP1;General;;223;JOYERIA TOUS SA;15;0;;;;;
