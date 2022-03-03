@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('delegation',2);
             $table->string('phonenumber')->nullable();
-            $table->json('email')->nullable();
+            $table->text('email')->nullable();
             $table->string('language',2)->nullable();
             $table->timestamps();
         });

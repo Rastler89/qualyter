@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('name');
             $table->boolean('status')->default(true);
             $table->text('phonenumber')->nullable();
-            $table->json('email');
+            $table->text('email');
             $table->string('language',2);
             $table->unsignedBigInteger('client');
             $table->boolean('contact')->default(true);

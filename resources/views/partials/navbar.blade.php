@@ -15,7 +15,7 @@
                 </a>
             </li>
             <li class="sidebar-item">
-                <a class="sidebar-link" href="#">
+                <a class="sidebar-link" href="">
                     <i class="align-middle" data-feather="list"></i>
                     <span class="align-middle">{{__('Tasks')}}</span>
                 </a>
@@ -31,13 +31,18 @@
                 {{__('Contacts')}}
             </li>
             <li class="sidebar-item">
-                <a class="sidebar-link" href="#">
+                <a class="sidebar-link" href="{{route('clients')}}">
                     <i class="align-middle" data-feather="users"></i><span class="align-middle">{{__('Clients')}}</span>
                 </a>
             </li>
             <li class="sidebar-item">
-                <a class="sidebar-link" href="#">
+                <a class="sidebar-link" href="{{route('stores')}}">
                     <i class="align-middle" data-feather="shopping-bag"></i><span class="align-middle">{{__('Stores')}}</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="#">
+                    <i class="align-middle" data-feather="user"></i><span class="align-middle">{{__('Agents')}}</span>
                 </a>
             </li>
 

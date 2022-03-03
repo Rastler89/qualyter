@@ -28,27 +28,31 @@ Route::post('/password/email', [App\Http\Controllers\Auth\ForgotPasswordControll
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     // USERS
-    Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->middleware('permission:view-users')->name('users');
-    Route::put('/users/edit', [App\Http\Controllers\UserController::class, 'update'])->middleware('permission:edit-users')->name('users.edit');
-    Route::get('/users/new', [App\Http\Controllers\UserController::class, 'new'])->middleware('permission:create-users')->name('users.new');
-    Route::post('/users/new', [App\Http\Controllers\UserController::class, 'create'])->middleware('permission:create-users')->name('users.create');
+    Route::get('users', [App\Http\Controllers\UserController::class, 'index'])->middleware('permission:view-users')->name('users');
+    Route::put('users/edit', [App\Http\Controllers\UserController::class, 'update'])->middleware('permission:edit-users')->name('users.edit');
+    Route::get('users/new', [App\Http\Controllers\UserController::class, 'new'])->middleware('permission:create-users')->name('users.new');
+    Route::post('users/new', [App\Http\Controllers\UserController::class, 'create'])->middleware('permission:create-users')->name('users.create');
     // ROLES
-    Route::get('/roles', [App\Http\Controllers\RoleController::class, 'index'])->middleware('permission:view-roles')->name('roles');
-    Route::get('/roles/new', [App\Http\Controllers\RoleController::class, 'new'])->middleware('permission:create-roles')->name('roles.new');
-    Route::post('/roles/new', [App\Http\Controllers\RoleController::class, 'create'])->middleware('permission:create-roles')->name('roles.create');
-    Route::get('/roles/edit/{id}', [App\Http\Controllers\RoleController::class, 'edit'])->middleware('permission:edit-roles')->name('roles.edit');
-    Route::put('/roles/edit/{id}', [App\Http\Controllers\RoleController::class, 'update'])->middleware('permission:edit-roles')->name('roles.update');
-    Route::delete('/roles/{id}', [App\Http\Controllers\RoleController::class, 'delete'])->middleware('permission:edit-roles')->name('roles.delete');
+    Route::get('roles', [App\Http\Controllers\RoleController::class, 'index'])->middleware('permission:view-roles')->name('roles');
+    Route::get('roles/new', [App\Http\Controllers\RoleController::class, 'new'])->middleware('permission:create-roles')->name('roles.new');
+    Route::post('roles/new', [App\Http\Controllers\RoleController::class, 'create'])->middleware('permission:create-roles')->name('roles.create');
+    Route::get('roles/edit/{id}', [App\Http\Controllers\RoleController::class, 'edit'])->middleware('permission:edit-roles')->name('roles.edit');
+    Route::put('roles/edit/{id}', [App\Http\Controllers\RoleController::class, 'update'])->middleware('permission:edit-roles')->name('roles.update');
+    Route::delete('roles/{id}', [App\Http\Controllers\RoleController::class, 'delete'])->middleware('permission:edit-roles')->name('roles.delete');
     // UPLOAD
-    Route::get('/bulk', [App\Http\Controllers\UploadController::class, 'index'])->name('uploads');
-    Route::post('/bulk/tasks', [App\Http\Controllers\UploadController::class, 'pushTasks'])->name('uploads.tasks');
-    Route::post('/bulk/agents', [App\Http\Controllers\UploadController::class, 'pushAgents'])->name('uploads.agents');
-    Route::post('/bulk/stores', [App\Http\Controllers\UploadController::class, 'pushStores'])->name('uploads.stores');
-    Route::post('/bulk/clients', [App\Http\Controllers\UploadController::class, 'pushClients'])->name('uploads.clients');
+    Route::get('bulk', [App\Http\Controllers\UploadController::class, 'index'])->name('uploads');
+    Route::post('bulk/tasks', [App\Http\Controllers\UploadController::class, 'pushTasks'])->name('uploads.tasks');
+    Route::post('bulk/agents', [App\Http\Controllers\UploadController::class, 'pushAgents'])->name('uploads.agents');
+    Route::post('bulk/stores', [App\Http\Controllers\UploadController::class, 'pushStores'])->name('uploads.stores');
+    Route::post('bulk/clients', [App\Http\Controllers\UploadController::class, 'pushClients'])->name('uploads.clients');
     // CLIENT
-    
+    Route::get('clients', [App\Http\Controllers\ClientController::class, 'index'])->name('clients');
+    Route::get('clients/new', [App\Http\Controllers\ClientController::class, 'new'])->name('clients.new');
+    Route::post('clients/new', [App\Http\Controllers\ClientController::class, 'create'])->name('clients.create');
+    Route::get('clients/edit/{id}', [App\Http\Controllers\ClientController::class, 'edit'])->name('clients.edit');
+    Route::put('clients/edit/{id}', [App\Http\Controllers\ClientController::class, 'update'])->name('clients.update');
     // STORE
-    
+    Route::get('stores', [App\Http\Controllers\StoreController::class, 'index'])->name('stores');
     // TASK
     
     //INCIDENCE
