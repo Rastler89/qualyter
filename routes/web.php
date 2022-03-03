@@ -53,6 +53,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('clients/edit/{id}', [App\Http\Controllers\ClientController::class, 'update'])->name('clients.update');
     // STORE
     Route::get('stores', [App\Http\Controllers\StoreController::class, 'index'])->name('stores');
+    Route::get('stores/new', [App\Http\Controllers\StoreController::class, 'new'])->name('stores.new');
     // TASK
     
     //INCIDENCE
