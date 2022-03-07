@@ -6,12 +6,14 @@
 </div>
 <table class="table table-hover table-striped">
     <thead>
-        <th scope="col">{{__('Name')}}</th>
-        <th scope="col">{{__('Delegation')}}</th>
-        <th scope="col">{{__('Phone Number')}}</th>
-        <th scope="col">{{__('Email')}}</th>
-        <th scope="col">{{__('Language')}}</th>
-        <th scoep="col"></th>
+        <tr>
+            <th scope="col">{{__('Name')}}</th>
+            <th scope="col">{{__('Delegation')}}</th>
+            <th scope="col">{{__('Phone Number')}}</th>
+            <th scope="col">{{__('Email')}}</th>
+            <th scope="col">{{__('Language')}}</th>
+            <th scoep="col"></th>
+        </tr>
     </thead>
     <tbody>
         @foreach($clients as $client) 
@@ -21,7 +23,7 @@
             <td>{{$client->phonenumber}}</td>
             <td>{{$client->email}}</td>
             <td>{{$client->language}}</td>
-            <td><a href="{{route('clients.edit',['id'=>$client->id])}}" class="btn btn-outline-warning"><i class="align-middle" data-feather="edit"></i></a>
+            <td><a href="{{route('clients.edit',['id'=>$client->id])}}" class="btn btn-outline-warning"><i class="align-middle" data-feather="edit"></i></a></td>
         </tr>
         @endforeach
     </tbody>

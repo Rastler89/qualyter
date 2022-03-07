@@ -33,6 +33,12 @@
                         <label for="email" class="form-label">{{__("Email")}}</label>
                         <textarea class="form-control" id="email" name="email" row="3">@if ($client != null) {{$client->email}} @endif</textarea>
                     </div>
+                    <div class="mb-3">
+                        <label class="form-check">
+                            <input class="form-check-input" type="checkbox" id="central" name="central" />
+                            <span class="form-check-label">{{__('This client is central')}}</span>
+                        </label>
+                    </div>
                     <div class="d-grid gap-2">
                         <button class="btn btn-success">{{__('Save')}}</button>
                     </div>
@@ -49,8 +55,7 @@
     var lang = userLang.split('-');
     $.get("https://restcountries.com/v2/all", function (data) {
         data.forEach(function(country,index) {
-            console.log(country['translations'][lang[0]]);
-            $("#countries").append("<option value='"+country['translations'][lang[0]]+"'>");
+            $("#countries").append("<option value='"+country['name']+"'>"+country['translations'][lang[0]]+"</option>");
         });
     });
 </script>

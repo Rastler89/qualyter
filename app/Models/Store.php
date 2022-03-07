@@ -24,7 +24,7 @@ class Store extends Model
     ];
 
     
-    public function post() {
+    public function client() {
         return $this->belongsTo(Client::class);
     }
 }

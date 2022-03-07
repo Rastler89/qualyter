@@ -24,7 +24,7 @@ class ClientController extends Controller
             'email' => ['required','min:6'],
         ]);
 
-        $url = 'https://restcountries.com/v2/name/'.$request->get('country');
+        $url = 'https://restcountries.com/v2/name/'.str_replace(' ','%20',$request->get('country'));
 
         $curl = curl_init($url);
         curl_setopt($curl,CURLOPT_URL,$url);
@@ -38,7 +38,11 @@ class ClientController extends Controller
         $client->name = $request->get('name');
         $client->phonenumber = $request->get('phonenumber');
         $client->email = $request->get('email');
-        $client->delegation = $resp[0]->alpha2Code;
+        if($request->get('central')!=null) {
+            $client->delegation = '00';
+        } else {
+            $client->delegation = $resp[0]->alpha2Code;
+        }
         $client->language = $resp[0]->languages[0]->iso639_1;
 
         $client->save();
