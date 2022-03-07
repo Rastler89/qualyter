@@ -41,7 +41,7 @@
                 </a>
             </li>
             <li class="sidebar-item">
-                <a class="sidebar-link" href="#">
+                <a class="sidebar-link" href="{{route('agents')}}">
                     <i class="align-middle" data-feather="user"></i><span class="align-middle">{{__('Agents')}}</span>
                 </a>
             </li>

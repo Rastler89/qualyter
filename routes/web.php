@@ -57,6 +57,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('stores/new', [App\Http\Controllers\StoreController::class, 'create'])->name('stores.create');
     Route::get('stores/edit/{id}', [App\Http\Controllers\StoreController::class, 'edit'])->name('stores.edit');
     Route::put('stores/edit/{id}', [App\Http\Controllers\StoreController::class, 'update'])->name('stores.update');
+    // AGENT
+    Route::get('agents', [App\Http\Controllers\AgentController::class, 'index'])->name('agents');
     // TASK
     
     //INCIDENCE
