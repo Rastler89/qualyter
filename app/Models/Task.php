@@ -13,10 +13,13 @@ class Task extends Model
         'code',
         'name',
         'expiration',
-        'status',
         'priority',
         'owner',
         'store',
         'description'
     ];
+
+    public function owner() {
+        return $this->belongsTo(Agent::class);
+    }
 }

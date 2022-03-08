@@ -17,17 +17,16 @@ return new class extends Migration
            $table->string('code',12)->unique();
            $table->text('name');
            $table->timestamp('expiration');
-           $table->tinyInteger('status')->default(0);
            $table->string('priority',30);
-           $table->string('owner',50);
-           $table->string('store',10);
+           $table->unsignedBigInteger('owner');
+           $table->string('store',10)->nullable();
            $table->unsignedBigInteger('assigned')->nullable();
            $table->text('description')->nullable();
            $table->timestamps();
 
            $table->primary('code');
-           $table->foreign('owner')->references('name')->on('agents')->onDelete('cascade');
-           $table->foreign('store')->references('code')->on('stores')->onDelete('cascade');
+           $table->foreign('owner')->references('id')->on('agents')->onDelete('cascade');
+           //$table->foreign('store')->references('code')->on('stores')->onDelete('cascade');
            $table->foreign('assigned')->references('id')->on('users')->onDelete('cascade');
         });
     }

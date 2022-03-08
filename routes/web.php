@@ -62,6 +62,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('agents/new', [App\Http\Controllers\AgentController::class, 'create'])->name('agents.create');
     Route::put('agents/edit/{id}', [App\Http\Controllers\AgentController::class, 'update'])->name('agents.update');
     // TASK
+    Route::get('tasks', [App\Http\Controllers\AnswerController::class, 'index'])->name('tasks');
     
     //INCIDENCE
 

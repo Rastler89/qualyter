@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class AgentController extends Controller
 {
     public function index() {
-        $agents = Agent::all();
+        $agents = Agent::paginate(25);
         return view('admin.agent.index', ['agents' => $agents]);
     }
 

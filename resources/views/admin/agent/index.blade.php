@@ -40,6 +40,7 @@
         @endforeach
     </tbody>
 </table>
+{{$agents->links()}}
 @endsection
 
 @section('javascript')

@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Agent;
+use App\Models\Answer;
 use App\Models\Client;
 use App\Models\Store;
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File; 
+use Illuminate\Support\Str;
+
 
 class UploadController extends Controller
 {
@@ -16,21 +20,43 @@ class UploadController extends Controller
 
     public function pushTasks(Request $request) {
 
-        $respuesta = $this->exportCSV($request, false);
+        $respuesta = $this->exportCSV($request);
 
         foreach($respuesta as $resp) {
-            $task = new Task;
+            $task = Task::where('code','=',$resp[0])->first();
+            if($task == null) {
+                $task = new Task;
+                $task->code = $resp[0];
+                $task->name = utf8_encode($resp[1]);
+                $task->priority = utf8_encode($resp[12]);
+                $task->owner = 1;//$resp[8];
+                $task->store = $resp[15];
+                $task->description = htmlentities($resp[26], ENT_QUOTES, "UTF-8"); 
+            }
+            
+            $task->expiration = date('Y-m-d h:i:s', strtotime($resp[4]));
 
-            $task->code = $resp[0];
-            $task->name = $resp[1];
-            $task->expiration = $resp[4];
-            $task->status = 0;
-            $task->priority = $resp[12];
-            $task->owner = $resp[8];
-            $task->store = $resp[17];
-            $task->description = $resp[26];
+            $store = Store::where('code','=',$task->store);
+            if($store != null && $store->contact) {
+                $answer = Answer::where('expiration','=',date('Y-m-d',strtotime($resp[4])))->where('store','=',$task->store)->first();
+                if($answer == null) {
+                    $answer = new Answer;
+                    $answer->expiration = date('Y-m-d',strtotime($resp[4]));
+                    $answer->status = 0;
+                    $answer->store = $task->store;
+                    $array[] = $task->code;
+                    $answer->tasks = json_encode($array);
+                } else {
+                    $array = json_decode($answer->tasks);
+                    $array[] = $task->code;
+                    $answer->tasks = json_encode($array);
+                }
+                $answer->token = Str::random(8);
+                $answer->save();
+            }
 
             $task->save();
+            $array = null;
         }
 
         return back()->with('success','Upload tasks successfuly!');
@@ -41,9 +67,13 @@ class UploadController extends Controller
         $respuesta = $this->exportCSV($request);
 
         foreach($respuesta as $resp) {
-            $agent = new Agent;
+            $agent = Agent::where('email','=',$resp[1])->first();
 
-            $agent->name = htmlentities($resp[0], ENT_QUOTES, 'UTF-8', false);
+            if($agent==null) {
+                $agent = new Agent;
+            }
+
+            $agent->name = utf8_encode($resp[0]);
             $agent->email = $resp[1];
 
             $agent->save();
@@ -95,14 +125,14 @@ class UploadController extends Controller
 
     private function exportCSV(Request $request, $header = true) {
         $file = $request->file('file');
-
         $name = $request->file('file')->getClientOriginalName();
         
         $file->move(storage_path(),$name);
+        $fileName = storage_path().'/'.$name;
 
         $response = [];
-        //print_r(storage_path());
-        if(($open = fopen(storage_path().'/'.$name,'r')) !== FALSE) {
+
+        if(($open = fopen($fileName,'r')) !== FALSE) {
             while(($data = fgetcsv($open,1000,';')) !== FALSE) {
                 $response[] = $data;
             }
@@ -111,6 +141,9 @@ class UploadController extends Controller
         if($header) {
             unset($response[0]);
         }
+
+        File::delete($fileName);
+
         return $response;
     }
 }

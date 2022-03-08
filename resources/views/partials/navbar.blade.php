@@ -15,10 +15,20 @@
                 </a>
             </li>
             <li class="sidebar-item">
-                <a class="sidebar-link" href="">
+                <a class="sidebar-link" href="{{route('tasks')}}">
                     <i class="align-middle" data-feather="list"></i>
                     <span class="align-middle">{{__('Tasks')}}</span>
                 </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="#">
+                    <i class="align-middle" data-feather="package"></i>
+                    <span class="align-middle">{{__('Work Order')}}</span>
+                </a>
+            </li>
+
+            <li class="sidebar-header">
+                {{__('Audit')}}
             </li>
             <li class="sidebar-item">
                 <a class="sidebar-link" href="#">
