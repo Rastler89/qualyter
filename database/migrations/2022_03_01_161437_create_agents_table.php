@@ -14,11 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('agents', function (Blueprint $table) {
+            $table->id();
             $table->string('name',50)->unique();
-            $table->string('email',50);
-
-            $table->primary('name');
-        });
+            $table->string('email',50)->unique();
+         });
     }
 
     /**

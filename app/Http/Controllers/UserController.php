@@ -36,7 +36,7 @@ class UserController extends Controller
             $user->roles()->attach($role);
         }
 
-        return redirect()->route('users');
+        return redirect()->route('users')->with('success','User updated successfuly!');;
     }
 
     public function new() {
@@ -66,6 +66,6 @@ class UserController extends Controller
             $user->roles()->attach($role);
         }
 
-        return redirect()->route('users');
+        return redirect()->route('users')->with('success','User added successfuly!');;
     }
 }

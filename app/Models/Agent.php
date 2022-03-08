@@ -13,6 +13,7 @@ class Agent extends Model
     public $incrementing = false;
 
     protected $fillable = [
+        'id',
         'name',
         'email'
     ];
