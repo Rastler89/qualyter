@@ -162,5 +162,16 @@ class AgentsSeeder extends Seeder
                 'email' => 'javier.jimenez@optimaretail.es'
             ]
         ]);
+
+        DB::table('clients')->insert([
+            [
+                'id' => '1',
+                'name' => 'Provisional',
+                'delegation' => '00',
+                'phonenumber' => '617370097',
+                'email' => 'daniel.molina@optimaretail.es',
+                'language' => 'ES'
+            ]
+            ]);
     }
 }

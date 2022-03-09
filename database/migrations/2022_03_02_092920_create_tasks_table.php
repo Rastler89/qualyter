@@ -17,7 +17,7 @@ return new class extends Migration
            $table->string('code',12)->unique();
            $table->text('name');
            $table->timestamp('expiration');
-           $table->string('priority',30);
+           $table->string('priority',40);
            $table->unsignedBigInteger('owner');
            $table->string('store',10)->nullable();
            $table->unsignedBigInteger('assigned')->nullable();
@@ -26,7 +26,6 @@ return new class extends Migration
 
            $table->primary('code');
            $table->foreign('owner')->references('id')->on('agents')->onDelete('cascade');
-           //$table->foreign('store')->references('code')->on('stores')->onDelete('cascade');
            $table->foreign('assigned')->references('id')->on('users')->onDelete('cascade');
         });
     }

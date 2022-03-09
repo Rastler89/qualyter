@@ -21,9 +21,10 @@ return new class extends Migration
             $table->json('tasks');
             $table->json('answer')->nullable();
             $table->string('token',8)->nullable();
+            $table->unsignedBigInteger('client');
             $table->timestamps();
 
-            //$table->foreign('store')->references('code')->on('stores')->onDelete('cascade');
+            $table->foreign('client')->references('id')->on('clients')->onDelete('cascade');
         });
     }
 

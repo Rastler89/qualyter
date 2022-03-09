@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('stores', function (Blueprint $table) {
 
-            $table->string('code',10)->unique();
+            $table->id();
+            $table->string('code',10);
             $table->text('name');
             $table->boolean('status')->default(true);
             $table->text('phonenumber')->nullable();
@@ -24,7 +25,6 @@ return new class extends Migration
             $table->unsignedBigInteger('client');
             $table->boolean('contact')->default(true);
 
-            $table->primary('code');
             $table->foreign('client')->references('id')->on('clients')->onDelete('cascade');
         });
     }
