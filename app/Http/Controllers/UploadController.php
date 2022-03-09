@@ -35,9 +35,6 @@ class UploadController extends Controller
                 
                 $store->save();
             }
-            if($store->contact==false) {
-                continue;
-            }
 
             $owner = Agent::where('name','=',$resp[8])->first();
             $task = Task::where('code','=',$resp[0])->first();
@@ -50,8 +47,13 @@ class UploadController extends Controller
                 $task->store = $resp[15];
                 $task->description = htmlentities($resp[26], ENT_QUOTES, "UTF-8"); 
             }
-            
             $task->expiration = date('Y-m-d h:i:s', strtotime($resp[4]));
+
+            if($store->contact==false) {
+                $task->save();
+                continue;
+            }
+            
 
             if($store != null && $store->contact) {
                 $answer = Answer::where('expiration','=',date('Y-m-d',strtotime($resp[4])))->where('store','=',$task->store)->where('client','=',$resp[22])->first();
@@ -60,12 +62,12 @@ class UploadController extends Controller
                     $answer->expiration = date('Y-m-d',strtotime($resp[4]));
                     $answer->status = 0;
                     $answer->store = $task->store;
-                    $array[] = $task->code;
+                    $array[] = $task;
                     $answer->tasks = json_encode($array);
                     $answer->client = ($resp[22]==null || $resp[22]=='') ? 1 : $resp[22];
                 } else {
                     $array = json_decode($answer->tasks);
-                    $array[] = $task->code;
+                    $array[] = $task;
                     $answer->tasks = json_encode($array);
                 }
                 $answer->token = Str::random(8);
