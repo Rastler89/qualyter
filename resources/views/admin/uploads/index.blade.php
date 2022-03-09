@@ -15,7 +15,7 @@
                         <input class="form-control" type="file" id="file" name="file" />
                     </div>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button class="btn btn-success" >{{__("Upload File")}}</button>
+                        <button class="btn btn-primary" >{{__("Upload File")}}</button>
                     </div>
                 </form>
             </div>
@@ -34,7 +34,7 @@
                         <input class="form-control" type="file" id="file" name="file" />
                     </div>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button class="btn btn-success" >{{__("Upload File")}}</button>
+                        <button class="btn btn-primary" >{{__("Upload File")}}</button>
                     </div>
                 </form>
             </div>
@@ -53,7 +53,7 @@
                         <input class="form-control" type="file" id="file" name="file" />
                     </div>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button class="btn btn-success">{{__("Upload File")}}</button>
+                        <button class="btn btn-primary">{{__("Upload File")}}</button>
                     </div>
                 </form>
             </div>
@@ -72,7 +72,7 @@
                         <input class="form-control" type="file" id="file" name="file" />
                     </div>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button class="btn btn-success">{{__("Upload File")}}</button>
+                        <button class="btn btn-primary">{{__("Upload File")}}</button>
                     </div>
                 </form>
             </div>

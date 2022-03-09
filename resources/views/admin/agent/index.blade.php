@@ -20,7 +20,7 @@
                     <input type="email" class="form-control" name="email" placeholder="{{__('E-mail')}}"/>
                 </td>
                 <td>
-                    <button class="btn btn-success">{{__('Add new agent')}}</button>
+                    <button class="btn btn-primary">{{__('Add new agent')}}</button>
                 </td>
             </form>
         </tr>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Agent;
 use App\Models\Answer;
 use App\Models\Store;
 use Illuminate\Http\Request;
@@ -13,5 +14,13 @@ class AnswerController extends Controller
         $stores = Store::all();
 
         return view('admin.answer.index',['answers' => $answers, 'stores' => $stores]);
+    }
+
+    public function view($id) {
+        $answer = Answer::find($id);
+        $store = Store::where('code','=',$answer->store)->where('client','=',$answer->client)->first();
+        $agents = Agent::all();
+
+        return view('admin.answer.view', ['answer' => $answer, 'store' => $store, 'agents' => $agents]);
     }
 }

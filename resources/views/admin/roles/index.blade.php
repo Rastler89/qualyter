@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-    <a class="btn btn-success" href="{{route('roles.new')}}">{{__('New Role')}}</a>
+    <a class="btn btn-primary" href="{{route('roles.new')}}">{{__('New Role')}}</a>
 </div>
 <table class=" table table-hover table-striped">
     <thead>

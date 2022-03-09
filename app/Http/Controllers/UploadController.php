@@ -36,7 +36,7 @@ class UploadController extends Controller
                 $store->save();
             }
 
-            $owner = Agent::where('name','=',$resp[8])->first();
+            $owner = Agent::where('name','=',utf8_encode($resp[8]))->first();
             $task = Task::where('code','=',$resp[0])->first();
             if($task == null) {
                 $task = new Task;

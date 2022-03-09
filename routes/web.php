@@ -63,7 +63,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('agents/edit/{id}', [App\Http\Controllers\AgentController::class, 'update'])->name('agents.update');
     // TASK
     Route::get('tasks', [App\Http\Controllers\AnswerController::class, 'index'])->name('tasks');
+    Route::get('tasks/view/{id}', [App\Http\Controllers\AnswerController::class, 'view'])->name('tasks.view');
     
     //INCIDENCE
+
+    //sendmail
+    Route::get('send-email', [App\Http\Controllers\SendEmailController::class, 'sendEmail']);
 
 });
