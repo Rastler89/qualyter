@@ -1,0 +1,47 @@
+.legend {
+    --s:50px;
+    position:relative;
+    text-align:center;
+    label {
+        width: var(--s);
+        margin-right: calc(var(--s)/2);
+    }
+}
+
+.rating {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    text-align: center;
+    --s:50px;
+    padding-bottom: 20px;
+    background: silver;
+    label {
+      display: inline-block;
+      width: var(--s);
+      height: var(--s);
+      background: url(/img/star.svg) no-repeat 0 0;
+      background-size: var(--s) var(--s);
+      font-size: 0;
+      cursor: pointer;
+      margin-right: calc(var(--s)/2);
+    }
+  
+    input {
+        display: none;  
+        &:checked {
+            + label, ~ input + label {
+                background-image: url(/img/star-selected.svg);
+            }
+        }
+        &:hover {
+            + label, ~ input + label {
+                background-image: url(/img/star-hover.svg);
+            }
+        }
+    }
+  }
+
+  .scrollable {
+    overflow-y: auto;                  
+    height: 100%; 
+  }
