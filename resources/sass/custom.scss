@@ -41,7 +41,32 @@
     }
   }
 
-  .scrollable {
-    overflow-y: auto;                  
-    height: 100%; 
+.form-dynamic {
+    position: relative;
+}
+
+.question {
+    position: absolute;
+    width: 100%;
+}
+
+#part2, #part3, #part4, #part5 {
+    visibility: hidden;
+}
+
+.progress {
+    margin-bottom: 50px;
+}
+
+#incidence {
+    margin-top: 50px;
+    visibility: hidden;
+    width: 100%;
+}
+
+.btn-rounded {
+    display:block;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
   }
