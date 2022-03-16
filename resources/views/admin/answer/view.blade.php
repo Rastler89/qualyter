@@ -52,13 +52,14 @@
     </div>
   </div>
   <div class="col-8 ">
-    <form method="POST">
+    <form method="POST" action="{{route('tasks.response', ['id' => $answer->id])}}">
+      @csrf
       <h4>Progress</h4>
       <div class="progress">
         <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width:0;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">%</div>
       </div>
       <div class="form-dynamic">
-        <div id="part5" class="question">
+        <div id="part1" class="question">
           <h4>Que puntuación global nos darías?</h4>
           <div class="mb-3">
             <div class="legend" style="--s:80px">
@@ -80,6 +81,7 @@
             <label for="comment1" class="form-label">{{__('Comments')}}</label>
             <textarea class="form-control" id="comment1" name="comment1" row="3"></textarea>
           </div>
+          <button type="button" id="next1" onclick="next(2)" style="width:100%;visibility:hidden;" class="btn btn-primary btn-lg btn-block">Next</button>
         </div>
         <div id="part2" class="question">
           <h4>Califica la rapidez de nuestro servicio</h4>
@@ -162,23 +164,23 @@
             </div>
           </div>
         </div>
-        <div id="part1" class="question">
+        <div id="part5" class="question">
           <h4>Se ha generado incidencia?</h4>
           <div class="btn-group" role="group" aria-label="Incidence" style="width:100%">
             <button type="button" style="width:50%" class="btn btn-danger btn-lg" onclick="showIncidence()">{{__('Yes')}}</button>
-            <button type="button" style="width:50%" class="btn btn-success btn-lg">{{__('No (Close Questionnaire)')}}</button>
+            <button style="width:50%" class="btn btn-success btn-lg">{{__('No (Close Questionnaire)')}}</button>
           </div>
           <div class="mb-3" id="incidence">
             <div id="firstIncidence">
               <label for="responsable" class="form-label">{{__('Responsable')}}</label>
-              <select class="form-select form-select-lg mb-3" id="responable" name="responsable[]">
+              <select class="form-select form-select-lg mb-3" id="responable[]" name="responsable[]" required>
                 <option selected>{{__('Please select responsable')}}</option>
                 @foreach($owners as $owner)
                 <option value="{{$owner->id}}">{{$owner->name}}</option>
                 @endforeach;
               </select>
               <label for="impact" class="form-label">{{__('Impact')}}</label>
-              <select class="form-select form-select-lg mb-3" id="impact" name="impact[]">
+              <select class="form-select form-select-lg mb-3" id="impact[]" name="impact[]" required>
                 <option selected>{{__('Please select impact')}}</option>
                 <option value="0" style="background:red">{{__('Urgent')}}</option>
                 <option value="1" style="background:orange">{{__('High')}}</option>
@@ -187,14 +189,14 @@
               </select>
               <div class="mb-3">
                 <label for="comment" class="comment">{{__('Comment')}}</label>
-                <textarea class="form-control" id="comment[]" rows="3"></textarea>
+                <textarea class="form-control" id="incidence[]" name="incidence[]" rows="3" required></textarea>
               </div>
             </div>
             <div id="moreIncidence"></div>
             <div class="d-grid gap-2 mx-auto mb-3">
               <button class="btn btn-outline-success" type="button" id="addIncidence"><i class="align-middle" data-feather="plus"></i></button>
             </div>
-            <button type="button" style="width:100%" class="btn btn-primary btn-lg btn-block">Create Answer</button>
+            <button style="width:100%" class="btn btn-primary btn-lg btn-block">{{__('Close Questionnaire')}}</button>
           </div>
           
         </div>
@@ -206,39 +208,32 @@
 
 @section('javascript')
 <script>
-var part1, part2, part3, part4, part5, part6 = false;
 var totalSeconds, items = 0;
 var elementPosition = $('#workOrder').offset();
 var elementWidth = $('#workOrder').width();
 
 $(document).ready(function() {
   $('input[type=radio][name=valoration1]').change(function() {
-    if(!part1) {
-      $('#part1').append('<button type="button" onclick="next(2)" style="width:100%" class="btn btn-primary btn-lg btn-block">Next</button>');
-      part1=true;
-    }
+    $('#next1').css('visibility','visible');
   });
   $('input[type=radio][name=valoration2]').change(function() {
-    if(!part2) {
-      $('#next2').css('visibility','visible');
-      part2=true;
-    }
+    $('#next2').css('visibility','visible');
   });
   $('input[type=radio][name=valoration3]').change(function() {
-    if(!part3) {
-      $('#next3').css('visibility','visible');
-      part3=true;
-    }
+    $('#next3').css('visibility','visible');
   });
   $('input[type=radio][name=valoration4]').change(function() {
-    if(!part4) {
       $('#next4').css('visibility','visible');
-      part4=true;
-    }
   });
   $('#addIncidence').click(function(event) {
     $('#firstIncidence').clone().appendTo('#moreIncidence');
   })
+  if($('input[type=radio][name=valoration1]').val().length > 0) {
+    $('#next1').css('visibility','visible');
+    console.log('yes');
+  } else {
+    console.log('no');
+  }
 });
 
 $(window).scroll(function() {
@@ -252,6 +247,11 @@ $(window).scroll(function() {
 function next(id) {
   progress = (id-1)*20;
 
+  if(progress<80) {
+    if($('input[type=radio][name=valoration'+id+']').val().length > 0) {
+      $('#next'+id).css('visibility','visible');
+    }
+  }
   $('#next'+(id-1)).css('visibility','hidden');
   $('#part'+(id-1)).css('visibility','hidden');
   $('#part'+id).css('visibility','visible');
@@ -265,6 +265,7 @@ function prev(id) {
   $('#part'+id).css('visibility','hidden');
   $('.progress-bar').css('width', progress+'%').attr('aria-valuenow', progress); 
   $('.progress-bar').text(progress+'%');
+  $('#next'+id).css('visibility','hidden');
 }
 
 function initTime() {
@@ -285,7 +286,7 @@ function setTime() {
 
 function showIncidence() {
   $('#incidence').css('visibility','visible');
-  $('#part1').css('position','relative');
+  $('#part5').css('position','relative');
 }
 
 

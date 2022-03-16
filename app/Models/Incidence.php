@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Incidence extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'id',
+        'owner',
+        'responsable',
+        'impact',
+        'status',
+        'comments',
+        'closer',
+        'created_at'
+    ];
 }

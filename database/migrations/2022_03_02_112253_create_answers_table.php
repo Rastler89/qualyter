@@ -22,9 +22,11 @@ return new class extends Migration
             $table->json('answer')->nullable();
             $table->string('token',8)->nullable();
             $table->unsignedBigInteger('client');
+            $table->unsignedBigInteger('user')->nullable();
             $table->timestamps();
 
             $table->foreign('client')->references('id')->on('clients')->onDelete('cascade');
+            $table->foreign('user')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

@@ -15,7 +15,19 @@ return new class extends Migration
     {
         Schema::create('incidences', function (Blueprint $table) {
             $table->id();
+            $table->string('store',10)->nullable();
+            $table->unsignedBigInteger('client');
+            $table->unsignedBigInteger('owner');
+            $table->unsignedBigInteger('responsable');
+            $table->tinyInteger('impact');
+            $table->tinyInteger('status');
+            $table->json('comments');
+            $table->json('order');
+            $table->timestamp('closed')->nullable();
             $table->timestamps();
+
+            $table->foreign('owner')->references('id')->on('agents')->onDelete('cascade');
+            $table->foreign('responsable')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
