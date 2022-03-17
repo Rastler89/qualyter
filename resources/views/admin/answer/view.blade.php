@@ -29,7 +29,7 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-4">
+  <div class="col-4 col-sm-4">
     <div class="accordion" id="workOrder" style="position:sticky;">
       <?php $tasks = json_decode($answer->tasks); ?>
       @foreach($tasks as $task)
@@ -51,7 +51,7 @@
       @endforeach
     </div>
   </div>
-  <div class="col-8 ">
+  <div class="col-8 col-sm-8">
     <form method="POST" action="{{route('tasks.response', ['id' => $answer->id])}}">
       @csrf
       <h4>Progress</h4>
@@ -173,10 +173,17 @@
           <div class="mb-3" id="incidence">
             <div id="firstIncidence">
               <label for="responsable" class="form-label">{{__('Responsable')}}</label>
-              <select class="form-select form-select-lg mb-3" id="responable[]" name="responsable[]" required>
+              <select class="form-select form-select mb-3" id="responable[]" name="responsable[]" required>
                 <option selected>{{__('Please select responsable')}}</option>
                 @foreach($owners as $owner)
-                <option value="{{$owner->id}}">{{$owner->name}}</option>
+                <!--<option value="{{$owner->id}}">{{$owner->name}}</option>-->
+                <optgroup label="{{$owner->name}}">
+                  @foreach($tasks as $task)
+                    @if($task->owner == $owner->id)
+                      <option value="{{$task->owner}}-{{$task->code}}">{{$task->name}}</option>
+                    @endif
+                  @endforeach
+                </optgroup>
                 @endforeach;
               </select>
               <label for="impact" class="form-label">{{__('Impact')}}</label>
@@ -230,9 +237,6 @@ $(document).ready(function() {
   })
   if($('input[type=radio][name=valoration1]').val().length > 0) {
     $('#next1').css('visibility','visible');
-    console.log('yes');
-  } else {
-    console.log('no');
   }
 });
 

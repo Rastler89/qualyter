@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Agent;
 use App\Models\Answer;
 use App\Models\Store;
+use App\Models\Task;
 use App\Models\Incidence;
 use Illuminate\Http\Request;
 
@@ -54,18 +55,30 @@ class AnswerController extends Controller
         $answer->answer = json_encode($body,true);
 
         $answer->save();
+        $body = null;
 
         foreach($request->get('responsable') as $index => $responsable ) {
             $body[] = $request['incidence'][$index];
+
+            $task = explode('-',$request['responsable'][$index]);
+
+            $ot = Task::where('code','=',$task[1])->first();
+
             $incidence = new Incidence();
+        
 
             $incidence->responsable = auth()->user()->id;
-            $incidence->owner = $responsable;
+            $incidence->owner = $task[0];
             $incidence->impact = $request['impact'][$index];
             $incidence->status = 0;
             $incidence->comments = json_encode($body);
+            $incidence->client = $answer->client;
+            $incidence->store = $answer->store;
+            $incidence->order = json_encode($ot);
 
             $incidence->save();
+
+            $body = null;
         }
 
 

@@ -26,6 +26,7 @@ return new class extends Migration
             $table->timestamp('closed')->nullable();
             $table->timestamps();
 
+            $table->foreign('client')->references('id')->on('clients')->onDelete('cascade');
             $table->foreign('owner')->references('id')->on('agents')->onDelete('cascade');
             $table->foreign('responsable')->references('id')->on('users')->onDelete('cascade');
         });
