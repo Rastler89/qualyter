@@ -68,6 +68,7 @@ Route::group(['middleware' => 'auth'], function () {
     
     //INCIDENCE
     Route::get('incidences', [App\Http\Controllers\IncidenceController::class, 'index'])->name('incidences');
+    Route::get('incidences/{id}', [App\Http\Controllers\IncidenceController::class, 'view'])->name('incidences.view');
 
     //sendmail
     Route::get('send-email', [App\Http\Controllers\SendEmailController::class, 'sendEmail']);
