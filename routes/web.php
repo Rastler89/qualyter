@@ -67,6 +67,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('tasks/view/{id}', [App\Http\Controllers\AnswerController::class, 'response'])->name('tasks.response');
     
     //INCIDENCE
+    Route::get('incidences', [App\Http\Controllers\IncidenceController::class, 'index'])->name('incidences');
 
     //sendmail
     Route::get('send-email', [App\Http\Controllers\SendEmailController::class, 'sendEmail']);

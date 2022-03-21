@@ -11,12 +11,14 @@ class Incidence extends Model
 
     protected $fillable = [
         'id',
+        'store',
+        'client',
         'owner',
         'responsable',
         'impact',
         'status',
         'comments',
-        'closer',
+        'closed',
         'created_at'
     ];
 }

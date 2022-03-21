@@ -1,14 +1,28 @@
 @extends('layouts.dashboard')
 
 @section('content')
-<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-    <a class="btn btn-primary" href="{{route('users.new')}}">{{__('New Task')}}</a>
-</div>
+<div class="accordion" id="accordionExample">
+    
+
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingThree">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          {{__('Filters')}}
+        </button>
+      </h2>
+      <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+        </div>
+      </div>
+    </div>
+  </div>
 <table class="table table-hover table-striped">
     <thead>
         <tr>
-            <th scope="col">{{__('Store')}}</th>
-            <th scope="col">{{__('Expiration')}}</th>
+            <th scope="col">@sortablelink('store',__('Store'))</th>
+            <th scope="col">@sortablelink('client',__('Client'))</th>
+            <th scope="col">@sortablelink('expiration',__('Expiration'))</th>
             <th scope="col"></th>
         </tr>
     </thead>
@@ -22,12 +36,18 @@
             @switch($answer->status)
                 @case(0) <tr class="table-success"> @break
                 @case(1) <tr class="table-warning"> @break
-                @case(2) <tr class="table-warning"> @break
                 @case(3) <tr class="table-danger"> @break
             @endswitch
         @endif
             <td>
                 {{$store->name}}
+            </td>
+            <td>
+                @foreach($clients as $client)
+                @if($client->id == $answer->client)
+                {{$client->name}}
+                @endif
+                @endforeach
             </td>
             <td>
                 {{$answer->expiration}}
@@ -47,4 +67,5 @@
         @endforeach
     </tbody>
 </table>
+{{$answers->links()}}
 @endsection

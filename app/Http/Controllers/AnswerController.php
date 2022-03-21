@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Agent;
 use App\Models\Answer;
+use App\Models\Client;
 use App\Models\Store;
 use App\Models\Task;
 use App\Models\Incidence;
@@ -12,10 +13,11 @@ use Illuminate\Http\Request;
 class AnswerController extends Controller
 {
     public function index() {
-        $answers = Answer::all();
+        $answers = Answer::where('status','!=',2)->sortable()->paginate(10);
         $stores = Store::all();
+        $clients = Client::all();
 
-        return view('admin.answer.index',['answers' => $answers, 'stores' => $stores]);
+        return view('admin.answer.index',['answers' => $answers, 'stores' => $stores, 'clients' => $clients]);
     }
 
     public function view($id) {

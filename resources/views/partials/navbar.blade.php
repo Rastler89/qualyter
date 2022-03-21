@@ -1,7 +1,9 @@
 <nav id="sidebar" class="sidebar js-sidebar">
     <div class="sidebar-content js-simplebar">
-        <a class="sidebar-brand" href="index.html">
-            <span class="align-middle">{{ config('app.name', 'Laravel') }}</span>
+        <a class="sidebar-brand" href="index.html" style="text-align:center;padding:0;height:56px;background:white">
+            <span class="align-middle" style="padding:3px">
+                <img src="{{asset('/img/fixner_logo.png')}}" style="height:50px"/>    
+            </span>
         </a>
 
         <ul class="sidebar-nav">
@@ -31,9 +33,15 @@
                 {{__('Audit')}}
             </li>
             <li class="sidebar-item">
-                <a class="sidebar-link" href="#">
+                <a class="sidebar-link" href="{{route('incidences')}}">
                     <i class="align-middle" data-feather="alert-triangle"></i>
                     <span class="align-middle">{{__('Incidence')}}</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{route('incidences')}}">
+                    <i class="align-middle" data-feather="list"></i>
+                    <span class="align-middle">{{__('Answers')}}</span>
                 </a>
             </li>
 
