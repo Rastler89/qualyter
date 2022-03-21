@@ -44,6 +44,29 @@
 
 	<script src="https://unpkg.com/@adminkit/core@latest/dist/js/app.js"></script>
 	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+	<script type="module">
+		// Import the functions you need from the SDKs you need
+		import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.9/firebase-app.js";
+		import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.9/firebase-analytics.js";
+		// TODO: Add SDKs for Firebase products that you want to use
+		// https://firebase.google.com/docs/web/setup#available-libraries
+	  
+		// Your web app's Firebase configuration
+		// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+		const firebaseConfig = {
+		  apiKey: "AIzaSyDca6SrYPstzJ3bwwI9ypz4Cj8_gqxo3Qs",
+		  authDomain: "optimaqc-ff9bd.firebaseapp.com",
+		  projectId: "optimaqc-ff9bd",
+		  storageBucket: "optimaqc-ff9bd.appspot.com",
+		  messagingSenderId: "838780631674",
+		  appId: "1:838780631674:web:8523c1b7a317942b1c99c3",
+		  measurementId: "G-G5F8BSKSB3"
+		};
+	  
+		// Initialize Firebase
+		const app = initializeApp(firebaseConfig);
+		const analytics = getAnalytics(app);
+	  </script>
     @yield('javascript')
 </body>
 
