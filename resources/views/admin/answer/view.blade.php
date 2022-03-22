@@ -220,6 +220,10 @@ var elementPosition = $('#workOrder').offset();
 var elementWidth = $('#workOrder').width();
 
 $(document).ready(function() {
+  $('input[type=radio][name=valoration1]').val('');
+  $('input[type=radio][name=valoration2]').val('');
+  $('input[type=radio][name=valoration3]').val('');
+  $('input[type=radio][name=valoration4]').val('');
   $('input[type=radio][name=valoration1]').change(function() {
     $('#next1').css('visibility','visible');
   });

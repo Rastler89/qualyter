@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 //Auth::routes();
+Route::get('/', function(){
+    return redirect('/login');
+});
 
 Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm']);
 Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login');
@@ -69,6 +72,8 @@ Route::group(['middleware' => 'auth'], function () {
     //INCIDENCE
     Route::get('incidences', [App\Http\Controllers\IncidenceController::class, 'index'])->name('incidences');
     Route::get('incidences/{id}', [App\Http\Controllers\IncidenceController::class, 'view'])->name('incidences.view');
+    Route::post('incidences/{id}/changeAgent', [App\Http\Controllers\IncidenceController::class, 'changeAgent'])->name('incidences.changeAgent');
+    Route::post('incidences/{id}', [App\Http\Controllers\IncidenceController::class, 'modify'])->name('incidences.modify');
 
     //sendmail
     Route::get('send-email', [App\Http\Controllers\SendEmailController::class, 'sendEmail']);

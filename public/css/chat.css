@@ -1,0 +1,38 @@
+.btn-outline-high {
+  border: 1px solid orangered;
+  color: orangered;
+}
+.btn-outline-high:hover {
+  background: orangered;
+  color: white;
+}
+
+.chat {
+  list-style: none;
+  width: 100%;
+  padding: 0;
+}
+
+.body-message {
+  margin-bottom: 10px;
+  display: inline-block;
+  border-radius: 8px;
+  padding: 10px;
+}
+.body-message.m-agent {
+  background: #e3e3e3;
+  float: left;
+  margin-right: 50%;
+  width: 50%;
+  border-top-left-radius: 0;
+}
+.body-message.m-user {
+  background: #6CCE66;
+  color: #fff;
+  float: right;
+  width: 50%;
+  border-top-right-radius: 0;
+}
+.body-message strong {
+  display: block !important;
+}

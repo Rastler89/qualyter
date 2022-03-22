@@ -60,7 +60,9 @@ class AnswerController extends Controller
         $body = null;
 
         foreach($request->get('responsable') as $index => $responsable ) {
-            $body[0][] = $request['incidence'][$index];
+            $body[0]['message'] = $request['incidence'][$index];
+            $body[0]['owner'] = auth()->user()->id;
+            $body[0]['type'] = 'user';
 
             $task = explode('-',$request['responsable'][$index]);
 
@@ -69,7 +71,7 @@ class AnswerController extends Controller
             $incidence = new Incidence();
         
 
-            $incidence->responsable = auth()->user()->id; 
+            $incidence->responsable = auth()->user()->name; 
             $incidence->owner = $task[0];
             $incidence->impact = $request['impact'][$index];
             $incidence->status = 0;

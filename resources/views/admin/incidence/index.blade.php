@@ -1,17 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('styles')
-<style>
-.btn-outline-high {
-    border: 1px solid orangered;
-    color: orangered;
-}
-.btn-outline-high:hover {
-    background: orangered;
-    color: white;
-}
-</style>
-
+<link rel="stylesheet" href="{{ asset("css/chat.css") }}">
 @endsection
 
 @section('content')

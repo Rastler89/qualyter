@@ -9,6 +9,8 @@ class Incidence extends Model
 {
     use HasFactory;
 
+    protected $dates = ['closed'];
+
     protected $fillable = [
         'id',
         'store',
