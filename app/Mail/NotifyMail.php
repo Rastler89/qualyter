@@ -16,7 +16,7 @@ class NotifyMail extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($incidence)
     {
         //
     }
@@ -29,7 +29,7 @@ class NotifyMail extends Mailable
     public function build()
     {
         return $this->from('qc@optimaretail.es')
-                    ->subject('Patata con whisky')
+                    ->subject(__('New Incidence'))
                     ->view('emails.store');
     }
 }

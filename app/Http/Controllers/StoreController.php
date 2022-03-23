@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class StoreController extends Controller
 {
     public function index() {
-        $stores = Store::all();
+        $stores = Store::sortable()->paginate(20);
         $clients = Client::all();
         return view('admin.store.index', ['stores' => $stores, 'clients' => $clients]);
     }

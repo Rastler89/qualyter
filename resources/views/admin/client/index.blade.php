@@ -7,8 +7,8 @@
 <table class="table table-hover table-striped">
     <thead>
         <tr>
-            <th scope="col">{{__('Name')}}</th>
-            <th scope="col">{{__('Delegation')}}</th>
+            <th scope="col">@sortablelink('name',__('Name'))</th>
+            <th scope="col">@sortablelink('delegation',__('Delegation'))</th>
             <th scope="col">{{__('Phone Number')}}</th>
             <th scope="col">{{__('Email')}}</th>
             <th scope="col">{{__('Language')}}</th>
@@ -28,4 +28,5 @@
         @endforeach
     </tbody>
 </table>
+{{$clients->links()}}
 @endsection

@@ -176,7 +176,6 @@
               <select class="form-select form-select mb-3" id="responable[]" name="responsable[]" required>
                 <option selected>{{__('Please select responsable')}}</option>
                 @foreach($owners as $owner)
-                <!--<option value="{{$owner->id}}">{{$owner->name}}</option>-->
                 <optgroup label="{{$owner->name}}">
                   @foreach($tasks as $task)
                     @if($task->owner == $owner->id)

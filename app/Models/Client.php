@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
 
 class Client extends Model
 {
-    use HasFactory;
+    use HasFactory, Sortable;
 
     protected $fillable = [
         'id',
@@ -16,6 +17,11 @@ class Client extends Model
         'phonenumber',
         'email',
         'language'
+    ];
+
+    public $sortable = [
+        'name',
+        'delegation'
     ];
 
     public function comments() {

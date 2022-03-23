@@ -11,7 +11,7 @@ class SendEmailController extends Controller
 {
      
     public function sendEmail() {
-        Mail::to('daniel.molina@optimaretail.es')->send(new NotifyMail());
+        Mail::to('daniel.molina@optimaretail.es')->locale('es')->send(new NotifyMail());
         echo"OK";
     } 
 }

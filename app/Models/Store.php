@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
 
 class Store extends Model
 {
-    use HasFactory;
+    use HasFactory, Sortable;
 
     public $timestamps = false;
     public $incrementing = false;
@@ -21,6 +22,11 @@ class Store extends Model
         'language',
         'client',
         'contact'
+    ];
+
+    public $sortable = [
+        'code',
+        'name'
     ];
 
     

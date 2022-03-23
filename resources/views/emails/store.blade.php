@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
- <title>Laravel 9 Send Email Example</title>
+ <title>{{__('Tasks')}}</title>
 </head>
 <body>
  
- <h1>This is test mail from Tutsmake.com</h1>
- <p>Laravel 9 send email example</p>
+ <h1>{{__('New Incidence')}}</h1>
+<ul>
+    <li>Responsable: {{$responsable}}</li>
+    <li>Owner: {{$owner}}</li>
+    <li>Impact: {{$impact}}</li>
+</ul>
  
 </body>
 </html> 

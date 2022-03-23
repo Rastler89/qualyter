@@ -9,6 +9,8 @@ use App\Models\Store;
 use App\Models\Task;
 use App\Models\Incidence;
 use Illuminate\Http\Request;
+use Mail;
+use App\Mail\NotifyMail;
 
 class AnswerController extends Controller
 {
@@ -59,30 +61,39 @@ class AnswerController extends Controller
         $answer->save();
         $body = null;
 
-        foreach($request->get('responsable') as $index => $responsable ) {
-            $body[0]['message'] = $request['incidence'][$index];
-            $body[0]['owner'] = auth()->user()->id;
-            $body[0]['type'] = 'user';
+        if($request['responsable'] != null) {
+            foreach($request->get('responsable') as $index => $responsable ) {
+                $body[0]['message'] = $request['incidence'][$index];
+                $body[0]['owner'] = auth()->user()->id;
+                $body[0]['type'] = 'user';
+    
+                $task = explode('-',$request['responsable'][$index]);
+    
+                $ot = Task::where('code','=',$task[1])->first();
+    
+                $incidence = new Incidence();
+    
+                $incidence->responsable = auth()->user()->id; 
+                $incidence->owner = $task[0];
+                $incidence->impact = $request['impact'][$index];
+                $incidence->status = 0;
+                $incidence->comments = json_encode($body);
+                $incidence->client = $answer->client;
+                $incidence->store = $answer->store;
+                $incidence->order = json_encode($ot);
+    
+                $incidence->save();
 
-            $task = explode('-',$request['responsable'][$index]);
-
-            $ot = Task::where('code','=',$task[1])->first();
-
-            $incidence = new Incidence();
-        
-
-            $incidence->responsable = auth()->user()->name; 
-            $incidence->owner = $task[0];
-            $incidence->impact = $request['impact'][$index];
-            $incidence->status = 0;
-            $incidence->comments = json_encode($body);
-            $incidence->client = $answer->client;
-            $incidence->store = $answer->store;
-            $incidence->order = json_encode($ot);
-
-            $incidence->save();
-
-            $body = null;
+                $body['responsable']=auth()->user()->name;
+                $body['owner'] = $task[0];
+                $body['impact'] = $request['impact'][$index];
+    
+                Mail::send('emails.store',$body,function($message) {
+                    $message->to('daniel.molina@optimaretail.es','Daniel')->subject(__('New Incidence'));
+                    $message->from('qc@optimaretail.es');
+                });
+                $body = null;
+            }
         }
 
 
