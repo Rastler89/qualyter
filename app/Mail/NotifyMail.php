@@ -16,7 +16,7 @@ class NotifyMail extends Mailable
      *
      * @return void
      */
-    public function __construct($incidence)
+    public function __construct()
     {
         //
     }

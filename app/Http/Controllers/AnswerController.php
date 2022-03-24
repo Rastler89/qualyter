@@ -58,7 +58,7 @@ class AnswerController extends Controller
         $answer->status = 2;
         $answer->answer = json_encode($body,true);
 
-        $answer->save();
+        //$answer->save();
         $body = null;
 
         if($request['responsable'] != null) {
@@ -82,11 +82,13 @@ class AnswerController extends Controller
                 $incidence->store = $answer->store;
                 $incidence->order = json_encode($ot);
     
-                $incidence->save();
+                //$incidence->save();
 
                 $body['responsable']=auth()->user()->name;
-                $body['owner'] = $task[0];
+                $body['owner'] = Agent::find($task[0]);
                 $body['impact'] = $request['impact'][$index];
+                $body['ot'] = $ot;
+                $body['comment'] = '';
     
                 Mail::send('emails.store',$body,function($message) {
                     $message->to('daniel.molina@optimaretail.es','Daniel')->subject(__('New Incidence'));
