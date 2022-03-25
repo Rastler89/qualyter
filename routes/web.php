@@ -74,8 +74,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('incidences/{id}', [App\Http\Controllers\IncidenceController::class, 'view'])->name('incidences.view');
     Route::post('incidences/{id}/changeAgent', [App\Http\Controllers\IncidenceController::class, 'changeAgent'])->name('incidences.changeAgent');
     Route::post('incidences/{id}', [App\Http\Controllers\IncidenceController::class, 'modify'])->name('incidences.modify');
-
     //sendmail
     Route::get('send-email', [App\Http\Controllers\SendEmailController::class, 'sendEmail']);
 
 });
+// INCIDENCE
+    // AGENT
+Route::get('agent/incidence/{id}', [App\Http\Controllers\IncidenceController::class, 'response'])->name('incidences.agent');

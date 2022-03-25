@@ -9,6 +9,7 @@ use App\Models\Store;
 use App\Models\Task;
 use App\Models\Incidence;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Mail;
 use App\Mail\NotifyMail;
 
@@ -58,7 +59,7 @@ class AnswerController extends Controller
         $answer->status = 2;
         $answer->answer = json_encode($body,true);
 
-        //$answer->save();
+        $answer->save();
         $body = null;
 
         if($request['responsable'] != null) {
@@ -81,8 +82,9 @@ class AnswerController extends Controller
                 $incidence->client = $answer->client;
                 $incidence->store = $answer->store;
                 $incidence->order = json_encode($ot);
+                $incidence->token = Str::random(8);
     
-                //$incidence->save();
+                $incidence->save();
 
                 $body['responsable']=auth()->user()->name;
                 $body['owner'] = Agent::find($task[0]);
@@ -92,7 +94,7 @@ class AnswerController extends Controller
     
                 Mail::send('emails.store',$body,function($message) {
                     $message->to('daniel.molina@optimaretail.es','Daniel')->subject(__('New Incidence'));
-                    $message->from('qc@optimaretail.es');
+                    $message->from('qc@optimaretail.es'); 
                 });
                 $body = null;
             }

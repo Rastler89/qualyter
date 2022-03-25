@@ -60,4 +60,8 @@ class IncidenceController extends Controller
 
         return redirect()->to('/incidences');
     }
+
+    public function response($id) {
+        
+    }
 }

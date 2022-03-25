@@ -23,6 +23,7 @@ return new class extends Migration
             $table->tinyInteger('status');
             $table->json('comments');
             $table->json('order');
+            $table->string('token',8);
             $table->timestamp('closed')->nullable();
             $table->timestamps();
 
