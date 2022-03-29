@@ -43,40 +43,37 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('roles/edit/{id}', [App\Http\Controllers\RoleController::class, 'update'])->middleware('permission:edit-roles')->name('roles.update');
     Route::delete('roles/{id}', [App\Http\Controllers\RoleController::class, 'delete'])->middleware('permission:edit-roles')->name('roles.delete');
     // UPLOAD
-    Route::get('bulk', [App\Http\Controllers\UploadController::class, 'index'])->name('uploads');
-    Route::post('bulk/tasks', [App\Http\Controllers\UploadController::class, 'pushTasks'])->name('uploads.tasks');
-    Route::post('bulk/agents', [App\Http\Controllers\UploadController::class, 'pushAgents'])->name('uploads.agents');
-    Route::post('bulk/stores', [App\Http\Controllers\UploadController::class, 'pushStores'])->name('uploads.stores');
-    Route::post('bulk/clients', [App\Http\Controllers\UploadController::class, 'pushClients'])->name('uploads.clients');
+    Route::get('bulk', [App\Http\Controllers\UploadController::class, 'index'])->middleware('permission:view-bulks')->name('uploads');
+    Route::post('bulk/tasks', [App\Http\Controllers\UploadController::class, 'pushTasks'])->middleware('permission:bulk-talks')->name('uploads.tasks');
+    Route::post('bulk/agents', [App\Http\Controllers\UploadController::class, 'pushAgents'])->middleware('permission:bulk-agents')->name('uploads.agents');
+    Route::post('bulk/stores', [App\Http\Controllers\UploadController::class, 'pushStores'])->middleware('permission:bulk-stores')->name('uploads.stores');
+    Route::post('bulk/clients', [App\Http\Controllers\UploadController::class, 'pushClients'])->middleware('permission:bulk-clients')->name('uploads.clients');
     // CLIENT
-    Route::get('clients', [App\Http\Controllers\ClientController::class, 'index'])->name('clients');
-    Route::get('clients/new', [App\Http\Controllers\ClientController::class, 'new'])->name('clients.new');
-    Route::post('clients/new', [App\Http\Controllers\ClientController::class, 'create'])->name('clients.create');
-    Route::get('clients/edit/{id}', [App\Http\Controllers\ClientController::class, 'edit'])->name('clients.edit');
-    Route::put('clients/edit/{id}', [App\Http\Controllers\ClientController::class, 'update'])->name('clients.update');
+    Route::get('clients', [App\Http\Controllers\ClientController::class, 'index'])->middleware('permission:view-clients')->name('clients');
+    Route::get('clients/new', [App\Http\Controllers\ClientController::class, 'new'])->middleware('permission:add-clients')->name('clients.new');
+    Route::post('clients/new', [App\Http\Controllers\ClientController::class, 'create'])->middleware('permission:add-clients')->name('clients.create');
+    Route::get('clients/edit/{id}', [App\Http\Controllers\ClientController::class, 'edit'])->middleware('permission:edit-clients')->name('clients.edit');
+    Route::put('clients/edit/{id}', [App\Http\Controllers\ClientController::class, 'update'])->middleware('permission:edit-clients')->name('clients.update');
     // STORE
-    Route::get('stores', [App\Http\Controllers\StoreController::class, 'index'])->name('stores');
-    Route::get('stores/new', [App\Http\Controllers\StoreController::class, 'new'])->name('stores.new');
-    Route::post('stores/new', [App\Http\Controllers\StoreController::class, 'create'])->name('stores.create');
-    Route::get('stores/edit/{id}', [App\Http\Controllers\StoreController::class, 'edit'])->name('stores.edit');
-    Route::put('stores/edit/{id}', [App\Http\Controllers\StoreController::class, 'update'])->name('stores.update');
+    Route::get('stores', [App\Http\Controllers\StoreController::class, 'index'])->middleware('permission:view-stores')->name('stores');
+    Route::get('stores/new', [App\Http\Controllers\StoreController::class, 'new'])->middleware('permission:add-stores')->name('stores.new');
+    Route::post('stores/new', [App\Http\Controllers\StoreController::class, 'create'])->middleware('permission:add-stores')->name('stores.create');
+    Route::get('stores/edit/{id}', [App\Http\Controllers\StoreController::class, 'edit'])->middleware('permission:edit-stores')->name('stores.edit');
+    Route::put('stores/edit/{id}', [App\Http\Controllers\StoreController::class, 'update'])->middleware('permission:edit-stores')->name('stores.update');
     // AGENT
-    Route::get('agents', [App\Http\Controllers\AgentController::class, 'index'])->name('agents');
-    Route::post('agents/new', [App\Http\Controllers\AgentController::class, 'create'])->name('agents.create');
-    Route::put('agents/edit/{id}', [App\Http\Controllers\AgentController::class, 'update'])->name('agents.update');
+    Route::get('agents', [App\Http\Controllers\AgentController::class, 'index'])->middleware('permission:view-agents')->name('agents');
+    Route::post('agents/new', [App\Http\Controllers\AgentController::class, 'create'])->middleware('permission:add-agents')->name('agents.create');
+    Route::put('agents/edit/{id}', [App\Http\Controllers\AgentController::class, 'update'])->middleware('permission:edit-agents')->name('agents.update');
     // TASK
-    Route::get('tasks', [App\Http\Controllers\AnswerController::class, 'index'])->name('tasks');
-    Route::get('tasks/view/{id}', [App\Http\Controllers\AnswerController::class, 'view'])->name('tasks.view');
-    Route::post('tasks/view/{id}', [App\Http\Controllers\AnswerController::class, 'response'])->name('tasks.response');
+    Route::get('tasks', [App\Http\Controllers\AnswerController::class, 'index'])->middleware('permission:view-tasks')->name('tasks');
+    Route::get('tasks/view/{id}', [App\Http\Controllers\AnswerController::class, 'view'])->middleware('permission:response-tasks')->name('tasks.view');
+    Route::post('tasks/view/{id}', [App\Http\Controllers\AnswerController::class, 'response'])->middleware('permission:response-tasks')->name('tasks.response');
     
     //INCIDENCE
-    Route::get('incidences', [App\Http\Controllers\IncidenceController::class, 'index'])->name('incidences');
-    Route::get('incidences/{id}', [App\Http\Controllers\IncidenceController::class, 'view'])->name('incidences.view');
-    Route::post('incidences/{id}/changeAgent', [App\Http\Controllers\IncidenceController::class, 'changeAgent'])->name('incidences.changeAgent');
-    Route::post('incidences/{id}', [App\Http\Controllers\IncidenceController::class, 'modify'])->name('incidences.modify');
-    //sendmail
-    Route::get('send-email', [App\Http\Controllers\SendEmailController::class, 'sendEmail']);
-
+    Route::get('incidences', [App\Http\Controllers\IncidenceController::class, 'index'])->middleware('permission:view-incidences')->name('incidences');
+    Route::get('incidences/{id}', [App\Http\Controllers\IncidenceController::class, 'view'])->middleware('permission:response-incidences')->name('incidences.view');
+    Route::post('incidences/{id}/changeAgent', [App\Http\Controllers\IncidenceController::class, 'changeAgent'])->middleware('permission:change-incidences')->name('incidences.changeAgent');
+    Route::post('incidences/{id}', [App\Http\Controllers\IncidenceController::class, 'modify'])->middleware('permission:response-incidences')->name('incidences.modify');
 });
 // INCIDENCE
     // AGENT

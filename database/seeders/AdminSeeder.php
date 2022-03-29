@@ -22,7 +22,7 @@ class AdminSeeder extends Seeder {
                 'name' => 'Modificar roles'
             ], [
                 'slug' => 'assign-roles',
-                'name' => 'Assignar rol'
+                'name' => 'Asignar rol'
             ], [
                 'slug' => 'edit-users',
                 'name' => 'Modificar Usuarios'
@@ -32,6 +32,66 @@ class AdminSeeder extends Seeder {
             ], [
                 'slug' => 'view-users',
                 'name' => 'Ver Usuarios'
+            ], [
+                'slug' => 'view-bulks',
+                'name' => 'Ver uploads'
+            ], [
+                'slug' => 'bulk-talks',
+                'name' => 'Uploads: tasks'
+            ], [
+                'slug' => 'bulk-agents',
+                'name' => 'Uploads: agents'
+            ], [
+                'slug' => 'bulk-stores',
+                'name' => 'Uploads: stores'
+            ], [
+                'slug' => 'bulk-clients',
+                'name' => 'Uploads: clients'
+            ], [
+                'slug' => 'view-clients',
+                'name' => 'Ver clientes'
+            ], [
+                'slug' => 'add-clients',
+                'name' => 'Agregar clientes'
+            ], [
+                'slug' => 'edit-clients',
+                'name' => 'Editar Clientes'
+            ], [
+                'slug' => 'view-stores',
+                'name' => 'Ver tiendas'
+            ], [
+                'slug' => 'add-stores',
+                'name' => 'Agregar tiendas'
+            ], [
+                'slug' => 'edit-stores',
+                'name' => 'Editar tiendas'
+            ], [
+                'slug' => 'view-agents',
+                'name' => 'Ver agentes'
+            ], [
+                'slug' => 'add-agents',
+                'name' => 'Agregar agentes'
+            ], [
+                'slug' => 'edit-agents',
+                'name' => 'Editar agentes'
+            ], [
+                'slug' => 'view-tasks',
+                'name' => 'Ver tareas'
+            ], [
+                'slug' => 'response-tasks',
+                'name' => 'Gestionar tareas'
+            ], [
+                'slug' => 'view-incidences',
+                'name' => 'Ver incidencias'
+            ], [
+                'slug' => 'change-incidences',
+                'name' => 'Cambiar agente/incidencia'
+            ], [
+                'slug' => 'response-incidences',
+                'name' => 'Gestionar incidencia'
+            ], [
+                'slug' => 'translates',
+                'name' => 'Traducciones'
             ]
         ]);
 
