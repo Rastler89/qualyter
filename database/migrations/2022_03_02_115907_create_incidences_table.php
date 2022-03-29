@@ -24,7 +24,7 @@ return new class extends Migration
             $table->json('comments');
             $table->json('order');
             $table->string('token',8);
-            $table->timestamp('closed')->nullable();
+            $table->timestamp('closed')->useCurrent();
             $table->timestamps();
 
             $table->foreign('client')->references('id')->on('clients')->onDelete('cascade');

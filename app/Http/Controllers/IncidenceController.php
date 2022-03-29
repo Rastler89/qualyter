@@ -61,7 +61,40 @@ class IncidenceController extends Controller
         return redirect()->to('/incidences');
     }
 
-    public function response($id) {
-        
+    public function response($id, Request $request) {
+        $incidence = Incidence::find($id);
+
+        if($incidence->token != $request->get('code')) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $store = Store::where('code','=',$incidence->store)->get();
+        $user = User::find($incidence->responsable);
+        $agent = Agent::find($incidence->owner);
+        $order = json_decode($incidence->order);
+        $comments = json_decode($incidence->comments);
+        $agents = Agent::all();
+
+        return view('public.agent', ['incidence' => $incidence, 'store' => $store[0], 'user' => $user, 'agent' => $agent, 'order' => $order, 'comments' => $comments, 'agents' => $agents]);
+    }
+
+    public function update($id, Request $request) {
+        $incidence = Incidence::find($id);
+        $incidence->status = 1;
+        $incidence->closed = $request->get('closed');
+
+        $comments = json_decode($incidence->comments);
+
+        $body_message['message'] = $request->get('message');
+        $body_message['owner'] = $request->get('agent');
+        $body_message['type'] = 'agent';
+
+        $comments[] = $body_message;
+
+        $incidence->comments = json_encode($comments);
+
+        $incidence->save();
+
+        return 'ok';
     }
 }

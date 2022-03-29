@@ -65,7 +65,7 @@ class AnswerController extends Controller
         if($request['responsable'] != null) {
             foreach($request->get('responsable') as $index => $responsable ) {
                 $body[0]['message'] = $request['incidence'][$index];
-                $body[0]['owner'] = auth()->user()->id;
+                $body[0]['owner'] = auth()->user()->name;
                 $body[0]['type'] = 'user';
     
                 $task = explode('-',$request['responsable'][$index]);
@@ -89,11 +89,13 @@ class AnswerController extends Controller
                 $body['responsable']=auth()->user()->name;
                 $body['owner'] = Agent::find($task[0]);
                 $body['impact'] = $request['impact'][$index];
+                $body['token'] = $incidence->token;
                 $body['ot'] = $ot;
-                $body['comment'] = '';
+                $body['id'] = $incidence->id;
+                $body['comment'] = $request['incidence'][$index];
     
                 Mail::send('emails.store',$body,function($message) {
-                    $message->to('daniel.molina@optimaretail.es','Daniel')->subject(__('New Incidence'));
+                    $message->to('test@optimaretail.es','Daniel')->subject(__('New Incidence'));
                     $message->from('qc@optimaretail.es'); 
                 });
                 $body = null;

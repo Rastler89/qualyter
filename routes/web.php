@@ -81,3 +81,4 @@ Route::group(['middleware' => 'auth'], function () {
 // INCIDENCE
     // AGENT
 Route::get('agent/incidence/{id}', [App\Http\Controllers\IncidenceController::class, 'response'])->name('incidences.agent');
+Route::post('agent/incidence/{id}', [App\Http\Controllers\IncidenceController::class, 'update'])->name('incidences.update');

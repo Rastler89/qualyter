@@ -61,15 +61,19 @@
                                     
                                     <input type="radio" class="btn-check" name="status" id="danger-outlined" autocomplete="off" value="4">
                                     <label class="btn btn-outline-dark" for="danger-outlined">{{__('Complete')}}</label>
-                                @else
+                                @elseif($incidence->status == 1)
                                     <input type="radio" class="btn-check" name="status" id="success-outlined" autocomplete="off" @if($incidence->status == 1) checked @endif value="2">
                                     <label class="btn btn-outline-success" for="success-outlined">{{__('Accept')}}</label>
                                     
                                     <input type="radio" class="btn-check" name="status" id="danger-outlined" autocomplete="off" @if($incidence->status == 3) checked @endif value="3">
                                     <label class="btn btn-outline-danger" for="danger-outlined">{{__('Refuse')}}</label>
+                                @else
+                                    <button class="btn btn-outline-dark">{{__('Refused')}}</button>
                                 @endif
                             @endif
                         </div>
+
+                        
                     </div>
 
                     <div class="row">
@@ -102,7 +106,7 @@
                             </strong>
                             <div class="text-muted">{{__('Closed Day')}}</div>
                             <strong>
-                                <input class="form-control" type="date" id="closed" name="closed" value="{{$incidence->closed->format('Y-m-d')}}" />
+.                                <input class="form-control" type="date" id="closed" name="closed" value="{{$incidence->closed->format('Y-m-d')}}" />
                             </strong>
                         </div>
                     </div>

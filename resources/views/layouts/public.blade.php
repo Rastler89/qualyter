@@ -26,12 +26,8 @@
 </head>
 
 <body>
-	<div class="wrapper">
-        @include('partials.navbar')
-		
-
+	<div class="wrapper">	
 		<div class="main">
-			@include('partials.sectionHeader')
 			<main class="content">
 				<div class="container-fluid p-0">
 					@include('partials.alerts')
