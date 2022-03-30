@@ -34,6 +34,6 @@ class NotifyMail extends Mailable
         return $this->from('qc@optimaretail.es')
                     ->subject(__('New Incidence'))
                     ->locale('es')
-                    ->view('emails.store');
+                    ->view('emails.incidence');
     }
 }

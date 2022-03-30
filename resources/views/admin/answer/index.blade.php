@@ -54,9 +54,9 @@
             </td>
             <td>
                 @if($store->phonenumber!=null)
-                    <a href="{{route('tasks.view',['id'=>$answer->id])}}" class="btn btn-outline-primary"><i class="align-middle" data-feather="phone"></i></a>
+                    <a href="{{route('tasks.view',['id'=>$answer->id])}}" class="btn btn-outline-primary @if($answer->user != $id && $answer->user != null) disabled @endif"><i class="align-middle" data-feather="phone"></i></a>
                 @elseif($store->email!=null)
-                    <a href="#" class="btn btn-outline-primary"><i class="align-middle" data-feather="send"></i></a>
+                    <a href="#" class="btn btn-outline-primary @if($answer->user != null && $answer->user != $id) disabled @endif"><i class="align-middle" data-feather="send"></i></a>
                 @else 
                     <a href="{{route('stores.edit',['id'=>$store->id])}}" class="btn btn-outline-warning"><i class="align-middle" data-feather="edit"></i></a>
                 @endif

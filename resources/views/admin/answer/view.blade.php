@@ -20,7 +20,7 @@
           </div>
           <div class="col" style="position:relative;">
             <p><strong>{{__('Phone Number')}}</strong></p>
-            <a id="phoneNumber" style="position:absolute;" href="tel:+@if($store->language=='ES' || $store->language==null || $store->language==' ') 34 @endif {{$store->phonenumber}}" onclick="initTime()">{{$store->phonenumber}}</a>
+            <a id="phoneNumber" class="btn btn-outline-primary" style="position:absolute;" href="tel:+@if($store->language=='ES' || $store->language==null || $store->language==' ') 34 @endif {{$store->phonenumber}}" onclick="initTime()">{{$store->phonenumber}}</a>
             <button type="button" id="notRespond" class="btn btn-danger" style="position:absolute;visibility:hidden;">no responde</button>
           </div>
         </div>
@@ -54,20 +54,20 @@
   <div class="col-8 col-sm-8">
     <form method="POST" action="{{route('tasks.response', ['id' => $answer->id])}}">
       @csrf
-      <h4>Progress</h4>
+      <h4>{{__('Progress')}}</h4>
       <div class="progress">
         <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width:0;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">%</div>
       </div>
       <div class="form-dynamic">
         <div id="part1" class="question">
-          <h4>Que puntuación global nos darías?</h4>
+          <h4>{{__('What overall score would you give us?')}}</h4>
           <div class="mb-3">
             <div class="legend" style="--s:80px">
-              <label>suspenso</label>
-              <label>suficiente</label>
-              <label>regular</label>
-              <label>Notable</label>
-              <label>Excelente</label>
+              <label>{{__('Suspense')}}</label>
+              <label>{{__('Sufficient')}}</label>
+              <label>{{__('Regular')}}</label>
+              <label>{{__('Remarkable')}}</label>
+              <label>{{__('Excelent')}}</label>
             </div>
             <div class="rating" style="--s:80px">
               <input type="radio" name="valoration1" value="5" id="valoration1-5"><label for="valoration1-5">5</label>
@@ -84,14 +84,14 @@
           <button type="button" id="next1" onclick="next(2)" style="width:100%;visibility:hidden;" class="btn btn-primary btn-lg btn-block">Next</button>
         </div>
         <div id="part2" class="question">
-          <h4>Califica la rapidez de nuestro servicio</h4>
+          <h4>{{__('Rate the speed of our service')}}</h4>
           <div class="mb-3">
             <div class="legend" style="--s:80px">
-              <label>Muy lento</label>
-              <label>Lento</label>
-              <label>Normal</label>
-              <label>Rápido</label>
-              <label>Muy rápido</label>
+              <label>{{__('Very slow')}}</label>
+              <label>{{__('Slow')}}</label>
+              <label>{{__('Normal')}}</label>
+              <label>{{__('Fast')}}</label>
+              <label>{{__('Very fast')}}</label>
             </div>
             <div class="rating" style="--s:80px">
               <input type="radio" name="valoration2" value="5" id="valoration2-5"><label for="valoration2-5">5</label>
@@ -111,14 +111,14 @@
           </div>
         </div>
         <div id="part3" class="question">
-          <h4>Valora la amabilidad/trato de nuestros técnicos</h4>
+          <h4>{{__('Appreciates the friendliness of our technicians')}}</h4>
           <div class="mb-3">
             <div class="legend" style="--s:80px">
-              <label>Muy malo</label>
-              <label>Malo</label>
-              <label>Normal</label>
-              <label>Bueno</label>
-              <label>Excelente</label>
+              <label>{{__('Very bad')}}</label>
+              <label>{{__('Bad')}}</label>
+              <label>{{__('Normal')}}</label>
+              <label>{{__('Well')}}</label>
+              <label>{{__('Very good')}}</label>
             </div>
             <div class="rating" style="--s:80px">
               <input type="radio" name="valoration3" value="5" id="valoration3-5"><label for="valoration3-5">5</label>
@@ -138,14 +138,14 @@
           </div>
         </div>
         <div id="part4" class="question">
-          <h4>Puntúa la capacidad de resolución de las incidencia/as</h4>
+          <h4>{{__('Scores the resolution capacity of the incidences')}}</h4>
           <div class="mb-3">
             <div class="legend" style="--s:80px">
-              <label>Muy malo</label>
-              <label>Malo</label>
-              <label>Normal</label>
-              <label>Bueno</label>
-              <label>Excelente</label>
+              <label>{{__('Very bad')}}</label>
+              <label>{{__('Bad')}}</label>
+              <label>{{__('Normal')}}</label>
+              <label>{{__('Well')}}</label>
+              <label>{{__('Very good')}}</label>
             </div>
             <div class="rating" style="--s:80px">
               <input type="radio" name="valoration4" value="5" id="valoration4-5"><label for="valoration4-5">5</label>
@@ -165,7 +165,7 @@
           </div>
         </div>
         <div id="part5" class="question">
-          <h4>Se ha generado incidencia?</h4>
+          <h4>{{__('Has there been any impact on this visit?')}}</h4>
           <div class="btn-group" role="group" aria-label="Incidence" style="width:100%">
             <button type="button" style="width:50%" class="btn btn-danger btn-lg" onclick="showIncidence()">{{__('Yes')}}</button>
             <button style="width:50%" class="btn btn-success btn-lg">{{__('No (Close Questionnaire)')}}</button>

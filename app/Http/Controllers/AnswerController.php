@@ -20,7 +20,9 @@ class AnswerController extends Controller
         $stores = Store::all();
         $clients = Client::all();
 
-        return view('admin.answer.index',['answers' => $answers, 'stores' => $stores, 'clients' => $clients]);
+        $id = auth()->user()->id;
+
+        return view('admin.answer.index',['answers' => $answers, 'stores' => $stores, 'clients' => $clients, 'id' => $id]);
     }
 
     public function view($id) {
@@ -59,7 +61,7 @@ class AnswerController extends Controller
         $answer->status = 2;
         $answer->answer = json_encode($body,true);
 
-        //$answer->save();
+        $answer->save();
         $body = null;
 
         if($request['responsable'] != null) {
@@ -84,7 +86,7 @@ class AnswerController extends Controller
                 $incidence->order = json_encode($ot);
                 $incidence->token = Str::random(8);
     
-                //$incidence->save();
+                $incidence->save();
 
                 $agent = Agent::find($task[0]);
                 $body = [];
@@ -98,13 +100,8 @@ class AnswerController extends Controller
                     'comment' => $request['incidence'][$index]
                 ];
 
-                Mail::to('daniel.molina@optimaretail.es')->send(new NotifyMail($body));
-                /*Mail::send('emails.store',$body,function($message) use ($agent) {
-                    
-                    $message->to($agent['email'])->subject(__('New Incidence'));
-                    $message->from('qc@optimaretail.es'); 
-                    $message->locale('ES');
-                });*/
+                Mail::to($agent['email'])->send(new NotifyMail($body));
+
                 $body = null;
             }
         }
