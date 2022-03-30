@@ -45,13 +45,13 @@ class UserController extends Controller
     }
 
     public function create(Request $request) {
+        print_r($request->get('password'));
+        echo"<hr>";
+        print_r($request->get('password-confirmation'));
         $validated = $request->validate([
             'name' => 'required',
             'email' => 'required|unique:users', 
-            'password' => ['required', 
-                'min:6', 
-                'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/', 
-                'confirmed'],
+            'password' => 'required|between:8,255|confirmed',
         ]);
 
         $user = new User;

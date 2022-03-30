@@ -20,7 +20,7 @@
           </div>
           <div class="col" style="position:relative;">
             <p><strong>{{__('Phone Number')}}</strong></p>
-            <a id="phoneNumber" style="position:absolute;" href="tel:+@if($store->language=='ES' || $store->language==null || $store->language==' ') 34 @endif 617370097" onclick="initTime()">617370097</a>
+            <a id="phoneNumber" style="position:absolute;" href="tel:+@if($store->language=='ES' || $store->language==null || $store->language==' ') 34 @endif {{$store->phonenumber}}" onclick="initTime()">{{$store->phonenumber}}</a>
             <button type="button" id="notRespond" class="btn btn-danger" style="position:absolute;visibility:hidden;">no responde</button>
           </div>
         </div>

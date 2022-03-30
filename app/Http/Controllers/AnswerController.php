@@ -59,7 +59,7 @@ class AnswerController extends Controller
         $answer->status = 2;
         $answer->answer = json_encode($body,true);
 
-        $answer->save();
+        //$answer->save();
         $body = null;
 
         if($request['responsable'] != null) {
@@ -84,20 +84,27 @@ class AnswerController extends Controller
                 $incidence->order = json_encode($ot);
                 $incidence->token = Str::random(8);
     
-                $incidence->save();
+                //$incidence->save();
 
-                $body['responsable']=auth()->user()->name;
-                $body['owner'] = Agent::find($task[0]);
-                $body['impact'] = $request['impact'][$index];
-                $body['token'] = $incidence->token;
-                $body['ot'] = $ot;
-                $body['id'] = $incidence->id;
-                $body['comment'] = $request['incidence'][$index];
-    
-                Mail::send('emails.store',$body,function($message) {
-                    $message->to('test@optimaretail.es','Daniel')->subject(__('New Incidence'));
+                $agent = Agent::find($task[0]);
+                $body = [];
+                $body = [
+                    'responsable' => auth()->user()->name,
+                    'owner' => $agent,
+                    'impact' => $request['impact'][$index],
+                    'token' => $incidence->token,
+                    'ot' => $ot,
+                    'id' => $incidence->id,
+                    'comment' => $request['incidence'][$index]
+                ];
+
+                Mail::to('daniel.molina@optimaretail.es')->send(new NotifyMail($body));
+                /*Mail::send('emails.store',$body,function($message) use ($agent) {
+                    
+                    $message->to($agent['email'])->subject(__('New Incidence'));
                     $message->from('qc@optimaretail.es'); 
-                });
+                    $message->locale('ES');
+                });*/
                 $body = null;
             }
         }

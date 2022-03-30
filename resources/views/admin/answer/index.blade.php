@@ -58,7 +58,7 @@
                 @elseif($store->email!=null)
                     <a href="#" class="btn btn-outline-primary"><i class="align-middle" data-feather="send"></i></a>
                 @else 
-                    <a href="#" class="btn btn-outline-warning"><i class="align-middle" data-feather="edit"></i></a>
+                    <a href="{{route('stores.edit',['id'=>$store->id])}}" class="btn btn-outline-warning"><i class="align-middle" data-feather="edit"></i></a>
                 @endif
             </td>
         </tr>

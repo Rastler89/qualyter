@@ -36,7 +36,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="password-confirmation" class="form-label">{{__('Repeat Password')}}</label>
-                        <input type="password" class="form-control" id="re-password" name="password-confirmation" placeholder="*****" />
+                        <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="*****" />
                     </div>
                 </div>
             </div>
