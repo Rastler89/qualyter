@@ -214,7 +214,8 @@
 
 @section('javascript')
 <script>
-var totalSeconds, items = 0;
+var totalSeconds = 0; var items = 0;
+var countTime;
 var elementPosition = $('#workOrder').offset();
 var elementWidth = $('#workOrder').width();
 
@@ -225,6 +226,7 @@ $(document).ready(function() {
   $('input[type=radio][name=valoration4]').val('');
   $('input[type=radio][name=valoration1]').change(function() {
     $('#next1').css('visibility','visible');
+    clearInterval(countTime);
   });
   $('input[type=radio][name=valoration2]').change(function() {
     $('#next2').css('visibility','visible');
@@ -276,19 +278,17 @@ function prev(id) {
 }
 
 function initTime() {
-  setInterval(setTime,1000);
+  countTime = setInterval(setTime,1000);
 }
 
 function setTime() {
   ++totalSeconds;
-  if(totalSeconds == 30 && !(part1)) {
+  if(totalSeconds == 30) {
     $('#phoneNumber').css('visibility','hidden');
     $('#notRespond').css('visibility','visible');
   } 
-  if(part1) {
-    $('#phoneNumber').css('visibility','visible');
-    $('#notRespond').css('visibility','hidden');
-  }
+
+  console.log(totalSeconds);
 }
 
 function showIncidence() {
