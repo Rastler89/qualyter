@@ -14,6 +14,7 @@ class Store extends Model implements Auditable
 
     public $timestamps = false;
     public $incrementing = false;
+    protected $primaryKey = 'code';
 
     protected $fillable = [
         'code',

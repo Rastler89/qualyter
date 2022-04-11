@@ -46,8 +46,11 @@ class UploadController extends Controller
                 $task->owner = ($owner==null) ? 11 : $owner->id;
                 $task->store = $resp[15];
                 $task->description = htmlentities($resp[26], ENT_QUOTES, "UTF-8"); 
+                $task->expiration = date('Y-m-d h:i:s', strtotime($resp[4]));
+            } else {
+                $task->expiration = date('Y-m-d h:i:s', strtotime($resp[4]));
+                
             }
-            $task->expiration = date('Y-m-d h:i:s', strtotime($resp[4]));
 
             if($store->contact==false) {
                 $task->save();
