@@ -68,4 +68,10 @@ class UserController extends Controller
 
         return redirect()->route('users')->with('success','User added successfuly!');;
     }
+
+    public function getProfile() {
+        $user = User::find(auth()->user()->id);
+
+        return view('admin.users.profile', ['user' => $user]);
+    }
 }

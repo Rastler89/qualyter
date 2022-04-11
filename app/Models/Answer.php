@@ -6,9 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
 
-class Answer extends Model
+use OwenIt\Auditing\Contracts\Auditable;
+
+class Answer extends Model implements Auditable
 {
-    use HasFactory, Sortable;
+    use HasFactory, Sortable, \OwenIt\Auditing\Auditable;
 
     protected $fillable = [
         'id',

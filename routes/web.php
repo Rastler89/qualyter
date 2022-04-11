@@ -30,6 +30,12 @@ Route::post('/password/email', [App\Http\Controllers\Auth\ForgotPasswordControll
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    // AUDTION
+    Route::get('audit', [App\Http\Controllers\AuditionController::class, 'viewAudit'])->name('audit');
+    // LOG
+    Route::get('log', [App\Http\Controllers\AuditionController::class, 'viewLog'])->name('log');
+    // PROFILE
+    Route::get('profile', [App\Http\Controllers\UserController::class, 'getProfile'])->name('profile');
     // USERS
     Route::get('users', [App\Http\Controllers\UserController::class, 'index'])->middleware('permission:view-users')->name('users');
     Route::put('users/edit', [App\Http\Controllers\UserController::class, 'update'])->middleware('permission:edit-users')->name('users.edit');
