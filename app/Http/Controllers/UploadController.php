@@ -90,7 +90,10 @@ class UploadController extends Controller
             $agent = Agent::where('email','=',$resp[1])->first();
 
             if($agent==null) {
-                $agent = new Agent;
+                $agent = Agent::where('name','=',$resp[0])->first();
+                if($agent==null) {
+                    $agent = new Agent;
+                }
             }
 
             $agent->name = utf8_encode($resp[0]);
