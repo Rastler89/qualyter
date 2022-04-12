@@ -93,5 +93,8 @@ class UserController extends Controller
         $user = User::find(auth()->user()->id);
 
         $user->password = Hash::make($request->get('password'));
+        $user->save();
+
+        return redirect()->route('profile')->with('success','Password changed');
     }
 }

@@ -26,7 +26,8 @@
                             <h5 class="card-title mb-0">{{__('Public info')}}</h5>
                         </div>
                         <div class="card-body">
-                            <form>
+                            <form method="POST" action="{{route('profile.name')}}">
+                                @csrf
                                 <div class="row">
                                     <div class="col-md-8">
                                         <div class="mb-3">
@@ -53,7 +54,8 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">{{__('Password')}}</h5>
-                            <form>
+                            <form method="POST" action="{{route('profile.password')}}">
+                                @csrf
                                 <div class="mb-3">
                                     <label class="form-label" for="inputPasswordCurrent">{{__('Current Password')}}</label>
                                     <input type="password" class="form-control" id="inputPasswordCurrent">
