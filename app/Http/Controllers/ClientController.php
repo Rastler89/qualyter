@@ -57,6 +57,29 @@ class ClientController extends Controller
     }
 
     public function update(Request $request, $id) {
+        $url = 'https://restcountries.com/v2/name/'.str_replace(' ','%20',$request->get('country'));
 
+        $curl = curl_init($url);
+        curl_setopt($curl,CURLOPT_URL,$url);
+        curl_setopt($curl,CURLOPT_RETURNTRANSFER,true);
+
+        $resp = curl_exec($curl);
+        curl_close($curl);
+        $resp = json_decode($resp);
+        
+        $client = Client::find($id);
+        $client->name = $request->get('name');
+        $client->phonenumber = $request->get('phonenumber');
+        $client->email = $request->get('email');
+        if($request->get('central')!=null) {
+            $client->delegation = '00';
+        } else {
+            $client->delegation = $resp[0]->alpha2Code;
+        }
+        $client->language = $resp[0]->languages[0]->iso639_1;
+
+        $client->save();
+        
+        return redirect()->route('clients')->with('success','Client updated successfuly!');
     }
 }
