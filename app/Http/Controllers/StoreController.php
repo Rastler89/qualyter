@@ -33,7 +33,7 @@ class StoreController extends Controller
         $url = 'https://restcountries.com/v2/name/'.str_replace(' ','%20',$request->get('country'));
 
         $curl = curl_init($url);
-        curl_setopt($curl,CURLOPT_URL,$url);
+        curl_setopt($curl,CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($curl,CURLOPT_RETURNTRANSFER,true);
 
         $resp = curl_exec($curl);
@@ -72,8 +72,8 @@ class StoreController extends Controller
         $url = 'https://restcountries.com/v2/name/'.str_replace(' ','%20',$request->get('country'));
 
         $curl = curl_init($url);
-        curl_setopt($curl,CURLOPT_URL,$url);
         curl_setopt($curl,CURLOPT_RETURNTRANSFER,true);
+        curl_setopt($curl,CURLOPT_SSL_VERIFYPEER, false);
 
         $resp = curl_exec($curl);
         curl_close($curl);
