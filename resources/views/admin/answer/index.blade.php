@@ -28,42 +28,43 @@
     </thead>
     <tbody>
         @foreach($answers as $answer)
-        @foreach($stores as $store)
-        @if($store->code == $answer->store)
-        @if($store->phonenumber==null && $store->email==null)
-            <tr class="table-dark">
-        @else
-            @switch($answer->status)
-                @case(0) <tr class="table-success"> @break
-                @case(1) <tr class="table-warning"> @break
-                @case(3) <tr class="table-danger"> @break
-            @endswitch
-        @endif
-            <td>
-                {{$store->name}}
-            </td>
-            <td>
-                @foreach($clients as $client)
-                @if($client->id == $answer->client)
-                {{$client->name}}
+            @foreach($stores as $store)
+                @if($store->code == $answer->store && $store->client == $answer->client)
+                    @if($store->phonenumber==null && $store->email==null)
+                    <tr class="table-dark">
+                    @else
+                        @switch($answer->status)
+                            @case(0) <tr class="table-success"> @break
+                            @case(1) <tr class="table-warning"> @break
+                            @case(3) <tr class="table-danger"> @break
+                        @endswitch
+                    @endif
+                        <td>
+                            {{$store->name}}
+                        </td>
+                        <td>
+                            @foreach($clients as $client)
+                                @if($client->id == $answer->client)
+                                    {{$client->name}}
+                                @endif
+                            @endforeach
+                        </td>
+                        <td>
+                            {{$answer->expiration}}
+                        </td>
+                        <td>
+                    @if($store->phonenumber!=null)
+                        <a href="{{route('tasks.view',['id'=>$answer->id])}}" class="btn btn-outline-primary @if($answer->user != $id && $answer->user != null) disabled @endif"><i class="align-middle" data-feather="phone"></i></a>
+                    @elseif($store->email!=null)
+                        <a href="#" class="btn btn-outline-primary @if($answer->user != null && $answer->user != $id) disabled @endif"><i class="align-middle" data-feather="send"></i></a>
+                    @else 
+                        <?php $id = str_replace('/','_',$store->code); ?>
+                        <a href="{{route('stores.edit',['id'=>$id])}}" class="btn btn-outline-warning"><i class="align-middle" data-feather="edit"></i></a>
+                    @endif
+                        </td>
+                    </tr>
                 @endif
-                @endforeach
-            </td>
-            <td>
-                {{$answer->expiration}}
-            </td>
-            <td>
-                @if($store->phonenumber!=null)
-                    <a href="{{route('tasks.view',['id'=>$answer->id])}}" class="btn btn-outline-primary @if($answer->user != $id && $answer->user != null) disabled @endif"><i class="align-middle" data-feather="phone"></i></a>
-                @elseif($store->email!=null)
-                    <a href="#" class="btn btn-outline-primary @if($answer->user != null && $answer->user != $id) disabled @endif"><i class="align-middle" data-feather="send"></i></a>
-                @else 
-                    <a href="{{route('stores.edit',['id'=>$store->id])}}" class="btn btn-outline-warning"><i class="align-middle" data-feather="edit"></i></a>
-                @endif
-            </td>
-        </tr>
-        @endif
-        @endforeach
+            @endforeach
         @endforeach
     </tbody>
 </table>
