@@ -20,6 +20,7 @@ class UploadController extends Controller
 
     public function pushTasks(Request $request) {
         $respuesta = $this->exportCSV($request);
+        
         foreach($respuesta as $resp) {
             $store = Store::where('code','=',$resp[15])->where('client','=',$resp[22])->first();
             if($store==null) {
@@ -109,11 +110,14 @@ class UploadController extends Controller
         $respuesta = $this->exportCSV($request);
 
         foreach($respuesta as $resp) {
-            $store = new Store;
+            $store = Store::where('code','=',$resp[0])->first();
 
+            if($store==null) {
+                $store = new Store;
+                $store->code = $resp[0];
+            }
             $client = Client::find($resp[5]);
 
-            $store->code = $resp[0];
             $store->name = utf8_encode($resp[1]);
             $store->status = ($resp[7]=='Abierto') ? 1 : 0;
             $store->phonenumber = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', trim($resp[12]));
@@ -145,12 +149,8 @@ class UploadController extends Controller
             $client->phonenumber = ($resp[5]==null) ? '617370097' : $resp[5];
             $client->email = ($resp[6]==null) ? 'daniel.molina@optimaretail.es' : $resp[6];
             $client->language = ($resp[17]==null || strlen($resp[17]) > 2) ? 'ES' : $resp[17];
-            try { 
-                //Your code
-                $client->save();
-               } catch(\Illuminate\Database\QueryException $ex){ 
-                 dd($ex->getMessage()); 
-               }
+            
+            $client->save();
         }
 
         return back()->with('success','Upload clients successfuly!');

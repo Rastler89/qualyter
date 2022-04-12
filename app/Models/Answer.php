@@ -19,6 +19,7 @@ class Answer extends Model implements Auditable
         'answer',
         'store',
         'token',
+        'client',
         'created_at'
     ];
 
