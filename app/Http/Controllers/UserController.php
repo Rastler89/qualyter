@@ -74,7 +74,7 @@ class UserController extends Controller
 
     public function saveName(Request $request) {
         $validated = $request->validate([
-            'name' => 'rquired|between:1,255'
+            'name' => 'required|between:1,255'
         ]);
 
         $user = User::find(auth()->user()->id);
