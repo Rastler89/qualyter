@@ -36,6 +36,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('log', [App\Http\Controllers\AuditionController::class, 'viewLog'])->name('log');
     // PROFILE
     Route::get('profile', [App\Http\Controllers\UserController::class, 'getProfile'])->name('profile');
+    Route::post('profile/name', [App\Http\Controllers\UserController::class, 'saveName'])->name('profile.name');
+    Route::post('profile/password', [App\Http\Controllers\UserController::class, 'savePassword'])->name('profile.password');
     // USERS
     Route::get('users', [App\Http\Controllers\UserController::class, 'index'])->middleware('permission:view-users')->name('users');
     Route::put('users/edit', [App\Http\Controllers\UserController::class, 'update'])->middleware('permission:edit-users')->name('users.edit');

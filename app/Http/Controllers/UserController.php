@@ -74,4 +74,12 @@ class UserController extends Controller
 
         return view('admin.users.profile', ['user' => $user]);
     }
+
+    public function saveName(Request $request) {
+
+    }
+
+    public function savePassword(Request $request) {
+        
+    }
 }

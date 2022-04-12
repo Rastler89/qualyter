@@ -94,7 +94,7 @@
                 </a>
             </li>
             @endcan
-            <li class="sidebar-item">
+            <!--<li class="sidebar-item">
                 <a class="sidebar-link" href="#">
                     <i class="align-middle" data-feather="type"></i>
                     <span class="align-middle">{{__('Audition')}}</span>
@@ -106,7 +106,7 @@
                     <i class="align-middle" data-feather="type"></i>
                     <span class="align-middle">{{__('Log')}}
                 </a>
-            </li>
+            </li>-->
 
             @if(auth()->user()->can('view-users') || auth()->user()->can('view-roles'))
             <li class="sidebar-header">
