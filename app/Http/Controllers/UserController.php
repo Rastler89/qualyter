@@ -45,9 +45,6 @@ class UserController extends Controller
     }
 
     public function create(Request $request) {
-        print_r($request->get('password'));
-        echo"<hr>";
-        print_r($request->get('password-confirmation'));
         $validated = $request->validate([
             'name' => 'required',
             'email' => 'required|unique:users', 
@@ -66,7 +63,7 @@ class UserController extends Controller
             $user->roles()->attach($role);
         }
 
-        return redirect()->route('users')->with('success','User added successfuly!');;
+        return redirect()->route('users')->with('success','User added successfuly!');
     }
 
     public function getProfile() {
@@ -76,10 +73,25 @@ class UserController extends Controller
     }
 
     public function saveName(Request $request) {
+        $validated = $request->validate([
+            'name' => 'rquired|between:1,255'
+        ]);
 
+        $user = User::find(auth()->user()->id);
+
+        $user->name = $request->get('name');
+        $user->save();
+
+        return redirect()->route('profile')->with('success','Update your name!');
     }
 
     public function savePassword(Request $request) {
-        
+        $validated = $request->validate([
+            'password' => 'required|between:8,255|confirmed',
+        ]);
+
+        $user = User::find(auth()->user()->id);
+
+        $user->password = Hash::make($request->get('password'));
     }
 }
