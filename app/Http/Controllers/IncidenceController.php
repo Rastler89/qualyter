@@ -6,7 +6,10 @@ use App\Models\Agent;
 use App\Models\Incidence;
 use App\Models\Store;
 use App\Models\User;
+use App\Models\Task;
 use Illuminate\Http\Request;
+use Mail;
+use App\Mail\NotifyMail;
 
 class IncidenceController extends Controller
 {
@@ -96,5 +99,27 @@ class IncidenceController extends Controller
         $incidence->save();
 
         return 'ok';
+    }
+
+    public function resend($id) {
+        $incidence = Incidence::find($id);
+        
+        $ot = json_decode($incidence->order);
+        $messages = json_decode($incidence->comments);
+        $agent = Agent::find($incidence->owner);
+
+        $body = [
+            'responsable' => $incidence->responsable,
+            'owner' => $agent,
+            'impact' => $incidence->impact,
+            'token' => $incidence->token,
+            'ot' => $ot,
+            'id' => $incidence->id,
+            'comment' => $messages[0]->message
+        ];
+
+        Mail::to($agent['email'])->send(new NotifyMail($body));
+
+        return redirect()->to('/incidences/'.$id)->with('success','Incidence sended!');
     }
 }

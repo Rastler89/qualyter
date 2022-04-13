@@ -30,7 +30,6 @@ class NotifyMail extends Mailable
      */
     public function build()
     {
-        //echo"<pre>";print_r($this->$body);echo"</pre>";die();
         return $this->from('qc@optimaretail.es')
                     ->subject(__('New Incidence'))
                     ->locale('es')

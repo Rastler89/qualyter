@@ -78,7 +78,10 @@
                 <td>
                     {{$incidence->closed}}
                 </td>
-                <td><a href="{{route('incidences.view',['id' => $incidence->id])}}" class="btn btn-outline-primary"><i class="align-middle" data-feather="eye"></i></td>
+                <td>
+                    <a href="{{route('incidences.view',['id' => $incidence->id])}}" class="btn btn-outline-primary"><i class="align-middle" data-feather="eye"></i></a>
+                    <a href="{{route('incidences.resend',['id' => $incidence->id])}}" class="btn btn-outline-primary"><i class="align-middle" data-feather="send"></i></a>
+                </td>
             </tr>
         @endforeach
     </tbody>

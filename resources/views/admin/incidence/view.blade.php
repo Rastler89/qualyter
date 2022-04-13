@@ -106,7 +106,7 @@
                             </strong>
                             <div class="text-muted">{{__('Closed Day')}}</div>
                             <strong>
-.                                <input class="form-control" type="date" id="closed" name="closed" value="{{$incidence->closed->format('Y-m-d')}}" />
+                                <input class="form-control" type="date" id="closed" name="closed" value="{{$incidence->closed->format('Y-m-d')}}" />
                             </strong>
                         </div>
                     </div>
