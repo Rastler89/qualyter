@@ -19,36 +19,38 @@ class UploadController extends Controller
     }
 
     public function pushTasks(Request $request) {
-        $respuesta = $this->exportCSV($request);
-        
+        $respuesta = $this->exportCSVAsocciative($request,true,true);
+
         foreach($respuesta as $resp) {
-            $store = Store::where('code','=',$resp[15])->where('client','=',$resp[22])->first();
+            
+            
+            $store = Store::where('code','=',$resp['Proyecto Código'])->where('client','=',$resp['Código cliente'])->first();
             if($store==null) {
                 $store = new Store();
-                $store->code = $resp[15];
-                $store->name = utf8_encode($resp[17]);
+                $store->code = $resp['Proyecto Código'];
+                $store->name = str_replace("'",'"',utf8_encode($resp['Proyecto Nombre']));
                 $store->status = true;
                 $store->phonenumber = '617370097';
                 $store->email = 'daniel.molina@optimaretail.es';
                 $store->language = 'ES';
-                $store->client = ($resp[22]==null || $resp[22]=='') ? 1 : $resp[22];
+                $store->client = intval(($resp['Código cliente']==null || $resp['Código cliente']=='') ? 1 : $resp['Código cliente']);
                 $store->contact = false;
                 
                 $store->save();
             }
 
-            $owner = Agent::where('name','=',utf8_encode($resp[8]))->first();
-            $task = Task::where('code','=',$resp[0])->first();
+            $owner = Agent::where('name','=',utf8_encode($resp['Responsable']))->first();
+            $task = Task::where('code','=',$resp['Código'])->first();
             if($task == null) {
                 $task = new Task;
-                $task->code = $resp[0];
-                $task->name = utf8_encode($resp[1]);
-                $task->priority = utf8_encode($resp[12]);
+                $task->code = $resp['Código'];
+                $task->name = utf8_encode($resp['Responsable']);
+                $task->priority = utf8_encode($resp['Prioridad']);
                 $task->owner = ($owner==null) ? 11 : $owner->id;
-                $task->store = $resp[15];
-                $task->description = htmlentities($resp[26], ENT_QUOTES, "UTF-8"); 
+                $task->store = $resp['Proyecto Código'];
+                $task->description = htmlentities($resp['Trabajo a realizar'], ENT_QUOTES, "UTF-8"); 
             }
-            $task->expiration = date('Y-m-d h:i:s', strtotime($resp[4]));
+            $task->expiration = date('Y-m-d h:i:s', strtotime($resp['Fecha Vencimiento']));
 
             if($store->contact==false) {
                 $task->save();
@@ -57,15 +59,15 @@ class UploadController extends Controller
             
 
             if($store != null && $store->contact) {
-                $answer = Answer::where('expiration','=',date('Y-m-d',strtotime($resp[4])))->where('store','=',$task->store)->where('client','=',$resp[22])->first();
+                $answer = Answer::where('expiration','=',date('Y-m-d',strtotime($resp['Fecha Vencimiento'])))->where('store','=',$task->store)->where('client','=',$resp['Código cliente'])->first();
                 if($answer == null) {
                     $answer = new Answer;
-                    $answer->expiration = date('Y-m-d',strtotime($resp[4]));
+                    $answer->expiration = date('Y-m-d',strtotime($resp['Fecha Vencimiento']));
                     $answer->status = 0;
                     $answer->store = $task->store;
                     $array[] = $task;
                     $answer->tasks = json_encode($array);
-                    $answer->client = ($resp[22]==null || $resp[22]=='') ? 1 : $resp[22];
+                    $answer->client = ($resp['Código cliente']==null || $resp['Código cliente']=='') ? 1 : $resp['Código cliente'];
                 } else {
                     $array = json_decode($answer->tasks);
                     $array[] = $task;
@@ -180,4 +182,34 @@ class UploadController extends Controller
 
         return $response;
     }
+
+    private function exportCSVAsocciative(Request $request) {
+        $file = $request->file('file');
+        $name = $request->file('file')->getClientOriginalName();
+        
+        $file->move(storage_path(),$name);
+        $fileName = storage_path().'/'.$name;
+
+        $response = [];
+        $result = [];
+
+        if(($open = fopen($fileName,'r')) !== FALSE) {
+            while(($data = fgetcsv($open,1000,';')) !== FALSE) {
+                if(empty($response)) {
+                    foreach($data as $key => $field) {
+                        $response[$key] = utf8_encode($field);
+                    }
+                } else {
+                    $result[] = array_combine($response,$data);
+                }
+            }
+            fclose($open);
+        }
+
+        File::delete($fileName);
+
+        return $result;
+    }
+
+    
 }
