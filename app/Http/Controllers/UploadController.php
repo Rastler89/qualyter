@@ -22,7 +22,8 @@ class UploadController extends Controller
         $respuesta = $this->exportCSVAsocciative($request,true,true);
 
         foreach($respuesta as $resp) {
-            
+            echo"<pre>",print_r($resp);echo"</pre><hr>";
+            continue;
             
             $store = Store::where('code','=',$resp['Proyecto Código'])->where('client','=',$resp['Código cliente'])->first();
             if($store==null) {
@@ -49,7 +50,7 @@ class UploadController extends Controller
                 $task->priority = utf8_encode($resp['Prioridad']);
                 $task->owner = ($owner==null) ? 11 : $owner->id;
                 $task->store = $resp['Proyecto Código'];
-                $task->description = htmlentities($resp['Trabajo a realizar'], ENT_QUOTES, "UTF-8"); 
+                $task->description = '';//htmlentities($resp['Trabajo a realizar'], ENT_QUOTES, "UTF-8"); 
             }
             $task->expiration = date('Y-m-d h:i:s', strtotime($resp['Fecha Vencimiento']));
 
@@ -83,7 +84,7 @@ class UploadController extends Controller
             $array = null;
         }
 
-        return back()->with('success','Upload tasks successfuly!');
+        //return back()->with('success','Upload tasks successfuly!');
     }
     
     public function pushAgents(Request $request) {
