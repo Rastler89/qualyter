@@ -67,6 +67,8 @@
                                     
                                     <input type="radio" class="btn-check" name="status" id="danger-outlined" autocomplete="off" @if($incidence->status == 3) checked @endif value="3">
                                     <label class="btn btn-outline-danger" for="danger-outlined">{{__('Refuse')}}</label>
+                                @elseif($incidence->status == 0)
+                                <a href="{{route('incidences.resend',['id' => $incidence->id])}}" class="btn btn-outline-primary"><i class="align-middle" data-feather="send"></i></a>
                                 @else
                                     <button class="btn btn-outline-dark">{{__('Refused')}}</button>
                                 @endif

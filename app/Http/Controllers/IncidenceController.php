@@ -44,7 +44,11 @@ class IncidenceController extends Controller
 
     public function modify($id, Request $request) {
         $incidence = Incidence::find($id);
-        $incidence->status = $request->get('status');
+        
+        if($incidence->status != null) {
+            $incidence->status = $request->get('status');
+        }
+
         $incidence->closed = $request->get('closed');
 
         $comments = json_decode($incidence->comments);
@@ -60,10 +64,25 @@ class IncidenceController extends Controller
         }
 
         $incidence->save();
-        
-        //correu a agent
 
-        return redirect()->to('/incidences');
+        $ot = json_decode($incidence->order);
+        $messages = json_decode($incidence->comments);
+        $agent = Agent::find($incidence->owner);
+
+        $body = [
+            'responsable' => $incidence->responsable,
+            'owner' => $agent,
+            'impact' => $incidence->impact,
+            'token' => $incidence->token,
+            'ot' => $ot,
+            'id' => $incidence->id,
+            'comment' => $messages[count($messages)-1]->message,
+            'new' => false
+        ];
+
+        Mail::to($agent['email'])->send(new NotifyMail($body));
+
+        return redirect()->to('/incidences')->with('success','Notify agent in this moment');
     }
 
     public function response($id, Request $request) {
@@ -79,8 +98,6 @@ class IncidenceController extends Controller
         $order = json_decode($incidence->order);
         $comments = json_decode($incidence->comments);
         $agents = Agent::all();
-
-        //missatge a responsable
 
         return view('public.agent', ['incidence' => $incidence, 'store' => $store[0], 'user' => $user, 'agent' => $agent, 'order' => $order, 'comments' => $comments, 'agents' => $agents]);
     }
@@ -102,6 +119,25 @@ class IncidenceController extends Controller
 
         $incidence->save();
 
+        $ot = json_decode($incidence->order);
+        $messages = json_decode($incidence->comments);
+        $agent = Agent::find($incidence->owner);
+
+        $user = User::find($incidence->responsable);
+
+        $body = [
+            'responsable' => $incidence->responsable,
+            'owner' => $agent,
+            'impact' => $incidence->impact,
+            'token' => $incidence->token,
+            'ot' => $ot,
+            'id' => $incidence->id,
+            'comment' => $messages[count($messages)-1]->message,
+            'new' => false
+        ];
+
+        Mail::to($user['email'])->send(new NotifyMail($body));
+
         return 'ok';
     }
 
@@ -119,7 +155,8 @@ class IncidenceController extends Controller
             'token' => $incidence->token,
             'ot' => $ot,
             'id' => $incidence->id,
-            'comment' => $messages[0]->message
+            'comment' => $messages[0]->message,
+            'new' => true
         ];
 
         Mail::to($agent['email'])->send(new NotifyMail($body));

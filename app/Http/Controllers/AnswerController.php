@@ -97,7 +97,8 @@ class AnswerController extends Controller
                     'token' => $incidence->token,
                     'ot' => $ot,
                     'id' => $incidence->id,
-                    'comment' => $request['incidence'][$index]
+                    'comment' => $request['incidence'][$index],
+                    'new' => true
                 ];
 
                 Mail::to($agent['email'])->send(new NotifyMail($body));
