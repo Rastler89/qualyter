@@ -8,6 +8,7 @@ use App\Models\Client;
 use App\Models\Store;
 use App\Models\Task;
 use App\Models\Incidence;
+use App\Http\Controllers\AuditionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Mail;
@@ -26,12 +27,18 @@ class AnswerController extends Controller
     }
 
     public function view($id) {
+        $log = new AuditionController();
         $answer = Answer::find($id);
+        $old_answer = $answer;
 
         //Add user and modify status
         $answer->status = 1;
         $answer->user = auth()->user()->id;
         $answer->save();
+
+        if($old_answer->status != $answer->status) {
+            $log->saveLog($old_answer,$answer,'a');
+        }
 
         $store = Store::where('code','=',$answer->store)->where('client','=',$answer->client)->first();
         $agents = Agent::all();
@@ -57,11 +64,17 @@ class AnswerController extends Controller
         $body['comment'][3] = $request->get('comment4');
 
         $answer = Answer::find($id);
+        $old_answer = $answer;
 
         $answer->status = 2;
         $answer->answer = json_encode($body,true);
 
         $answer->save();
+
+        if($old_answer->status != $answer->status) {
+            $log->saveLog($old_answer,$answer,'a');
+        }
+
         $body = null;
 
         if($request['responsable'] != null) {
@@ -106,8 +119,6 @@ class AnswerController extends Controller
             }
         }
 
-
         return redirect()->route('tasks')->with('success','Task Complete!');
-
     }
 }

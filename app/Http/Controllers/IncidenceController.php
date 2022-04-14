@@ -44,6 +44,8 @@ class IncidenceController extends Controller
 
     public function modify($id, Request $request) {
         $incidence = Incidence::find($id);
+        $old_incidence = $incidence;
+        
         $incidence->status = $request->get('status');
         $incidence->closed = $request->get('closed');
 
@@ -60,6 +62,10 @@ class IncidenceController extends Controller
         }
 
         $incidence->save();
+
+        if($old_incidence->status != $incidence->status) {
+            $log->saveLog($old_incidence,$incidence,'i');
+        }
 
         return redirect()->to('/incidences');
     }
@@ -83,6 +89,8 @@ class IncidenceController extends Controller
 
     public function update($id, Request $request) {
         $incidence = Incidence::find($id);
+        $old_incidence = $incidence;
+
         $incidence->status = 1;
         $incidence->closed = $request->get('closed');
 
@@ -97,6 +105,14 @@ class IncidenceController extends Controller
         $incidence->comments = json_encode($comments);
 
         $incidence->save();
+
+        $log = new Log();
+        $log->table = 'a';
+        $log->row_id = $id;
+        $log->old = $old_incidence->status;
+        $log->new = 1;
+        $log->created = date('Y-m-d H:i');
+        $log->save();
 
         return 'ok';
     }

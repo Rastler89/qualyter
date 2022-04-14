@@ -94,14 +94,14 @@
                 </a>
             </li>
             @endcan
-            <!--<li class="sidebar-item">
-                <a class="sidebar-link" href="#">
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{route('audition')}}">
                     <i class="align-middle" data-feather="type"></i>
                     <span class="align-middle">{{__('Audition')}}</span>
                 </a>
             </li>
 
-            <li class="sidebar-item">
+            <!--<li class="sidebar-item">
                 <a class="sidebar-link" href="#">
                     <i class="align-middle" data-feather="type"></i>
                     <span class="align-middle">{{__('Log')}}

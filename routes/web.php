@@ -31,7 +31,7 @@ Route::post('/password/email', [App\Http\Controllers\Auth\ForgotPasswordControll
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     // AUDTION
-    Route::get('audit', [App\Http\Controllers\AuditionController::class, 'viewAudit'])->name('audit');
+    Route::get('audit', [App\Http\Controllers\AuditionController::class, 'viewAudit'])->name('audition');
     // LOG
     Route::get('log', [App\Http\Controllers\AuditionController::class, 'viewLog'])->name('log');
     // PROFILE

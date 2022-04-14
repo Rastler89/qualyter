@@ -19,6 +19,7 @@ class UploadController extends Controller
     }
 
     public function pushTasks(Request $request) {
+        Article::disableAuditing();
         $respuesta = $this->exportCSVAsocciative($request,true,true);
 
         foreach($respuesta as $resp) {
@@ -86,7 +87,7 @@ class UploadController extends Controller
     }
     
     public function pushAgents(Request $request) {
-
+        Article::disableAuditing();
         $respuesta = $this->exportCSV($request);
 
         foreach($respuesta as $resp) {
@@ -108,7 +109,7 @@ class UploadController extends Controller
     }
 
     public function pushStores(Request $request) {
-        
+        Article::disableAuditing();
         $respuesta = $this->exportCSV($request);
 
         foreach($respuesta as $resp) {
@@ -135,7 +136,7 @@ class UploadController extends Controller
     }
 
     public function pushClients(Request $request) {
-        
+        Article::disableAuditing();
         $respuesta = $this->exportCSV($request);
 
         foreach($respuesta as $resp) {
