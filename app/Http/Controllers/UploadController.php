@@ -26,6 +26,7 @@ class UploadController extends Controller
             
             $store = Store::where('code','=',$resp['Proyecto Código'])->where('client','=',$resp['Código cliente'])->first();
             if($store==null) {
+                $client = Client::find($resp['Código cliente']);
                 $store = new Store();
                 $store->code = $resp['Proyecto Código'];
                 $store->name = str_replace("'",'"',utf8_encode($resp['Proyecto Nombre']));
@@ -33,7 +34,7 @@ class UploadController extends Controller
                 $store->phonenumber = '617370097';
                 $store->email = 'daniel.molina@optimaretail.es';
                 $store->language = 'ES';
-                $store->client = intval(($resp['Código cliente']==null || $resp['Código cliente']=='') ? 1 : $resp['Código cliente']);
+                $store->client = intval(($client==null || $resp['Código cliente']=='') ? 1 : $resp['Código cliente']);
                 $store->contact = false;
                 
                 $store->save();
@@ -143,14 +144,14 @@ class UploadController extends Controller
 
             if($client==null) {
                 $client = new Client;
+                $client->delegation = (strlen($resp[3])) ? 'ES' : $resp[3];
+                $client->phonenumber = ($resp[5]==null) ? '617370097' : $resp[5];
+                $client->email = ($resp[6]==null) ? 'daniel.molina@optimaretail.es' : $resp[6];
+                $client->language = ($resp[17]==null || strlen($resp[17]) > 2) ? 'ES' : $resp[17];
+                $client->id = $resp[0];
             }
 
-            $client->id = $resp[0];
             $client->name = utf8_encode($resp[2]);
-            $client->delegation = (strlen($resp[3])) ? 'ES' : $resp[3];
-            $client->phonenumber = ($resp[5]==null) ? '617370097' : $resp[5];
-            $client->email = ($resp[6]==null) ? 'daniel.molina@optimaretail.es' : $resp[6];
-            $client->language = ($resp[17]==null || strlen($resp[17]) > 2) ? 'ES' : $resp[17];
             
             $client->save();
         }
