@@ -1,7 +1,13 @@
 @extends('layouts.dashboard')
 
 @section('content')
-<?php if($store != null) $code = str_replace('/','_',$store->code); ?>
+<?php if($store != null) {
+    $code = str_replace('/','_',$store->code); 
+    $default = $store->client;
+}  else {
+    $default = 0;
+}
+?>
 <div class="mb-3">
     <h1 class="h3 d-inline align-middle">@if ($store != null) {{__('Edit Store')}} @else {{__('Create new Store')}}@endif</h1>
 </div>
@@ -39,15 +45,15 @@
                     </div>
                     <div class="mb-3">
                         <label for="country" class="form-label">{{__('Country')}}</label>
-                        <input class="form-control" list="countries" id="country" name="country" placeholder="{{__('Type to search...')}}" />
+                        <input class="form-control" list="countries" @if($store!=null) value="--" @endif id="country" name="country" placeholder="{{__('Type to search...')}}" />
                         <datalist id="countries"></datalist>
                     </div>
                     <div class="mb-3">
                         <label for="client" class="form-label">{{__('Client')}}</label>
-                        <input class="form-control" list="clients" id="client" name="client" placeholder="{{__('Type to search...')}}" />
+                        <input class="form-control" value="{{$default}}" list="clients" id="client" name="client" placeholder="{{__('Type to search...')}}" />
                         <datalist id="clients">
-                            @foreach($clients as $client)
-                            <option value="{{$client->id}}">{{$client->name}}</option>
+                            @foreach($clients as $client)  
+                                <option value="{{$client->id}}">{{$client->name}}</option>
                             @endforeach
                         </datalist>
                     </div>

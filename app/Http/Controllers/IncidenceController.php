@@ -60,6 +60,8 @@ class IncidenceController extends Controller
         }
 
         $incidence->save();
+        
+        //correu a agent
 
         return redirect()->to('/incidences');
     }
@@ -77,6 +79,8 @@ class IncidenceController extends Controller
         $order = json_decode($incidence->order);
         $comments = json_decode($incidence->comments);
         $agents = Agent::all();
+
+        //missatge a responsable
 
         return view('public.agent', ['incidence' => $incidence, 'store' => $store[0], 'user' => $user, 'agent' => $agent, 'order' => $order, 'comments' => $comments, 'agents' => $agents]);
     }

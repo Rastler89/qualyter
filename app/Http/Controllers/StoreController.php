@@ -69,15 +69,19 @@ class StoreController extends Controller
         $clients = Client::all();
         $store = Store::where('code','=',$id)->first();
 
-        $url = 'https://restcountries.com/v2/name/'.str_replace(' ','%20',$request->get('country'));
-
-        $curl = curl_init($url);
-        curl_setopt($curl,CURLOPT_RETURNTRANSFER,true);
-        curl_setopt($curl,CURLOPT_SSL_VERIFYPEER, false);
-
-        $resp = curl_exec($curl);
-        curl_close($curl);
-        $resp = json_decode($resp);
+        if($request->get('country') != '--') {
+            $url = 'https://restcountries.com/v2/name/'.str_replace(' ','%20',$request->get('country'));
+    
+            $curl = curl_init($url);
+            curl_setopt($curl,CURLOPT_RETURNTRANSFER,true);
+            curl_setopt($curl,CURLOPT_SSL_VERIFYPEER, false);
+    
+            $resp = curl_exec($curl);
+            curl_close($curl);
+            $resp = json_decode($resp);
+            
+            $store->language = $resp[0]->languages[0]->iso639_1;
+        }
         
         $store->code = $request->get('code');
         $store->name = $request->get('name');
@@ -86,7 +90,6 @@ class StoreController extends Controller
         $store->email = $request->get('email');
         $store->client = $request->get('client');
         $store->contact = ($request->get('contact') == 'on') ? true : false;
-        $store->language = $resp[0]->languages[0]->iso639_1;
 
         $store->save();
 
