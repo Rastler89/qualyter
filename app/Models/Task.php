@@ -11,6 +11,9 @@ class Task extends Model implements Auditable
 {
     use HasFactory, \OwenIt\Auditing\Auditable;
 
+    
+    protected $primaryKey = 'code';
+
     protected $fillable = [
         'code',
         'name',
