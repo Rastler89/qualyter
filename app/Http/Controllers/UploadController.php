@@ -22,9 +22,6 @@ class UploadController extends Controller
         $respuesta = $this->exportCSVAsocciative($request,true,true);
 
         foreach($respuesta as $resp) {
-            echo"<pre>",print_r($resp);echo"</pre><hr>";
-            continue;
-            
             $store = Store::where('code','=',$resp['Proyecto Código'])->where('client','=',$resp['Código cliente'])->first();
             if($store==null) {
                 $client = Client::find($resp['Código cliente']);
@@ -41,6 +38,7 @@ class UploadController extends Controller
                 $store->save();
             }
 
+            //Creem la tasca
             $owner = Agent::where('name','=',utf8_encode($resp['Responsable']))->first();
             $task = Task::where('code','=',$resp['Código'])->first();
             if($task == null) {
@@ -50,16 +48,12 @@ class UploadController extends Controller
                 $task->priority = utf8_encode($resp['Prioridad']);
                 $task->owner = ($owner==null) ? 11 : $owner->id;
                 $task->store = $resp['Proyecto Código'];
-                $task->description = '';//htmlentities($resp['Trabajo a realizar'], ENT_QUOTES, "UTF-8"); 
             }
             $task->expiration = date('Y-m-d h:i:s', strtotime($resp['Fecha Vencimiento']));
 
-            if($store->contact==false) {
-                $task->save();
-                continue;
-            }
-            
+            $task->save();
 
+            //Si no volen contacte no generem cap visita...
             if($store != null && $store->contact) {
                 $answer = Answer::where('expiration','=',date('Y-m-d',strtotime($resp['Fecha Vencimiento'])))->where('store','=',$task->store)->where('client','=',$resp['Código cliente'])->first();
                 if($answer == null) {
@@ -67,21 +61,14 @@ class UploadController extends Controller
                     $answer->expiration = date('Y-m-d',strtotime($resp['Fecha Vencimiento']));
                     $answer->status = 0;
                     $answer->store = $task->store;
-                    $array[] = $task;
-                    $answer->tasks = json_encode($array);
                     $answer->client = ($resp['Código cliente']==null || $resp['Código cliente']=='') ? 1 : $resp['Código cliente'];
-                } else {
-                    $array = json_decode($answer->tasks);
-                    $array[] = $task;
-                    $answer->tasks = json_encode($array);
                 }
                 $answer->token = Str::random(8);
+                $answer->save();
 
-                $answer->save();       
-
+                $answer->comments()->save($comment);
             }
-            $task->save();
-            $array = null;
+
         }
 
         //return back()->with('success','Upload tasks successfuly!');

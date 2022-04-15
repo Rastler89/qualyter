@@ -27,4 +27,8 @@ class Task extends Model implements Auditable
     public function owner() {
         return $this->belongsTo(Agent::class);
     }
+
+    public function answer() {
+        return $this->belgonsTo(Answer::class);
+    }
 }

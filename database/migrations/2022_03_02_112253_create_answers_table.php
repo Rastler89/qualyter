@@ -18,7 +18,6 @@ return new class extends Migration
             $table->datetime('expiration');
             $table->tinyInteger('status')->default(0);
             $table->string('store',10)->nullable();
-            $table->json('tasks');
             $table->json('answer')->nullable();
             $table->string('token',8)->nullable();
             $table->unsignedBigInteger('client');
