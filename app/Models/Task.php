@@ -13,6 +13,8 @@ class Task extends Model implements Auditable
 
     
     protected $primaryKey = 'code';
+    public $incrementing = false;
+    protected $keyType = 'string';
 
     protected $fillable = [
         'code',
@@ -20,8 +22,7 @@ class Task extends Model implements Auditable
         'expiration',
         'priority',
         'owner',
-        'store',
-        'description'
+        'store'
     ];
 
     public function owner() {

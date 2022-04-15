@@ -20,7 +20,7 @@ class UploadController extends Controller
 
     public function pushTasks(Request $request) {
         $respuesta = $this->exportCSVAsocciative($request,true,true);
-
+        Store::disableAuditing();
         foreach($respuesta as $resp) {
             $store = Store::where('code','=',$resp['Proyecto Código'])->where('client','=',$resp['Código cliente'])->first();
             if($store==null) {
@@ -37,14 +37,14 @@ class UploadController extends Controller
                 
                 $store->save();
             }
-
+            Task::disableAuditing();
             //Creem la tasca
             $owner = Agent::where('name','=',utf8_encode($resp['Responsable']))->first();
             $task = Task::where('code','=',$resp['Código'])->first();
             if($task == null) {
                 $task = new Task;
                 $task->code = $resp['Código'];
-                $task->name = utf8_encode($resp['Responsable']);
+                $task->name = utf8_encode($resp['Nombre']);
                 $task->priority = utf8_encode($resp['Prioridad']);
                 $task->owner = ($owner==null) ? 11 : $owner->id;
                 $task->store = $resp['Proyecto Código'];
@@ -53,6 +53,8 @@ class UploadController extends Controller
 
             $task->save();
 
+            $task = Task::where('code','=',$resp['Código'])->first();
+            Answer::disableAuditing();
             //Si no volen contacte no generem cap visita...
             if($store != null && $store->contact) {
                 $answer = Answer::where('expiration','=',date('Y-m-d',strtotime($resp['Fecha Vencimiento'])))->where('store','=',$task->store)->where('client','=',$resp['Código cliente'])->first();
@@ -66,16 +68,16 @@ class UploadController extends Controller
                 $answer->token = Str::random(8);
                 $answer->save();
 
-                $answer->comments()->save($comment);
+                $answer->tasks()->save($task);
             }
 
         }
 
-        //return back()->with('success','Upload tasks successfuly!');
+        return back()->with('success','Upload tasks successfuly!');
     }
     
     public function pushAgents(Request $request) {
-
+        Agent::disableAuditing();
         $respuesta = $this->exportCSV($request);
 
         foreach($respuesta as $resp) {
@@ -97,7 +99,7 @@ class UploadController extends Controller
     }
 
     public function pushStores(Request $request) {
-        
+        Store::disableAuditing();
         $respuesta = $this->exportCSV($request);
 
         foreach($respuesta as $resp) {
@@ -124,7 +126,7 @@ class UploadController extends Controller
     }
 
     public function pushClients(Request $request) {
-        
+        Client::disableAuditing();
         $respuesta = $this->exportCSV($request);
 
         foreach($respuesta as $resp) {

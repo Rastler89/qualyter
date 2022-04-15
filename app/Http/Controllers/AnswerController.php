@@ -35,14 +35,13 @@ class AnswerController extends Controller
 
         $store = Store::where('code','=',$answer->store)->where('client','=',$answer->client)->first();
         $agents = Agent::all();
-        $tasks = json_decode($answer->tasks);
+        $tasks = Task::where('answer_id','=',$answer->id)->get();
         foreach($tasks as $task) {
             $owners[] = $task->owner;
         }
 
         $owners = Agent::find($owners);
-
-        return view('admin.answer.view', ['answer' => $answer, 'store' => $store, 'agents' => $agents, 'owners' => $owners]);
+        return view('admin.answer.view', ['answer' => $answer, 'store' => $store, 'tasks' => $tasks, 'agents' => $agents, 'owners' => $owners]);
     }
 
     public function response(Request $request, $id) {
