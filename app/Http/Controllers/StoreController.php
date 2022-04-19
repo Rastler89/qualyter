@@ -9,8 +9,24 @@ use Illuminate\Http\Request;
 
 class StoreController extends Controller
 {
-    public function index() {
-        $stores = Store::sortable()->paginate(20);
+    public function index(Request $request) {
+
+        $name = $request->query('name');
+        $code = $request->query('code');
+
+        if(!empty($name) || !empty($code)) {
+            $pre_store = Store::query();
+            if($name != '') {
+                $pre_store->where('name','LIKE','%'.$name.'%');
+            }
+            if($code != '') {
+                $pre_store->where('code','LIKE','%'.$code.'%');
+            }
+            $stores = $pre_store->sortable()->paginate(20);
+        } else {
+            $stores = Store::sortable()->paginate(20);
+        }
+        
         $clients = Client::all();
         return view('admin.store.index', ['stores' => $stores, 'clients' => $clients]);
     }
