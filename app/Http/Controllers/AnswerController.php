@@ -15,8 +15,42 @@ use App\Mail\NotifyMail;
 
 class AnswerController extends Controller
 {
-    public function index() {
-        $answers = Answer::where('status','!=',2)->sortable()->paginate(10);
+    public function index(Request $request) {
+
+        $client = $request->query('client');
+        $store = $request->query('store');
+        $work = $request->query('workorder');
+
+        $pre_answers = Answer::where('status','!=',2);
+
+        if(!empty($store) && $store != '') {
+            $id = [];
+            $stores = Store::where('name','LIKE','%'.$store.'%')->get();
+            foreach($stores as $store) {
+                $id[] = $store->code;
+            }
+            $pre_answers->whereIn('store',$id);
+        }
+
+        if(!empty($client) && $client != '') {
+            $id = [];
+            $clients = Client::where('name','LIKE','%'.$client.'%')->get();
+            foreach($clients as $client) {
+                $id[] = $client->id;
+            }
+            $pre_answers->whereIn('client',$id);
+        }
+
+        if(!empty($work) && $work != '') {
+            $id=[];
+            $tasks = Task::where('code','LIKE','%'.$work.'%')->get();
+            foreach($tasks as $task) {
+                $id[] = $task->answer_id;
+            }
+            $pre_answers->whereIn('id',$id);
+        }
+
+        $answers = $pre_answers->sortable()->paginate(10);
         $stores = Store::all();
         $clients = Client::all();
 

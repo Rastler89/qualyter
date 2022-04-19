@@ -22,7 +22,8 @@ class Task extends Model implements Auditable
         'expiration',
         'priority',
         'owner',
-        'store'
+        'store',
+        'answer_id'
     ];
 
     public function owner() {
