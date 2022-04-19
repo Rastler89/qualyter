@@ -28,7 +28,7 @@ class StoreController extends Controller
         }
         
         $clients = Client::all();
-        return view('admin.store.index', ['stores' => $stores, 'clients' => $clients]);
+        return view('admin.store.index', ['stores' => $stores, 'clients' => $clients, 'filterName' => $name, 'filterCode' => $code]);
     }
 
     public function new() {

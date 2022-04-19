@@ -53,5 +53,5 @@
         @endforeach
     </tbody>
 </table>
-{{$stores->links()}}
+{{$stores->appends(['name' => $filterName, 'code' => $filterCode])->links()}}
 @endsection

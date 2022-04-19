@@ -81,5 +81,5 @@
         @endforeach
     </tbody>
 </table>
-{{$answers->links()}}
+{{$answers->appends(['client' => $filterClient, 'store' => $filterStore, 'workorder' => $filterWO])->links()}}
 @endsection

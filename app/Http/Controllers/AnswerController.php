@@ -26,8 +26,8 @@ class AnswerController extends Controller
         if(!empty($store) && $store != '') {
             $id = [];
             $stores = Store::where('name','LIKE','%'.$store.'%')->get();
-            foreach($stores as $store) {
-                $id[] = $store->code;
+            foreach($stores as $s) {
+                $id[] = $s->code;
             }
             $pre_answers->whereIn('store',$id);
         }
@@ -35,8 +35,8 @@ class AnswerController extends Controller
         if(!empty($client) && $client != '') {
             $id = [];
             $clients = Client::where('name','LIKE','%'.$client.'%')->get();
-            foreach($clients as $client) {
-                $id[] = $client->id;
+            foreach($clients as $c) {
+                $id[] = $c->id;
             }
             $pre_answers->whereIn('client',$id);
         }
@@ -44,8 +44,8 @@ class AnswerController extends Controller
         if(!empty($work) && $work != '') {
             $id=[];
             $tasks = Task::where('code','LIKE','%'.$work.'%')->get();
-            foreach($tasks as $task) {
-                $id[] = $task->answer_id;
+            foreach($tasks as $t) {
+                $id[] = $t->answer_id;
             }
             $pre_answers->whereIn('id',$id);
         }
@@ -56,7 +56,7 @@ class AnswerController extends Controller
 
         $id = auth()->user()->id;
 
-        return view('admin.answer.index',['answers' => $answers, 'stores' => $stores, 'clients' => $clients, 'id' => $id]);
+        return view('admin.answer.index',['answers' => $answers, 'stores' => $stores, 'clients' => $clients, 'id' => $id, 'filterStore' => $store, 'filterClient' => $client, 'filterWO' => $work]);
     }
 
     public function view($id) {
