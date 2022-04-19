@@ -31,7 +31,6 @@
 <div class="row">
   <div class="col-4 col-sm-4">
     <div class="accordion" id="workOrder" style="position:sticky;">
-      <?php $tasks = json_decode($answer->tasks); ?>
       @foreach($tasks as $task)
       <!-- TODO: link to store's incidence -->
       <div class="accordion-item">
@@ -44,7 +43,6 @@
           <div class="accordion-body">
             <p><strong>@foreach($agents as $agent) @if($agent->id==$task->owner) {{$agent->name}} @endif @endforeach</strong></p>
             <p>{{$task->priority}}</p>
-            <p>{!!html_entity_decode($task->description)!!}</p>
           </div>
         </div>
       </div>

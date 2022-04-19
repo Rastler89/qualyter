@@ -12,7 +12,6 @@ class Agent extends Model implements Auditable
     use HasFactory, \OwenIt\Auditing\Auditable;
 
     public $timestamps = false;
-    public $incrementing = false;
 
     protected $fillable = [
         'id',

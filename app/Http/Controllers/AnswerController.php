@@ -16,14 +16,48 @@ use App\Mail\NotifyMail;
 
 class AnswerController extends Controller
 {
-    public function index() {
-        $answers = Answer::where('status','!=',2)->sortable()->paginate(10);
+    public function index(Request $request) {
+
+        $client = $request->query('client');
+        $store = $request->query('store');
+        $work = $request->query('workorder');
+
+        $pre_answers = Answer::where('status','!=',2);
+
+        if(!empty($store) && $store != '') {
+            $id = [];
+            $stores = Store::where('name','LIKE','%'.$store.'%')->get();
+            foreach($stores as $s) {
+                $id[] = $s->code;
+            }
+            $pre_answers->whereIn('store',$id);
+        }
+
+        if(!empty($client) && $client != '') {
+            $id = [];
+            $clients = Client::where('name','LIKE','%'.$client.'%')->get();
+            foreach($clients as $c) {
+                $id[] = $c->id;
+            }
+            $pre_answers->whereIn('client',$id);
+        }
+
+        if(!empty($work) && $work != '') {
+            $id=[];
+            $tasks = Task::where('code','LIKE','%'.$work.'%')->get();
+            foreach($tasks as $t) {
+                $id[] = $t->answer_id;
+            }
+            $pre_answers->whereIn('id',$id);
+        }
+
+        $answers = $pre_answers->sortable()->paginate(10);
         $stores = Store::all();
         $clients = Client::all();
 
         $id = auth()->user()->id;
 
-        return view('admin.answer.index',['answers' => $answers, 'stores' => $stores, 'clients' => $clients, 'id' => $id]);
+        return view('admin.answer.index',['answers' => $answers, 'stores' => $stores, 'clients' => $clients, 'id' => $id, 'filterStore' => $store, 'filterClient' => $client, 'filterWO' => $work]);
     }
 
     public function view($id) {
@@ -42,14 +76,13 @@ class AnswerController extends Controller
 
         $store = Store::where('code','=',$answer->store)->where('client','=',$answer->client)->first();
         $agents = Agent::all();
-        $tasks = json_decode($answer->tasks);
+        $tasks = Task::where('answer_id','=',$answer->id)->get();
         foreach($tasks as $task) {
             $owners[] = $task->owner;
         }
 
         $owners = Agent::find($owners);
-
-        return view('admin.answer.view', ['answer' => $answer, 'store' => $store, 'agents' => $agents, 'owners' => $owners]);
+        return view('admin.answer.view', ['answer' => $answer, 'store' => $store, 'tasks' => $tasks, 'agents' => $agents, 'owners' => $owners]);
     }
 
     public function response(Request $request, $id) {
@@ -110,7 +143,8 @@ class AnswerController extends Controller
                     'token' => $incidence->token,
                     'ot' => $ot,
                     'id' => $incidence->id,
-                    'comment' => $request['incidence'][$index]
+                    'comment' => $request['incidence'][$index],
+                    'new' => true
                 ];
 
                 Mail::to($agent['email'])->send(new NotifyMail($body));

@@ -28,4 +28,8 @@ class Answer extends Model implements Auditable
         'expiration',
         'client'
     ];
+
+    public function tasks() {
+        return $this->hasMany(Task::class);
+    }
 }
