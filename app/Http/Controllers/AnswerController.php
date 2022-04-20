@@ -110,7 +110,8 @@ class AnswerController extends Controller
 
         $body = null;
 
-        if($request['responsable'] != null) {
+        if($request['responsable'][0] != '--') {
+
             foreach($request->get('responsable') as $index => $responsable ) {
                 $body[0]['message'] = $request['incidence'][$index];
                 $body[0]['owner'] = auth()->user()->name;

@@ -50,7 +50,7 @@
     </div>
   </div>
   <div class="col-8 col-sm-8">
-    <form method="POST" action="{{route('tasks.response', ['id' => $answer->id])}}">
+    <form method="POST" action="{{route('tasks.response', ['id' => $answer->id])}}" id="questionary">
       @csrf
       <h4>{{__('Progress')}}</h4>
       <div class="progress">
@@ -166,13 +166,13 @@
           <h4>{{__('Has there been any impact on this visit?')}}</h4>
           <div class="btn-group" role="group" aria-label="Incidence" style="width:100%">
             <button type="button" style="width:50%" class="btn btn-danger btn-lg" onclick="showIncidence()">{{__('Yes')}}</button>
-            <button style="width:50%" class="btn btn-success btn-lg">{{__('No (Close Questionnaire)')}}</button>
+            <button type="button" style="width:50%" class="btn btn-success btn-lg" onclick="sendForm()">{{__('No (Close Questionnaire)')}}</button>
           </div>
           <div class="mb-3" id="incidence">
             <div id="firstIncidence">
               <label for="responsable" class="form-label">{{__('Responsable')}}</label>
               <select class="form-select form-select mb-3" id="responable[]" name="responsable[]" required>
-                <option selected>{{__('Please select responsable')}}</option>
+                <option value="--" selected>{{__('Please select responsable')}}</option>
                 @foreach($owners as $owner)
                 <optgroup label="{{$owner->name}}">
                   @foreach($tasks as $task)
@@ -292,6 +292,10 @@ function setTime() {
 function showIncidence() {
   $('#incidence').css('visibility','visible');
   $('#part5').css('position','relative');
+}
+
+function sendForm() {
+  $('#questionary').submit();
 }
 
 
