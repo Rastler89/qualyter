@@ -40,10 +40,10 @@ class TaskController extends Controller
         $store = Store::where('code','=',$request->get('store'))->get();
 
         if($store != null && $store[0]->contact) {
-            $answer = Answer::where('expiration','=',date('Y-m-d h:i:s', strtotime(str_replace('/','-',$request->get('expiration')))))->where('store','=',$task->store)->where('client','=',$store[0]->client)->first();
+            $answer = Answer::where('expiration','=',date('Y-m-d', strtotime(str_replace('/','-',$request->get('expiration')))))->where('store','=',$task->store)->where('client','=',$store[0]->client)->first();
             if($answer == null) {
                 $answer = new Answer;
-                $answer->expiration = date('Y-m-d h:i:s', strtotime(str_replace('/','-',$request->get('expiration'))));
+                $answer->expiration = date('Y-m-d', strtotime(str_replace('/','-',$request->get('expiration'))));
                 $answer->status = 0;
                 $answer->store = $task->store;
                 $answer->client = ($store[0]->client==null || $store[0]->client=='') ? 1 : $store[0]->client;
