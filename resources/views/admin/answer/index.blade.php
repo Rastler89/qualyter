@@ -1,6 +1,10 @@
 @extends('layouts.dashboard')
 
 @section('content')
+<div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
+    <a class="btn btn-primary" href="{{route('workorder.new')}}">{{__('Add Work Order')}}</a>
+</div>
+
 <div class="accordion" id="accordionExample">
     <div class="accordion-item">
         <h2 class="accordion-header" id="headingThree">

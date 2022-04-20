@@ -19,7 +19,6 @@ class UploadController extends Controller
     }
 
     public function pushTasks(Request $request) {
-        Article::disableAuditing();
         $respuesta = $this->exportCSVAsocciative($request,true,true);
         Store::disableAuditing();
         foreach($respuesta as $resp) {
@@ -50,7 +49,7 @@ class UploadController extends Controller
                 $task->owner = ($owner==null) ? 11 : $owner->id;
                 $task->store = $resp['Proyecto Código'];
             }
-            $task->expiration = date('Y-m-d h:i:s', strtotime($resp['Fecha Vencimiento']));
+            $task->expiration = date('Y-m-d h:i:s', strtotime(str_replace('/','-',$resp['Fecha Vencimiento'])));
 
             $task->save();
 
@@ -58,10 +57,10 @@ class UploadController extends Controller
             Answer::disableAuditing();
             //Si no volen contacte no generem cap visita...
             if($store != null && $store->contact) {
-                $answer = Answer::where('expiration','=',date('Y-m-d',strtotime($resp['Fecha Vencimiento'])))->where('store','=',$task->store)->where('client','=',$resp['Código cliente'])->first();
+                $answer = Answer::where('expiration','=',date('Y-m-d h:i:s', strtotime(str_replace('/','-',$resp['Fecha Vencimiento']))))->where('store','=',$task->store)->where('client','=',$resp['Código cliente'])->first();
                 if($answer == null) {
                     $answer = new Answer;
-                    $answer->expiration = date('Y-m-d',strtotime($resp['Fecha Vencimiento']));
+                    $answer->expiration = date('Y-m-d h:i:s', strtotime(str_replace('/','-',$resp['Fecha Vencimiento'])));
                     $answer->status = 0;
                     $answer->store = $task->store;
                     $answer->client = ($resp['Código cliente']==null || $resp['Código cliente']=='') ? 1 : $resp['Código cliente'];

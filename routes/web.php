@@ -76,6 +76,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('tasks', [App\Http\Controllers\AnswerController::class, 'index'])->middleware('permission:view-tasks')->name('tasks');
     Route::get('tasks/view/{id}', [App\Http\Controllers\AnswerController::class, 'view'])->middleware('permission:response-tasks')->name('tasks.view');
     Route::post('tasks/view/{id}', [App\Http\Controllers\AnswerController::class, 'response'])->middleware('permission:response-tasks')->name('tasks.response');
+
+    // WORK ORDER
+    Route::get('workorder/new', [App\Http\Controllers\TaskController::class, 'new'])->name('workorder.new');
+    Route::post('workorder/new', [App\Http\Controllers\TaskController::class, 'create'])->name('workorder.create');
     
     //INCIDENCE
     Route::get('incidences', [App\Http\Controllers\IncidenceController::class, 'index'])->middleware('permission:view-incidences')->name('incidences');
