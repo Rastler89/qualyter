@@ -7,6 +7,7 @@ use App\Models\Incidence;
 use App\Models\Store;
 use App\Models\User;
 use App\Models\Task;
+use App\Models\Log;
 use Illuminate\Http\Request;
 use Mail;
 use App\Mail\NotifyMail;
