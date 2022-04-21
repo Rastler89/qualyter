@@ -44,6 +44,9 @@ class IncidenceController extends Controller
     }
 
     public function modify($id, Request $request) {
+        $validated = $request->validate([
+            'message' => 'required'
+        ]);
         $incidence = Incidence::find($id);
         $old_incidence = $incidence;
         
