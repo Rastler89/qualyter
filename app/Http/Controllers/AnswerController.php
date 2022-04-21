@@ -156,4 +156,20 @@ class AnswerController extends Controller
 
         return redirect()->route('tasks')->with('success','Task Complete!');
     }
+
+    public function cancel(Request $request, $id) {
+        $answer = Answer::find($id);
+        $old_answer = $answer;
+
+        $answer->answer = json_encode($request->get('reason'));
+        $answer->status = 8;
+
+        $answer->save();
+
+        if($old_answer->status != $answer->status) {
+            $log->saveLog($old_answer,$answer,'a');
+        }
+
+        return redirect()->route('tasks')->with('success','Task cancelled!');
+    }
 }
