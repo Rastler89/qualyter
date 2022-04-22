@@ -8,11 +8,14 @@ use App\Models\Client;
 use App\Models\Store;
 use App\Models\Task;
 use App\Models\Incidence;
+use App\Models\User;
 use App\Http\Controllers\AuditionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Mail;
 use App\Mail\NotifyMail;
+use App\Mail\StoreMail;
+use App\Mail\ResponseMail;
 
 class AnswerController extends Controller
 {
@@ -22,7 +25,7 @@ class AnswerController extends Controller
         $store = $request->query('store');
         $work = $request->query('workorder');
 
-        $pre_answers = Answer::where('status','!=',2);
+        $pre_answers = Answer::query();
 
         if(!empty($store) && $store != '') {
             $id = [];
@@ -171,5 +174,83 @@ class AnswerController extends Controller
         }
 
         return redirect()->route('tasks')->with('success','Task cancelled!');
+    }
+
+    public function notrespond(Request $request, $id) {
+        $answer = Answer::find($id);
+        $store = Store::where('code','=',$answer->store)->get();
+        $client = Client::find($answer->client);
+
+        $old_answer = $answer;
+
+        $answer->answer = json_encode($request->get('reason'));
+        $answer->status = 3;
+
+        $answer->save();
+
+        if($old_answer->status != $answer->status) {
+            $log->saveLog($old_answer,$answer,'a');
+        }
+        $body = [
+            'id' => $answer->id,
+            'client' => $client->name,
+            'store' => $store[0]->name,
+            'locale' => ($store[0]->language != null) ? $store[0]->language : 'en',
+            'token' => $answer->token
+        ];
+
+        Mail::to('daniel.molina@optimaretail.es')->send(new StoreMail($body));
+
+        return redirect()->route('tasks')->with('success','Questionnaire sended!');
+    }
+
+    public function viewSurvey(Request $request, $id) {
+        $answer = Answer::find($id);
+
+        if($answer->token != $request->get('code')) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $store = Store::where('code','=',$answer->store)->first();
+
+        return view('public.store', ['store' => $store, 'answer' => $answer]);
+    }
+
+    public function responseSurvey(Request $request, $id) {
+        $body = [];
+        $body['valoration'][0] = $request->get('valoration1');
+        $body['valoration'][1] = $request->get('valoration2');
+        $body['valoration'][2] = $request->get('valoration3');
+        $body['valoration'][3] = $request->get('valoration4');
+        $body['comment'][0] = $request->get('comment1');
+        $body['comment'][1] = $request->get('comment2');
+        $body['comment'][2] = $request->get('comment3');
+        $body['comment'][3] = $request->get('comment4');
+
+        $answer = Answer::find($id);
+        $old_answer = $answer;
+
+        $answer->status = 2;
+        $answer->answer = json_encode($body,true);
+
+        $answer->save();
+
+        if($old_answer->status != $answer->status) {
+            $log->saveLog($old_answer,$answer,'a');
+        }
+
+        $owner = User::find($answer->user);
+        $store = Store::where('code','=',$answer->store)->first();
+
+        $body = [
+            'id' => $answer->id,
+            'agent' => $owner->name,
+            'store' => $store->name,
+            'token' => $answer->token
+        ];
+
+        Mail::to('daniel.molina@optimaretail.es')->send(new ResponseMail($body));
+
+        return view('public.thanksStore');
     }
 }

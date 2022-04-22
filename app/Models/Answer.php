@@ -20,7 +20,8 @@ class Answer extends Model implements Auditable
         'store',
         'token',
         'client',
-        'created_at'
+        'created_at',
+        'user'
     ];
 
     public $sortable = [

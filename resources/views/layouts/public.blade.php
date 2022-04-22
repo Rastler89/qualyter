@@ -26,6 +26,14 @@
 </head>
 
 <body>
+<nav class="navbar navbar-dark bg-primary justify-content-md-center">
+  	<ul class="navbar-nav">
+	  <li class="nav-item">
+		  <a class="nav-link active h3" aria-current="page" href="#">Qualyter</a>
+		</li>
+	</ul>
+</nav>
+</nav>
 	<div class="wrapper">	
 		<div class="main">
 			<main class="content">

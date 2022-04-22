@@ -76,7 +76,6 @@ class IncidenceController extends Controller
             $log->saveLog($old_incidence,$incidence,'i');
         }
 
-        return redirect()->to('/incidences');
         $ot = json_decode($incidence->order);
         $messages = json_decode($incidence->comments);
         $agent = Agent::find($incidence->owner);

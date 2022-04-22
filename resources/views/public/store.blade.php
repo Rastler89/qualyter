@@ -1,53 +1,17 @@
-@extends('layouts.dashboard')
+@extends('layouts.public')
 
 @section('sytles')
 <link rel="stylesheet" href="{{ asset("css/custom.css") }}">
 @endsection
 
 @section('content')
-<div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
-    <button class="btn btn-outline-dark" type="button" data-bs-toggle="modal" data-bs-target="#cancelVisit">{{__('Cancel')}}</button>
-</div>
-
-<!-- Modal cancel -->
-<div class="modal fade" id="cancelVisit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <form method="POST" action="{{route('tasks.cancel', ['id' =>$answer->id])}}">
-      @csrf
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">{{__('Explains the reason for canceling the visit.')}}</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <textarea name="reason" class="form-control"></textarea>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__('Close')}}</button>
-          <button class="btn btn-danger">{{__('Cancel visit')}}</button>
-        </div>
-      </div>
-    </form>
-  </div>
-</div>
-<!-- Table -->
 <div class="row">
   <div class="col">
     <div class="card">
       <div class="card-body">
         <div class="row">
           <div class="col">
-            <p><strong>{{__('Name')}}</strong></p>
             <p>{{$store->name}}</p>
-          </div>
-          <div class="col">
-            <p><strong>{{__('Language')}}</strong></p>
-            <p>{{$store->language}}</p>
-          </div>
-          <div class="col" style="position:relative;">
-            <p><strong>{{__('Phone Number')}}</strong></p>
-            <a id="phoneNumber" class="btn btn-outline-primary" style="position:absolute;" href="tel:+@if($store->language=='ES' || $store->language==null || $store->language==' ') 34 @endif {{$store->phonenumber}}" onclick="initTime()">{{$store->phonenumber}}</a>
-            <a id="notRespond" class="btn btn-danger" style="position:absolute;visibility:hidden;" href="{{route('tasks.notrespond', ['id'=>$answer->id])}}">{{__('Not respond')}}</a>
           </div>
         </div>
       </div>
@@ -55,28 +19,8 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-4 col-sm-4">
-    <div class="accordion" id="workOrder" style="position:sticky;">
-      @foreach($tasks as $task)
-      <!-- TODO: link to store's incidence -->
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingOne">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{$loop->index}}" aria-expanded="true" aria-controls="collapse{{$loop->index}}">
-            {{$task->code}} {{$task->name}}
-          </button>
-        </h2>
-        <div id="collapse{{$loop->index}}" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#workOrder">
-          <div class="accordion-body">
-            <p><strong>@foreach($agents as $agent) @if($agent->id==$task->owner) {{$agent->name}} @endif @endforeach</strong></p>
-            <p>{{$task->priority}}</p>
-          </div>
-        </div>
-      </div>
-      @endforeach
-    </div>
-  </div>
-  <div class="col-8 col-sm-8">
-    <form method="POST" action="{{route('tasks.response', ['id' => $answer->id])}}" id="questionary">
+  <div class="col-12 col-sm-12">
+    <form method="POST" action="{{route('answer.response', ['id' => $answer->id])}}" id="questionary">
       @csrf
       <h4>{{__('Progress')}}</h4>
       <div class="progress">
@@ -184,51 +128,9 @@
             </div>
             <div class="btn-group" role="group" aria-label="Incidence" style="width:100%">
               <button type="button" onclick="prev(4)" style="width:50%" class="btn btn-primary btn-lg">{{__('Previous')}}</button>
-              <button id="next4" type="button" onclick="next(5)" style="width:50%;visibility:hidden;" class="btn btn-primary btn-lg">{{__('Next')}}</button>
+              <button id="next4" onclick="next(5)" style="width:50%;visibility:hidden;" class="btn btn-primary btn-lg">{{__('Finalize')}}</button>
             </div>
           </div>
-        </div>
-        <div id="part5" class="question">
-          <h4>{{__('Has there been any impact on this visit?')}}</h4>
-          <div class="btn-group" role="group" aria-label="Incidence" style="width:100%">
-            <button type="button" style="width:50%" class="btn btn-danger btn-lg" onclick="showIncidence()">{{__('Yes')}}</button>
-            <button type="button" style="width:50%" class="btn btn-success btn-lg" onclick="sendForm()">{{__('No (Close Questionnaire)')}}</button>
-          </div>
-          <div class="mb-3" id="incidence">
-            <div id="firstIncidence">
-              <label for="responsable" class="form-label">{{__('Responsable')}}</label>
-              <select class="form-select form-select mb-3" id="responable[]" name="responsable[]" required>
-                <option value="--" selected>{{__('Please select responsable')}}</option>
-                @foreach($owners as $owner)
-                <optgroup label="{{$owner->name}}">
-                  @foreach($tasks as $task)
-                    @if($task->owner == $owner->id)
-                      <option value="{{$task->owner}}-{{$task->code}}">{{$task->name}}</option>
-                    @endif
-                  @endforeach
-                </optgroup>
-                @endforeach;
-              </select>
-              <label for="impact" class="form-label">{{__('Impact')}}</label>
-              <select class="form-select form-select-lg mb-3" id="impact[]" name="impact[]" required>
-                <option selected>{{__('Please select impact')}}</option>
-                <option value="0" style="background:red">{{__('Urgent')}}</option>
-                <option value="1" style="background:orange">{{__('High')}}</option>
-                <option value="2" style="background:yellow">{{__('Medium')}}</option>
-                <option value="3" style="background:green;color:white;">{{__('Low')}}</option>
-              </select>
-              <div class="mb-3">
-                <label for="comment" class="comment">{{__('Comment')}}</label>
-                <textarea class="form-control" id="incidence[]" name="incidence[]" rows="3" required></textarea>
-              </div>
-            </div>
-            <div id="moreIncidence"></div>
-            <div class="d-grid gap-2 mx-auto mb-3">
-              <button class="btn btn-outline-success" type="button" id="addIncidence"><i class="align-middle" data-feather="plus"></i></button>
-            </div>
-            <button style="width:100%" class="btn btn-primary btn-lg btn-block">{{__('Close Questionnaire')}}</button>
-          </div>
-          
         </div>
       </div>
     </form>
@@ -278,7 +180,7 @@ $(window).scroll(function() {
 })
 
 function next(id) {
-  progress = (id-1)*20;
+  progress = (id-1)*25;
 
   if(progress<80) {
     if($('input[type=radio][name=valoration'+id+']').val().length > 0) {
@@ -292,7 +194,7 @@ function next(id) {
   $('.progress-bar').text(progress+'%');
 }
 function prev(id) {
-  progress = (id-2)*20;
+  progress = (id-2)*25;
 
   $('#part'+(id-1)).css('visibility','visible');
   $('#part'+id).css('visibility','hidden');
@@ -300,30 +202,6 @@ function prev(id) {
   $('.progress-bar').text(progress+'%');
   $('#next'+id).css('visibility','hidden');
 }
-
-function initTime() {
-  countTime = setInterval(setTime,1000);
-}
-
-function setTime() {
-  ++totalSeconds;
-  if(totalSeconds == 30) {
-    $('#phoneNumber').css('visibility','hidden');
-    $('#notRespond').css('visibility','visible');
-  } 
-
-  console.log(totalSeconds);
-}
-
-function showIncidence() {
-  $('#incidence').css('visibility','visible');
-  $('#part5').css('position','relative');
-}
-
-function sendForm() {
-  $('#questionary').submit();
-}
-
 
 </script>
 @endsection
