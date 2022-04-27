@@ -4,8 +4,10 @@
 <?php if($store != null) {
     $code = str_replace('/','_',$store->code); 
     $default = $store->client;
+    $contact = $store->contact;
 }  else {
     $default = 0;
+    $contact = false;
 }
 ?>
 <div class="mb-3">
@@ -59,7 +61,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-check">
-                            <input class="form-check-input" type="checkbox" id="contact" name="contact" @if ($store->contact) checked @endif/>
+                            <input class="form-check-input" type="checkbox" id="contact" name="contact" @if ($contact) checked @endif/>
                             <span class="form-check-label">{{__('This store can contact')}}</span>
                         </label>
                     </div>
