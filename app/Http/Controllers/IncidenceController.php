@@ -91,7 +91,11 @@ class IncidenceController extends Controller
             'new' => false
         ];
 
-        Mail::to($agent['email'])->send(new NotifyMail($body));
+        if(env('APP_NAME')=='QualyterTEST') {
+            Mail::to('test@optimaretail.es')->send(new NotifyMail($body));
+        } else {
+            Mail::to($agent['email'])->send(new NotifyMail($body));
+        }
 
         return redirect()->to('/incidences')->with('success','Notify agent in this moment');
     }
@@ -156,9 +160,13 @@ class IncidenceController extends Controller
             'new' => false
         ];
 
-        Mail::to($user['email'])->send(new NotifyMail($body));
+        if(env('APP_NAME')=='QualyterTEST') {
+            Mail::to('test@optimaretail.es')->send(new NotifyMail($body));
+        } else {
+            Mail::to($user['email'])->send(new NotifyMail($body));
+        }
 
-        return 'ok';
+        return view('public.thanksAgent');
     }
 
     public function resend($id) {
@@ -179,7 +187,11 @@ class IncidenceController extends Controller
             'new' => true
         ];
 
-        Mail::to($agent['email'])->send(new NotifyMail($body));
+        if(env('APP_NAME')=='QualyterTEST') {
+            Mail::to('test@optimaretail.es')->send(new NotifyMail($body));
+        } else {
+            Mail::to($agent['email'])->send(new NotifyMail($body));
+        }
 
         return redirect()->to('/incidences/'.$id)->with('success','Incidence sended!');
     }

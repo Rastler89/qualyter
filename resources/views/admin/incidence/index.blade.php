@@ -38,10 +38,13 @@
                             {{__('Pending reply')}}
                             @break
                         @case(2)
-                            {{__('Refused')}}
+                            {{__('In process')}}
                             @break
                         @case(3)
-                            {{__('Completed')}}
+                            {{__('Refused')}}
+                            @break
+                        @case(4)
+                            {{__('Complete')}}
                             @break
                     @endswitch
                 </td>

@@ -20,7 +20,6 @@ use App\Mail\ResponseMail;
 class AnswerController extends Controller
 {
     public function index(Request $request) {
-
         $client = $request->query('client');
         $store = $request->query('store');
         $work = $request->query('workorder');
@@ -110,52 +109,7 @@ class AnswerController extends Controller
         if($old_answer->status != $answer->status) {
             $log->saveLog($old_answer,$answer,'a');
         }
-
-        $body = null;
-
-        if($request['responsable'][0] != '--') {
-
-            foreach($request->get('responsable') as $index => $responsable ) {
-                $body[0]['message'] = $request['incidence'][$index];
-                $body[0]['owner'] = auth()->user()->name;
-                $body[0]['type'] = 'user';
-    
-                $task = explode('-',$request['responsable'][$index]);
-    
-                $ot = Task::where('code','=',$task[1])->first();
-    
-                $incidence = new Incidence();
-    
-                $incidence->responsable = auth()->user()->id; 
-                $incidence->owner = $task[0];
-                $incidence->impact = $request['impact'][$index];
-                $incidence->status = 0;
-                $incidence->comments = json_encode($body);
-                $incidence->client = $answer->client;
-                $incidence->store = $answer->store;
-                $incidence->order = json_encode($ot);
-                $incidence->token = Str::random(8);
-    
-                $incidence->save();
-
-                $agent = Agent::find($task[0]);
-                $body = [];
-                $body = [
-                    'responsable' => auth()->user()->name,
-                    'owner' => $agent,
-                    'impact' => $request['impact'][$index],
-                    'token' => $incidence->token,
-                    'ot' => $ot,
-                    'id' => $incidence->id,
-                    'comment' => $request['incidence'][$index],
-                    'new' => true
-                ];
-
-                Mail::to($agent['email'])->send(new NotifyMail($body));
-
-                $body = null;
-            }
-        }
+        $this->createIncidence($request,$answer);
 
         return redirect()->route('tasks')->with('success','Task Complete!');
     }
@@ -178,7 +132,7 @@ class AnswerController extends Controller
 
     public function notrespond(Request $request, $id) {
         $answer = Answer::find($id);
-        $store = Store::where('code','=',$answer->store)->get();
+        $store = Store::where('code','=',$answer->store)->first();
         $client = Client::find($answer->client);
 
         $old_answer = $answer;
@@ -194,12 +148,19 @@ class AnswerController extends Controller
         $body = [
             'id' => $answer->id,
             'client' => $client->name,
-            'store' => $store[0]->name,
-            'locale' => ($store[0]->language != null) ? $store[0]->language : 'en',
+            'store' => $store->name,
+            'locale' => ($store->language != null) ? $store->language : 'en',
             'token' => $answer->token
         ];
 
-        Mail::to('daniel.molina@optimaretail.es')->send(new StoreMail($body));
+        if(env('APP_NAME')=='QualyterTEST') {
+            Mail::to('test@optimaretail.es')->send(new StoreMail($body));
+        } else {
+            $emails = explode(';',$store->email);
+            foreach($emails as $email) {
+                Mail::to($email)->send(new StoreMail($body));
+            }
+        }
 
         return redirect()->route('tasks')->with('success','Questionnaire sended!');
     }
@@ -249,8 +210,11 @@ class AnswerController extends Controller
             'token' => $answer->token
         ];
 
-        Mail::to($owner->email)->send(new ResponseMail($body));
-
+        if(env('APP_NAME')=='QualyterTEST') {
+            Mail::to('test@optimaretail.es')->send(new ResponseMail($body));
+        } else {
+            Mail::to($owner->email)->send(new ResponseMail($body));
+        }
         return view('public.thanksStore');
     }
 
@@ -264,8 +228,85 @@ class AnswerController extends Controller
 
     public function viewAnswer(Request $request, $id) {
         $answer = Answer::find($id);
+        $agents = Agent::all();
         $store = Store::where('code','=',$answer->store)->first();
+        $tasks = Task::where('answer_id','=',$answer->id)->get();
+        
+        $res = [];
+        $answers = json_decode($answer->answer,true);
+        foreach($answers['valoration'] as $index => $an) {
+            $res[$index]['value'] = $an;
+            $res[$index]['text'] = $answers['comment'][$index];
+        }
+        foreach($tasks as $task) {
+            $owners[] = $task->owner;
+        }
 
-        return view('admin.answer.view', ['answer' => $answer, 'store' => $store]);
+        $owners = Agent::find($owners);
+        
+        return view('admin.answer.view', ['answer' => $answer, 'store' => $store, 'answers' => $res, 'tasks' => $tasks, 'agents' => $agents, 'owners' => $owners]);
+    }
+
+    public function revised(Request $request, $id) {
+        $answer = Answer::find($id);
+        $old_answer = $answer;
+
+        $answer->status = 5;
+
+        $answer->save();
+
+        $this->createIncidence($request,$answer);
+
+        return redirect()->route('answers')->with('success','Answer closed!');
+    }
+
+    private function createIncidence($request,$answer) {
+        $body = null;
+        if($request['responsable'][0] != '--') {
+
+            foreach($request->get('responsable') as $index => $responsable ) {
+                $body[0]['message'] = $request['incidence'][$index];
+                $body[0]['owner'] = auth()->user()->name;
+                $body[0]['type'] = 'user';
+    
+                $task = explode('-',$request['responsable'][$index]);
+    
+                $ot = Task::where('code','=',$task[1])->first();
+    
+                $incidence = new Incidence();
+    
+                $incidence->responsable = auth()->user()->id; 
+                $incidence->owner = $task[0];
+                $incidence->impact = $request['impact'][$index];
+                $incidence->status = 0;
+                $incidence->comments = json_encode($body);
+                $incidence->client = $answer->client;
+                $incidence->store = $answer->store;
+                $incidence->order = json_encode($ot);
+                $incidence->token = Str::random(8);
+    
+                $incidence->save();
+
+                $agent = Agent::find($task[0]);
+                $body = [];
+                $body = [
+                    'responsable' => auth()->user()->name,
+                    'owner' => $agent,
+                    'impact' => $request['impact'][$index],
+                    'token' => $incidence->token,
+                    'ot' => $ot,
+                    'id' => $incidence->id,
+                    'comment' => $request['incidence'][$index],
+                    'new' => true
+                ];
+                if(env('APP_NAME')=='QualyterTEST') {
+                    Mail::to('test@optimaretail.es')->send(new NotifyMail($body));
+                } else {
+                    Mail::to($owner->email)->send(new ResponseMail($body));
+                }
+
+                $body = null;
+            }
+        }
     }
 }

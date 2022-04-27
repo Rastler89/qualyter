@@ -367,8 +367,6 @@ function setTime() {
     $('#phoneNumber').css('visibility','hidden');
     $('#notRespond').css('visibility','visible');
   } 
-
-  console.log(totalSeconds);
 }
 
 function showIncidence() {

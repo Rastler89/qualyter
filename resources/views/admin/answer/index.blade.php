@@ -37,7 +37,7 @@
                         <td>
                             @switch($answer->status)
                                 @case(2) {{__('Completed by QC')}} @break
-                                @case(3) {{__('Sended')}} @break
+                                @case(3) {{__('Send')}} @break
                                 @case(4) {{__('Pending Review')}} @break
                                 @case(5) {{__('Completed')}} @break
                                 @case(8) {{__('Cancelled')}}
@@ -49,7 +49,7 @@
                         <td>
                             @if($answer->status == 8)
                                 <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#alloy"><i class="align-middle" data-feather="eye"></i></button>
-                            @else 
+                            @elseif($answer->status != 3)
                                 <a class="btn btn-outline-primary" href="{{route('answers.view', ['id'=>$answer->id])}}"><i class="align-middle" data-feather="eye"></i></a>
                             @endif
                         </td>

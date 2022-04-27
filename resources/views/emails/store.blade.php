@@ -51,7 +51,7 @@ style="text-align: justify-all;
 align-items: center; 
 font-size: 15px;
 padding-bottom: 12px;">
-{{_('Today your maintenance service has come to your store:')}}
+{{__('Today your maintenance service has come to your store:')}}
 <br>
 {{$body['store']}}
 </p>
