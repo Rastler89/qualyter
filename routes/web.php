@@ -78,6 +78,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('tasks/view/{id}', [App\Http\Controllers\AnswerController::class, 'response'])->middleware('permission:response-tasks')->name('tasks.response');
     Route::post('tasks/cancel/{id}', [App\Http\Controllers\AnswerController::class, 'cancel'])->middleware('permission:response-tasks')->name('tasks.cancel');
     Route::get('tasks/notrespon/{id}', [App\Http\Controllers\AnswerController::class, 'notrespond'])->middleware('permission:response-tasks')->name('tasks.notrespond');
+    // ANSWER
+    Route::get('answers', [App\Http\Controllers\AnswerController::class, 'answers'])->middleware('permission:view-tasks')->name('answers');
+    Route::get('answers/{id}', [App\Http\Controllers\AnswerController::class, 'viewAnswer'])->middleware('permission:response-tasks')->name('answers.view');
     // WORK ORDER
     Route::get('workorder/new', [App\Http\Controllers\TaskController::class, 'new'])->name('workorder.new');
     Route::post('workorder/new', [App\Http\Controllers\TaskController::class, 'create'])->name('workorder.create');

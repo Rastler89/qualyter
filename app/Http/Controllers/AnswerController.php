@@ -60,7 +60,7 @@ class AnswerController extends Controller
 
         $id = auth()->user()->id;
 
-        return view('admin.answer.index',['answers' => $answers, 'stores' => $stores, 'clients' => $clients, 'id' => $id, 'filterStore' => $store, 'filterClient' => $client, 'filterWO' => $work]);
+        return view('admin.task.index',['answers' => $answers, 'stores' => $stores, 'clients' => $clients, 'id' => $id, 'filterStore' => $store, 'filterClient' => $client, 'filterWO' => $work]);
     }
 
     public function view($id) {
@@ -85,7 +85,7 @@ class AnswerController extends Controller
         }
 
         $owners = Agent::find($owners);
-        return view('admin.answer.view', ['answer' => $answer, 'store' => $store, 'tasks' => $tasks, 'agents' => $agents, 'owners' => $owners]);
+        return view('admin.task.view', ['answer' => $answer, 'store' => $store, 'tasks' => $tasks, 'agents' => $agents, 'owners' => $owners]);
     }
 
     public function response(Request $request, $id) {
@@ -249,8 +249,23 @@ class AnswerController extends Controller
             'token' => $answer->token
         ];
 
-        Mail::to('daniel.molina@optimaretail.es')->send(new ResponseMail($body));
+        Mail::to($owner->email)->send(new ResponseMail($body));
 
         return view('public.thanksStore');
+    }
+
+    public function answers() {
+        $answers = Answer::where('status','>',1)->sortable()->paginate(10);
+        $stores = Store::all();
+        $clients = Client::all();
+
+        return view('admin.answer.index', ['answers' => $answers, 'stores' => $stores, 'clients' => $clients]);
+    }
+
+    public function viewAnswer(Request $request, $id) {
+        $answer = Answer::find($id);
+        $store = Store::where('code','=',$answer->store)->first();
+
+        return view('admin.answer.view', ['answer' => $answer, 'store' => $store]);
     }
 }

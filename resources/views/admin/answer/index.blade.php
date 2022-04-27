@@ -1,44 +1,12 @@
 @extends('layouts.dashboard')
 
 @section('content')
-<div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
-    <a class="btn btn-primary" href="{{route('workorder.new')}}">{{__('Add Work Order')}}</a>
-</div>
-
-<div class="accordion" id="accordionExample">
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="headingThree">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                {{__('Filters')}}
-            </button>
-        </h2>
-        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-                <form class="form-inline" method="GET">
-                    <div class="mb-3">
-                        <label for="store" class="form-label">{{__('Store`s Name')}}</label>
-                        <input type="text" class="form-control" name="store" placeholder="{{__('Store`s Name')}}"/>
-                    </div>
-                    <div class="mb-3">
-                        <label for="client" class="form-label">{{__('Client`s Name')}}</label>
-                        <input type="text" class="form-control" name="client" placeholder="{{__('Client`s Name')}}"/>
-                    </div>
-                    <div class="mb-3">
-                        <label for="workorder" class="form-label">{{__('Work Order')}}</label>
-                        <input type="text" class="form-control" name="workorder" placeholder="{{__('Work Order')}}" />
-                    </div>
-                    <button class="btn btn-danger">Search</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
 <table class="table table-hover table-striped">
     <thead>
         <tr>
             <th scope="col">@sortablelink('store',__('Store'))</th>
             <th scope="col">@sortablelink('client',__('Client'))</th>
+            <th scoep="col">@sortablelink('status',__('Status'))</th>
             <th scope="col">@sortablelink('expiration',__('Expiration'))</th>
             <th scope="col"></th>
         </tr>
@@ -47,15 +15,15 @@
         @foreach($answers as $answer)
             @foreach($stores as $store)
                 @if($store->code == $answer->store && $store->client == $answer->client)
-                    @if($store->phonenumber==null && $store->email==null)
-                    <tr class="table-dark">
-                    @else
-                        @switch($answer->status)
-                            @case(0) <tr class="table-success"> @break
-                            @case(1) <tr class="table-warning"> @break
-                            @case(3) <tr class="table-danger"> @break
-                        @endswitch
-                    @endif
+                    
+                    @switch($answer->status)
+                        @case(5)
+                        @case(2) <tr class="table-success"> @break
+                        @case(4) <tr class="table-warning"> @break
+                        @case(4) <tr class="table-danger"> @break
+                        @case(8) <tr class="table-dark"> @break
+                    @endswitch
+
                         <td>
                             {{$store->name}}
                         </td>
@@ -67,17 +35,23 @@
                             @endforeach
                         </td>
                         <td>
+                            @switch($answer->status)
+                                @case(2) {{__('Completed by QC')}} @break
+                                @case(3) {{__('Sended')}} @break
+                                @case(4) {{__('Pending Review')}} @break
+                                @case(5) {{__('Completed')}} @break
+                                @case(8) {{__('Cancelled')}}
+                            @endswitch
+                        </td>
+                        <td>
                             {{$answer->expiration}}
                         </td>
                         <td>
-                    @if($store->phonenumber!=null)
-                        <a href="{{route('tasks.view',['id'=>$answer->id])}}" class="btn btn-outline-primary @if($answer->user != $id && $answer->user != null) disabled @endif"><i class="align-middle" data-feather="phone"></i></a>
-                    @elseif($store->email!=null)
-                        <a href="#" class="btn btn-outline-primary @if($answer->user != null && $answer->user != $id) disabled @endif"><i class="align-middle" data-feather="send"></i></a>
-                    @else 
-                        <?php $id = str_replace('/','_',$store->code); ?>
-                        <a href="{{route('stores.edit',['id'=>$id])}}" class="btn btn-outline-warning"><i class="align-middle" data-feather="edit"></i></a>
-                    @endif
+                            @if($answer->status == 8)
+                                <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#alloy"><i class="align-middle" data-feather="eye"></i></button>
+                            @else 
+                                <a class="btn btn-outline-primary" href="{{route('answers.view', ['id'=>$answer->id])}}"><i class="align-middle" data-feather="eye"></i></a>
+                            @endif
                         </td>
                     </tr>
                 @endif
@@ -85,5 +59,29 @@
         @endforeach
     </tbody>
 </table>
-{{$answers->appends(['client' => $filterClient, 'store' => $filterStore, 'workorder' => $filterWO])->links()}}
+{{$answers->links()}}
+@foreach($answers as $answer)
+    @if($answer->status == 8)
+    <div class="modal fade" id="alloy" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    @foreach($stores as $store)
+                        @if($store->code == $answer->store && $store->client == $answer->client)
+                    <h5 class="modal-title">{{$store->name}}</h5>
+                        @endif
+                    @endforeach
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body m-3">
+                    <p class="mb-0">{{$answer->answer}}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
+@endforeach
 @endsection

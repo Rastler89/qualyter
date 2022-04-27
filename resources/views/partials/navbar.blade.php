@@ -22,6 +22,12 @@
                     <span class="align-middle">{{__('Tasks')}}</span>
                 </a>
             </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{route('answers')}}">
+                    <i class="align-middle" data-feather="award"></i>
+                    <span class="align-middle">{{__('Answers')}}</span>
+                </a>
+            </li>
             @endcan
             @can('view-work-order')
             <li class="sidebar-item">

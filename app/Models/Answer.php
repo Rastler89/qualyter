@@ -27,7 +27,8 @@ class Answer extends Model implements Auditable
     public $sortable = [
         'store',
         'expiration',
-        'client'
+        'client',
+        'status'
     ];
 
     public function tasks() {
