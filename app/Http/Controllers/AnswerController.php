@@ -172,6 +172,10 @@ class AnswerController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
+        if($answer->status != 3) {
+            return view('public.thanksStore');
+        }
+
         $store = Store::where('code','=',$answer->store)->first();
 
         return view('public.store', ['store' => $store, 'answer' => $answer]);
