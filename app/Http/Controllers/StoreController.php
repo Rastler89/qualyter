@@ -39,6 +39,7 @@ class StoreController extends Controller
 
 
     public function create(Request $request) {
+        Store::disableAuditing();
         $validated = $request->validate([
             'code' => 'required|unique:stores',
             'name' => 'required',
