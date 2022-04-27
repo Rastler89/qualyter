@@ -244,10 +244,66 @@ var elementPosition = $('#workOrder').offset();
 var elementWidth = $('#workOrder').width();
 
 $(document).ready(function() {
-  $('input[type=radio][name=valoration1]').val('');
-  $('input[type=radio][name=valoration2]').val('');
-  $('input[type=radio][name=valoration3]').val('');
-  $('input[type=radio][name=valoration4]').val('');
+    $('input[type=radio][id=valoration1-1]').click(function() {
+        $('input[type=radio][name=valoration1]').val(1)
+    });
+    $('input[type=radio][id=valoration1-2]').click(function() {
+        $('input[type=radio][name=valoration1]').val(2)
+    });
+    $('input[type=radio][id=valoration1-3]').click(function() {
+        $('input[type=radio][name=valoration1]').val(3)
+    });
+    $('input[type=radio][id=valoration1-4]').click(function() {
+        $('input[type=radio][name=valoration1]').val(4)
+    });
+    $('input[type=radio][id=valoration1-5]').click(function() {
+        $('input[type=radio][name=valoration1]').val(5)
+    });
+    $('input[type=radio][id=valoration2-1]').click(function() {
+        $('input[type=radio][name=valoration2]').val(1)
+    });
+    $('input[type=radio][id=valoration2-2]').click(function() {
+        $('input[type=radio][name=valoration2]').val(2)
+    });
+    $('input[type=radio][id=valoration2-3]').click(function() {
+        $('input[type=radio][name=valoration2]').val(3)
+    });
+    $('input[type=radio][id=valoration2-4]').click(function() {
+        $('input[type=radio][name=valoration2]').val(4)
+    });
+    $('input[type=radio][id=valoration2-5]').click(function() {
+        $('input[type=radio][name=valoration2]').val(5)
+    });
+    $('input[type=radio][id=valoration3-1]').click(function() {
+        $('input[type=radio][name=valoration3]').val(1)
+    });
+    $('input[type=radio][id=valoration3-2]').click(function() {
+        $('input[type=radio][name=valoration3]').val(2)
+    });
+    $('input[type=radio][id=valoration3-3]').click(function() {
+        $('input[type=radio][name=valoration3]').val(3)
+    });
+    $('input[type=radio][id=valoration3-4]').click(function() {
+        $('input[type=radio][name=valoration3]').val(4)
+    });
+    $('input[type=radio][id=valoration3-5]').click(function() {
+        $('input[type=radio][name=valoration3]').val(5)
+    });
+    $('input[type=radio][id=valoration4-1]').click(function() {
+        $('input[type=radio][name=valoration4]').val(1)
+    });
+    $('input[type=radio][id=valoration4-2]').click(function() {
+        $('input[type=radio][name=valoration4]').val(2)
+    });
+    $('input[type=radio][id=valoration4-3]').click(function() {
+        $('input[type=radio][name=valoration4]').val(3)
+    });
+    $('input[type=radio][id=valoration4-4]').click(function() {
+        $('input[type=radio][name=valoration4]').val(4)
+    });
+    $('input[type=radio][id=valoration4-5]').click(function() {
+        $('input[type=radio][name=valoration4]').val(5)
+    });
   $('input[type=radio][name=valoration1]').change(function() {
     $('#next1').css('visibility','visible');
     clearInterval(countTime);
