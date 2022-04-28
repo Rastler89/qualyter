@@ -46,7 +46,7 @@ style="text-align: justify-all;
 align-items: center; 
 font-size: 17px;
 padding-bottom: 12px;">
-<strong>{{__('Good morning')}}</strong>
+<strong>{{__('Hello')}}, {{$client->name}}</strong>
 <br/>
 <br/>
 {{__("After today's in-store visit, we would like to know what you think of the service you received by answering this short reply.")}}
