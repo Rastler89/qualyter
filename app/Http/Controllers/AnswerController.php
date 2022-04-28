@@ -173,7 +173,7 @@ class AnswerController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
-        if($answer->status == 3) {
+        if($answer->status == 4) {
             return view('public.thanksStore');
         }
 
@@ -196,7 +196,7 @@ class AnswerController extends Controller
         $answer = Answer::find($id);
         $old_answer = $answer;
 
-        $answer->status = 3;
+        $answer->status = 4;
         $answer->answer = json_encode($body,true);
 
         $answer->save();
