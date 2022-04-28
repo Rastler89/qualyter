@@ -74,7 +74,7 @@
             </div>
             <div class="btn-group" role="group" aria-label="Incidence" style="width:100%">
               <button type="button" onclick="prev(2)" style="width:50%" class="btn btn-primary btn-lg">{{__('Previous')}}</button>
-              <button id="next2" type="button" onclick="next(3)" style="width:50%;visibility:hidden;" class="btn btn-primary btn-lg">{{__('Next')}}</button>
+              <button id="next2" type="button" onclick="next(3)" style="width:50%;visibility:hidden;" class="btn btn-success btn-lg">{{__('Next')}}</button>
             </div>
           </div>
         </div>
@@ -101,7 +101,7 @@
             </div>
             <div class="btn-group" role="group" aria-label="Incidence" style="width:100%">
               <button type="button" onclick="prev(3)" style="width:50%" class="btn btn-primary btn-lg">{{__('Previous')}}</button>
-              <button id="next3" type="button" onclick="next(4)" style="width:50%;visibility:hidden;" class="btn btn-primary btn-lg">{{__('Next')}}</button>
+              <button id="next3" type="button" onclick="next(4)" style="width:50%;visibility:hidden;" class="btn btn-success btn-lg">{{__('Next')}}</button>
             </div>
           </div>
         </div>
@@ -128,7 +128,7 @@
             </div>
             <div class="btn-group" role="group" aria-label="Incidence" style="width:100%">
               <button type="button" onclick="prev(4)" style="width:50%" class="btn btn-primary btn-lg">{{__('Previous')}}</button>
-              <button id="next4" onclick="next(5)" style="width:50%;visibility:hidden;" class="btn btn-primary btn-lg">{{__('Finalize')}}</button>
+              <button id="next4" onclick="next(5)" style="width:50%;visibility:hidden;" class="btn btn-success btn-lg">{{__('Finalize')}}</button>
             </div>
           </div>
         </div>

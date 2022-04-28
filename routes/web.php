@@ -77,7 +77,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('tasks/view/{id}', [App\Http\Controllers\AnswerController::class, 'view'])->middleware('permission:response-tasks')->name('tasks.view');
     Route::post('tasks/view/{id}', [App\Http\Controllers\AnswerController::class, 'response'])->middleware('permission:response-tasks')->name('tasks.response');
     Route::post('tasks/cancel/{id}', [App\Http\Controllers\AnswerController::class, 'cancel'])->middleware('permission:response-tasks')->name('tasks.cancel');
-    Route::get('tasks/notrespon/{id}', [App\Http\Controllers\AnswerController::class, 'notrespond'])->middleware('permission:response-tasks')->name('tasks.notrespond');
+    Route::get('tasks/notrespond/{id}', [App\Http\Controllers\AnswerController::class, 'notrespond'])->middleware('permission:response-tasks')->name('tasks.notrespond');
     // ANSWER
     Route::get('answers', [App\Http\Controllers\AnswerController::class, 'answers'])->middleware('permission:view-tasks')->name('answers');
     Route::get('answers/{id}', [App\Http\Controllers\AnswerController::class, 'viewAnswer'])->middleware('permission:response-tasks')->name('answers.view');
@@ -99,6 +99,3 @@ Route::post('agent/incidence/{id}', [App\Http\Controllers\IncidenceController::c
 // STORE
 Route::get('store/survey/{id}', [App\Http\Controllers\AnswerController::class, 'viewSurvey'])->name('answer.survey');
 Route::post('store/survey/{id}', [App\Http\Controllers\AnswerController::class, 'responseSurvey'])->name('answer.response');
-
-Route::get('test', function() {
-    return view('public.thanksStore');});

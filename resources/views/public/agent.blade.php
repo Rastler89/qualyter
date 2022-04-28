@@ -1,4 +1,4 @@
-@extends('layouts.public')
+@extends('layouts.agent')
 
 @section('styles')
 <link rel="stylesheet" href="{{ asset("css/chat.css") }}">

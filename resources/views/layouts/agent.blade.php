@@ -26,9 +26,6 @@
 </head>
 
 <body>
-<nav class="navbar navbar-dark bg-white justify-content-md-center">
-	<img src="{{asset('img/logo_completo.png')}}" width="20%" class="m-3" />
-</nav>
 </nav>
 	<div class="wrapper">	
 		<div class="main">
