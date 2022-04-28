@@ -18,8 +18,10 @@ class StoreMail extends Mailable
     }
 
     public function build() {
+        $date = date('d-m-y');
+
         return $this->from('qc@optimaretail.es')
-                    ->subject(__('Data Servicio mantenimiento - Optima Retail'))
+                    ->subject($date.' '.__('mantenimiento').' - Optima Retail')
                     ->locale($this->body['locale'])
                     ->view('emails.store');
     }
