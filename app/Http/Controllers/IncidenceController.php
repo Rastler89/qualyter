@@ -15,7 +15,28 @@ use App\Mail\NotifyMail;
 class IncidenceController extends Controller
 {
     public function index() {
-        $incidences = Incidence::sortable()->paginate(10);
+        $incidences = Incidence::query();
+
+        if(!empty($store) && $store != '') {
+            $id = [];
+            $stores = Store::where('name','LIKE','%'.$store.'%')->get();
+            foreach($stores as $s) {
+                $id[] = $s->code;
+            }
+            $incidences->whereIn('store',$id);
+        }
+
+        if(!empty($client) && $client != '') {
+            $id = [];
+            $clients = Client::where('name','LIKE','%'.$client.'%')->get();
+            foreach($clients as $c) {
+                $id[] = $c->id;
+            }
+            $incidences->whereIn('client',$id);
+        }
+
+        $incidences = $incidences->sortable()->paginate(10);
+
         $stores = Store::all();
         $users = User::all();
         $agents = Agent::all();

@@ -5,6 +5,30 @@
 @endsection
 
 @section('content')
+<div class="accordion" id="accordionExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                {{__('Filters')}}
+            </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <form class="form-inline" method="GET">
+                    <div class="mb-3">
+                        <label for="store" class="form-label">{{__('Store`s Name')}}</label>
+                        <input type="text" class="form-control" name="store" placeholder="{{__('Store`s Name')}}"/>
+                    </div>
+                    <div class="mb-3">
+                        <label for="client" class="form-label">{{__('Client`s Name')}}</label>
+                        <input type="text" class="form-control" name="client" placeholder="{{__('Client`s Name')}}"/>
+                    </div>
+                    <button class="btn btn-danger">Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <table class="table table-hover table-striped">
     <thead>
