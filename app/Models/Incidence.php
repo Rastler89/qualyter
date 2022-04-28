@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
 
 use OwenIt\Auditing\Contracts\Auditable;
 
 class Incidence extends Model implements Auditable
 {
-    use HasFactory, \OwenIt\Auditing\Auditable;
+    use HasFactory, Sortable, \OwenIt\Auditing\Auditable;
 
     protected $dates = ['closed'];
 
@@ -24,5 +25,14 @@ class Incidence extends Model implements Auditable
         'comments',
         'closed',
         'created_at'
+    ];
+
+    public $sortable = [
+        'store',
+        'status',
+        'impact',
+        'responsable',
+        'owner',
+        'closed'
     ];
 }

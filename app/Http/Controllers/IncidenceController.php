@@ -15,7 +15,7 @@ use App\Mail\NotifyMail;
 class IncidenceController extends Controller
 {
     public function index() {
-        $incidences = Incidence::all();
+        $incidences = Incidence::sortable()->paginate(10);
         $stores = Store::all();
         $users = User::all();
         $agents = Agent::all();

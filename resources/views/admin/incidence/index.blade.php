@@ -8,12 +8,12 @@
 
 <table class="table table-hover table-striped">
     <thead>
-        <th scope="col">{{__('Store')}}</th>
-        <th scope="col">{{__('Status')}}</th>
-        <th scope="col">{{__('Impact')}}</th>
-        <th scope="col">{{__('Responsable')}}</th>
-        <th scope="col">{{__('Agent')}}</th>
-        <th scope="col">{{__('Closing day')}}</th>
+        <th scope="col">@sortablelink('store',__('Store'))</th>
+        <th scope="col">@sortablelink('status',__('Status'))</th>
+        <th scope="col">@sortablelink('impact',__('Impact'))</th>
+        <th scope="col">@sortablelink('responsable',__('Responsable'))</th>
+        <th scope="col">@sortablelink('owner',__('Agent'))</th>
+        <th scope="col">@sortablelink('closed',__('Closing day'))</th>
         <th scope="col"></th>
     </thead>
     <tbody>
@@ -89,4 +89,5 @@
         @endforeach
     </tbody>
 </table>
+{{$incidences->links()}}
 @endsection
