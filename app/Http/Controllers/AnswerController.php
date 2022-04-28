@@ -307,7 +307,7 @@ class AnswerController extends Controller
                 if(env('APP_NAME')=='QualyterTEST') {
                     Mail::to('test@optimaretail.es')->send(new NotifyMail($body));
                 } else {
-                    Mail::to($owner->email)->send(new ResponseMail($body));
+                    Mail::to($agent->email)->send(new ResponseMail($body));
                 }
 
                 $body = null;
