@@ -187,7 +187,7 @@ class IncidenceController extends Controller
             Mail::to($user['email'])->send(new NotifyMail($body));
         }
 
-        return view('public.thanksAgent');
+        return view('public.thanksAgents');
     }
 
     public function resend($id) {
