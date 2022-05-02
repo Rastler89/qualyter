@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('content')<!--
+@section('content')
 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
   <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#downloadCSV"><i class="align-middle" data-feather="download"></i></button>
 </div>
@@ -11,7 +11,7 @@
         <h5 class="modal-title" id="staticBackdropLabel">{{__('Export CSV')}}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form method="POST" action="">
+      <form method="POST" action="{{route('export.answer')}}">
           @csrf
       <div class="modal-body">
         <label>{{__('Search among')}}:</label>
@@ -38,24 +38,15 @@
                 @endforeach
             </datalist>
         </div>
-        <div class="mb-3">
-            <label for="agent" class="form-label">{{__('Agent')}}</label>
-            <input class="form-control" list="agents" id="agent" name="agent" placeholder="{{__('Type to search...')}}" />
-            <datalist id="agents">
-                @foreach($agents as $agent)  
-                    <option value="{{$agent->id}}">{{$agent->name}}</option>
-                @endforeach
-            </datalist>
-        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__('Close')}}</button>
-        <button type="button" class="btn btn-success">{{__('Export')}}</button>
+        <button class="btn btn-success">{{__('Export')}}</button>
       </div>
 </form>
     </div>
   </div>
-</div>-->
+</div>
 <table class="table table-hover table-striped">
     <thead>
         <tr>
