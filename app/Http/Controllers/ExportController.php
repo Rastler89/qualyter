@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Answer;
+use App\Models\Client;
+use App\Models\Store;
 
 
 class ExportController extends Controller
@@ -23,7 +25,7 @@ class ExportController extends Controller
             'Pragma'                => 'public'
         ];
 
-        $list = Answer::whereBetween('expiration', [$request->get('start_date'), $request->get('end_date')])->whereIn('status',array(2,4,5));
+        $list = Answer::select('id','expiration','answer','client')->whereBetween('expiration', [$request->get('start_date'), $request->get('end_date')])->whereIn('status',array(2,4,5));
         
         if(!is_null($request->get('client')) && $request->get('client') != '') {
             $list->where('client','=',$request->get('client'));
@@ -33,9 +35,25 @@ class ExportController extends Controller
         }
         
         $list = $list->get()->toArray();
-        
         array_unshift($list, array_keys($list[0]));
-
+        foreach($list as $key => &$l) {
+            if($key != 0) {
+                $client = Client::find($l['client']);
+                $l['client'] = $client->name;
+                $answers = json_decode($l['answer']);
+                foreach($answers->valoration as $i => $answer) {
+                    $name1 = 'point'.$i;
+                    $name2 = 'comment'.$i;
+                    $l[$name1] = $answer;
+                    $l[$name2] = $answers->comment[$i];
+                }
+            } else {
+                for($i=0;$i<4;$i++) {
+                    $l[]='point'.$i;
+                    $l[]='comment'.$i;
+                }
+            }
+        }
         $callback = function() use ($list) 
         {
             $FH = fopen('php://output', 'w');
