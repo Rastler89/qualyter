@@ -227,8 +227,9 @@ class AnswerController extends Controller
         $answers = Answer::where('status','>',1)->sortable()->paginate(10);
         $stores = Store::all();
         $clients = Client::all();
+        $agents = Agent::all();
 
-        return view('admin.answer.index', ['answers' => $answers, 'stores' => $stores, 'clients' => $clients]);
+        return view('admin.answer.index', ['answers' => $answers, 'agents' => $agents, 'stores' => $stores, 'clients' => $clients]);
     }
 
     public function viewAnswer(Request $request, $id) {

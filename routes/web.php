@@ -92,6 +92,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('incidences/{id}/changeAgent', [App\Http\Controllers\IncidenceController::class, 'changeAgent'])->middleware('permission:change-incidences')->name('incidences.changeAgent');
     Route::post('incidences/{id}', [App\Http\Controllers\IncidenceController::class, 'modify'])->middleware('permission:response-incidences')->name('incidences.modify');
     Route::get('incidences/send/{id}', [App\Http\Controllers\IncidenceController::class, 'resend'])->name('incidences.resend');
+
+    // EXPORTS
+    Route::post('export/answer', [App\Http\Controllers\ExportController::class, 'answer'])->name('export.answer');
 });
 // INCIDENCE
 Route::get('agent/incidence/{id}', [App\Http\Controllers\IncidenceController::class, 'response'])->name('incidences.agent');

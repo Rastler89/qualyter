@@ -185,10 +185,17 @@ class UploadController extends Controller
         $result = [];
 
         if(($open = fopen($fileName,'r')) !== FALSE) {
-            while(($data = fgetcsv($open,1000,';')) !== FALSE) {
+            while(($data = fgetcsv($open,0,';')) !== FALSE) {
                 if(empty($response)) {
                     foreach($data as $key => $field) {
                         $response[$key] = utf8_encode($field);
+                        if(strpos($response[$key],'Cï¿½digo') !== false) {
+                            $response[$key] = str_replace('Cï¿½digo','Código',$response[$key]);
+                        }
+                        if(strpos($response[$key],'Finalizaciï¿½n') !== false) {
+                            $response[$key] = str_replace('Finalizaciï¿½n','Finalización',$response[$key]);;
+                        }
+
                     }
                 } else {
                     $result[] = array_combine($response,$data);
