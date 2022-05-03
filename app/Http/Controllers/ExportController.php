@@ -25,7 +25,7 @@ class ExportController extends Controller
             'Pragma'                => 'public'
         ];
 
-        $list = Answer::select('id','expiration','answer','client')->whereBetween('expiration', [$request->get('start_date'), $request->get('end_date')])->whereIn('status',array(2,4,5));
+        $list = Answer::select('id','expiration','store','answer','client')->whereBetween('expiration', [$request->get('start_date'), $request->get('end_date')])->whereIn('status',array(2,4,5));
         
         if(!is_null($request->get('client')) && $request->get('client') != '') {
             $list->where('client','=',$request->get('client'));
@@ -40,6 +40,8 @@ class ExportController extends Controller
             if($key != 0) {
                 $client = Client::find($l['client']);
                 $l['client'] = $client->name;
+                $store = Store::where('code','=',$l['store'])->get();
+                $l['store'] = $store->name;
                 $answers = json_decode($l['answer']);
                 foreach($answers->valoration as $i => $answer) {
                     $name1 = 'point'.$i;
