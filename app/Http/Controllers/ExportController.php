@@ -40,7 +40,7 @@ class ExportController extends Controller
             if($key != 0) {
                 $client = Client::find($l['client']);
                 $l['client'] = $client->name;
-                $store = Store::where('code','=',$l['store'])->get();
+                $store = Store::where('code','=',$l['store'])->first();
                 $l['store'] = $store->name;
                 $answers = json_decode($l['answer']);
                 foreach($answers->valoration as $i => $answer) {
