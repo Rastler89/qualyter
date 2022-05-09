@@ -18,7 +18,8 @@ class Client extends Model implements Auditable
         'delegation',
         'phonenumber',
         'email',
-        'language'
+        'language',
+        'extra'
     ];
 
     public $sortable = [

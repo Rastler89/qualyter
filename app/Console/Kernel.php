@@ -4,6 +4,8 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Cmixin\BusinessDay;
+
 
 class Kernel extends ConsoleKernel
 {
@@ -15,9 +17,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        BusinessDay::enable('Carbon\Carbon');
+        $schedule->command('note:monthly')->when(function () {
+            return \Carbon\Carbon::now()->isSameDay($this->findFirstBusinessDay());
+        })->at('10:00');
     }
-
+    
     /**
      * Register the commands for the application.
      *
@@ -26,7 +31,15 @@ class Kernel extends ConsoleKernel
     protected function commands()
     {
         $this->load(__DIR__.'/Commands');
-
+        
         require base_path('routes/console.php');
+    }
+    
+    protected function findFirstBusinessDay() {
+        $first = \Carbon\Carbon::now()->firstOfMonth();
+        if ($first->isBusinessDay()) {
+            return $first;
+        }
+        return $first->nextBusinessDay();
     }
 }

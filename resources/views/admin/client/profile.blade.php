@@ -22,7 +22,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="country" class="form-label">{{__('Country')}}</label>
-                        <input class="form-control" list="countries" id="country" name="country" placeholder="{{__('Type to search...')}}" >
+                        <input class="form-control" list="countries" @if($client!=null) value="--" @endif id="country" name="country" placeholder="{{__('Type to search...')}}" >
                         <datalist id="countries"></datalist>
                     </div>
                     <div class="mb-3">
@@ -35,8 +35,14 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-check">
-                            <input class="form-check-input" type="checkbox" id="central" name="central" />
+                            <input class="form-check-input" type="checkbox" id="central" name="central" @if($client != null) @if($client->delegation == '00') checked @endif @endif />
                             <span class="form-check-label">{{__('This client is central')}}</span>
+                        </label>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-check">
+                            <input class="form-check-input" type="checkbox" id="extra" name="extra" @if($client != null) @if($client->extra) checked @endif @endif />
+                            <span class="form-check-label">{{__('Extra information')}}</span>
                         </label>
                     </div>
                     <div class="d-grid gap-2">
