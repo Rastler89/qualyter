@@ -153,9 +153,8 @@ class AnswerController extends Controller
             'locale' => ($store->language != null) ? $store->language : 'en',
             'token' => $answer->token
         ];
-
         if(env('APP_NAME')=='QualyterTEST') {
-            Mail::to('test@optimaretail.es')->send(new StoreMail($body));
+            Mail::to('test@optimaretail.es')->locale($body['locale'])->send(new StoreMail($body));
         } else {
             $emails = explode(';',$store->email);
             foreach($emails as $email) {
