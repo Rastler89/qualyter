@@ -10,7 +10,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 class Client extends Model implements Auditable
 {
-    use HasFactory, Sortable, \OwenIt\AUditing\Auditable;
+    use HasFactory, Sortable, \OwenIt\Auditing\Auditable;
 
     protected $fillable = [
         'id',
@@ -19,7 +19,8 @@ class Client extends Model implements Auditable
         'phonenumber',
         'email',
         'language',
-        'extra'
+        'extra',
+        'father'
     ];
 
     public $sortable = [

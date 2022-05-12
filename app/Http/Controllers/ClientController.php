@@ -14,7 +14,8 @@ class ClientController extends Controller
     }
 
     public function new() {
-        return view('admin.client.profile', ['client' => null]);
+        $clients = Client::where('delegation','=','00')->get();
+        return view('admin.client.profile', ['client' => null, 'clients' => $clients]);
     }
 
     public function create(Request $request) {
@@ -45,6 +46,7 @@ class ClientController extends Controller
         }
         $client->language = $resp[0]->languages[0]->iso639_1;
         $client->extra = $request->get('extra') == 'on';
+        $client->father = ($request->get('father') == '--') ? NULL : $request->get('father');
 
         $client->save();
         
@@ -53,8 +55,9 @@ class ClientController extends Controller
 
     public function edit($id) {
         $client = Client::find($id);
+        $clients = Client::where('delegation','=','00')->get();
 
-        return view('admin.client.profile',['client' => $client]);
+        return view('admin.client.profile',['client' => $client, 'clients' => $clients]);
     }
 
     public function update(Request $request, $id) {
@@ -83,6 +86,7 @@ class ClientController extends Controller
         $client->phonenumber = $request->get('phonenumber');
         $client->email = $request->get('email');
         $client->extra = $request->get('extra') == 'on';
+        $client->father = ($request->get('father') == '--') ? NULL : $request->get('father');
 
         $client->save();
         

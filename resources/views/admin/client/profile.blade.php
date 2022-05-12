@@ -34,8 +34,18 @@
                         <textarea class="form-control" id="email" name="email" row="3">@if ($client != null) {{$client->email}} @endif</textarea>
                     </div>
                     <div class="mb-3">
+                        <label for="father" class="form-label">{{__('Father')}}</label>
+                        <input class="form-control" list="fathers" id="father" name="father" placeholder="{{__('Type to search...')}}" @if($client != null) value="{{$client->father}}" @endif />
+                        <datalist id="fathers">
+                            <option value="--">{{__('Nothing')}}</option>
+                            @foreach($clients as $father)  
+                                <option value="{{$father->id}}">{{$father->name}}</option>
+                            @endforeach
+                        </datalist>
+                    </div>
+                    <div class="mb-3">
                         <label class="form-check">
-                            <input class="form-check-input" type="checkbox" id="central" name="central" @if($client != null) @if($client->delegation == '00') checked @endif @endif />
+                            <input class="form-check-input" type="checkbox" id="central" name="central" @if($client != null && $client->delegation === '00') checked @endif />
                             <span class="form-check-label">{{__('This client is central')}}</span>
                         </label>
                     </div>

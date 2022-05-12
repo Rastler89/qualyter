@@ -14,7 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('clients', function (Blueprint $table) {
-            $table->boolean('extra');
+            $table->boolean('extra')->nullable();
+            $table->unsignedBigInteger('father')->nullable();
         });
     }
 
@@ -27,6 +28,7 @@ return new class extends Migration
     {
         Schema::table('clients', function (Blueprint $table) {
             $table->dropColumn('extra');
+            $table->dropColumn('father');
         });
     }
 };
