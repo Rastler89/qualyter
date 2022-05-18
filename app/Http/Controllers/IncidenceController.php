@@ -71,7 +71,7 @@ class IncidenceController extends Controller
             'message' => 'required'
         ]);
         $incidence = Incidence::find($id);
-        $old_incidence = $incidence;
+        $old_incidence = Incidence::find($id);
         
         $incidence->status = $request->get('status');
         
@@ -142,7 +142,7 @@ class IncidenceController extends Controller
 
     public function update($id, Request $request) {
         $incidence = Incidence::find($id);
-        $old_incidence = $incidence;
+        $old_incidence = Incidence::find($id);
 
         $incidence->status = 1;
         $incidence->closed = $request->get('closed');

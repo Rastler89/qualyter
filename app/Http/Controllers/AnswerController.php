@@ -65,13 +65,13 @@ class AnswerController extends Controller
     public function view($id) {
         $log = new AuditionController();
         $answer = Answer::find($id);
-        $old_answer = $answer;
+        $old_answer = Answer::find($id);
 
         //Add user and modify status
         $answer->status = 1;
         $answer->user = auth()->user()->id;
         $answer->save();
-
+        
         if($old_answer->status != $answer->status) {
             $log->saveLog($old_answer,$answer,'a');
         }
@@ -99,7 +99,7 @@ class AnswerController extends Controller
         $body['comment'][3] = $request->get('comment4');
 
         $answer = Answer::find($id);
-        $old_answer = $answer;
+        $old_answer = Answer::find($id);
 
         $answer->status = 2;
         $answer->answer = json_encode($body,true);
@@ -116,7 +116,7 @@ class AnswerController extends Controller
 
     public function cancel(Request $request, $id) {
         $answer = Answer::find($id);
-        $old_answer = $answer;
+        $old_answer = Answer::find($id);
 
         $answer->answer = json_encode($request->get('reason'));
         $answer->status = 8;
@@ -135,7 +135,7 @@ class AnswerController extends Controller
         $store = Store::where('code','=',$answer->store)->first();
         $client = Client::find($answer->client);
 
-        $old_answer = $answer;
+        $old_answer = Answer::find($id);
 
         $answer->answer = json_encode($request->get('reason'));
         $answer->user = auth()->user()->id;
@@ -153,9 +153,8 @@ class AnswerController extends Controller
             'locale' => ($store->language != null) ? $store->language : 'en',
             'token' => $answer->token
         ];
-
         if(env('APP_NAME')=='QualyterTEST') {
-            Mail::to('test@optimaretail.es')->send(new StoreMail($body));
+            Mail::to('test@optimaretail.es')->locale($body['locale'])->send(new StoreMail($body));
         } else {
             $emails = explode(';',$store->email);
             foreach($emails as $email) {
@@ -194,7 +193,7 @@ class AnswerController extends Controller
         $body['comment'][3] = $request->get('comment4');
 
         $answer = Answer::find($id);
-        $old_answer = $answer;
+        $old_answer = Answer::find($id);
 
         $answer->status = 4;
         $answer->answer = json_encode($body,true);
@@ -255,7 +254,7 @@ class AnswerController extends Controller
 
     public function revised(Request $request, $id) {
         $answer = Answer::find($id);
-        $old_answer = $answer;
+        $old_answer = Answer::find($id);
 
         $answer->status = 5;
 

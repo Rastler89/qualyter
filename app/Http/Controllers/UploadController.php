@@ -80,7 +80,9 @@ class UploadController extends Controller
         Agent::disableAuditing();
         $respuesta = $this->exportCSV($request);
 
+        
         foreach($respuesta as $resp) {
+            $resp[1] = str_replace('optima.retail','optimaretail',$resp[1]);
             $agent = Agent::where('email','=',$resp[1])->first();
 
             if($agent==null) {
