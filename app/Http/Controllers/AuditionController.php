@@ -20,6 +20,7 @@ class AuditionController extends Controller
     }
 
     public function saveLog($old,$new,$type) {
+        echo"hola";die();
         $log = new Log();
         $log->table = $type;
         $log->row_id = $old->id;

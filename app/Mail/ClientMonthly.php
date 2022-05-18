@@ -11,14 +11,16 @@ class ClientMonthly extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $body;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($body)
     {
-        //
+        $this->body = $body;
     }
 
     /**
@@ -28,8 +30,15 @@ class ClientMonthly extends Mailable
      */
     public function build()
     {
-        return $this->from('qc@optimaretail.es')
+        if(gettype($this->body) == 'array') {
+            return $this->from('qc@optimaretail.es')
+                        ->subject(__('test'))
+                        ->view('emails.delegations');
+        } else {
+            return $this->from('qc@optimaretail.es')
                     ->subject(__('envio automatico'))
                     ->view('emails.clients');
+        }
+        /**/
     }
 }

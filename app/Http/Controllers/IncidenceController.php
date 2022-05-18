@@ -14,7 +14,9 @@ use App\Mail\NotifyMail;
 
 class IncidenceController extends Controller
 {
-    public function index() {
+    public function index(Request $request) {
+        $client = $request->query('client');
+        $store = $request->query('store');
         $incidences = Incidence::query();
 
         if(!empty($store) && $store != '') {

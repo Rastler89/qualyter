@@ -7,34 +7,71 @@ use Illuminate\Http\Request;
 use App\Models\Client;
 use App\Models\Store;
 use App\Models\Answer;
+use Mail;
+use App\Mail\ClientMonthly;
 
 class TestController extends Controller
 {
     public function handle()
     {
-        info("Cron Job running at ". now());
-        $first_day = $this->first_month_day();
-        $last_day = $this->last_month_day();
+        
 
         $fathers = Client::whereNull('father')->get();
 
         foreach($fathers as $father) {
+            
             if($father->delegation == '00') {
                 //busca hijos
-
-            } else {
+                $sons = null;
+                $delegations = Client::where('father','=',$father->id)->orderBy('id','desc')->get();
+                
+                foreach($delegations as $delegation) {
+                    $average = $this->getAverage($delegation);
+                    if($average != false) {
+                        $sons[$delegation->name] = $average;
+                    }
+                }
+                //se envia correo
+                if(!is_null($sons)) {
+                    Mail::to('test@optimaretail.es')->send(new ClientMonthly($sons));
+                }
+            } /*else {
                 //busca tiendas
-                $stores = Store::where('client','=',$father->id)->get();
-                foreach($stores as $store) {
-                    $answer = 
+                $average = $this->getAverage($father);
+                if($average != false) {
+                    //se envia correo
+                    Mail::to('test@optimaretail.es')->send(new ClientMonthly($average));
+                }
+            }*/
+        }
+
+        //return 0;
+    }
+    private function getAverage($client) {
+        $resp = [];
+
+        $first_day = $this->first_month_day();
+        $last_day = $this->last_month_day();
+
+        $stores = Store::where('client','=',$client->id)->get();
+        foreach($stores as $store) {
+            $answer = Answer::where('store','=',$store->code)->whereIn('status',[2,4,5])->whereBetween('expiration',[$first_day,$last_day])->get();
+            if(count($answer) > 0) {
+                foreach($answer as $ans) {
+                    $response = json_decode($ans->answer,true);
+                    $resp[] = $response['valoration'][0];
                 }
             }
         }
-        
-        echo"<pre>";print_r($fathers);echo"</pre>";
-        //Mail::to('test@optimaretail.es')->send(new ClientMonthly());
+        if(count($resp) > 0) {
+            $total = array_sum($resp);
+            $divisor = count($resp);
+            $media = $total/$divisor;
+            return $media;
+        } else {
+            return false;
+        }
 
-        //return 0;
     }
     /** Actual month last day **/
     private function last_month_day() { 
