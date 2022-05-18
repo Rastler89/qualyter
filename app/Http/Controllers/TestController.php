@@ -25,15 +25,24 @@ class TestController extends Controller
                 $sons = null;
                 $delegations = Client::where('father','=',$father->id)->orderBy('id','desc')->get();
                 
+                $visits = 0;
                 foreach($delegations as $delegation) {
-                    $average = $this->getAverage($delegation);
+                    $average = $this->getAverage($delegation,true);
                     if($average != false) {
-                        $sons[$delegation->name] = $average;
+                        $sons[$delegation->name] = $average['points'];
+                        $visits += $average['visits'];
                     }
+                }
+                $body = [
+                    'sons' => $sons,
+                    'visits'=> $visits
+                ];
+                if($father->extra) {
+                    $extra = $this->getExtra($delegations);
                 }
                 //se envia correo
                 if(!is_null($sons)) {
-                    Mail::to('test@optimaretail.es')->send(new ClientMonthly($sons));
+                    Mail::to('test@optimaretail.es')->send(new ClientMonthly($body));
                 }
             } /*else {
                 //busca tiendas
@@ -47,7 +56,10 @@ class TestController extends Controller
 
         //return 0;
     }
-    private function getAverage($client) {
+    private function getExtra($delegations) {
+        
+    }
+    private function getAverage($client,$array=false) {
         $resp = [];
 
         $first_day = $this->first_month_day();
@@ -67,11 +79,15 @@ class TestController extends Controller
             $total = array_sum($resp);
             $divisor = count($resp);
             $media = $total/$divisor;
+            if($array) {
+                $resp['points'] = $media;
+                $resp['visits'] = $total;
+                return $resp;
+            }
             return $media;
         } else {
             return false;
         }
-
     }
     /** Actual month last day **/
     private function last_month_day() { 
