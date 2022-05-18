@@ -88,6 +88,7 @@ class AnswerController extends Controller
     }
 
     public function response(Request $request, $id) {
+        $log = new AuditionController();
         $body = [];
         $body['valoration'][0] = $request->get('valoration1');
         $body['valoration'][1] = $request->get('valoration2');
@@ -115,6 +116,7 @@ class AnswerController extends Controller
     }
 
     public function cancel(Request $request, $id) {
+        $log = new AuditionController();
         $answer = Answer::find($id);
         $old_answer = Answer::find($id);
 
@@ -131,6 +133,7 @@ class AnswerController extends Controller
     }
 
     public function notrespond(Request $request, $id) {
+        $log = new AuditionController();
         $answer = Answer::find($id);
         $store = Store::where('code','=',$answer->store)->first();
         $client = Client::find($answer->client);
@@ -182,6 +185,7 @@ class AnswerController extends Controller
     }
 
     public function responseSurvey(Request $request, $id) {
+        $log = new AuditionController();
         $body = [];
         $body['valoration'][0] = $request->get('valoration1');
         $body['valoration'][1] = $request->get('valoration2');
@@ -253,12 +257,17 @@ class AnswerController extends Controller
     }
 
     public function revised(Request $request, $id) {
+        $log = new AuditionController();
         $answer = Answer::find($id);
         $old_answer = Answer::find($id);
 
         $answer->status = 5;
 
         $answer->save();
+
+        if($old_answer->status != $answer->status) {
+            $log->saveLog($old_answer,$answer,'a');
+        }
 
         $this->createIncidence($request,$answer);
 
