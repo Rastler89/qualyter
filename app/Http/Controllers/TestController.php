@@ -27,23 +27,29 @@ class TestController extends Controller
                 
                 $visits = 0;
                 foreach($delegations as $delegation) {
-                    $average = $this->getAverage($delegation,true);
+                    $average = $this->getAverage($delegation);
                     if($average != false) {
-                        $sons[$delegation->name] = $average['points'];
-                        $visits += $average['visits'];
+                        $sons[$delegation->name] = $average['media'];
+                        $visits += $average['total'];
                     }
-                }
-                $body = [
-                    'sons' => $sons,
-                    'visits'=> $visits
-                ];
+                } 
                 if($father->extra) {
                     $extra = $this->getExtra($delegations);
+                    $body = [
+                        'sons' => $sons,
+                        'visits' => $visits,
+                        'extra' => $extra
+                    ];
+                } else {
+                    $body = [
+                        'sons' => $sons,
+                        'visits' => $visits
+                    ];
+                }
+                if(!is_null($sons)) {
+                    Mail::to('test@optimaretail.es')->send(new ClientMonthly($sons));
                 }
                 //se envia correo
-                if(!is_null($sons)) {
-                    Mail::to('test@optimaretail.es')->send(new ClientMonthly($body));
-                }
             } /*else {
                 //busca tiendas
                 $average = $this->getAverage($father);
@@ -57,9 +63,34 @@ class TestController extends Controller
         //return 0;
     }
     private function getExtra($delegations) {
-        
+        $visits = 0;
+        $qc = 0;
+        $send = 0;
+        $resp = 0;
+        foreach($delegations as $delegation) {
+            $answers = Answer::where('client','=',$delegation->id)->get();
+            $visits += count($answers);
+
+            $answers = Answer::where('client','=',$delegation->id)->where('status','=','2')->get();
+            $qc += count($answers);
+
+            $answers = Answer::where('client','=',$delegation->id)->whereIn('status',[3,4,5])->get();
+            $send += count($answers);
+
+            $answers = Answer::where('client','=',$delegation->id)->whereIn('status',[4,5])->get();
+            $resp += count($answers);
+        }
+
+        $body = [
+            'visits' => $visits,
+            'qc' => $qc,
+            'send' => $send,
+            'resp' => $resp
+        ];
+
+        return $body;
     }
-    private function getAverage($client,$array=false) {
+    private function getAverage($client) {
         $resp = [];
 
         $first_day = $this->first_month_day();
@@ -79,11 +110,10 @@ class TestController extends Controller
             $total = array_sum($resp);
             $divisor = count($resp);
             $media = $total/$divisor;
-            if($array) {
-                $resp['points'] = $media;
-                $resp['visits'] = $total;
-                return $resp;
-            }
+            $body = [
+                'media' => $media,
+                'total' => $total,
+            ]
             return $media;
         } else {
             return false;
