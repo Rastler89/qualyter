@@ -5,8 +5,13 @@
 @endsection
 
 @section('content')
-<div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
-    <button class="btn btn-outline-dark" type="button" data-bs-toggle="modal" data-bs-target="#cancelVisit">{{__('Cancel')}}</button>
+<div class="row">
+  <div class="col-6 d-grid gap-2 d-md-flex mb-3">
+      <a class="btn btn-outline-primary" href="{{ url()->previous() }}"><i class="align-middle" data-feather="chevron-left"></i></a>
+  </div>
+  <div class="col-6 d-grid gap-2 d-md-flex justify-content-md-end mb-3">
+      <button class="btn btn-outline-dark" type="button" data-bs-toggle="modal" data-bs-target="#cancelVisit">{{__('Cancel')}}</button>
+  </div>
 </div>
 
 <!-- Modal cancel -->
