@@ -36,18 +36,21 @@ class TestController extends Controller
                 if($father->extra) {
                     $extra = $this->getExtra($delegations);
                     $body = [
+                        'name' => $father->name,
                         'sons' => $sons,
                         'visits' => $visits,
                         'extra' => $extra
                     ];
                 } else {
                     $body = [
+                        'name' => $father->name,
                         'sons' => $sons,
-                        'visits' => $visits
+                        'visits' => $visits,
+                        'extra' => null
                     ];
                 }
                 if(!is_null($sons)) {
-                    Mail::to('test@optimaretail.es')->send(new ClientMonthly($sons));
+                    Mail::to('test@optimaretail.es')->send(new ClientMonthly($body));
                 }
                 //se envia correo
             } /*else {
@@ -113,8 +116,8 @@ class TestController extends Controller
             $body = [
                 'media' => $media,
                 'total' => $total,
-            ]
-            return $media;
+            ];
+            return $body;
         } else {
             return false;
         }

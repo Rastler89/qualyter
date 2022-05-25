@@ -31,6 +31,7 @@ class ClientMonthly extends Mailable
     public function build()
     {
         if(gettype($this->body) == 'array') {
+            $this->body['month'] = date('m')-1;
             return $this->from('qc@optimaretail.es')
                         ->subject(__('test'))
                         ->view('emails.delegations');
