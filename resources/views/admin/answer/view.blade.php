@@ -2,6 +2,11 @@
 
 @section('content')
 <div class="row">
+  <div class="col-6 d-grid gap-2 d-md-flex mb-3">
+      <a class="btn btn-outline-primary" href="{{ url()->previous() }}"><i class="align-middle" data-feather="chevron-left"></i></a>
+  </div>
+</div>
+<div class="row">
   <div class="col">
     <div class="card">
       <div class="card-body">

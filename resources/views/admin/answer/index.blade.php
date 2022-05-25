@@ -4,6 +4,36 @@
 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
   <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#downloadCSV"><i class="align-middle" data-feather="download"></i></button>
 </div>
+
+<div class="accordion" id="accordionExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                {{__('Filters')}}
+            </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <form class="form-inline" method="GET">
+                    <div class="mb-3">
+                        <label for="store" class="form-label">{{__('Store`s Name')}}</label>
+                        <input type="text" class="form-control" name="store" placeholder="{{__('Store`s Name')}}"/>
+                    </div>
+                    <div class="mb-3">
+                        <label for="client" class="form-label">{{__('Client`s Name')}}</label>
+                        <input type="text" class="form-control" name="client" placeholder="{{__('Client`s Name')}}"/>
+                    </div>
+                    <div class="mb-3">
+                        <label for="workorder" class="form-label">{{__('Work Order')}}</label>
+                        <input type="text" class="form-control" name="workorder" placeholder="{{__('Work Order')}}" />
+                    </div>
+                    <button class="btn btn-danger">Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="downloadCSV" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -105,7 +135,7 @@
         @endforeach
     </tbody>
 </table>
-{{$answers->links()}}
+{{$answers->appends(['client' => $filterClient, 'store' => $filterStore, 'workorder' => $filterWO])->links()}}
 @foreach($answers as $answer)
     @if($answer->status == 8)
     <div class="modal fade" id="alloy" tabindex="-1" role="dialog" aria-hidden="true">

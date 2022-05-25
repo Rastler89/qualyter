@@ -227,13 +227,46 @@ class AnswerController extends Controller
         return view('public.thanksStore');
     }
 
-    public function answers() {
-        $answers = Answer::where('status','>',1)->sortable()->paginate(10);
+    public function answers(Request $request) {
+        $client = $request->query('client');
+        $store = $request->query('store');
+        $work = $request->query('workorder');
+        
+        $pre_answers = Answer::where('status','>',1);
+
+        if(!empty($store) && $store != '') {
+            $id = [];
+            $stores = Store::where('name','LIKE','%'.$store.'%')->get();
+            foreach($stores as $s) {
+                $id[] = $s->code;
+            }
+            $pre_answers->whereIn('store',$id);
+        }
+
+        if(!empty($client) && $client != '') {
+            $id = [];
+            $clients = Client::where('name','LIKE','%'.$client.'%')->get();
+            foreach($clients as $c) {
+                $id[] = $c->id;
+            }
+            $pre_answers->whereIn('client',$id);
+        }
+
+        if(!empty($work) && $work != '') {
+            $id=[];
+            $tasks = Task::where('code','LIKE','%'.$work.'%')->get();
+            foreach($tasks as $t) {
+                $id[] = $t->answer_id;
+            }
+            $pre_answers->whereIn('id',$id);
+        }
+
+        $answers = $pre_answers->sortable()->paginate(10);
         $stores = Store::all();
         $clients = Client::all();
         $agents = Agent::all();
 
-        return view('admin.answer.index', ['answers' => $answers, 'agents' => $agents, 'stores' => $stores, 'clients' => $clients]);
+        return view('admin.answer.index', ['answers' => $answers, 'agents' => $agents, 'stores' => $stores, 'clients' => $clients, 'filterStore' => $store, 'filterClient' => $client, 'filterWO' => $work]);
     }
 
     public function viewAnswer(Request $request, $id) {
