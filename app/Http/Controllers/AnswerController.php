@@ -330,6 +330,18 @@ class AnswerController extends Controller
         return redirect()->route('answers')->with('success','Answer closed!');
     }
 
+    public function complete($id) {
+        $log = new AuditionController();
+        $answer = Answer::find($id);
+        $old_answer = Answer::find($id);
+
+        $answer->status = 5;
+
+        $answer->save();
+
+        return redirect()->route('answers')->with('success','Answer closed!');
+    }
+
     private function createIncidence($request,$answer) {
         $body = null;
         if($request['responsable'][0] != '--') {

@@ -72,10 +72,13 @@
   <div class="col-8 col-sm-8" id="bodyIncidence">
     <div id="anyIncidence">
       <h4>{{__('Has there been any impact on this visit?')}}</h4>
-      <div class="btn-group" role="group" aria-label="Incidence" style="width:100%">
-        <button type="button" style="width:50%" class="btn btn-danger btn-lg" onclick="showIncidence()">{{__('Yes')}}</button>
-        <button type="button" style="width:50%" class="btn btn-success btn-lg" onclick="sendForm()">{{__('No (Close Questionnaire)')}}</button>
-      </div>
+      <form method="POST" action="{{route('answers.complete', ['id' =>$answer->id])}}">
+        @csrf
+        <div class="btn-group" role="group" aria-label="Incidence" style="width:100%">
+          <button type="button" style="width:50%" class="btn btn-danger btn-lg" onclick="showIncidence()">{{__('Yes')}}</button>
+          <button style="width:50%" class="btn btn-success btn-lg">{{__('No (Close Questionnaire)')}}</button>
+        </div>
+      </form>
     </div>
       <form method="POST" action="{{route('answers.revised',['id' => $answer->id])}}">
         @csrf
@@ -129,6 +132,9 @@ function showIncidence() {
   $('#workOrder').css('display','block');
   $('#anyIncidence').css('display','none');
   $('#bodyIncidence').css('position','relative');
+}
+function sendForm() {
+  $('#questionary').submit();
 }
 </script>
 @endsection
