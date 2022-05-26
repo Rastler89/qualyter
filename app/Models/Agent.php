@@ -16,6 +16,7 @@ class Agent extends Model implements Auditable
     protected $fillable = [
         'id',
         'name',
-        'email'
+        'email',
+        'team'
     ];
 }

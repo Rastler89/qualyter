@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Agent;
+use App\Models\Team;
 use Illuminate\Http\Request;
 
 class AgentController extends Controller
 {
     public function index() {
         $agents = Agent::paginate(25);
-        return view('admin.agent.index', ['agents' => $agents]);
+        $team = Team::all();
+        return view('admin.agent.index', ['agents' => $agents, 'teams' => $team]);
     }
 
     public function create(Request $request) {
@@ -21,6 +23,8 @@ class AgentController extends Controller
         $agent = new Agent;
         $agent->name = $request->get('name');
         $agent->email = $request->get('email');
+        $team = explode(' ',$request->get('team'));
+        $agent->team = $team[0];
 
         $agent->save();
 
@@ -36,6 +40,8 @@ class AgentController extends Controller
         $agent = Agent::find($id);
         $agent->name = $request->get('name');
         $agent->email = $request->get('email');
+        $team = explode(' ',$request->get('team'));
+        $agent->team = $team[0];
 
         $agent->save();
 
