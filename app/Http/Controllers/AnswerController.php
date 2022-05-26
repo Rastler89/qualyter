@@ -262,6 +262,27 @@ class AnswerController extends Controller
             $pre_answers->whereIn('id',$id);
         }
 
+        $rol = auth()->user()->roles;
+        $rol = json_decode($rol[0]);
+        if($rol->id == 2) {
+            $id = [];
+            $teams = Team::where('manager','=',auth()->user()->id)->get();
+            foreach($teams as $team) {
+                $url[] = $team->url;
+            }
+            $agents = Agent::whereIn('team',$url)->get();
+            foreach($agents as $agent) {
+                $id[] = $agent->id;
+            }
+            $tasks = Task::whereIn('owner',$id)->get();
+            $id = [];
+            foreach($tasks as $t) {
+                $id[] = $t->answer_id;
+            }
+            $pre_answers->whereIn('id',$id);
+            
+        }
+
         $answers = $pre_answers->sortable()->paginate(10);
         $stores = Store::all();
         $clients = Client::all();
