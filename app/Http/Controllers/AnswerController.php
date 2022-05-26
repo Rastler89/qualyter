@@ -9,6 +9,7 @@ use App\Models\Store;
 use App\Models\Task;
 use App\Models\Incidence;
 use App\Models\User;
+use App\Models\Team;
 use App\Http\Controllers\AuditionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -350,7 +351,11 @@ class AnswerController extends Controller
                 if(env('APP_NAME')=='QualyterTEST') {
                     Mail::to('test@optimaretail.es')->send(new NotifyMail($body));
                 } else {
+                    $team = Team::find($agent->team);
+                    $user = User::find($team->manager);
+
                     Mail::to($agent->email)->send(new NotifyMail($body));
+                    Mail::to($user->email)->send(new NotifyMail($body));
                 }
 
                 $body = null;
