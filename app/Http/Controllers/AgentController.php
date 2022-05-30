@@ -53,7 +53,7 @@ class AgentController extends Controller
 
         $agent->save();
 
-        return redirect()->route('agents')->with('success','Agent updated successfuly');
+        return redirect(url()->previous())->with('success','Agent updated successfuly');
     }
 
 }
