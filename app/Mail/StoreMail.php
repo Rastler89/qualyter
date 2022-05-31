@@ -18,7 +18,8 @@ class StoreMail extends Mailable
     }
 
     public function build() {
-        $date = date('d-m-y');
+        $format = date_create($this->body['date']);
+        $date = date_format($format,'Y-m-d');
         return $this->from('qc@optimaretail.es')
                     ->subject($date.' '.__('maintenance').' - Optima Retail')
                     ->view('emails.store');

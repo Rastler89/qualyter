@@ -82,6 +82,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('answers', [App\Http\Controllers\AnswerController::class, 'answers'])->middleware('permission:view-tasks')->name('answers');
     Route::get('answers/{id}', [App\Http\Controllers\AnswerController::class, 'viewAnswer'])->middleware('permission:response-tasks')->name('answers.view');
     Route::post('answers/revised/{id}', [App\Http\Controllers\AnswerController::class, 'revised'])->middleware('permission:response-tasks')->name('answers.revised');
+    Route::post('answers/complete/{id}',[App\Http\Controllers\AnswerController::class, 'complete'])->middleware('permission:response-tasks')->name('answers.complete');
     // WORK ORDER
     Route::get('workorder/new', [App\Http\Controllers\TaskController::class, 'new'])->name('workorder.new');
     Route::post('workorder/new', [App\Http\Controllers\TaskController::class, 'create'])->name('workorder.create');
@@ -92,6 +93,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('incidences/{id}/changeAgent', [App\Http\Controllers\IncidenceController::class, 'changeAgent'])->middleware('permission:change-incidences')->name('incidences.changeAgent');
     Route::post('incidences/{id}', [App\Http\Controllers\IncidenceController::class, 'modify'])->middleware('permission:response-incidences')->name('incidences.modify');
     Route::get('incidences/send/{id}', [App\Http\Controllers\IncidenceController::class, 'resend'])->name('incidences.resend');
+
+    //TEAM
+    Route::get('teams',[App\Http\Controllers\TeamController::class, 'index'])->name('team.index');
+    Route::post('teams/new',[App\Http\Controllers\TeamController::class, 'create'])->name('team.create');
+    Route::put('teams/edit/{id}',[App\Http\Controllers\TeamController::class, 'update'])->name('team.update');
 
     // EXPORTS
     Route::post('export/answer', [App\Http\Controllers\ExportController::class, 'answer'])->name('export.answer');

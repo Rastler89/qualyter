@@ -50,7 +50,10 @@ class TestController extends Controller
                     ];
                 }
                 if(!is_null($sons)) {
+                    echo "hola";
                     Mail::to('test@optimaretail.es')->send(new ClientMonthly($body));
+                } else {
+                    echo"ey";
                 }
                 //se envia correo
             } /*else {

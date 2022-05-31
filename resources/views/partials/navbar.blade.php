@@ -86,6 +86,11 @@
                 </a>
             </li>
             @endcan
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{route('team.index')}}">
+                    <i class="align-middle" data-feather="users"></i><span class="align-middle">{{__('Teams')}}</span>
+                </a>
+            </li>
 
             @if(auth()->user()->can('translates'))
             <li class="sidebar-header">

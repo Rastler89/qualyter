@@ -156,29 +156,42 @@
 <table cellpadding="0" cellspacing="0" border="0" id="backgroundTable">
 	<tr>
 		<td valign="top"> 
-		<!-- Tables are the most common way to format your email consistently. Set your table widths inside cells and in most cases reset cellpadding, cellspacing, and border to zero. Use nested tables as a way to space effectively in your message. -->
-		<table cellpadding="0" cellspacing="0" border="0" align="center">
-            <tr>
-                <td>
-            </tr>
-			<tr>
-				<td width="200" valign="top"></td>
-				<td width="200" valign="top"></td>
-				<td width="200" valign="top"></td>
-			</tr>
-		</table>
-		<!-- End example table -->
-
-		<!-- Yahoo Link color fix updated: Simply bring your link styling inline. -->
-		<a href="http://htmlemailboilerplate.com" target ="_blank" title="Styling Links" style="color: orange; text-decoration: none;">Coloring Links appropriately</a>
-
-		<!-- Gmail/Hotmail image display fix -->
-		<img class="image_fix" src="full path to image" alt="Your alt text" title="Your title text" width="x" height="x" />
-
-		<!-- Working with telephone numbers (including sms prompts).  Use the "mobile" class to style appropriately in desktop clients
-		versus mobile clients. -->
-		<span class="mobile_link">123-456-7890</span>
-
+			<p style="margin:0 0 12px 0;font-size:14px;line-height:24px;font-family:Arial,sans-serif;">¡Good days Mango Central!</p>
+			<p style="margin:0 0 12px 0;font-size:14px;line-height:24px;font-family:Arial,sans-serif;">¡We are happy to talk to you again!</p>
+			<p style="margin:0 0 12px 0;font-size:14px;line-height:24px;font-family:Arial,sans-serif;">¡We send you the results of the satisfaction surveys carried out during the month of April. We would love you to take a look at them.!</p>
+			<p style="margin:0 0 12px 0;font-size:14px;line-height:24px;font-family:Arial,sans-serif;">
+				In addition, you can find below the results of this month&#039;s in-store interventions."
+				<ol>
+					<li style="margin:0 0 12px 0;font-size:14px;line-height:24px;font-family:Arial,sans-serif;">Number of cases in the investigation period : <strong>203 visits</strong></li>
+					<li style="margin:0 0 12px 0;font-size:14px;line-height:24px;font-family:Arial,sans-serif;">Number of responses to telephone surveys: <strong>4 calls</strong></li>
+					<li style="margin:0 0 12px 0;font-size:14px;line-height:24px;font-family:Arial,sans-serif;">Number of e-mail surveys: <strong>3 surveys sent</strong></li>
+					<li style="margin:0 0 12px 0;font-size:14px;line-height:24px;font-family:Arial,sans-serif;">Number of responses to email surveys: <strong>0 surveys answered</strong></li>
+				</ol>
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<table cellpadding="0" cellspacing="0" border="0" align="center">
+				<tr>
+					<td></td>
+				</tr>
+				@foreach($body['sons'] as $name => $value)
+					@if($loop->first || $loop->iteration == 4 || $loop->iteration == 7 || $loop->iteration == 10)
+					<tr>
+					@endif
+					<td width="300" valign="top">
+						<div style="width:250px;margin:25px;height:250px;border: 2px solid #a0a0a0;">
+							<p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Poppins,sans-serif;text-align:center;"><strong>{{__("Overall assessment result")}}</strong></p>
+							<h3 style="text-align:center;">{{$name}}</h3>
+							<h2 style="text-align:center">{{$value}}</h2>
+						<div>
+					</td>
+					@if($loop->last || $loop->iteration%3 == 0)
+					</tr>
+					@endif
+				@endforeach
+			</table>
 		</td>
 	</tr>
 </table>  

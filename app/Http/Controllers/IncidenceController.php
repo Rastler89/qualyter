@@ -8,6 +8,7 @@ use App\Models\Store;
 use App\Models\User;
 use App\Models\Task;
 use App\Models\Log;
+use App\Models\Team;
 use Illuminate\Http\Request;
 use Mail;
 use App\Mail\NotifyMail;
@@ -35,6 +36,20 @@ class IncidenceController extends Controller
                 $id[] = $c->id;
             }
             $incidences->whereIn('client',$id);
+        }
+        $rol = auth()->user()->roles;
+        $rol = json_decode($rol[0]);
+        if($rol->id == 2) {
+            $id = [];
+            $teams = Team::where('manager','=',auth()->user()->id)->get();
+            foreach($teams as $team) {
+                $url[] = $team->url;
+            }
+            $agents = Agent::whereIn('team',$url)->get();
+            foreach($agents as $agent) {
+                $id[] = $agent->id;
+            }
+            $incidences->whereIn('owner',$id);
         }
 
         $incidences = $incidences->sortable()->paginate(10);

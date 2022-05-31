@@ -9,6 +9,7 @@ use App\Models\Store;
 use App\Models\Task;
 use App\Models\Incidence;
 use App\Models\User;
+use App\Models\Team;
 use App\Http\Controllers\AuditionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -88,6 +89,7 @@ class AnswerController extends Controller
     }
 
     public function response(Request $request, $id) {
+        $log = new AuditionController();
         $body = [];
         $body['valoration'][0] = $request->get('valoration1');
         $body['valoration'][1] = $request->get('valoration2');
@@ -115,6 +117,7 @@ class AnswerController extends Controller
     }
 
     public function cancel(Request $request, $id) {
+        $log = new AuditionController();
         $answer = Answer::find($id);
         $old_answer = Answer::find($id);
 
@@ -131,6 +134,7 @@ class AnswerController extends Controller
     }
 
     public function notrespond(Request $request, $id) {
+        $log = new AuditionController();
         $answer = Answer::find($id);
         $store = Store::where('code','=',$answer->store)->first();
         $client = Client::find($answer->client);
@@ -151,7 +155,8 @@ class AnswerController extends Controller
             'client' => $client->name,
             'store' => $store->name,
             'locale' => ($store->language != null) ? $store->language : 'en',
-            'token' => $answer->token
+            'token' => $answer->token,
+            'date' => $answer->expiration
         ];
         if(env('APP_NAME')=='QualyterTEST') {
             Mail::to('test@optimaretail.es')->locale($body['locale'])->send(new StoreMail($body));
@@ -182,6 +187,7 @@ class AnswerController extends Controller
     }
 
     public function responseSurvey(Request $request, $id) {
+        $log = new AuditionController();
         $body = [];
         $body['valoration'][0] = $request->get('valoration1');
         $body['valoration'][1] = $request->get('valoration2');
@@ -222,13 +228,67 @@ class AnswerController extends Controller
         return view('public.thanksStore');
     }
 
-    public function answers() {
-        $answers = Answer::where('status','>',1)->sortable()->paginate(10);
+    public function answers(Request $request) {
+        $client = $request->query('client');
+        $store = $request->query('store');
+        $work = $request->query('workorder');
+        
+        $pre_answers = Answer::where('status','>',1);
+
+        if(!empty($store) && $store != '') {
+            $id = [];
+            $stores = Store::where('name','LIKE','%'.$store.'%')->get();
+            foreach($stores as $s) {
+                $id[] = $s->code;
+            }
+            $pre_answers->whereIn('store',$id);
+        }
+
+        if(!empty($client) && $client != '') {
+            $id = [];
+            $clients = Client::where('name','LIKE','%'.$client.'%')->get();
+            foreach($clients as $c) {
+                $id[] = $c->id;
+            }
+            $pre_answers->whereIn('client',$id);
+        }
+
+        if(!empty($work) && $work != '') {
+            $id=[];
+            $tasks = Task::where('code','LIKE','%'.$work.'%')->get();
+            foreach($tasks as $t) {
+                $id[] = $t->answer_id;
+            }
+            $pre_answers->whereIn('id',$id);
+        }
+
+        $rol = auth()->user()->roles;
+        $rol = json_decode($rol[0]);
+        if($rol->id == 2) {
+            $id = [];
+            $teams = Team::where('manager','=',auth()->user()->id)->get();
+            foreach($teams as $team) {
+                $url[] = $team->url;
+            }
+            $agents = Agent::whereIn('team',$url)->get();
+            foreach($agents as $agent) {
+                $id[] = $agent->id;
+            }
+            $tasks = Task::whereIn('owner',$id)->get();
+            $id = [];
+            foreach($tasks as $t) {
+                $id[] = $t->answer_id;
+            }
+            $pre_answers->whereIn('id',$id);
+            
+        }
+
+        $answers = $pre_answers->sortable()->paginate(10);
         $stores = Store::all();
         $clients = Client::all();
         $agents = Agent::all();
 
-        return view('admin.answer.index', ['answers' => $answers, 'agents' => $agents, 'stores' => $stores, 'clients' => $clients]);
+        return view('admin.answer.index', ['answers' => $answers, 'agents' => $agents, 'stores' => $stores, 'clients' => $clients, 'filterStore' => $store, 'filterClient' => $client, 'filterWO' => $work]);
     }
 
     public function viewAnswer(Request $request, $id) {
@@ -253,6 +313,7 @@ class AnswerController extends Controller
     }
 
     public function revised(Request $request, $id) {
+        $log = new AuditionController();
         $answer = Answer::find($id);
         $old_answer = Answer::find($id);
 
@@ -260,7 +321,23 @@ class AnswerController extends Controller
 
         $answer->save();
 
+        if($old_answer->status != $answer->status) {
+            $log->saveLog($old_answer,$answer,'a');
+        }
+
         $this->createIncidence($request,$answer);
+
+        return redirect()->route('answers')->with('success','Answer closed!');
+    }
+
+    public function complete($id) {
+        $log = new AuditionController();
+        $answer = Answer::find($id);
+        $old_answer = Answer::find($id);
+
+        $answer->status = 5;
+
+        $answer->save();
 
         return redirect()->route('answers')->with('success','Answer closed!');
     }
@@ -307,7 +384,11 @@ class AnswerController extends Controller
                 if(env('APP_NAME')=='QualyterTEST') {
                     Mail::to('test@optimaretail.es')->send(new NotifyMail($body));
                 } else {
+                    $team = Team::where('url','=',$agent->team)->get();
+                    $user = User::find($team->manager);
+                    
                     Mail::to($agent->email)->send(new NotifyMail($body));
+                    Mail::to($user->email)->send(new NotifyMail($body));
                 }
 
                 $body = null;

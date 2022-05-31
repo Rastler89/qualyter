@@ -49,7 +49,7 @@ padding-bottom: 12px;">
 <strong>{{__('Hello')}}, {{$body['client']}}</strong>
 <br/>
 <br/>
-{{__("After today's in-store visit, we would like to know what you think of the service you received by answering this short reply.")}}
+{{__("After in-store visit, we would like to know what you think of the service you received by answering this short reply.")}}
 <br/>
 {{__('many thanks for your time')}}
 </p>
