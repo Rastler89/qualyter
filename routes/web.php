@@ -108,5 +108,7 @@ Route::post('agent/incidence/{id}', [App\Http\Controllers\IncidenceController::c
 // STORE
 Route::get('store/survey/{id}', [App\Http\Controllers\AnswerController::class, 'viewSurvey'])->name('answer.survey');
 Route::post('store/survey/{id}', [App\Http\Controllers\AnswerController::class, 'responseSurvey'])->name('answer.response');
+//PUBLIC STATS
+Route::get('public/{id}', [App\Http\Controllers\PublicController::class,'index'])->name('public.index');
 
 Route::get('test',[App\Http\Controllers\TestController::class,'handle']);

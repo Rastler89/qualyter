@@ -1,4 +1,5 @@
-<?php switch($body['month']) {
+<?php
+switch($body['month']) {
     case 0: $month = __('December'); break;
     case 1: $month = __('January'); break;
     case 2: $month = __('February'); break;
@@ -12,189 +13,397 @@
     case 10: $month = __('October'); break;
     case 11: $month = __('November'); break;
 } ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-	<title>Your Message Subject or Title</title>
-	<style type="text/css">
-        @font-face {
-          font-family: Poppins;
-          src: url({{asset('fonts/Poppins-Regular.ttf')}});
-        }
-		/* Based on The MailChimp Reset INLINE: Yes. */  
-		/* Client-specific Styles */
-		#outlook a {padding:0;} /* Force Outlook to provide a "view in browser" menu link. */
-		body{width:100% !important; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; margin:0; padding:0;} 
-		/* Prevent Webkit and Windows Mobile platforms from changing default font sizes.*/ 
-		.ExternalClass {width:100%;} /* Force Hotmail to display emails at full width */  
-		.ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {line-height: 100%;}
-		/* Forces Hotmail to display normal line spacing.  More on that: http://www.emailonacid.com/forum/viewthread/43/ */ 
-		#backgroundTable {margin:0; padding:0; width:100% !important; line-height: 100% !important;}
-		/* End reset */
-
-		/* Some sensible defaults for images
-		Bring inline: Yes. */
-		img {outline:none; text-decoration:none; -ms-interpolation-mode: bicubic;} 
-		a img {border:none;} 
-		.image_fix {display:block;}
-
-		/* Yahoo paragraph fix
-		Bring inline: Yes. */
-		p {margin: 1em 0;}
-
-		/* Hotmail header color reset
-		Bring inline: Yes. */
-		h1, h2, h3, h4, h5, h6 {color: black !important;}
-
-		h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {color: blue !important;}
-
-		h1 a:active, h2 a:active,  h3 a:active, h4 a:active, h5 a:active, h6 a:active {
-		color: red !important; /* Preferably not the same color as the normal header link color.  There is limited support for psuedo classes in email clients, this was added just for good measure. */
-		}
-
-		h1 a:visited, h2 a:visited,  h3 a:visited, h4 a:visited, h5 a:visited, h6 a:visited {
-		color: purple !important; /* Preferably not the same color as the normal header link color. There is limited support for psuedo classes in email clients, this was added just for good measure. */
-		}
-
-		/* Outlook 07, 10 Padding issue fix
-		Bring inline: No.*/
-		table td {border-collapse: collapse;}
-
-		/* Remove spacing around Outlook 07, 10 tables
-		Bring inline: Yes */
-		table { border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt; }
-
-		/* Styling your links has become much simpler with the new Yahoo.  In fact, it falls in line with the main credo of styling in email and make sure to bring your styles inline.  Your link colors will be uniform across clients when brought inline.
-		Bring inline: Yes. */
-		a {color: orange;}
-
-
-		/***************************************************
-		****************************************************
-		MOBILE TARGETING
-		****************************************************
-		***************************************************/
-		@media only screen and (max-device-width: 480px) {
-			/* Part one of controlling phone number linking for mobile. */
-			a[href^="tel"], a[href^="sms"] {
-						text-decoration: none;
-						color: blue; /* or whatever your want */
-						pointer-events: none;
-						cursor: default;
-					}
-
-			.mobile_link a[href^="tel"], .mobile_link a[href^="sms"] {
-						text-decoration: default;
-						color: orange !important;
-						pointer-events: auto;
-						cursor: default;
-					}
-
-		}
-
-		/* More Specific Targeting */
-
-		@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
-		/* You guessed it, ipad (tablets, smaller screens, etc) */
-			/* repeating for the ipad */
-			a[href^="tel"], a[href^="sms"] {
-						text-decoration: none;
-						color: blue; /* or whatever your want */
-						pointer-events: none;
-						cursor: default;
-					}
-
-			.mobile_link a[href^="tel"], .mobile_link a[href^="sms"] {
-						text-decoration: default;
-						color: orange !important;
-						pointer-events: auto;
-						cursor: default;
-					}
-		}
-
-		@media only screen and (-webkit-min-device-pixel-ratio: 2) {
-		/* Put your iPhone 4g styles in here */ 
-		}
-
-		/* Android targeting */
-		@media only screen and (-webkit-device-pixel-ratio:.75){
-		/* Put CSS for low density (ldpi) Android layouts in here */
-		}
-		@media only screen and (-webkit-device-pixel-ratio:1){
-		/* Put CSS for medium density (mdpi) Android layouts in here */
-		}
-		@media only screen and (-webkit-device-pixel-ratio:1.5){
-		/* Put CSS for high density (hdpi) Android layouts in here */
-		}
-		/* end Android targeting */
-
-	</style>
-
-	<!-- Targeting Windows Mobile -->
-	<!--[if IEMobile 7]>
-	<style type="text/css">
-	
-	</style>
-	<![endif]-->   
-
-	<!-- ***********************************************
-	****************************************************
-	END MOBILE TARGETING
-	****************************************************
-	************************************************ -->
-
-	<!--[if gte mso 9]>
-		<style>
-		/* Target Outlook 2007 and 2010 */
-		</style>
-	<![endif]-->
+  <!--[if gte mso 9]>
+<xml>
+  <o:OfficeDocumentSettings>
+    <o:AllowPNG/>
+    <o:PixelsPerInch>96</o:PixelsPerInch>
+  </o:OfficeDocumentSettings>
+</xml>
+<![endif]-->
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="x-apple-disable-message-reformatting">
+  <!--[if !mso]><!-->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!--<![endif]-->
+  <title></title>
+  <style type="text/css">
+    @media only screen and (min-width: 620px) {
+      .u-row {
+        width: 600px !important;
+      }
+      .u-row .u-col {
+        vertical-align: top;
+      }
+      .u-row .u-col-33p33 {
+        width: 199.98px !important;
+      }
+      .u-row .u-col-100 {
+        width: 600px !important;
+      }
+    }
+    
+    @media (max-width: 620px) {
+      .u-row-container {
+        max-width: 100% !important;
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+      }
+      .u-row .u-col {
+        min-width: 320px !important;
+        max-width: 100% !important;
+        display: block !important;
+      }
+      .u-row {
+        width: calc(100% - 40px) !important;
+      }
+      .u-col {
+        width: 100% !important;
+      }
+      .u-col>div {
+        margin: 0 auto;
+      }
+    }
+    
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    
+    table,
+    tr,
+    td {
+      vertical-align: top;
+      border-collapse: collapse;
+    }
+    
+    p {
+      margin: 0;
+    }
+    
+    .ie-container table,
+    .mso-container table {
+      table-layout: fixed;
+    }
+    
+    * {
+      line-height: inherit;
+    }
+    
+    a[x-apple-data-detectors='true'] {
+      color: inherit !important;
+      text-decoration: none !important;
+    }
+    
+    table,
+    td {
+      color: #000000;
+    }
+    
+    a {
+      color: #0000ee;
+      text-decoration: underline;
+    }
+  </style>
+  <!--[if !mso]><!-->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,700" rel="stylesheet" type="text/css">
+  <!--<![endif]-->
 </head>
-<body>
-<!-- Wrapper/Container Table: Use a wrapper table to control the width and the background color consistently of your email. Use this approach instead of setting attributes on the body tag. -->
-<table cellpadding="0" cellspacing="0" border="0" id="backgroundTable">
-	<tr>
-		<td valign="top"> 
-			<p style="margin:0 0 12px 0;font-size:14px;line-height:24px;font-family:Arial,sans-serif;">¡Good days Mango Central!</p>
-			<p style="margin:0 0 12px 0;font-size:14px;line-height:24px;font-family:Arial,sans-serif;">¡We are happy to talk to you again!</p>
-			<p style="margin:0 0 12px 0;font-size:14px;line-height:24px;font-family:Arial,sans-serif;">¡We send you the results of the satisfaction surveys carried out during the month of April. We would love you to take a look at them.!</p>
-			<p style="margin:0 0 12px 0;font-size:14px;line-height:24px;font-family:Arial,sans-serif;">
-				In addition, you can find below the results of this month&#039;s in-store interventions."
-				<ol>
-					<li style="margin:0 0 12px 0;font-size:14px;line-height:24px;font-family:Arial,sans-serif;">Number of cases in the investigation period : <strong>203 visits</strong></li>
-					<li style="margin:0 0 12px 0;font-size:14px;line-height:24px;font-family:Arial,sans-serif;">Number of responses to telephone surveys: <strong>4 calls</strong></li>
-					<li style="margin:0 0 12px 0;font-size:14px;line-height:24px;font-family:Arial,sans-serif;">Number of e-mail surveys: <strong>3 surveys sent</strong></li>
-					<li style="margin:0 0 12px 0;font-size:14px;line-height:24px;font-family:Arial,sans-serif;">Number of responses to email surveys: <strong>0 surveys answered</strong></li>
-				</ol>
-			</p>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<table cellpadding="0" cellspacing="0" border="0" align="center">
-				<tr>
-					<td></td>
-				</tr>
-				@foreach($body['sons'] as $name => $value)
-					@if($loop->first || $loop->iteration == 4 || $loop->iteration == 7 || $loop->iteration == 10)
-					<tr>
-					@endif
-					<td width="300" valign="top">
-						<div style="width:250px;margin:25px;height:250px;border: 2px solid #a0a0a0;">
-							<p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Poppins,sans-serif;text-align:center;"><strong>{{__("Overall assessment result")}}</strong></p>
-							<h3 style="text-align:center;">{{$name}}</h3>
-							<h2 style="text-align:center">{{$value}}</h2>
-						<div>
-					</td>
-					@if($loop->last || $loop->iteration%3 == 0)
-					</tr>
-					@endif
-				@endforeach
-			</table>
-		</td>
-	</tr>
-</table>  
-<!-- End of wrapper table -->
+<body class="clean-body u_body" style="margin: 0;padding: 0;-webkit-text-size-adjust: 100%;background-color: #f9f9f9;color: #000000">
+  <!--[if IE]><div class="ie-container"><![endif]-->
+  <!--[if mso]><div class="mso-container"><![endif]-->
+  <table style="border-collapse: collapse;table-layout: fixed;border-spacing: 0;mso-table-lspace: 0pt;mso-table-rspace: 0pt;vertical-align: top;min-width: 320px;Margin: 0 auto;background-color: #f9f9f9;width:100%" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr style="vertical-align: top">
+        <td style="word-break: break-word;border-collapse: collapse !important;vertical-align: top">
+          <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" style="background-color: #f9f9f9;"><![endif]-->
+
+          <div class="u-row-container" style="padding: 0px;background-color: transparent">
+            <div class="u-row" style="Margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: transparent;">
+              <div style="border-collapse: collapse;display: table;width: 100%;background-color: transparent;">
+                <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding: 0px;background-color: transparent;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:600px;"><tr style="background-color: transparent;"><![endif]-->
+
+                <!--[if (mso)|(IE)]><td align="center" width="600" style="width: 600px;padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;" valign="top"><![endif]-->
+                <div class="u-col u-col-100" style="max-width: 320px;min-width: 600px;display: table-cell;vertical-align: top;">
+                  <div style="width: 100% !important;">
+                    <!--[if (!mso)&(!IE)]><!-->
+                    <div style="padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;">
+                      <!--<![endif]-->
+
+                      <table style="font-family:'Poppins',sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
+                        <tbody>
+                          <tr>
+                            <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:'Poppins',sans-serif;" align="left">
+
+                              <div style="color: #afb0c7; line-height: 170%; text-align: center; word-wrap: break-word;">
+                                <p style="font-size: 14px; line-height: 170%;"><span style="font-size: 14px; line-height: 23.8px;">View Email in Browser</span></p>
+                              </div>
+
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                      <!--[if (!mso)&(!IE)]><!-->
+                    </div>
+                    <!--<![endif]-->
+                  </div>
+                </div>
+                <!--[if (mso)|(IE)]></td><![endif]-->
+                <!--[if (mso)|(IE)]></tr></table></td></tr></table><![endif]-->
+              </div>
+            </div>
+          </div>
+
+          <div class="u-row-container" style="padding: 0px;background-color: transparent">
+            <div class="u-row" style="Margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: #ffffff;">
+              <div style="border-collapse: collapse;display: table;width: 100%;background-color: transparent;">
+                <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding: 0px;background-color: transparent;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:600px;"><tr style="background-color: #ffffff;"><![endif]-->
+
+                <!--[if (mso)|(IE)]><td align="center" width="600" style="width: 600px;padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;" valign="top"><![endif]-->
+                <div class="u-col u-col-100" style="max-width: 320px;min-width: 600px;display: table-cell;vertical-align: top;">
+                  <div style="width: 100% !important;">
+                    <!--[if (!mso)&(!IE)]><!-->
+                    <div style="padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;">
+                      <!--<![endif]-->
+
+                      <table style="font-family:'Poppins',sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
+                        <tbody>
+                          <tr>
+                            <td style="overflow-wrap:break-word;word-break:break-word;padding:20px;font-family:'Poppins',sans-serif;" align="left">
+
+                              <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                  <td style="padding-right: 0px;padding-left: 0px;" align="center">
+
+                                    <img align="center" border="0" src="{{asset('img/logo_completo.png')}}" alt="Image" title="Image" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 32%;max-width: 179.2px;"
+                                      width="179.2" />
+
+                                  </td>
+                                </tr>
+                              </table>
+
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                      <!--[if (!mso)&(!IE)]><!-->
+                    </div>
+                    <!--<![endif]-->
+                  </div>
+                </div>
+                <!--[if (mso)|(IE)]></td><![endif]-->
+                <!--[if (mso)|(IE)]></tr></table></td></tr></table><![endif]-->
+              </div>
+            </div>
+          </div>
+          <div class="u-row-container" style="padding: 0px;background-color: transparent">
+            <div class="u-row" style="Margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: #ffffff;">
+              <div style="border-collapse: collapse;display: table;width: 100%;background-color: transparent;">
+                <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding: 0px;background-color: transparent;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:600px;"><tr style="background-color: #ffffff;"><![endif]-->
+
+                <!--[if (mso)|(IE)]><td align="center" width="600" style="width: 600px;padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;" valign="top"><![endif]-->
+                <div class="u-col u-col-100" style="max-width: 320px;min-width: 600px;display: table-cell;vertical-align: top;">
+                  <div style="width: 100% !important;">
+                    <!--[if (!mso)&(!IE)]><!-->
+                    <div style="padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;">
+                      <!--<![endif]-->
+
+                      <table style="font-family:'Poppins',sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
+                        <tbody>
+                          <tr>
+                            <td style="overflow-wrap:break-word;word-break:break-word;padding:33px 55px;font-family:'Poppins',sans-serif;" align="left">
+
+                              <div style="line-height: 160%; word-wrap: break-word;">
+							  	<p style="margin:0 0 12px 0;font-size:14px;line-height:24px;font-family:Poppins,sans-serif;">{{__("¡Good days :name!",['name' => $body['name']])}}</p>
+								<p style="margin:0 0 12px 0;font-size:14px;line-height:24px;font-family:Poppins,sans-serif;">{{__("¡We are happy to talk to you again!")}}</p>
+								<p style="margin:0 0 12px 0;font-size:14px;line-height:24px;font-family:Poppins,sans-serif;">{{__("¡We send you the results of the satisfaction surveys carried out during the month of :month. We would love you to take a look at them.!",['month' => $month])}}</p>
+								@if($body['extra'] != null)
+								<p style="margin:0 0 12px 0;font-size:14px;line-height:24px;font-family:Poppins,sans-serif;">
+									{{__("In addition, you can find below the results of this month's in-store interventions.")}}
+									<ol>
+										<li style="margin:0 0 12px 0;font-size:14px;line-height:24px;font-family:Poppins,sans-serif;">{{__("Number of cases in the investigation period")}}: <strong>203 {{__("visits")}}</strong></li>
+										<li style="margin:0 0 12px 0;font-size:14px;line-height:24px;font-family:Poppins,sans-serif;">{{__("Number of responses to telephone surveys")}}: <strong>4 {{__("calls")}}</strong></li>
+										<li style="margin:0 0 12px 0;font-size:14px;line-height:24px;font-family:Poppins,sans-serif;">{{__("Number of e-mail surveys")}}: <strong>3 {{__("surveys sent")}}</strong></li>
+										<li style="margin:0 0 12px 0;font-size:14px;line-height:24px;font-family:Poppins,sans-serif;">{{__("Number of responses to email surveys")}}: <strong>0 {{__("surveys answered")}}</strong></li>
+									</ol>
+								</p>
+								@endif
+                              </div>
+
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                      <!--[if (!mso)&(!IE)]><!-->
+                    </div>
+                    <!--<![endif]-->
+                  </div>
+                </div>
+                <!--[if (mso)|(IE)]></td><![endif]-->
+                <!--[if (mso)|(IE)]></tr></table></td></tr></table><![endif]-->
+              </div>
+            </div>
+          </div>
+
+		  @foreach($body['sons'] as $name => $value)
+		  @if($loop->first || $loop->iteration == 4 || $loop->iteration == 7 || $loop->iteration == 10)
+          <div class="u-row-container" style="padding: 0px;background-color: transparent">
+            <div class="u-row" style="Margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: transparent;">
+              <div style="border-collapse: collapse;display: table;width: 100%;background-color: transparent;">
+                <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding: 0px;background-color: transparent;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:600px;"><tr style="background-color: transparent;"><![endif]-->
+@endif
+				<!-- inicio bloque -->
+                <!--[if (mso)|(IE)]><td align="center" width="200" style="width: 200px;padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;" valign="top"><![endif]-->
+                <div class="u-col u-col-33p33" style="max-width: 320px;min-width: 200px;display: table-cell;vertical-align: top;">
+                  <div style="width: 100% !important;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;">
+                    <!--[if (!mso)&(!IE)]><!-->
+                    <div style="padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;">
+                      <!--<![endif]-->
+
+                      <table style="font-family:'Poppins',sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
+                        <tbody>
+                          <tr>
+                            <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:'Poppins',sans-serif;" align="left">
+
+							  <h3 style="margin: 0px; line-height: 140%; text-align: center; word-wrap: break-word; font-weight: normal; font-family: arial,helvetica,sans-serif; font-size: 10px;">
+							  	<strong>{{__("Overall assessment result")}}</strong>
+                              </h3>
+                              <h1 style="margin: 0px; line-height: 140%; text-align: center; word-wrap: break-word; font-weight: normal; font-family: arial,helvetica,sans-serif; font-size: 20px;">
+							  {{$name}}
+                              </h1>
+
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                      <table style="font-family:'Poppins',sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
+                        <tbody>
+                          <tr>
+                            <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:'Poppins',sans-serif;" align="left">
+
+                              <div style="line-height: 140%; text-align: center; word-wrap: break-word;">
+                                <p style="font-size: 18px; line-height: 140%;">{{$value}}</p>
+                              </div>
+
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                      <table style="font-family:'Poppins',sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
+                        <tbody>
+                          <tr>
+                            <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:'Poppins',sans-serif;" align="left">
+
+                              <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                  <td style="padding-right: 0px;padding-left: 0px;" align="center">
+<?php $star = intval($value); ?>
+								  @for($i=0; $i <$star; $i++)
+											<img src="{{ asset('img/star-selected.svg') }}" width="30" height="30" />
+										@endfor
+
+                                  </td>
+                                </tr>
+                              </table>
+
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                      <!--[if (!mso)&(!IE)]><!-->
+                    </div>
+                    <!--<![endif]-->
+                  </div>
+                </div>
+                <!--[if (mso)|(IE)]></td><![endif]-->
+<!-- fin bloque -->
+@if($loop->last || $loop->iteration%3 == 0)
+
+<!--[if (mso)|(IE)]></tr></table></td></tr></table><![endif]-->
+</div>
+</div>
+</div>
+@endif
+@endforeach
+
+          <div class="u-row-container" style="padding: 0px;background-color: transparent">
+            <div class="u-row" style="Margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: #e5eaf5;">
+              <div style="border-collapse: collapse;display: table;width: 100%;background-color: transparent;">
+                <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding: 0px;background-color: transparent;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:600px;"><tr style="background-color: #e5eaf5;"><![endif]-->
+
+                <!--[if (mso)|(IE)]><td align="center" width="600" style="width: 600px;padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;" valign="top"><![endif]-->
+                <div class="u-col u-col-100" style="max-width: 320px;min-width: 600px;display: table-cell;vertical-align: top;">
+                  <div style="width: 100% !important;">
+                    <!--[if (!mso)&(!IE)]><!-->
+                    <div style="padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;">
+                      <!--<![endif]-->
+
+                      <table style="font-family:'Poppins',sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
+                        <tbody>
+                          <tr>
+                            <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:'Poppins',sans-serif;" align="left">
+
+                              <div align="center">
+                                <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;font-family:'Poppins',sans-serif;"><tr><td style="font-family:'Poppins',sans-serif;" align="center"><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="" style="height:46px; v-text-anchor:middle; width:234px;" arcsize="8.5%" stroke="f" fillcolor="#ff6600"><w:anchorlock/><center style="color:#FFFFFF;font-family:'Poppins',sans-serif;"><![endif]-->
+                                <a href="{{Request::getHost()}}/public/{{$body['id']}}" target="_blank" style="box-sizing: border-box;display: inline-block;font-family:'Poppins',sans-serif;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #FFFFFF; background-color: #ff6600; border-radius: 4px;-webkit-border-radius: 4px; -moz-border-radius: 4px; width:auto; max-width:100%; overflow-wrap: break-word; word-break: break-word; word-wrap:break-word; mso-border-alt: none;">
+                                  <span style="display:block;padding:14px 44px 13px;line-height:120%;"><span style="font-size: 16px; line-height: 19.2px;"><strong><span style="line-height: 19.2px; font-size: 16px;">{{__('MORE INFORMATION')}}</span></strong>
+                                  </span>
+                                  </span>
+                                </a>
+                                <!--[if mso]></center></v:roundrect></td></tr></table><![endif]-->
+                              </div>
+
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                      <table style="font-family:'Poppins',sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
+                        <tbody>
+                          <tr>
+                            <td style="overflow-wrap:break-word;word-break:break-word;padding:33px 55px 60px;font-family:'Poppins',sans-serif;" align="left">
+
+                              <div style="line-height: 160%; text-align: center; word-wrap: break-word;">
+                                <p style="line-height: 160%; font-size: 14px;"><span style="font-size: 18px; line-height: 28.8px;">{{__('Thanks')}}
+							</span></p>
+                                <img align="center" border="0" src="{{asset('img/logo_variacion3.png')}}" alt="Image" title="Image" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 32%;max-width: 179.2px;"
+                                      width="179.2" />
+                              </div>
+
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                      <!--[if (!mso)&(!IE)]><!-->
+                    </div>
+                    <!--<![endif]-->
+                  </div>
+                </div>
+                <!--[if (mso)|(IE)]></td><![endif]-->
+                <!--[if (mso)|(IE)]></tr></table></td></tr></table><![endif]-->
+              </div>
+            </div>
+          </div>
+
+
+          <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!--[if mso]></div><![endif]-->
+  <!--[if IE]></div><![endif]-->
 </body>
+
 </html>

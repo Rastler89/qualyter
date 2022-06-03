@@ -1,7 +1,7 @@
 @extends('layouts.public')
 
 @section('sytles')
-<link rel="stylesheet" href="{{ asset("css/custom.css") }}">
+<link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 @endsection
 
 @section('content')

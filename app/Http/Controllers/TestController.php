@@ -14,8 +14,6 @@ class TestController extends Controller
 {
     public function handle()
     {
-        
-
         $fathers = Client::whereNull('father')->get();
 
         foreach($fathers as $father) {
@@ -39,31 +37,60 @@ class TestController extends Controller
                         'name' => $father->name,
                         'sons' => $sons,
                         'visits' => $visits,
-                        'extra' => $extra
+                        'extra' => $extra,
+                        'id' => $father->id
                     ];
                 } else {
                     $body = [
                         'name' => $father->name,
                         'sons' => $sons,
                         'visits' => $visits,
-                        'extra' => null
+                        'extra' => null,
+                        'id' => $father->id
                     ];
                 }
+                $body['type'] = 'delegation';
                 if(!is_null($sons)) {
-                    echo "hola";
-                    Mail::to('test@optimaretail.es')->send(new ClientMonthly($body));
-                } else {
-                    echo"ey";
+                    if(env('APP_NAME')=='QualyterTEST') {
+                        Mail::to('test@optimaretail.es')->send(new ClientMonthly($body));
+                    } else {
+                        $emails = explode(';',$father->email);
+                        foreach($emails as $email)
+                        Mail::to($email)->send(new ClientMonthly($body));
+                    }
                 }
-                //se envia correo
-            } /*else {
+            } else {
                 //busca tiendas
                 $average = $this->getAverage($father);
                 if($average != false) {
+                    if($father->extra) {
+                        $extra = $this->getExtra($delegations);
+                        $body = [
+                            'name' => $father->name,
+                            'visits' => $average['total'],
+                            'media' => $average['media'],
+                            'extra' => $extra,
+                            'id' => $father->id
+                        ];
+                    } else {
+                        $body = [
+                            'name' => $father->name,
+                            'visits' => $average['total'],
+                            'media' => $average['media'],
+                            'extra' => null,
+                            'id' => $father->id
+                        ];
+                    }
+                    $body['type'] = 'client';
                     //se envia correo
-                    Mail::to('test@optimaretail.es')->send(new ClientMonthly($average));
-                }
-            }*/
+                    if(env('APP_NAME')=='QualyterTEST') {
+                        Mail::to('test@optimaretail.es')->send(new ClientMonthly($body));
+                    } else {
+                        $emails = explode(';',$father->email);
+                        foreach($emails as $email)
+                        Mail::to($email)->send(new ClientMonthly($body));
+                    }                }
+            }
         }
 
         //return 0;
