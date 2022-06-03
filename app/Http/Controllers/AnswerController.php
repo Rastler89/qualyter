@@ -381,15 +381,16 @@ class AnswerController extends Controller
                     'comment' => $request['incidence'][$index],
                     'new' => true
                 ];
-                if(env('APP_NAME')=='QualyterTEST') {
-                    Mail::to('test@optimaretail.es')->send(new NotifyMail($body));
-                } else {
+                
                     $team = Team::where('url','=',$agent->team)->get();
-                    $user = User::find($team->manager);
+                    if(count($team)>0) {
+                        $user = User::find($team->manager);
+                        Mail::to($user->email)->send(new NotifyMail($body));
+
+                    }
                     
                     Mail::to($agent->email)->send(new NotifyMail($body));
-                    Mail::to($user->email)->send(new NotifyMail($body));
-                }
+                
 
                 $body = null;
             }
