@@ -384,7 +384,7 @@ class AnswerController extends Controller
                 if(env('APP_NAME')=='QualyterTEST') {
                     Mail::to('test@optimaretail.es')->send(new NotifyMail($body));
                 } else {
-                    $team = Team::where('url','=',$agent->team)->get();
+                    $team = Team::where('url','=',$agent->team)->first();
                     $user = User::find($team->manager);
                     
                     Mail::to($agent->email)->send(new NotifyMail($body));

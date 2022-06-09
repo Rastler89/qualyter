@@ -82,6 +82,7 @@ class IncidenceController extends Controller
     }
 
     public function modify($id, Request $request) {
+        $log = new AuditionController();
         $validated = $request->validate([
             'message' => 'required'
         ]);
@@ -156,6 +157,7 @@ class IncidenceController extends Controller
     }
 
     public function update($id, Request $request) {
+        $log = new AuditionController();
         $incidence = Incidence::find($id);
         $old_incidence = Incidence::find($id);
 
