@@ -10,33 +10,87 @@ use App\Models\Answer;
 class PublicController extends Controller
 {
     public function index($id) {
+        $month = date('m')-1;
+
         $client = Client::find($id);
+
+
         if($client->delegation == '00') {
-            return view('public.index');
+            $clients = Client::where('father','=',$client->id)->orderBy('id','desc')->get();
+            
+            $delegations = [];
+            foreach($clients as $key => $delegation) {
+                $average = $this->getAverage($delegation);
+                if($average!=false) {
+                    $delegation['average'] = $average['media'];
+                    $delegation['visits'] = $average['total'];
+                    $delegations[]=$delegation;
+                }
+            }
+            return view('public.index',['delegations' => $delegations, 'month' => $month, 'central' => $client, 'type' => 'delegation']);
         } else {
-            return view('public.index');
+            $first_day = $this->first_month_day();
+            $last_day = $this->last_month_day();
+
+            $average = $this->getAverage($client);
+            if($average!=false) {
+                $client['average'] = $average['media'];
+                $client['visits'] = $average['total'];
+            }
+            $extra = $this->getExtra($client);
+
+            $answers = Answer::where('client','=',$client->id)->whereIn('status',[2,4,5])->whereBetween('expiration',[$first_day,$last_day])->get();
+            foreach($answers as &$answer) {
+                $store =  Store::where('code','=',$answer->store)->first();
+                $answer['shop'] = $store->name;
+            }
+        
+            return view('public.detail',['first_day'=>$first_day, 'last_day'=>$last_day, 'client'=>$client, 'extra' => $extra, 'answers' => $answers, 'total' => count($answers)]);
         }
     }
 
+    public function detail($central, $delegation) {
+        $first_day = $this->first_month_day();
+        $last_day = $this->last_month_day();
 
-    private function getExtra($delegations) {
+        $client = Client::find($delegation);
+        $average = $this->getAverage($client);
+        if($average!=false) {
+            $client['average'] = $average['media'];
+            $client['visits'] = $average['total'];
+        }
+        $extra = $this->getExtra($client);
+
+        $answers = Answer::where('client','=',$client->id)->whereIn('status',[2,4,5])->whereBetween('expiration',[$first_day,$last_day])->get();
+        foreach($answers as &$answer) {
+            $store =  Store::where('code','=',$answer->store)->first();
+            $answer['shop'] = $store->name;
+        }
+        
+        return view('public.detail',['first_day'=>$first_day, 'last_day'=>$last_day, 'client'=>$client, 'extra' => $extra, 'answers' => $answers, 'total' => count($answers)]);
+    }
+
+
+    private function getExtra($delegation) {
         $visits = 0;
         $qc = 0;
         $send = 0;
         $resp = 0;
-        foreach($delegations as $delegation) {
-            $answers = Answer::where('client','=',$delegation->id)->get();
-            $visits += count($answers);
+        
+        $first_day = $this->first_month_day();
+        $last_day = $this->last_month_day();
 
-            $answers = Answer::where('client','=',$delegation->id)->where('status','=','2')->get();
-            $qc += count($answers);
+        $answers = Answer::where('client','=',$delegation->id)->whereBetween('expiration',[$first_day,$last_day])->get();
+        $visits += count($answers);
 
-            $answers = Answer::where('client','=',$delegation->id)->whereIn('status',[3,4,5])->get();
-            $send += count($answers);
+        $answers = Answer::where('client','=',$delegation->id)->where('status','=','2')->whereBetween('expiration',[$first_day,$last_day])->get();
+        $qc += count($answers);
 
-            $answers = Answer::where('client','=',$delegation->id)->whereIn('status',[4,5])->get();
-            $resp += count($answers);
-        }
+        $answers = Answer::where('client','=',$delegation->id)->whereIn('status',[3,4,5])->whereBetween('expiration',[$first_day,$last_day])->get();
+        $send += count($answers);
+
+        $answers = Answer::where('client','=',$delegation->id)->whereIn('status',[4,5])->whereBetween('expiration',[$first_day,$last_day])->get();
+        $resp += count($answers);
 
         $body = [
             'visits' => $visits,
@@ -68,7 +122,7 @@ class PublicController extends Controller
             $divisor = count($resp);
             $media = $total/$divisor;
             $body = [
-                'media' => $media,
+                'media' => round($media,2),
                 'total' => $total,
             ];
             return $body;

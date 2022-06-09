@@ -110,5 +110,6 @@ Route::get('store/survey/{id}', [App\Http\Controllers\AnswerController::class, '
 Route::post('store/survey/{id}', [App\Http\Controllers\AnswerController::class, 'responseSurvey'])->name('answer.response');
 //PUBLIC STATS
 Route::get('public/{id}', [App\Http\Controllers\PublicController::class,'index'])->name('public.index');
+Route::get('public/{central}/detail/{delegation}', [App\Http\Controllers\PublicController::class, 'detail'])->name('public.detail');
 
 Route::get('test',[App\Http\Controllers\TestController::class,'handle']);
