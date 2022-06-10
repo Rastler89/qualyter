@@ -33,7 +33,7 @@
 ?>
 
 @section('content')
-<h3 class="text-center mb-3">{{__('Mes actual: :month',['month'=>$month])}}</h3>
+<h3 class="text-center mb-3">{{__('Month: :month',['month'=>$month])}}</h3>
 <div class="row">
     @foreach($delegations as $delegation)
     <div class="col-md-{{$size}}">
@@ -46,7 +46,7 @@
                     <h4>{{$delegation['average']}}</h4>
                     <?php $star = intval($delegation['average']); ?>
                 @for($i=0; $i <$star; $i++)
-                    <img src="{{ asset('img/star-selected.svg') }}" width="30" height="30" />
+                    <img src="{{ asset('img/star-hover.svg') }}" width="30" height="30" />
                 @endfor
                 </div>
                 <p class="card-text">

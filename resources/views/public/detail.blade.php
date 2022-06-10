@@ -4,7 +4,10 @@
 <h1 class="text-center mb-3">{{$client->name}}</h1>
 <div class="row">
     <div class="col-md-4">
-        <h5 class="mb-4">{{__("periodo de información")}}: {{$first_day}} - {{$last_day}}</h5>
+        <h5 class="mb-4">{{__("reporting period")}}: {{$first_day}} - {{$last_day}}</h5>
+        <?php $star = intval($client->average); ?>
+        <h2 class="text-center mt-3">{{$client->average}}</h2>
+        <p class="text-center">@for($i=0; $i <$star; $i++)<img src="{{ asset('img/star-hover.svg') }}" width="60" height="60" />@endfor</p>
         <ul class="list-group">
             <li class="list-group-item">{{__("Number of cases in the investigation period")}}: <strong>{{$extra['visits']}} {{__("visits")}}</strong></li>
             <li class="list-group-item">{{__("Number of responses to telephone surveys")}}: <strong>{{$extra['qc']}} {{__("calls")}}</strong></li>
@@ -13,8 +16,8 @@
         </ul>
     </div>
     <div class="col-md-8">
-        <div id="counter" class="text-center"></div>
-        <div class="btn-group col-12" role="group" aria-label="navigation" id="navigation">
+        <div id="counter" class="text-center mb-3"></div>
+        <div class="btn-group col-12 mb-1" role="group" aria-label="navigation" id="navigation">
             <button type="button" onclick="prev()" id="previous" class="btn btn-outline-primary" disabled>Previous</button>
             <button type="button" onclick="next()" id="next" class="btn btn-outline-primary">Next</button>
         </div>
@@ -37,8 +40,8 @@
                 <div class="accordion-body">
                     <?php $star = intval($respuestas['valoration'][0]); ?>
                     <p>{{__('Valoration')}}: <strong>{{$respuestas['valoration'][0]}}</strong></p>
-                    <p>@for($i=0; $i <$star; $i++)<img src="{{ asset('img/star-selected.svg') }}" width="50" height="50" />@endfor</p>
-                    <p>{{__('Comments')}}: {{$respuestas['comment'][0]}}</p>
+                    <p>@for($i=0; $i <$star; $i++)<img src="{{ asset('img/star-hover.svg') }}" width="50" height="50" />@endfor</p>
+                    <p>{{__('Comments')}}: <br/>@if($respuestas['comment'][0]=='') {{__("NC")}} @else {{$respuestas['comment'][0]}}@endif</p>
                 </div>
                 </div>
             </div>
@@ -52,8 +55,8 @@
                 <div class="accordion-body">
                     <?php $star = intval($respuestas['valoration'][1]); ?>
                     <p>{{__('Valoration')}}: <strong>{{$respuestas['valoration'][1]}}</strong></p>
-                    <p>@for($i=0; $i <$star; $i++)<img src="{{ asset('img/star-selected.svg') }}" width="50" height="50" />@endfor</p>
-                    <p>{{__('Comments')}}: {{$respuestas['comment'][1]}}</p>
+                    <p>@for($i=0; $i <$star; $i++)<img src="{{ asset('img/star-hover.svg') }}" width="50" height="50" />@endfor</p>
+                    <p>{{__('Comments')}}: <br/>@if($respuestas['comment'][1]=='') {{__("NC")}} @else {{$respuestas['comment'][1]}}@endif</p>
                 </div>
                 </div>
             </div>
@@ -67,8 +70,8 @@
                 <div class="accordion-body">
                     <?php $star = intval($respuestas['valoration'][2]); ?>
                     <p>{{__('Valoration')}}: <strong>{{$respuestas['valoration'][2]}}</strong></p>
-                    <p>@for($i=0; $i <$star; $i++)<img src="{{ asset('img/star-selected.svg') }}" width="50" height="50" />@endfor</p>
-                    <p>{{__('Comments')}}: {{$respuestas['comment'][2]}}</p>
+                    <p>@for($i=0; $i <$star; $i++)<img src="{{ asset('img/star-hover.svg') }}" width="50" height="50" />@endfor</p>
+                    <p>{{__('Comments')}}:0<br/> @if($respuestas['comment'][2]=='') {{__("NC")}} @else {{$respuestas['comment'][2]}}@endif</p>
                 </div>
                 </div>
             </div>
@@ -82,8 +85,8 @@
                 <div class="accordion-body">
                     <?php $star = intval($respuestas['valoration'][3]); ?>
                     <p>{{__('Valoration')}}: <strong>{{$respuestas['valoration'][3]}}</strong></p>
-                    <p>@for($i=0; $i <$star; $i++)<img src="{{ asset('img/star-selected.svg') }}" width="50" height="50" />@endfor</p>
-                    <p>{{__('Comments')}}: {{$respuestas['comment'][3]}}</p>
+                    <p>@for($i=0; $i <$star; $i++)<img src="{{ asset('img/star-hover.svg') }}" width="50" height="50" />@endfor</p>
+                    <p>{{__('Comments')}}: <br/>@if($respuestas['comment'][3]=='') {{__("NC")}} @else {{$respuestas['comment'][3]}}@endif</p>
                 </div>
                 </div>
             </div>
