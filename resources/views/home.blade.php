@@ -145,11 +145,15 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-12 col-md-12 col-xxl-6 d-flex order-3 order-xxl-2">
+						<div class="col-12 col-md-12 col-xxl-6 d-flex order-3 order-xxl-2" id="worldMap">
 							<div class="card flex-fill w-100">
 								<div class="card-header">
 
-									<h5 class="card-title mb-0">Real-Time</h5>
+									<h5 class="card-title mb-0 d-flex justify-content-between align-items-center">
+										Real-Time
+										<button type="button" class="btn" onclick="pantallaCompleta('worldMap')"id="actworldMap" ><i class="align-middle" data-feather="maximize-2"></i></button>
+										<button type="button" class="btn" onclick="pantallaCompleta('worldMap')"  style="display:none;" id="desworldMap"><i class="align-middle" data-feather="minimize-2"></i></button>
+									</h5>
 								</div>
 								<div class="card-body px-4">
 									<div id="world_map" style="height:350px;"></div>
@@ -268,6 +272,47 @@
 @endsection
 
 @section('javascript')
+<script>
+		
+		/* When the openFullscreen() function is executed, open the video in fullscreen.
+		Note that we must include prefixes for different browsers, as they don't support the requestFullscreen method yet */
+		function pantallaCompleta(element) { 
+			var isInFullScreen = (document.fullscreenElement && document.fullscreenElement !== null) ||
+				(document.webkitFullscreenElement && document.webkitFullscreenElement !== null) ||
+				(document.mozFullScreenElement && document.mozFullScreenElement !== null) ||
+				(document.msFullscreenElement && document.msFullscreenElement !== null);
+			var elem = document.getElementById(element);
+			if (!isInFullScreen) {
+				console.log('obrim');
+				if (elem.requestFullscreen) {
+					elem.requestFullscreen();
+				} else if (elem.webkitRequestFullscreen) { /* Safari */
+					elem.webkitRequestFullscreen();
+				} else if (elem.msRequestFullscreen) { /* IE11 */
+					elem.msRequestFullscreen();
+				}
+				$('#act'+element).css('display','none');
+				$('#des'+element).css('display','block');
+			} else {
+				console.log('hora de tancar');
+				if (elem.exitFullscreen) {
+					console.log(1);
+					elem.exitFullscreen();
+				} else if (elem.webkitExitFullscreen) {
+					console.log(2);
+					elem.webkitExitFullscreen();
+				} else if (elem.mozCancelFullScreen) {
+					console.log(3);
+					elem.mozCancelFullScreen();
+				} else if (elem.msExitFullscreen) {
+					console.log(4);
+					elem.msExitFullscreen();
+				}
+				$('#act'+element).css('display','block');
+				$('#des'+element).css('display','none');
+			}
+		}
+</script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
