@@ -125,9 +125,13 @@ class UploadController extends Controller
             }
             if(isset($resp[14])) {
                 $store->language = substr($resp[14],2);
+            } else {
+                $store->language = 'en';
             }
             if(isset($resp[15])) {
                 $store->contact = ($resp[15]=='SI') ? 1 : 0; 
+            } else {
+                $store->contact = 0;
             }
             $store->client = ($client==null) ? 1 : $resp[5];
 
