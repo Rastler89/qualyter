@@ -115,16 +115,16 @@ class UploadController extends Controller
 
             $store->name = utf8_encode($resp[1]);
             $store->status = ($resp[7]=='Abierto') ? 1 : 0;
-            if($resp[12] != null) {
+            if(isset($resp[12])) {
                 $store->phonenumber = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', trim($resp[12]));
             }
-            if($sep[13] != null) {
+            if(isset($sep[13])) {
                 $store->email = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', trim($resp[13]));
             }
-            if($resp[14] != null) {
+            if(isset($resp[14])) {
                 $store->language = substr($resp[14],2);
             }
-            if($resp[15] != null) {
+            if(isset($resp[15])) {
                 $store->contact = ($resp[15]=='SI') ? 1 : 0; 
             }
             $store->client = ($client==null) ? 1 : $resp[5];
