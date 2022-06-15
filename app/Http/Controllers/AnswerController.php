@@ -103,6 +103,10 @@ class AnswerController extends Controller
         $answer = Answer::find($id);
         $old_answer = Answer::find($id);
 
+        if($answer->status != 1) {
+            return redirect()->route('tasks')->with('alert','This answers exist! Not modified');
+        }
+
         $answer->status = 2;
         $answer->answer = json_encode($body,true);
 
