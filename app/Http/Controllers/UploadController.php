@@ -120,6 +120,8 @@ class UploadController extends Controller
             }
             if(isset($sep[13])) {
                 $store->email = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', trim($resp[13]));
+            } else {
+                $store->email = '';
             }
             if(isset($resp[14])) {
                 $store->language = substr($resp[14],2);
