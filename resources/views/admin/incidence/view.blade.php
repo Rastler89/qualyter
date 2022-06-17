@@ -64,7 +64,7 @@
                                     <input type="radio" class="btn-check" name="status" id="success-outlined" autocomplete="off" @if($incidence->status == 2) checked @endif value="2">
                                     <label class="btn btn-outline-success" for="success-outlined">{{__('In Process')}}</label>
                                     
-                                    <input type="radio" class="btn-check" name="status" id="danger-outlined" autocomplete="off" value="4">
+                                    <input type="radio" class="btn-check" name="status" id="danger-outlined" autocomplete="off" value="4" data-bs-toggle="modal" data-bs-target="#confirmModal">
                                     <label class="btn btn-outline-dark" for="danger-outlined">{{__('Complete')}}</label>
                                 @elseif($incidence->status == 1)
                                     <input type="radio" class="btn-check" name="status" id="success-outlined" autocomplete="off" @if($incidence->status == 1) checked @endif value="2">
@@ -159,6 +159,27 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__('Close')}}</button>
                     <button class="btn btn-outline-danger">{{__('Change Agent')}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form method="POST" action="{{route('incidences.complete',['id' => $incidence->id])}}">
+                @csrf
+                <div class="modal-header">
+                    <h5 class="modal-title">{{__('Confirm complete incidence')}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body m-3">
+                    <p class="mb-0" style="color:red;text-align:center">{{__('Are you sure that the incident has been completed? First of all make sure, customer satisfaction is very important.')}}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__('Close')}}</button>
+                    <button class="btn btn-outline-danger">{{__('Complete')}}</button>
                 </div>
             </form>
         </div>

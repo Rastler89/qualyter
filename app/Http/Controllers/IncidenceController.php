@@ -81,6 +81,21 @@ class IncidenceController extends Controller
         return redirect()->to('/incidences/'.$id)->with('success','Agent changed!');
     }
 
+    public function complete($id) {
+        $log = new AuditionController();
+        $incidence = Incidence::find($id);
+        $old_incidence = Incidence::find($id);
+
+        $incidence->status = 4;
+        if($old_incidence->status != $incidence->status) {
+            $log->saveLog($old_incidence,$incidence,'i');
+        }
+
+        $incidence->save();
+
+        return redirect()->to('/incidences')->with('success','Incident closed, thank you for your cooperation.'); 
+    }
+
     public function modify($id, Request $request) {
         $log = new AuditionController();
         $validated = $request->validate([

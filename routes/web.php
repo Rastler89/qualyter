@@ -93,6 +93,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('incidences/{id}/changeAgent', [App\Http\Controllers\IncidenceController::class, 'changeAgent'])->middleware('permission:change-incidences')->name('incidences.changeAgent');
     Route::post('incidences/{id}', [App\Http\Controllers\IncidenceController::class, 'modify'])->middleware('permission:response-incidences')->name('incidences.modify');
     Route::get('incidences/send/{id}', [App\Http\Controllers\IncidenceController::class, 'resend'])->name('incidences.resend');
+    Route::post('incidences/{id}/complete', [App\Http\Controllers\IncidenceController::class, 'complete'])->middleware('permission:change-incidences')->name('incidences.complete');
 
     //TEAM
     Route::get('teams',[App\Http\Controllers\TeamController::class, 'index'])->name('team.index');
