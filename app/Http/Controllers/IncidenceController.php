@@ -105,14 +105,11 @@ class IncidenceController extends Controller
         $old_incidence = Incidence::find($id);
 
         if($request->get('status') != null) {
-            $incidence->status = $request->get('status');
-        } else if($incidence->status == null) {
-            $incidence->status = 0;
+            if($incidence->status != null) {
+                $incidence->status = $request->get('status');
+            }
         }
         
-        if($incidence->status != null) {
-            $incidence->status = $request->get('status');
-        }
 
         $incidence->closed = $request->get('closed');
 
