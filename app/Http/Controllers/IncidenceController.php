@@ -104,7 +104,9 @@ class IncidenceController extends Controller
         $incidence = Incidence::find($id);
         $old_incidence = Incidence::find($id);
         
-        $incidence->status = $request->get('status');
+        if($request->get('status') != null) {
+            $incidence->status = $request->get('status');
+        }
         
         if($incidence->status != null) {
             $incidence->status = $request->get('status');
