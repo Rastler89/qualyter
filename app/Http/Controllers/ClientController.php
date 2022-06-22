@@ -59,8 +59,9 @@ class ClientController extends Controller
 
         return view('admin.client.profile',['client' => $client, 'clients' => $clients]);
     }
-
+    
     public function update(Request $request, $id) {
+        $client = Client::find($id);
         
         if($request->get('country') != '--') {
             $url = 'https://restcountries.com/v2/name/'.str_replace(' ','%20',$request->get('country'));
@@ -79,9 +80,13 @@ class ClientController extends Controller
                 $client->delegation = $resp[0]->alpha2Code;
             }
             $client->language = $resp[0]->languages[0]->iso639_1;
+        } else {
+            if($request->get('central')=='on') {
+                $client->delegation = '00';
+            }
         }
+
         
-        $client = Client::find($id);
         $client->name = $request->get('name');
         $client->phonenumber = $request->get('phonenumber');
         $client->email = $request->get('email');

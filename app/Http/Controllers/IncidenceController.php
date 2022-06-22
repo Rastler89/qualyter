@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Agent;
 use App\Models\Incidence;
 use App\Models\Store;
+use App\Models\Client;
 use App\Models\User;
 use App\Models\Task;
 use App\Models\Log;
@@ -57,8 +58,10 @@ class IncidenceController extends Controller
         $stores = Store::all();
         $users = User::all();
         $agents = Agent::all();
+        $stores = Store::all();
+        $clients = Client::all();
 
-        return view('admin.incidence.index', ['incidences' => $incidences, 'stores' => $stores, 'users' => $users, 'agents' => $agents]);
+        return view('admin.incidence.index', ['incidences' => $incidences, 'stores' => $stores, 'users' => $users, 'agents' => $agents, 'clients' => $clients, 'stores' => $stores]);
     }
 
     public function view($id) {
