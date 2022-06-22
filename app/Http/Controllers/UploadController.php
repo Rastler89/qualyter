@@ -131,7 +131,7 @@ class UploadController extends Controller
             if(isset($resp[15])) {
                 $store->contact = ($resp[15]=='SI') ? 1 : 0; 
             } else {
-                $store->contact = 0;
+                $store->contact = 1;
             }
             $store->client = ($client==null) ? 1 : $resp[5];
 
