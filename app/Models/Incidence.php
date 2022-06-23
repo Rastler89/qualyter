@@ -24,7 +24,8 @@ class Incidence extends Model implements Auditable
         'status',
         'comments',
         'closed',
-        'created_at'
+        'created_at',
+        'updated_at'
     ];
 
     public $sortable = [
@@ -33,6 +34,7 @@ class Incidence extends Model implements Auditable
         'impact',
         'responsable',
         'owner',
+        'created_at',
         'closed'
     ];
 }

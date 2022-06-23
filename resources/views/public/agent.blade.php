@@ -53,7 +53,22 @@
                             {{$store->name}}
                         </div>
                         <div class="col-md-6  text-md-end">
-                           estat
+                          @switch($incidence->status)
+                            @case(0)
+                                {{__('Open')}}
+                                @break;
+                            @case(1)
+                                {{__('Pending review')}}
+                                @break;
+                            @case(2)
+                                {{__('Process')}}
+                                @break;
+                            @case(3)
+                                {{__('Refused')}}
+                                @break;
+                            @case(4)
+                                {{__('Complete')}}
+                                @break;
                         </div>
 
                         
@@ -78,6 +93,8 @@
                             <strong>
                                 {{$order->name}}
                             </strong>
+                            <div class="text-muted">{{__('Created day')}}</div>
+                            <strong>{{$incidence->created_at}}</strong>
                         </div>
                         <div class="col-md-6 text-md-end">
                             <div class="text-muted">{{__('Expiration Date')}}</div>

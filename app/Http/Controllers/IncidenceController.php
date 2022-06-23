@@ -12,32 +12,100 @@ use App\Models\Log;
 use App\Models\Team;
 use Illuminate\Http\Request;
 use Mail;
+use Carbon\Carbon;
 use App\Mail\NotifyMail;
 
 class IncidenceController extends Controller
 {
     public function index(Request $request) {
-        $client = $request->query('client');
-        $store = $request->query('store');
+        $filters = $request->query();
         $incidences = Incidence::query();
 
-        if(!empty($store) && $store != '') {
+        /* Start filters */
+        if(!empty($filters['store']) && $filters['store'] != '') {
             $id = [];
-            $stores = Store::where('name','LIKE','%'.$store.'%')->get();
+            $stores = Store::where('name','LIKE','%'.$filters['store'].'%')->get();
             foreach($stores as $s) {
                 $id[] = $s->code;
             }
             $incidences->whereIn('store',$id);
         }
 
-        if(!empty($client) && $client != '') {
+        if(!empty($filters['client']) && $filters['client'] != '') {
             $id = [];
-            $clients = Client::where('name','LIKE','%'.$client.'%')->get();
+            $clients = Client::where('name','LIKE','%'.$filters['client'].'%')->get();
             foreach($clients as $c) {
                 $id[] = $c->id;
             }
             $incidences->whereIn('client',$id);
         }
+
+        if(!empty($filters['agent']) && $filters['agent'] != '') {
+            $incidences->where('owner','=',$filters['agent']);
+        }
+
+        if(!empty($filters['responsable']) && $filters['responsable'] != '') {
+            $incidences->where('responsable','=',$filters['responsable']);
+        }
+
+        if(!empty($filters['start_date_created']) && $filters['start_date_created'] != '') {
+            if(!empty($filters['end_date_created']) && $filters['end_date_created'] != '') {
+                $incidences->whereBetween('created_at',[$filters['start_date_created'],$filters['end_date_created']]);
+            } else {
+                $incidences->where('created_at','>=',$filters['start_date_created']);
+            }
+        } else {
+            if(!empty($filters['end_date_created']) && $filters['end_date_created'] != '') {
+                $incidences->where('created_at','<=',$filters['end_date_created']);
+            }
+        }
+
+        if(!empty($filters['start_date_closed']) && $filters['start_date_closed'] != '') {
+            if(!empty($filters['end_date_closed']) && $filters['end_date_closed'] != '') {
+                $incidences->whereBetween('created_at',[$filters['start_date_closed'],$filters['end_date_closed']]);
+            } else {
+                $incidences->where('created_at','>=',$filters['start_date_closed']);
+            }
+        } else {
+            if(!empty($filters['end_date_closed']) && $filters['end_date_closed'] != '') {
+                $incidences->where('created_at','<=',$filters['end_date_closed']);
+            }
+        }
+
+        if(!empty($filters['start_date_closing']) && $filters['start_date_closing'] != '') {
+            if(!empty($filters['end_date_closing']) && $filters['end_date_closed'] != '') {
+                $incidences->whereBetween('created_at',[$filters['start_date_closing'],$filters['end_date_closing']]);
+            } else {
+                $incidences->where('created_at','>=',$filters['start_date_closing']);
+            }
+        } else {
+            if(!empty($filters['end_date_closing']) && $filters['end_date_closing'] != '') {
+                $incidences->where('created_at','<=',$filters['end_date_closing']);
+            }
+        }
+
+        if(!empty($filters['status'])) {
+            $status = [];
+            foreach($filters['status'] as $index => $value) {
+                if($value=='true') {
+                    $status[] = $index;
+                }
+            }
+            $incidences->whereIn('status',$status);
+        }
+
+        if(!empty($filters['impact'])) {
+            $impact = [];
+            foreach($filters['impact'] as $index => $value) {
+                if($value=='true') {
+                    $impact[] = $index;
+                }
+            }
+            $incidences->whereIn('impact',$impact);
+        }
+
+
+        /* End filters */
         $rol = auth()->user()->roles;
         $rol = json_decode($rol[0]);
         if($rol->id == 2) {
@@ -60,8 +128,8 @@ class IncidenceController extends Controller
         $agents = Agent::all();
         $stores = Store::all();
         $clients = Client::all();
-
-        return view('admin.incidence.index', ['incidences' => $incidences, 'stores' => $stores, 'users' => $users, 'agents' => $agents, 'clients' => $clients, 'stores' => $stores]);
+        //echo"<pre>";print_r($filters);echo"</pre>";die();
+        return view('admin.incidence.index', ['incidences' => $incidences, 'stores' => $stores, 'users' => $users, 'agents' => $agents, 'clients' => $clients, 'stores' => $stores, 'filters' => $filters]);
     }
 
     public function view($id) {
@@ -93,6 +161,8 @@ class IncidenceController extends Controller
         if($old_incidence->status != $incidence->status) {
             $log->saveLog($old_incidence,$incidence,'i');
         }
+
+        $incidence->updated_at = Carbon::now();
 
         $incidence->save();
 

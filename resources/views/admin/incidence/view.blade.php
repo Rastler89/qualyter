@@ -105,6 +105,8 @@
                             <strong>
                                 {{$order->name}}
                             </strong>
+                            <div class="text-muted">{{__('Created day')}}</div>
+                            <strong>{{$incidence->created_at}}</strong>
                         </div>
                         <div class="col-md-6 text-md-end">
                             <div class="text-muted">{{__('Expiration Date')}}</div>
