@@ -2,37 +2,104 @@
 
 @section('content')
 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-  <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#downloadCSV"><i class="align-middle" data-feather="download"></i></button>
+    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#filters"><i class="align-middle" data-feather="filter"></i></button>
+    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#downloadCSV"><i class="align-middle" data-feather="download"></i></button>
 </div>
 
-<div class="accordion" id="accordionExample">
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="headingThree">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                {{__('Filters')}}
-            </button>
-        </h2>
-        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-                <form class="form-inline" method="GET">
-                    <div class="mb-3">
-                        <label for="store" class="form-label">{{__('Store`s Name')}}</label>
-                        <input type="text" class="form-control" name="store" placeholder="{{__('Store`s Name')}}"/>
+<form method="GET">
+<div class="modal fade" id="filters" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="filterLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="filterLabel">{{__("Filters")}}</h5>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="store" class="form-label">{{__('Store`s Name')}}</label>
+                                <input type="text" class="form-control" name="store" placeholder="{{__('Store`s Name')}}" @if(!empty($filters) && isset($filters['store'])) value="{{$filters['store']}}" @endif/>
+                            </div>
+                            <div class="mb-3">
+                                <label for="client" class="form-label">{{__('Client`s Name')}}</label>
+                                <input type="text" class="form-control" name="client" placeholder="{{__('Client`s Name')}}" @if(!empty($filters) && isset($filters['client'])) value="{{$filters['client']}}" @endif/>
+                            </div>
+                            <div class="mb-3">
+                                <label for="workOrder" class="form-label">{{__('Work Order')}}</label>
+                                <input type="text" list="workOrder" class="form-control" name="workOrder" placeholder="{{__('Work Order')}}" @if(!empty($filters) && isset($filters['workOrder'])) value="{{$filters['client']}}" @endif/>
+                                <datalist id="workOrder">
+                                    @foreach($workOrders as $workOrder)
+                                        <option value="{{$workOrder->code}}">{{$workOrder->code}} - {{$workOrder->name}}</option>
+                                    @endforeach
+                                </datalist>
+                            </div>
+                            <div class="mb-3">
+                                <label for="agent" class="form-label">{{__('Agent')}}</label>
+                                <input type="text" list="agents" class="form-control" name="agent" placeholder="{{__('Agent')}}" @if(!empty($filters) && isset($filters['agent'])) value="{{$filters['agent']}}" @endif/>
+                                <datalist id="agents">
+                                    @foreach($agents as $agent)
+                                        <option value="{{$agent->id}}">{{$agent->name}}</option>
+                                    @endforeach
+                                </datalist>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label>{{__('Created')}}:</label>
+                            <div class="input-group mb-3">
+                                <input type="date" name="start_date_created" class="form-control" aria-label="{{__('Start date')}}" @if(!empty($filters) && isset($filters['start_date_created'])) value="{{$filters['start_date_created']}}" @endif>
+                                <span class="input-group-text"><-></span>
+                                <input type="date" name="end_date_created" class="form-control" aria-label="{{__('End date')}}" @if(!empty($filters) && isset($filters['end_date_created'])) value="{{$filters['end_date_created']}}" @endif>
+                            </div>
+                            <label>{{__('Closed day')}}:</label>
+                            <div class="input-group mb-3">
+                                <input type="date" name="start_date_closed" class="form-control" aria-label="{{__('Start date')}}" @if(!empty($filters) && isset($filters['start_date_closed'])) value="{{$filters['start_date_closed']}}" @endif>
+                                <span class="input-group-text"><-></span>
+                                <input type="date" name="end_date_closed" class="form-control" aria-label="{{__('End date')}}" @if(!empty($filters) && isset($filters['end_date_closed'])) value="{{$filters['end_date_closed']}}" @endif>
+                            </div>
+                            <label>{{__('Closing day')}}:</label>
+                            <div class="input-group mb-3">
+                                <input type="date" name="start_date_closing" class="form-control" aria-label="{{__('Start date')}}" @if(!empty($filters) && isset($filters['start_date_closing'])) value="{{$filters['start_date_closing']}}" @endif>
+                                <span class="input-group-text"><-></span>
+                                <input type="date" name="end_date_closing" class="form-control" aria-label="{{__('End date')}}" @if(!empty($filters) && isset($filters['end_date_closing'])) value="{{$filters['end_date_closing']}}" @endif>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">{{__('Status')}}</label>
+                            <div class="row mb-3">
+                                <div class="form-check col-6">
+                                    <input class="form-check-input" type="checkbox" @if(isset($filters['status'][2])) checked @endif value="true" name="status[2]" id="status2"/>
+                                    <label class="form-check-label" for="status2">{{__('Complete for QC')}}</label>
+                                </div>
+                                <div class="form-check col-6">
+                                    <input class="form-check-input" type="checkbox" @if(isset($filters['status'][3])) checked @endif value="true" name="status[3]" id="status3"/>
+                                    <label class="form-check-label" for="status3">{{__('Pending reply')}}</label>
+                                </div>
+                                <div class="form-check col-6">
+                                    <input class="form-check-input" type="checkbox" @if(isset($filters['status'][4])) checked @endif value="true" name="status[4]" id="status4"/>
+                                    <label class="form-check-label" for="status4">{{__('Pending Review')}}</label>
+                                </div>
+                                <div class="form-check col-6">
+                                    <input class="form-check-input" type="checkbox" @if(isset($filters['status'][5])) checked @endif value="true" name="status[5]" id="status5"/>
+                                    <label class="form-check-label" for="status">{{__('Complete')}}</label>
+                                </div>
+                                <div class="form-check col-6">
+                                    <input class="form-check-input" type="checkbox" @if(isset($filters['status'][8])) checked @endif value="true" name="status[8]" id="status8"/>
+                                    <label class="form-check-label" for="status8">{{__('Cancelled')}}</label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="client" class="form-label">{{__('Client`s Name')}}</label>
-                        <input type="text" class="form-control" name="client" placeholder="{{__('Client`s Name')}}"/>
-                    </div>
-                    <div class="mb-3">
-                        <label for="workorder" class="form-label">{{__('Work Order')}}</label>
-                        <input type="text" class="form-control" name="workorder" placeholder="{{__('Work Order')}}" />
-                    </div>
-                    <button class="btn btn-danger">Search</button>
-                </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__("Cancel")}}</button>
+                <button type="submit" class="btn btn-primary">{{__("Search")}}</button>
             </div>
         </div>
     </div>
 </div>
+</form>
 
 <div class="modal fade" id="downloadCSV" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -135,7 +202,10 @@
         @endforeach
     </tbody>
 </table>
-{{$answers->appends(['client' => $filterClient, 'store' => $filterStore, 'workorder' => $filterWO])->links()}}
+{{$answers->appends([
+        'filters' => $filters,
+        'filtered' => 'yes'
+    ])->links()}}
 @foreach($answers as $answer)
     @if($answer->status == 8)
     <div class="modal fade" id="alloy" tabindex="-1" role="dialog" aria-hidden="true">

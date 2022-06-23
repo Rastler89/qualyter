@@ -233,38 +233,97 @@ class AnswerController extends Controller
     }
 
     public function answers(Request $request) {
-        $client = $request->query('client');
-        $store = $request->query('store');
-        $work = $request->query('workorder');
+        $filters = $request->query();
+        if(isset($filters['filtered'])) {
+            $filters = $filters['filters'];
+        }
         
         $pre_answers = Answer::where('status','>',1);
 
-        if(!empty($store) && $store != '') {
+        /* Start Filters */
+        if(!empty($filters['store']) && $filters['store'] != '') {
             $id = [];
-            $stores = Store::where('name','LIKE','%'.$store.'%')->get();
+            $stores = Store::where('name','LIKE','%'.$filters['store'].'%')->get();
             foreach($stores as $s) {
                 $id[] = $s->code;
             }
             $pre_answers->whereIn('store',$id);
         }
 
-        if(!empty($client) && $client != '') {
+        if(!empty($filters['client']) && $filters['client'] != '') {
             $id = [];
-            $clients = Client::where('name','LIKE','%'.$client.'%')->get();
+            $clients = Client::where('name','LIKE','%'.$filters['client'].'%')->get();
             foreach($clients as $c) {
                 $id[] = $c->id;
             }
             $pre_answers->whereIn('client',$id);
         }
 
-        if(!empty($work) && $work != '') {
+        if(!empty($filters['workOrder']) && $filters['workOrder'] != '') {
             $id=[];
-            $tasks = Task::where('code','LIKE','%'.$work.'%')->get();
+            $tasks = Task::where('code','LIKE','%'.$filters['workOrder'].'%')->get();
             foreach($tasks as $t) {
                 $id[] = $t->answer_id;
             }
             $pre_answers->whereIn('id',$id);
         }
+
+        if(!empty($filters['agent']) && $filters['agent'] != '') {
+            $id=[];
+            $tasks = Task::where('owner','=',$filters['agent']);
+            foreach($tasks as $t) {
+                $id[] = $t->answer_id;
+            }
+            $pre_answers->whereIn('id',$id);
+        }
+
+        if(!empty($filters['start_date_created']) && $filters['start_date_created'] != '') {
+            if(!empty($filters['end_date_created']) && $filters['end_date_created'] != '') {
+                $pre_answers->whereBetween('created_at',[$filters['start_date_created'],$filters['end_date_created']]);
+            } else {
+                $pre_answers->where('created_at','>=',$filters['start_date_created']);
+            }
+        } else {
+            if(!empty($filters['end_date_created']) && $filters['end_date_created'] != '') {
+                $pre_answers->where('created_at','<=',$filters['end_date_created']);
+            }
+        }
+
+        if(!empty($filters['start_date_closed']) && $filters['start_date_closed'] != '') {
+            if(!empty($filters['end_date_closed']) && $filters['end_date_closed'] != '') {
+                $pre_answers->whereBetween('created_at',[$filters['start_date_closed'],$filters['end_date_closed']]);
+            } else {
+                $pre_answers->where('created_at','>=',$filters['start_date_closed']);
+            }
+        } else {
+            if(!empty($filters['end_date_closed']) && $filters['end_date_closed'] != '') {
+                $pre_answers->where('created_at','<=',$filters['end_date_closed']);
+            }
+        }
+
+        if(!empty($filters['start_date_closing']) && $filters['start_date_closing'] != '') {
+            if(!empty($filters['end_date_closing']) && $filters['end_date_closed'] != '') {
+                $pre_answers->whereBetween('created_at',[$filters['start_date_closing'],$filters['end_date_closing']]);
+            } else {
+                $pre_answers->where('created_at','>=',$filters['start_date_closing']);
+            }
+        } else {
+            if(!empty($filters['end_date_closing']) && $filters['end_date_closing'] != '') {
+                $pre_answers->where('created_at','<=',$filters['end_date_closing']);
+            }
+        }
+
+        if(!empty($filters['status'])) {
+            $status = [];
+            foreach($filters['status'] as $index => $value) {
+                if($value=='true') {
+                    $status[] = $index;
+                }
+            }
+            $pre_answers->whereIn('status',$status);
+        }
+
+        /* End filters */
 
         $rol = auth()->user()->roles;
         $rol = json_decode($rol[0]);
@@ -291,8 +350,9 @@ class AnswerController extends Controller
         $stores = Store::all();
         $clients = Client::all();
         $agents = Agent::all();
+        $workOrders = Task::all();
 
-        return view('admin.answer.index', ['answers' => $answers, 'agents' => $agents, 'stores' => $stores, 'clients' => $clients, 'filterStore' => $store, 'filterClient' => $client, 'filterWO' => $work]);
+        return view('admin.answer.index', ['answers' => $answers, 'agents' => $agents, 'stores' => $stores, 'clients' => $clients, 'workOrders' => $workOrders, 'filters' => $filters]);
     }
 
     public function viewAnswer(Request $request, $id) {
