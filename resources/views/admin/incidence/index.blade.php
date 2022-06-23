@@ -23,15 +23,15 @@
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="store" class="form-label">{{__('Store`s Name')}}</label>
-                                <input type="text" class="form-control" name="store" placeholder="{{__('Store`s Name')}}" @if(!empty($filters)) value="{{$filters['store']}}" @endif/>
+                                <input type="text" class="form-control" name="store" placeholder="{{__('Store`s Name')}}" @if(!empty($filters) && isset($filters['store'])) value="{{$filters['store']}}" @endif/>
                             </div>
                             <div class="mb-3">
                                 <label for="client" class="form-label">{{__('Client`s Name')}}</label>
-                                <input type="text" class="form-control" name="client" placeholder="{{__('Client`s Name')}}" @if(!empty($filters)) value="{{$filters['client']}}" @endif/>
+                                <input type="text" class="form-control" name="client" placeholder="{{__('Client`s Name')}}" @if(!empty($filters) && isset($filters['client'])) value="{{$filters['client']}}" @endif/>
                             </div>
                             <div class="mb-3">
                                 <label for="agent" class="form-label">{{__('Agent')}}</label>
-                                <input class="form-control" list="agents" id="agent" name="agent" placeholder="{{__('Type to search...')}}" @if(!empty($filters)) value="{{$filters['agent']}}" @endif/>
+                                <input class="form-control" list="agents" id="agent" name="agent" placeholder="{{__('Type to search...')}}" @if(!empty($filters) && isset($filters['agent'])) value="{{$filters['agent']}}" @endif/>
                                 <datalist id="agents">
                                     @foreach($agents as $agent)  
                                         <option value="{{$agent->id}}">{{$agent->name}}</option>
@@ -40,7 +40,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="responsable" class="form-label">{{__('Responsable')}}</label>
-                                <input class="form-control" list="responsables" id="responsable" name="responsable" placeholder="{{__('Type to search...')}}" @if(!empty($filters)) value="{{$filters['responsable']}}" @endif/>
+                                <input class="form-control" list="responsables" id="responsable" name="responsable" placeholder="{{__('Type to search...')}}" @if(!empty($filters) && isset($filters['responsable'])) value="{{$filters['responsable']}}" @endif/>
                                 <datalist id="responsables">
                                     @foreach($users as $responsable)  
                                         <option value="{{$responsable->id}}">{{$responsable->name}}</option>
@@ -51,21 +51,21 @@
                     <div class="col-md-4">
                         <label>{{__('Created')}}:</label>
                         <div class="input-group mb-3">
-                            <input type="date" name="start_date_created" class="form-control" aria-label="{{__('Start date')}}" @if(!empty($filters)) value="{{$filters['start_date_created']}}" @endif>
+                            <input type="date" name="start_date_created" class="form-control" aria-label="{{__('Start date')}}" @if(!empty($filters) && isset($filters['start_date_created'])) value="{{$filters['start_date_created']}}" @endif>
                             <span class="input-group-text"><-></span>
-                            <input type="date" name="end_date_created" class="form-control" aria-label="{{__('End date')}}" @if(!empty($filters)) value="{{$filters['end_date_created']}}" @endif>
+                            <input type="date" name="end_date_created" class="form-control" aria-label="{{__('End date')}}" @if(!empty($filters) && isset($filters['end_date_created'])) value="{{$filters['end_date_created']}}" @endif>
                         </div>
                         <label>{{__('Closed day')}}:</label>
                         <div class="input-group mb-3">
-                            <input type="date" name="start_date_closed" class="form-control" aria-label="{{__('Start date')}}" @if(!empty($filters)) value="{{$filters['start_date_closed']}}" @endif>
+                            <input type="date" name="start_date_closed" class="form-control" aria-label="{{__('Start date')}}" @if(!empty($filters) && isset($filters['start_date_closed'])) value="{{$filters['start_date_closed']}}" @endif>
                             <span class="input-group-text"><-></span>
-                            <input type="date" name="end_date_closed" class="form-control" aria-label="{{__('End date')}}" @if(!empty($filters)) value="{{$filters['end_date_closed']}}" @endif>
+                            <input type="date" name="end_date_closed" class="form-control" aria-label="{{__('End date')}}" @if(!empty($filters) && isset($filters['end_date_closed'])) value="{{$filters['end_date_closed']}}" @endif>
                         </div>
                         <label>{{__('Closing day')}}:</label>
                         <div class="input-group mb-3">
-                            <input type="date" name="start_date_closing" class="form-control" aria-label="{{__('Start date')}}" @if(!empty($filters)) value="{{$filters['start_date_closing']}}" @endif>
+                            <input type="date" name="start_date_closing" class="form-control" aria-label="{{__('Start date')}}" @if(!empty($filters) && isset($filters['start_date_closing'])) value="{{$filters['start_date_closing']}}" @endif>
                             <span class="input-group-text"><-></span>
-                            <input type="date" name="end_date_closing" class="form-control" aria-label="{{__('End date')}}" @if(!empty($filters)) value="{{$filters['end_date_closing']}}" @endif>
+                            <input type="date" name="end_date_closing" class="form-control" aria-label="{{__('End date')}}" @if(!empty($filters) && isset($filters['end_date_closing'])) value="{{$filters['end_date_closing']}}" @endif>
                         </div>
 
                     </div>
@@ -213,5 +213,8 @@
         @endforeach
     </tbody>
 </table>
-{{$incidences->links()}}
+{{$incidences->appends([
+        'filters' => $filters,
+        'filtered' => 'yes'
+    ])->links()}}
 @endsection

@@ -19,6 +19,9 @@ class IncidenceController extends Controller
 {
     public function index(Request $request) {
         $filters = $request->query();
+        if(isset($filters['filtered'])) {
+            $filters = $filters['filters'];
+        }
         $incidences = Incidence::query();
 
         /* Start filters */
@@ -121,7 +124,11 @@ class IncidenceController extends Controller
             $incidences->whereIn('owner',$id);
         }
 
-        $incidences = $incidences->sortable()->paginate(10);
+        if(isset($filters['sort'])) {
+            $incidences = $incidences->sortable()->paginate(10);
+        } else {
+            $incidences = $incidences->orderBy('created_at','DESC')->paginate(10);
+        }
 
         $stores = Store::all();
         $users = User::all();
