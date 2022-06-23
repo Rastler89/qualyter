@@ -53,7 +53,7 @@
                             {{$store->name}}
                         </div>
                         <div class="col-md-6  text-md-end">
-                          @switch($incidence->status)
+                        @switch($incidence->status)
                             @case(0)
                                 {{__('Open')}}
                                 @break;
@@ -69,6 +69,7 @@
                             @case(4)
                                 {{__('Complete')}}
                                 @break;
+                        @endswitch
                         </div>
 
                         
