@@ -106,9 +106,8 @@ class IncidenceController extends Controller
             }
             $incidences->whereIn('impact',$impact);
         }
-
-
         /* End filters */
+
         $rol = auth()->user()->roles;
         $rol = json_decode($rol[0]);
         if($rol->id == 2) {
@@ -135,7 +134,7 @@ class IncidenceController extends Controller
         $agents = Agent::all();
         $stores = Store::all();
         $clients = Client::all();
-        //echo"<pre>";print_r($filters);echo"</pre>";die();
+
         return view('admin.incidence.index', ['incidences' => $incidences, 'stores' => $stores, 'users' => $users, 'agents' => $agents, 'clients' => $clients, 'stores' => $stores, 'filters' => $filters]);
     }
 
@@ -199,6 +198,7 @@ class IncidenceController extends Controller
             $body_message['message'] = $request->get('message');
             $body_message['owner'] = auth()->user()->name;
             $body_message['type'] = 'user';
+            $body_message['date'] = Carbon::now();
     
             $comments[] = $body_message;
     
@@ -265,6 +265,7 @@ class IncidenceController extends Controller
         $body_message['message'] = $request->get('message');
         $body_message['owner'] = $request->get('agent');
         $body_message['type'] = 'agent';
+        $body_message['date'] = Carbon::now();
 
         $comments[] = $body_message;
 

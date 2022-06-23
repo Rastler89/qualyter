@@ -125,7 +125,7 @@
                     <ul class="chat">
                         @foreach($comments as $comment)
                         <li class="body-message @if($comment->type == 'user') m-user @else m-agent @endif">
-                            <strong>{{$comment->owner}}:</strong>
+                            @if(isset($comment->date)) <i><?php echo(date('d-m-Y H:i:s', strtotime($comment->date))); ?></i> @endif<strong>{{$comment->owner}}:</strong>
                             {{$comment->message}}
                         </li>
                         @endforeach
