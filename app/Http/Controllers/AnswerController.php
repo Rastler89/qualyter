@@ -237,7 +237,7 @@ class AnswerController extends Controller
         if(isset($filters['filtered'])) {
             $filters = $filters['filters'];
         }
-        
+
         $pre_answers = Answer::where('status','>',1);
 
         /* Start Filters */
@@ -346,7 +346,12 @@ class AnswerController extends Controller
             
         }
 
-        $answers = $pre_answers->sortable()->paginate(10);
+        if(isset($filters['sort'])) {
+            $answers = $pre_answers->sortable()->paginate(10);
+        } else {
+            $answers = $pre_answers->orderBy('created_at','DESC')->paginate(10);
+        }
+
         $stores = Store::all();
         $clients = Client::all();
         $agents = Agent::all();
