@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="btn-group" role="group" aria-label="Basic outlined example">
-  <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#filters">{{__("Filters")}}</button>
+  <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#filters"><i class="align-middle" data-feather="filter"></i></button>
 </div>
 <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
     <a class="btn btn-primary" href="{{route('workorder.new')}}">{{__('Add Work Order')}}</a>

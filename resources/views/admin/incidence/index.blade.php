@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="btn-group" role="group" aria-label="Basic outlined example">
-  <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#filters">{{__("Filters")}}</button>
+  <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#filters"><i class="align-middle" data-feather="filter"></i></button>
 </div>
 
 <!-- Start filter -->
