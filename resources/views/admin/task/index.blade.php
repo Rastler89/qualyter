@@ -1,38 +1,76 @@
 @extends('layouts.dashboard')
 
 @section('content')
+<div class="btn-group" role="group" aria-label="Basic outlined example">
+  <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#filters">{{__("Filters")}}</button>
+</div>
 <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
     <a class="btn btn-primary" href="{{route('workorder.new')}}">{{__('Add Work Order')}}</a>
 </div>
 
-<div class="accordion" id="accordionExample">
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="headingThree">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                {{__('Filters')}}
-            </button>
-        </h2>
-        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-                <form class="form-inline" method="GET">
-                    <div class="mb-3">
-                        <label for="store" class="form-label">{{__('Store`s Name')}}</label>
-                        <input type="text" class="form-control" name="store" placeholder="{{__('Store`s Name')}}"/>
+<!-- Start Filter -->
+<form method="GET">
+<div class="modal fade" id="filters" data-bs-backdrop="static" data-bs-keyboard="false" tabinde="-1" aria-labelledby="filterLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="filterLabel">{{__("Filters")}}</h5>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="store" class="form-label">{{__('Store`s Name')}}</label>
+                                <input type="text" class="form-control" name="store" placeholder="{{__('Store`s Name')}}" @if(!empty($filters) && isset($filters['store'])) value="{{$filters['store']}}" @endif/>
+                            </div>
+                            <div class="mb-3">
+                                <label for="client" class="form-label">{{__('Client`s Name')}}</label>
+                                <input type="text" class="form-control" name="client" placeholder="{{__('Client`s Name')}}" @if(!empty($filters) && isset($filters['client'])) value="{{$filters['client']}}" @endif/>
+                            </div>
+                            <div class="mb-3">
+                                <label for="client" class="form-label">{{__("Work Order")}}</label>
+                                <input type="text" class="form-control" name="workOrder" placeholder="{{__('Work Order')}}"  @if(!empty($filters) && isset($filters['workOrder'])) value="{{$filters['workOrder']}}" @endif/>
+                            </div>
+                            <div class="mb-3">
+                                <label for="agent" class="form-label">{{__('Agent')}}</label>
+                                <input class="form-control" list="agents" id="agent" name="agent" placeholder="{{__('Type to search...')}}" @if(!empty($filters) && isset($filters['agent'])) value="{{$filters['agent']}}" @endif/>
+                                <datalist id="agents">
+                                    @foreach($agents as $agent)  
+                                        <option value="{{$agent->id}}">{{$agent->name}}</option>
+                                    @endforeach
+                                </datalist>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label>{{__('Created')}}:</label>
+                            <div class="input-group mb-3">
+                                <input type="date" name="start_date_created" class="form-control" aria-label="{{__('Start date')}}" @if(!empty($filters) && isset($filters['start_date_created'])) value="{{$filters['start_date_created']}}" @endif>
+                                <span class="input-group-text"><-></span>
+                                <input type="date" name="end_date_created" class="form-control" aria-label="{{__('End date')}}" @if(!empty($filters) && isset($filters['end_date_created'])) value="{{$filters['end_date_created']}}" @endif>
+                            </div>
+                            <label>{{__('Closing day')}}:</label>
+                            <div class="input-group mb-3">
+                                <input type="date" name="start_date_closing" class="form-control" aria-label="{{__('Start date')}}" @if(!empty($filters) && isset($filters['start_date_closing'])) value="{{$filters['start_date_closing']}}" @endif>
+                                <span class="input-group-text"><-></span>
+                                <input type="date" name="end_date_closing" class="form-control" aria-label="{{__('End date')}}" @if(!empty($filters) && isset($filters['end_date_closing'])) value="{{$filters['end_date_closing']}}" @endif>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="client" class="form-label">{{__('Client`s Name')}}</label>
-                        <input type="text" class="form-control" name="client" placeholder="{{__('Client`s Name')}}"/>
-                    </div>
-                    <div class="mb-3">
-                        <label for="workorder" class="form-label">{{__('Work Order')}}</label>
-                        <input type="text" class="form-control" name="workorder" placeholder="{{__('Work Order')}}" />
-                    </div>
-                    <button class="btn btn-danger">Search</button>
-                </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__("Cancel")}}</button>
+                <button type="submit" class="btn btn-primary">{{__("Search")}}</button>
             </div>
         </div>
     </div>
 </div>
+</form>
+<!-- End Filter -->
 
 <table class="table table-hover table-striped">
     <thead>
@@ -85,5 +123,8 @@
         @endforeach
     </tbody>
 </table>
-{{$answers->appends(['client' => $filterClient, 'store' => $filterStore, 'workorder' => $filterWO])->links()}}
+{{$answers->appends([
+        'filters' => $filters,
+        'filtered' => 'yes'
+    ])->links()}}
 @endsection

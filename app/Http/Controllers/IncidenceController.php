@@ -65,25 +65,25 @@ class IncidenceController extends Controller
 
         if(!empty($filters['start_date_closed']) && $filters['start_date_closed'] != '') {
             if(!empty($filters['end_date_closed']) && $filters['end_date_closed'] != '') {
-                $incidences->whereBetween('created_at',[$filters['start_date_closed'],$filters['end_date_closed']]);
+                $incidences->whereBetween('updated_at',[$filters['start_date_closed'],$filters['end_date_closed']]);
             } else {
-                $incidences->where('created_at','>=',$filters['start_date_closed']);
+                $incidences->where('updated_at','>=',$filters['start_date_closed']);
             }
         } else {
             if(!empty($filters['end_date_closed']) && $filters['end_date_closed'] != '') {
-                $incidences->where('created_at','<=',$filters['end_date_closed']);
+                $incidences->where('updated_at','<=',$filters['end_date_closed']);
             }
         }
 
         if(!empty($filters['start_date_closing']) && $filters['start_date_closing'] != '') {
             if(!empty($filters['end_date_closing']) && $filters['end_date_closed'] != '') {
-                $incidences->whereBetween('created_at',[$filters['start_date_closing'],$filters['end_date_closing']]);
+                $incidences->whereBetween('closed',[$filters['start_date_closing'],$filters['end_date_closing']]);
             } else {
-                $incidences->where('created_at','>=',$filters['start_date_closing']);
+                $incidences->where('closed','>=',$filters['start_date_closing']);
             }
         } else {
             if(!empty($filters['end_date_closing']) && $filters['end_date_closing'] != '') {
-                $incidences->where('created_at','<=',$filters['end_date_closing']);
+                $incidences->where('closed','<=',$filters['end_date_closing']);
             }
         }
 
