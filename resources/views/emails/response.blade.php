@@ -57,7 +57,7 @@ padding-bottom: 12px;">
 </p>
 <p>
 <a href=
-"{{Request::getHost()}}/store/survey/{{$body['id']}}?code={{$body['token']}}"
+"{{Request::getHost()}}/answers/{{$body['id']}}"
 style="text-decoration: none; 
 color:black; 
 border: 2px solid #0086ff; 
