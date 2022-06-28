@@ -66,7 +66,7 @@ class ApiController extends Controller
 
         if($body['not_respond']) {
             $responds = Answer::where('status','=',3);
-            $responds = $this->dating($body,$answers);
+            $responds = $this->dating($body,$responds);
             $res['not_respond'] = count($responds);
         }
         foreach($answers as $answer) {
