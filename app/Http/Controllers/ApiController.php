@@ -55,7 +55,7 @@ class ApiController extends Controller
     public function emails(Request $request) {
         $body = json_decode($request->getContent(), true);
         
-        $answers = Answer::whereIn('status',[3,4]);
+        $answers = Answer::whereIn('status',[3,4,5]);
 
         $answers = $this->dating($body,$answers);
 
