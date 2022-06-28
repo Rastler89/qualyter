@@ -73,7 +73,7 @@ class ApiController extends Controller
             $res['body'][] = $answer;
         }
 
-        echo response()->json($res);
+        return response()->json($res);
     }
 
     private function media($answers) {
