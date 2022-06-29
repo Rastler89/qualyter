@@ -19,7 +19,7 @@ class IncidenceController extends Controller
 {
     public function index(Request $request) {
         $filters = $request->query();
-        if(isset($filters['filtered'])) {
+        if(isset($filters['filtered']) && isset($filters['filters'])) {
             $filters = $filters['filters'];
         }
         $incidences = Incidence::query();
