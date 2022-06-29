@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Answer;
 use App\Models\Client;
 use App\Models\Store;
+use Response;
 
 
 class ExportController extends Controller
@@ -65,6 +66,6 @@ class ExportController extends Controller
             fclose($FH);
         };
 
-        return response()->stream($callback, 200, $headers);
+        return Response::stream($callback,200,$headers);
     }
 }

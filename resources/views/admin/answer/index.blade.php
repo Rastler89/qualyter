@@ -105,12 +105,13 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">{{__('Export CSV')}}</h5>
+        <h5 class="modal-title" id="staticBackdropLabel">{{__('Export CSV')}}*</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <form method="POST" action="{{route('export.answer')}}">
-          @csrf
-      <div class="modal-body">
+    </div>
+    <form method="POST" action="{{route('export.answer')}}">
+        @csrf
+        <p style="text-align:center;font-size:0.7em">*{{__("will only export between the dates indicated")}}</p>
+        <div class="modal-body">
         <label>{{__('Search among')}}:</label>
         <div class="input-group mb-3">
             <input type="date" name="start_date" class="form-control" aria-label="{{__('Start date')}}">
