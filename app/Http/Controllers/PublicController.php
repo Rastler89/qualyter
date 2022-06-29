@@ -123,7 +123,7 @@ class PublicController extends Controller
             $media = $total/$divisor;
             $body = [
                 'media' => round($media,2),
-                'total' => $total,
+                'total' => $divisor,
             ];
             return $body;
         } else {
