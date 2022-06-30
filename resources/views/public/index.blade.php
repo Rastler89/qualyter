@@ -43,18 +43,18 @@
             </div>
             <div class="card-body">
                 <div class="card-title">
-                    <h4>{{$delegation['average']}}</h4>
+                    <h4><?= number_format($delegation['average'],2)?></h4>
                     <?php $star = intval($delegation['average']); ?>
                 @for($i=0; $i <$star; $i++)
                     <img src="{{ asset('img/star-hover.svg') }}" width="30" height="30" />
                 @endfor
                 </div>
                 <p class="card-text">
-                    {{$delegation['visits']}} encuestas realizadas
+                    {{$delegation['visits']}} {{__("surveys conducted")}}
                 </p>
             </div>
             <div class="card-footer text-muted">
-            <a class="btn btn-outline-primary" href="{{route('public.detail', ['central' => $central->id, 'delegation' => $delegation->id])}}">Ver Mas</a>
+            <a class="btn btn-outline-primary" href="{{route('public.detail', ['central' => $central->id, 'delegation' => $delegation->id])}}">{{__("View more")}}</a>
             </div>
         </div>
     </div>

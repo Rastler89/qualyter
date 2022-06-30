@@ -1,6 +1,9 @@
 @extends('layouts.public')
 
 @section('content')
+@if($client->father != null)
+<a class="btn btn-outline-primary" href="{{ url()->previous() }}"><i class="align-middle" data-feather="chevron-left"></i></a>
+@endif
 <h1 class="text-center mb-3">{{$client->name}}</h1>
 <div class="row">
     <div class="col-md-4">
