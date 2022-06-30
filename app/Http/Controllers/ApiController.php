@@ -46,6 +46,14 @@ class ApiController extends Controller
             $response[$i] = $team;
 
         }
+        $all_answers = Answer::whereIn('status',[2,4,5])->whereBetween('expiration',[$monday,$suneday])->get();
+        $all_results = $this->media($all_answers);
+        $all_old_answers = Answer::whereIn('status',[2,4,5])->whereBetween('expiration',[$old_monday,$old_suneday])->get();
+        $all_old_results = $this->media($all_old_answers);
+
+        $team['new'] = $all_results;
+        $team['old'] = $all_old_results;
+        $response['all'] = $team;
 
 
         return response()->json($response);
