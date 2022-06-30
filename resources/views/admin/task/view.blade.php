@@ -52,7 +52,7 @@
           <div class="col" style="position:relative;">
             <p><strong>{{__('Phone Number')}}</strong></p>
             <a id="phoneNumber" class="btn btn-outline-primary" style="position:absolute;" href="tel:+@if($store->language=='ES' || $store->language==null || $store->language==' ') 34 @endif {{$store->phonenumber}}" onclick="initTime()">{{$store->phonenumber}}</a>
-            @if(is_null($store->email) || $store->email == '')
+            @if(is_null($store->email) || $store->email == '-')
             <a id="notRespond" class="btn btn-danger" style="position:absolute;visibility:hidden;">{{__('No email')}}</a>
             @else
             <a id="notRespond" class="btn btn-danger" style="position:absolute;visibility:hidden;" href="{{route('tasks.notrespond', ['id'=>$answer->id])}}">{{__('Not respond')}}</a>
