@@ -51,7 +51,7 @@
           </div>
           <div class="col" style="position:relative;">
             <p><strong>{{__('Phone Number')}}</strong></p>
-            <a id="phoneNumber" class="btn btn-outline-primary" style="position:absolute;" href="tel:+@if($store->language=='ES' || $store->language==null || $store->language==' ') 34 @endif {{$store->phonenumber}}" onclick="initTime()">{{$store->phonenumber}}</a>
+            <a id="phoneNumber" class="btn btn-outline-primary" style="position:absolute;" href="tel:+@if($store->language=='ES' || $store->language==null || $store->language==' ') 34 @endif {{$store->phonenumber}}" onclick="initTime()">@if($store->phonenumber=='617370097') {{__("no phonenumber")}} @else {{$store->phonenumber}} @endif</a>
             @if(is_null($store->email) || $store->email == '-')
             <a id="notRespond" class="btn btn-danger" style="position:absolute;visibility:hidden;">{{__('No email')}}</a>
             @else
