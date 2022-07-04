@@ -34,11 +34,11 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="central" @if(isset($filters['central'])) checked @endif>
+                                <input class="form-check-input" type="checkbox" id="central" name="central" @if(isset($filters['central'])) checked @endif>
                                 <label class="form-check-label" for="central">{{__("Is Father")}}</label>
                             </div>
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="extra" @if(isset($filters['extra'])) checked @endif>
+                                <input class="form-check-input" type="checkbox" id="extra" name="extra" @if(isset($filters['extra'])) checked @endif>
                                 <label class="form-check-label" for="extra">{{__("Have extra information")}}</label>
                             </div>
                         </div>
