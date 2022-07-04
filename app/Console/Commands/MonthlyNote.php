@@ -85,7 +85,11 @@ class MonthlyNote extends Command
                         if(env('APP_NAME')=='QualyterTEST') {
                             Mail::to('test@optimaretail.es')->send(new ResponseMail($body));
                         } else {
-                            $emails = explode(';',$father->email);
+                            if(strpos($father->email,',') !== false) {
+                                $emails = explode(',',$father->email);
+                            } else if(strpos($father->email,';') !== false) {
+                                $emails = explode(';',$father->email);
+                            }
                             foreach($emails as $email) {
                                 Mail::to($email)->send(new ClientMonthly($body));
                             }
@@ -122,7 +126,11 @@ class MonthlyNote extends Command
                         if(env('APP_NAME')=='QualyterTEST') {
                             Mail::to('test@optimaretail.es')->send(new ResponseMail($body));
                         } else {
-                            $emails = explode(';',$father->email);
+                            if(strpos($father->email,',') !== false) {
+                                $emails = explode(',',$father->email);
+                            } else if(strpos($father->email,';') !== false) {
+                                $emails = explode(';',$father->email);
+                            }
                             foreach($emails as $email) {
                                 Mail::to($email)->send(new ClientMonthly($body));
                             }
