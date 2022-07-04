@@ -28,7 +28,11 @@
         <div id="answer{{$loop->iteration}}" class="col-12" style="display:none">
             <div class="card text-center" style="width:auto;margin:auto auto;">
                 <div class="card-body">
-                    <strong>{{$answer['shop']}}</strong>
+                    <strong>{{$answer['shop']}}</strong><br/>
+                    {{$answer['updated_at']}}<br/>
+                    @foreach($answer['workOrders'] as $workOrder)
+                    <strong>{{$workOrder->code}}</strong> - {{$workOrder->name}}<br/>
+                    @endforeach
                 </div>
             </div>
             <?php $respuestas = json_decode($answer['answer'],true); ?>

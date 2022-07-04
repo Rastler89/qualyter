@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Client;
 use App\Models\Store;
 use App\Models\Answer;
+use App\Models\Task;
 
 class PublicController extends Controller
 {
@@ -65,8 +66,9 @@ class PublicController extends Controller
         foreach($answers as &$answer) {
             $store =  Store::where('code','=',$answer->store)->first();
             $answer['shop'] = $store->name;
+            $answer['workOrders'] = Task::where('answer_id', '=',$answer->id)->get();
         }
-        
+
         return view('public.detail',['first_day'=>$first_day, 'last_day'=>$last_day, 'client'=>$client, 'extra' => $extra, 'answers' => $answers, 'total' => count($answers)]);
     }
 
