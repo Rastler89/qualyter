@@ -87,14 +87,14 @@ class MonthlyNote extends Command
                         } else {
                             if(strpos($father->email,',') !== false) {
                                 $emails = explode(',',$father->email);
+                                $this->send($emails,$body);
                             } else if(strpos($father->email,';') !== false) {
                                 $emails = explode(';',$father->email);
+                                $this->send($emails,$body);
                             } else {
                                 Mail::to($father->email)->send(new ClientMonthly($body));
                             }
-                            foreach($emails as $email) {
-                                Mail::to($email)->send(new ClientMonthly($body));
-                            }
+                            
                         }
                     }
                 }
@@ -130,14 +130,14 @@ class MonthlyNote extends Command
                         } else {
                             if(strpos($father->email,',') !== false) {
                                 $emails = explode(',',$father->email);
+                                $this->send($emails,$body);
                             } else if(strpos($father->email,';') !== false) {
                                 $emails = explode(';',$father->email);
+                                $this->send($emails,$body);
                             } else {
                                 Mail::to($father->email)->send(new ClientMonthly($body));
                             }
-                            foreach($emails as $email) {
-                                Mail::to($email)->send(new ClientMonthly($body));
-                            }
+                            
                         }
                     } 
                 }               
@@ -221,5 +221,11 @@ class MonthlyNote extends Command
         $month = date('m');
         $year = date('Y');
         return date('Y-m-d', mktime(0,0,0, $month-1, 1, $year));
+    }
+
+    private function send($emails,$body) {
+        foreach($emails as $email) {
+            Mail::to($email)->send(new ClientMonthly($body));
+        }
     }
 }
