@@ -91,6 +91,9 @@ class MonthlyNote extends Command
                             } else if(strpos($father->email,';') !== false) {
                                 $emails = explode(';',$father->email);
                                 $this->send($emails,$body);
+                            } else if(strpos($father->email,"\n")) {
+                                $emails = explode("\n",$father->email);
+                                $this->send($emails,$body);
                             } else {
                                 Mail::to($father->email)->send(new ClientMonthly($body));
                             }
@@ -125,19 +128,17 @@ class MonthlyNote extends Command
                     if(env('APP_NAME')=='QualyterTEST') {
                         Mail::to('test@optimaretail.es')->send(new ClientMonthly($body));
                     } else {
-                        if(env('APP_NAME')=='QualyterTEST') {
-                            Mail::to('test@optimaretail.es')->send(new ResponseMail($body));
+                        if(strpos($father->email,',') !== false) {
+                            $emails = explode(',',$father->email);
+                            $this->send($emails,$body);
+                        } else if(strpos($father->email,';') !== false) {
+                            $emails = explode(';',$father->email);
+                            $this->send($emails,$body);
+                        } else if(strpos($father->email,"\n")) {
+                            $emails = explode("\n",$father->email);
+                            $this->send($emails,$body);
                         } else {
-                            if(strpos($father->email,',') !== false) {
-                                $emails = explode(',',$father->email);
-                                $this->send($emails,$body);
-                            } else if(strpos($father->email,';') !== false) {
-                                $emails = explode(';',$father->email);
-                                $this->send($emails,$body);
-                            } else {
-                                Mail::to($father->email)->send(new ClientMonthly($body));
-                            }
-                            
+                            Mail::to($father->email)->send(new ClientMonthly($body));
                         }
                     } 
                 }               
