@@ -7,10 +7,35 @@ use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
-    public function index() {
-        $clients = Client::sortable()->paginate(25);
+    public function index(Request $request) {
+        $filters = $request->query();
+        if(isset($filters['filtered'])  && isset($filters['filters'])) {
+            $filters = $filters['filters'];
+        }
 
-        return view('admin.client.index',['clients' => $clients]);
+        $clients = Client::query();
+
+        if(!empty($filters['client']) && $filters['client'] != '') {
+            $clients->where('name','LIKE','%'.$filters['client'].'%');
+        }
+        if(!empty($filters['father']) && $filters['father'] != '') {
+            $clients->where('father','=',$filters['father']);
+        }
+        if(!empty($filters['client']) && $filters['client'] != '') {
+            $clients->where('name','LIKE','%'.$filters['client'].'%');
+        }
+        if(!empty($filters['central'])) {
+            $clients->where('delegation','=','00');
+        }
+        if(!empty($filters['extra'])) {
+            $clients->where('extra','=',1);
+        }
+
+
+        $clients = $clients->sortable()->paginate(25);
+        $fathers = Client::where('delegation','=','00')->get();
+
+        return view('admin.client.index',['clients' => $clients, 'fathers' => $fathers, 'filters' => $filters]);
     }
 
     public function new() {

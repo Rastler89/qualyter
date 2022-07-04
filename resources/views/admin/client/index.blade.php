@@ -23,11 +23,26 @@
                             <input type="text" class="form-control" name="client" placeholder="{{__('Client`s Name')}}" @if(!empty($filters) && isset($filters['client'])) value="{{$filters['client']}}" @endif/>
                         </div>
                         <div class="col-md-4">
-                            padre
+                            <label for="father" class="form-label">{{__('Father')}}</label>
+                            <input type="text" list="father" class="form-control" name="father" placeholder="{{__('Father')}}" @if(!empty($filters) && isset($filters['father'])) value="{{$filters['father']}}" @endif/>
+                            <datalist id="father">
+                                <option value="--" selected>{{__("Nothing")}}</option>
+                                @foreach($fathers as $father)
+                                    <option value="{{$father->id}}">{{$father->id}} - {{$father->name}}</option>
+                                @endforeach
+                            </datalist>
                         </div>
                         <div class="col-md-4">
-                            central
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="central" @if(isset($filters['central'])) checked @endif>
+                                <label class="form-check-label" for="central">{{__("Is Father")}}</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="extra" @if(isset($filters['extra'])) checked @endif>
+                                <label class="form-check-label" for="extra">{{__("Have extra information")}}</label>
+                            </div>
                         </div>
+                        
                     </div>
                 </div>
             </div>
@@ -64,5 +79,8 @@
         @endforeach
     </tbody>
 </table>
-{{$clients->links()}}
+{{$clients->appends([
+        'filters' => $filters,
+        'filtered' => 'yes'
+    ])->links()}}
 @endsection
