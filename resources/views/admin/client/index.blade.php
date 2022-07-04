@@ -19,13 +19,14 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-4">
-                            
+                            <label for="client" class="form-label">{{__('Client`s Name')}}</label>
+                            <input type="text" class="form-control" name="client" placeholder="{{__('Client`s Name')}}" @if(!empty($filters) && isset($filters['client'])) value="{{$filters['client']}}" @endif/>
                         </div>
                         <div class="col-md-4">
-                            
+                            padre
                         </div>
                         <div class="col-md-4">
-                            
+                            central
                         </div>
                     </div>
                 </div>
