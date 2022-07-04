@@ -87,7 +87,7 @@ class MonthlyNote extends Command
                         } else {
                             $emails = explode(';',$father->email);
                             foreach($emails as $email) {
-                                //Mail::to($email)->send(new ClientMonthly($body));
+                                Mail::to($email)->send(new ClientMonthly($body));
                             }
                         }
                     }
@@ -124,7 +124,7 @@ class MonthlyNote extends Command
                         } else {
                             $emails = explode(';',$father->email);
                             foreach($emails as $email) {
-                                //Mail::to($email)->send(new ClientMonthly($body));
+                                Mail::to($email)->send(new ClientMonthly($body));
                             }
                         }
                     } 

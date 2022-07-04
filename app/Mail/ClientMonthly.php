@@ -33,11 +33,11 @@ class ClientMonthly extends Mailable
         $this->body['month'] = date('m')-1;
         if($this->body['type']=='delegation') {
             return $this->from('qc@optimaretail.es')
-                        ->subject(__('test'))
+                        ->subject(__('Monthly Summary'))
                         ->view('emails.delegations');
         } else {
             return $this->from('qc@optimaretail.es')
-                    ->subject(__('envio automatico'))
+                    ->subject(__('Monthly Summary'))
                     ->view('emails.clients');
         }
         /**/
