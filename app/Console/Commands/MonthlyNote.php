@@ -226,7 +226,9 @@ class MonthlyNote extends Command
 
     private function send($emails,$body) {
         foreach($emails as $email) {
-            Mail::to($email)->send(new ClientMonthly($body));
+            if(strlen($email)>0) {
+                Mail::to($email)->send(new ClientMonthly($body));
+            }
         }
     }
 }
