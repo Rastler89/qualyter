@@ -17,25 +17,40 @@ class TestController extends Controller
         $fathers = Client::whereNull('father')->get();
 
         foreach($fathers as $father) {
-            
             if(strpos($father->email,',') !== false) {
                 $emails = explode(',',$father->email);
-                echo"<h3>".$father->name."</h3><pre>";print_r($emails);echo"</pre>";
+                echo"<h4>".$father->name."</h4>";echo"<pre>";print_r($emails);echo"</pre>";
             } else if(strpos($father->email,';') !== false) {
                 $emails = explode(';',$father->email);
-                echo"<h3>".$father->name."</h3><pre>";print_r($emails);echo"</pre>";
+                echo"<h4>".$father->name."</h4>";echo"<pre>";print_r($emails);echo"</pre>";
             } else if(strpos($father->email,"\n")) {
                 $emails = explode("\n",$father->email);
-                echo"<h3>".$father->name."</h3><pre>";print_r($emails);echo"</pre>";
+                echo"<h4>".$father->name."</h4>";echo"<pre>";print_r($emails);echo"</pre>";
             } else {
-                echo"<h3>".$father->name." ((normal))</h3><pre>";print_r($father->email);echo"</pre>";
+                echo"<h4>".$father->name."</h4>";echo"<pre>";print_r($father->email);echo"</pre>";
             }
-
-                             
+            if($father->delegation == '00') {
+                $delegations = Client::where('father','=',$father->id)->orderBy('id','desc')->get();
+                $this->getManager($delegations);
+            } else {
+                $this->gerManager($father);
+            }
             
         }
 
         //return 0;
+    }
+    private function getManager($delegations) {
+        $first_day = $this->first_month_day();
+        $last_day = $this->last_month_day();
+        
+        if(gettype($delegations)=='array') {
+            foreach($delegations as $delegation) {
+
+            }
+        } else {
+
+        }
     }
     private function getExtra($delegations) {
         $visits = 0;
@@ -116,7 +131,9 @@ class TestController extends Controller
 
     private function send($emails,$body) {
         foreach($emails as $email) {
-            Mail::to($email)->send(new ClientMonthly($body));
+            if(strlen($email)>0) {
+                Mail::to($email)->send(new ClientMonthly($body));
+            }
         }
     }
 }

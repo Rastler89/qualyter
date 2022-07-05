@@ -16,6 +16,7 @@
             <li class="list-group-item">{{__("Number of responses to telephone surveys")}}: <strong>{{$extra['qc']}} {{__("calls")}}</strong></li>
             <li class="list-group-item">{{__("Number of e-mail surveys")}}: <strong>{{$extra['send']}} {{__("surveys sent")}}</strong></li>
             <li class="list-group-item">{{__("Number of responses to email surveys")}}: <strong>{{$extra['resp']}} {{__("surveys answered")}}</strong></li>
+            <li class="list-group-item"><button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#notRespond">{{__("View unanswered")}}</button></li>
         </ul>
     </div>
     <div class="col-md-8">
@@ -100,6 +101,38 @@
             </div>
         </div>
         @endforeach
+    </div>
+</div>
+
+<!-- Modal not respond -->
+<div class="modal fade" id="notRespond" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1" aria-labelledby="notRespondLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="notRespondLabel">{{__("Shops not respond")}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <td>{{__("Code")}}</td>
+                            <td>{{__("Name")}}</td>
+                            <td>{{__("Not Respond")}}</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($notResponds as $notRespond)
+                        <tr>
+                            <td>{{$notRespond->code}}</td>
+                            <td>{{$notRespond->name}}</td>
+                            <td>{{$notRespond->total}}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 @endsection

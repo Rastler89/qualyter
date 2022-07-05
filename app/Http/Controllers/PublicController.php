@@ -7,6 +7,7 @@ use App\Models\Client;
 use App\Models\Store;
 use App\Models\Answer;
 use App\Models\Task;
+use Illuminate\Support\Facades\DB;
 
 class PublicController extends Controller
 {
@@ -69,7 +70,14 @@ class PublicController extends Controller
             $answer['workOrders'] = Task::where('answer_id', '=',$answer->id)->get();
         }
 
-        return view('public.detail',['first_day'=>$first_day, 'last_day'=>$last_day, 'client'=>$client, 'extra' => $extra, 'answers' => $answers, 'total' => count($answers)]);
+        $not_answers = Answer::where('client','=',$client->id)->where('status','=',3)->whereBetween('expiration',[$first_day,$last_day])->get();
+        $id = [];
+        foreach($not_answers as $not_answer) {
+            $id[] = $not_answer->store;
+        }
+        $shops = DB::table('stores')->select('code','name', DB::raw('count(*) as total'))->whereIn('code',$id)->groupBy('code','name')->get();
+
+        return view('public.detail',['first_day'=>$first_day, 'last_day'=>$last_day, 'client'=>$client, 'extra' => $extra, 'answers' => $answers, 'total' => count($answers), 'notResponds' => $shops]);
     }
 
 
