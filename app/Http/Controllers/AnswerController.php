@@ -326,13 +326,13 @@ class AnswerController extends Controller
 
         if(!empty($filters['start_date_closed']) && $filters['start_date_closed'] != '') {
             if(!empty($filters['end_date_closed']) && $filters['end_date_closed'] != '') {
-                $pre_answers->whereBetween('updated_atexpiration',[$filters['start_date_closed'],$filters['end_date_closed']]);
+                $pre_answers->whereBetween('updated_at',[$filters['start_date_closed'],$filters['end_date_closed']]);
             } else {
-                $pre_answers->where('updated_atexpiration','>=',$filters['start_date_closed']);
+                $pre_answers->where('updated_at','>=',$filters['start_date_closed']);
             }
         } else {
             if(!empty($filters['end_date_closed']) && $filters['end_date_closed'] != '') {
-                $pre_answers->where('updated_atexpiration','<=',$filters['end_date_closed']);
+                $pre_answers->where('updated_at','<=',$filters['end_date_closed']);
             }
         }
 
