@@ -46,8 +46,15 @@ class PublicController extends Controller
                 $store =  Store::where('code','=',$answer->store)->first();
                 $answer['shop'] = $store->name;
             }
+
+            $not_answers = Answer::where('client','=',$client->id)->where('status','=',3)->whereBetween('expiration',[$first_day,$last_day])->get();
+            $id = [];
+            foreach($not_answers as $not_answer) {
+                $id[] = $not_answer->store;
+            }
+            $shops = DB::select("SELECT stores.code, stores.name, COUNT(stores.id) as total FROM stores, answers WHERE stores.code = answers.store AND stores.client = ".$client->id." AND answers.status = 3 AND answers.expiration BETWEEN '".$first_day."' AND '".$last_day."' GROUP BY stores.code, stores.name");
         
-            return view('public.detail',['first_day'=>$first_day, 'last_day'=>$last_day, 'client'=>$client, 'extra' => $extra, 'answers' => $answers, 'total' => count($answers)]);
+            return view('public.detail',['first_day'=>$first_day, 'last_day'=>$last_day, 'client'=>$client, 'extra' => $extra, 'answers' => $answers, 'total' => count($answers), 'notResponds' => $shops]);
         }
     }
 
