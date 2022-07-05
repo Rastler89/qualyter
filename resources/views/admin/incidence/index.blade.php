@@ -7,6 +7,7 @@
 @section('content')
 <div class="btn-group" role="group" aria-label="Basic outlined example">
   <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#filters"><i class="align-middle" data-feather="filter"></i></button>
+  <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#create"><i class="align-middle" data-feather="plus"></i></button>
 </div>
 
 <!-- Start filter -->
@@ -125,6 +126,22 @@
 </div>
 </form>
 <!-- End Filter -->
+
+<form method="POST" action="">
+    @csrf
+<div class="modal fade" id="create" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="createLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createLabel">{{__("Create incidence")}}</h5>
+            </div>
+            <div class="modal-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+</form>
 
 <table class="table table-hover table-striped">
     <thead>
