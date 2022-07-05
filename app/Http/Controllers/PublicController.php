@@ -75,8 +75,7 @@ class PublicController extends Controller
         foreach($not_answers as $not_answer) {
             $id[] = $not_answer->store;
         }
-        $shops = DB::table('stores')->select('code','name', DB::raw('count(*) as total'))->whereIn('code',$id)->groupBy('code','name')->get();
-
+        $shops = DB::select("SELECT stores.code, stores.name, COUNT(stores.id) as total FROM stores, answers WHERE stores.code = answers.store AND stores.client = ".$client->id." AND answers.status = 3 AND answers.expiration BETWEEN '".$first_day."' AND '".$last_day."' GROUP BY stores.code, stores.name");
         return view('public.detail',['first_day'=>$first_day, 'last_day'=>$last_day, 'client'=>$client, 'extra' => $extra, 'answers' => $answers, 'total' => count($answers), 'notResponds' => $shops]);
     }
 
