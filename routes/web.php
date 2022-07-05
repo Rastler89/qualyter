@@ -62,6 +62,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('clients/new', [App\Http\Controllers\ClientController::class, 'create'])->middleware('permission:add-clients')->name('clients.create');
     Route::get('clients/edit/{id}', [App\Http\Controllers\ClientController::class, 'edit'])->middleware('permission:edit-clients')->name('clients.edit');
     Route::put('clients/edit/{id}', [App\Http\Controllers\ClientController::class, 'update'])->middleware('permission:edit-clients')->name('clients.update');
+    Route::get('clients/send/{id}', [App\Http\Controllers\ClientController::class, 'send'])->middleware('permission:view-clients')->name('clients.send');
     // STORE
     Route::get('stores', [App\Http\Controllers\StoreController::class, 'index'])->middleware('permission:view-stores')->name('stores');
     Route::get('stores/new', [App\Http\Controllers\StoreController::class, 'new'])->middleware('permission:add-stores')->name('stores.new');

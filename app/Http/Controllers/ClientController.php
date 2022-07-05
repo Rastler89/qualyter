@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use Illuminate\Http\Request;
+use Artisan;
 
 class ClientController extends Controller
 {
@@ -121,5 +122,12 @@ class ClientController extends Controller
         $client->save();
         
         return redirect()->route('clients')->with('success','Client updated successfuly!');
+    }
+
+    public function send($id) {
+        $artisan = Artisan::call('note:monthly',['user'=>$id]);
+        $output = Artisan::output();
+        
+        return redirect()->route('clients')->with('success',"previous month's summary sent");
     }
 }

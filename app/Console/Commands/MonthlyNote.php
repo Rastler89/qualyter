@@ -16,7 +16,7 @@ class MonthlyNote extends Command
      *
      * @var string
      */
-    protected $signature = 'note:monthly';
+    protected $signature = 'note:monthly {user=all}';
 
     /**
      * The console command description.
@@ -42,91 +42,58 @@ class MonthlyNote extends Command
      */
     public function handle()
     {
-        $fathers = Client::whereNull('father')->get();
+        $user = $this->argument('user');
 
-        foreach($fathers as $father) {
+        if($user == 'all') {
+            $fathers = Client::whereNull('father')->get();
+            foreach($fathers as $father) {
+                $this->core($father);
+            }
+        } else {
+            $fathers = Client::find($user);
+            $this->core($fathers);
+        }
+    }
+
+    private function core($father) {
+        if($father->delegation == '00') {
+            //busca hijos
+            $sons = null;
+            $delegations = Client::where('father','=',$father->id)->orderBy('id','desc')->get();
             
-            if($father->delegation == '00') {
-                //busca hijos
-                $sons = null;
-                $delegations = Client::where('father','=',$father->id)->orderBy('id','desc')->get();
-                
-                $visits = 0;
-                foreach($delegations as $delegation) {
-                    $average = $this->getAverage($delegation);
-                    if($average != false) {
-                        $sons[$delegation->name] = $average['media'];
-                        $visits += $average['total'];
-                    }
-                } 
-                if($father->extra) {
-                    $extra = $this->getExtra($delegations);
-                    $body = [
-                        'name' => $father->name,
-                        'sons' => $sons,
-                        'visits' => $visits,
-                        'extra' => $extra,
-                        'id' => $father->id
-                    ];
-                } else {
-                    $body = [
-                        'name' => $father->name,
-                        'sons' => $sons,
-                        'visits' => $visits,
-                        'extra' => null,
-                        'id' => $father->id
-                    ];
-                }
-                $body['type'] = 'delegation';
-                if(!is_null($sons)) {
-                    if(env('APP_NAME')=='QualyterTEST') {
-                        Mail::to('test@optimaretail.es')->send(new ClientMonthly($body));
-                    } else {
-                        if(env('APP_NAME')=='QualyterTEST') {
-                            Mail::to('test@optimaretail.es')->send(new ResponseMail($body));
-                        } else {
-                            if(strpos($father->email,',') !== false) {
-                                $emails = explode(',',$father->email);
-                                $this->send($emails,$body);
-                            } else if(strpos($father->email,';') !== false) {
-                                $emails = explode(';',$father->email);
-                                $this->send($emails,$body);
-                            } else if(strpos($father->email,"\n")) {
-                                $emails = explode("\n",$father->email);
-                                $this->send($emails,$body);
-                            } else {
-                                Mail::to($father->email)->send(new ClientMonthly($body));
-                            }
-                            
-                        }
-                    }
-                }
-            } else {
-                //busca tiendas
-                $average = $this->getAverage($father);
+            $visits = 0;
+            foreach($delegations as $delegation) {
+                $average = $this->getAverage($delegation);
                 if($average != false) {
-                    if($father->extra) {
-                        $extra = $this->getExtra($delegations);
-                        $body = [
-                            'name' => $father->name,
-                            'visits' => $average['total'],
-                            'media' => $average['media'],
-                            'extra' => $extra,
-                            'id' => $father->id
-                        ];
-                    } else {
-                        $body = [
-                            'name' => $father->name,
-                            'visits' => $average['total'],
-                            'media' => $average['media'],
-                            'extra' => null,
-                            'id' => $father->id
-                        ];
-                    }
-                    $body['type'] = 'client';
-                    //se envia correo
+                    $sons[$delegation->name] = $average['media'];
+                    $visits += $average['total'];
+                }
+            } 
+            if($father->extra) {
+                $extra = $this->getExtra($delegations);
+                $body = [
+                    'name' => $father->name,
+                    'sons' => $sons,
+                    'visits' => $visits,
+                    'extra' => $extra,
+                    'id' => $father->id
+                ];
+            } else {
+                $body = [
+                    'name' => $father->name,
+                    'sons' => $sons,
+                    'visits' => $visits,
+                    'extra' => null,
+                    'id' => $father->id
+                ];
+            }
+            $body['type'] = 'delegation';
+            if(!is_null($sons)) {
+                if(env('APP_NAME')=='QualyterTEST') {
+                    Mail::to('test@optimaretail.es')->send(new ClientMonthly($body));
+                } else {
                     if(env('APP_NAME')=='QualyterTEST') {
-                        Mail::to('test@optimaretail.es')->send(new ClientMonthly($body));
+                        Mail::to('test@optimaretail.es')->send(new ResponseMail($body));
                     } else {
                         if(strpos($father->email,',') !== false) {
                             $emails = explode(',',$father->email);
@@ -140,13 +107,54 @@ class MonthlyNote extends Command
                         } else {
                             Mail::to($father->email)->send(new ClientMonthly($body));
                         }
-                    } 
-                }               
+                        
+                    }
+                }
             }
+        } else {
+            //busca tiendas
+            $average = $this->getAverage($father);
+            if($average != false) {
+                if($father->extra) {
+                    $extra = $this->getExtra($delegations);
+                    $body = [
+                        'name' => $father->name,
+                        'visits' => $average['total'],
+                        'media' => $average['media'],
+                        'extra' => $extra,
+                        'id' => $father->id
+                    ];
+                } else {
+                    $body = [
+                        'name' => $father->name,
+                        'visits' => $average['total'],
+                        'media' => $average['media'],
+                        'extra' => null,
+                        'id' => $father->id
+                    ];
+                }
+                $body['type'] = 'client';
+                //se envia correo
+                if(env('APP_NAME')=='QualyterTEST') {
+                    Mail::to('test@optimaretail.es')->send(new ClientMonthly($body));
+                } else {
+                    if(strpos($father->email,',') !== false) {
+                        $emails = explode(',',$father->email);
+                        $this->send($emails,$body);
+                    } else if(strpos($father->email,';') !== false) {
+                        $emails = explode(';',$father->email);
+                        $this->send($emails,$body);
+                    } else if(strpos($father->email,"\n")) {
+                        $emails = explode("\n",$father->email);
+                        $this->send($emails,$body);
+                    } else {
+                        Mail::to($father->email)->send(new ClientMonthly($body));
+                    }
+                } 
+            }               
         }
-
-        //return 0;
     }
+
     private function getExtra($delegations) {
         $visits = 0;
         $qc = 0;
