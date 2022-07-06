@@ -72,6 +72,7 @@ class MonthlyNote extends Command
             if($father->extra) {
                 $extra = $this->getExtra($delegations);
                 $body = [
+                    'locale' => $father->language,
                     'name' => $father->name,
                     'sons' => $sons,
                     'visits' => $visits,
@@ -80,6 +81,7 @@ class MonthlyNote extends Command
                 ];
             } else {
                 $body = [
+                    'locale' => $father->language,
                     'name' => $father->name,
                     'sons' => $sons,
                     'visits' => $visits,
@@ -90,53 +92,7 @@ class MonthlyNote extends Command
             $body['type'] = 'delegation';
             if(!is_null($sons)) {
                 if(env('APP_NAME')=='QualyterTEST') {
-                    Mail::to('test@optimaretail.es')->send(new ClientMonthly($body));
-                } else {
-                    if(env('APP_NAME')=='QualyterTEST') {
-                        Mail::to('test@optimaretail.es')->send(new ResponseMail($body));
-                    } else {
-                        if(strpos($father->email,',') !== false) {
-                            $emails = explode(',',$father->email);
-                            $this->send($emails,$body);
-                        } else if(strpos($father->email,';') !== false) {
-                            $emails = explode(';',$father->email);
-                            $this->send($emails,$body);
-                        } else if(strpos($father->email,"\n")) {
-                            $emails = explode("\n",$father->email);
-                            $this->send($emails,$body);
-                        } else {
-                            Mail::to($father->email)->send(new ClientMonthly($body));
-                        }
-                        
-                    }
-                }
-            }
-        } else {
-            //busca tiendas
-            $average = $this->getAverage($father);
-            if($average != false) {
-                if($father->extra) {
-                    $extra = $this->getExtra($delegations);
-                    $body = [
-                        'name' => $father->name,
-                        'visits' => $average['total'],
-                        'media' => $average['media'],
-                        'extra' => $extra,
-                        'id' => $father->id
-                    ];
-                } else {
-                    $body = [
-                        'name' => $father->name,
-                        'visits' => $average['total'],
-                        'media' => $average['media'],
-                        'extra' => null,
-                        'id' => $father->id
-                    ];
-                }
-                $body['type'] = 'client';
-                //se envia correo
-                if(env('APP_NAME')=='QualyterTEST') {
-                    Mail::to('test@optimaretail.es')->send(new ClientMonthly($body));
+                    Mail::to('test@optimaretail.es')->locale($father->language)->send(new ClientMonthly($body));
                 } else {
                     if(strpos($father->email,',') !== false) {
                         $emails = explode(',',$father->email);
@@ -148,7 +104,51 @@ class MonthlyNote extends Command
                         $emails = explode("\n",$father->email);
                         $this->send($emails,$body);
                     } else {
-                        Mail::to($father->email)->send(new ClientMonthly($body));
+                        Mail::to($father->email)->locale($father->language)->send(new ClientMonthly($body));
+                    }
+                    
+                }
+            }
+        } else {
+            //busca tiendas
+            $average = $this->getAverage($father);
+            if($average != false) {
+                if($father->extra) {
+                    $extra = $this->getExtra($delegations);
+                    $body = [
+                        'locale' => $father->language,
+                        'name' => $father->name,
+                        'visits' => $average['total'],
+                        'media' => $average['media'],
+                        'extra' => $extra,
+                        'id' => $father->id
+                    ];
+                } else {
+                    $body = [
+                        'locale' => $father->language,
+                        'name' => $father->name,
+                        'visits' => $average['total'],
+                        'media' => $average['media'],
+                        'extra' => null,
+                        'id' => $father->id
+                    ];
+                }
+                $body['type'] = 'client';
+                //se envia correo
+                if(env('APP_NAME')=='QualyterTEST') {
+                    Mail::to('test@optimaretail.es')->locale($father->language)->send(new ClientMonthly($body));
+                } else {
+                    if(strpos($father->email,',') !== false) {
+                        $emails = explode(',',$father->email);
+                        $this->send($emails,$body);
+                    } else if(strpos($father->email,';') !== false) {
+                        $emails = explode(';',$father->email);
+                        $this->send($emails,$body);
+                    } else if(strpos($father->email,"\n")) {
+                        $emails = explode("\n",$father->email);
+                        $this->send($emails,$body);
+                    } else {
+                        Mail::to($father->email)->locale($father->language)->send(new ClientMonthly($body));
                     }
                 } 
             }               

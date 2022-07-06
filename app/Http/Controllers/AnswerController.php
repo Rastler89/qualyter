@@ -202,7 +202,7 @@ class AnswerController extends Controller
         } else {
             $emails = explode(';',$store->email);
             foreach($emails as $email) {
-                Mail::to($email)->send(new StoreMail($body));
+                Mail::to($email)->locale($body['locale'])->send(new StoreMail($body));
             }
         }
 
