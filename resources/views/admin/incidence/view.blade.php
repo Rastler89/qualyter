@@ -122,14 +122,17 @@
 
                     <hr class="my-4" />
 
-                    <ul class="chat">
+                    <div class="conversation">
+                        <div class="conversation-container">
                         @foreach($comments as $comment)
-                        <li class="body-message @if($comment->type == 'user') m-user @else m-agent @endif">
-                            @if(isset($comment->date)) <i><?php echo(date('d-m-Y H:i:s', strtotime($comment->date))); ?></i> @endif<strong>{{$comment->owner}}:</strong>
+                        <div class="message @if($comment->owner == $owner->name) sent @else received @endif">
+                            <strong>{{$comment->owner}}:</strong>
                             {{$comment->message}}
-                        </li>
+                            @if(isset($comment->date)) <span class="metadata"><span class="time"><?php echo(date('d-m-Y H:i:s', strtotime($comment->date))); ?></span></span> @endif
+                        </div>
                         @endforeach
-                    </ul>
+                        </div>
+                    </div>
                     
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" name="message" placeholder="{{__('Body message')}}" aria-label="Recipient's username" aria-describedby="button-addon2">

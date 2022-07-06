@@ -146,8 +146,9 @@ class IncidenceController extends Controller
         $order = json_decode($incidence->order);
         $comments = json_decode($incidence->comments);
         $agents = Agent::all();
+        $owner = auth()->user();
 
-        return view('admin.incidence.view', ['incidence' => $incidence, 'store' => $store[0], 'user' => $user, 'agent' => $agent, 'order' => $order, 'comments' => $comments, 'agents' => $agents]);
+        return view('admin.incidence.view', ['incidence' => $incidence, 'store' => $store[0], 'user' => $user, 'agent' => $agent, 'order' => $order, 'comments' => $comments, 'agents' => $agents, 'owner' => $owner]);
     }
 
     public function changeAgent($id, Request $request) {
