@@ -189,13 +189,17 @@ class AnswerController extends Controller
         if($old_answer->status != $answer->status) {
             $log->saveLog($old_answer,$answer,'a');
         }
+
+        $workOrders = Task::where('answer_id','=',$answer->id)->get();
+
         $body = [
             'id' => $answer->id,
             'client' => $client->name,
             'store' => $store->name,
             'locale' => ($store->language != null) ? $store->language : 'en',
             'token' => $answer->token,
-            'date' => $answer->expiration
+            'date' => $answer->expiration,
+            'workOrders' => $workOrders,
         ];
         if(env('APP_NAME')=='QualyterTEST') {
             Mail::to('test@optimaretail.es')->locale($body['locale'])->send(new StoreMail($body));
