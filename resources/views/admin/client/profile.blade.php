@@ -70,6 +70,7 @@
     var userLang = navigator.language || navigator.userLanguage; 
     var lang = userLang.split('-');
     $.get("https://restcountries.com/v2/all", function (data) {
+        $("#countries").append("<option value='00'> Central </option>");
         data.forEach(function(country,index) {
             $("#countries").append("<option value='"+country['name']+"'>"+country['translations'][lang[0]]+"</option>");
         });
