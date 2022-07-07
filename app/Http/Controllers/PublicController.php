@@ -45,6 +45,7 @@ class PublicController extends Controller
             foreach($answers as &$answer) {
                 $store =  Store::where('code','=',$answer->store)->first();
                 $answer['shop'] = $store->name;
+                $answer['workOrders'] = Task::where('answer_id', '=',$answer->id)->get();
             }
 
             $not_answers = Answer::where('client','=',$client->id)->where('status','=',3)->whereBetween('expiration',[$first_day,$last_day])->get();
