@@ -106,8 +106,11 @@ class ClientController extends Controller
                 $client->delegation = $resp[0]->alpha2Code;
             }
             $client->language = $resp[0]->languages[0]->iso639_1;
+        } else {
+            if($request->get('central')=='on') {
+                $client->delegation = '00';
+            }
         }
-
         
         $client->name = $request->get('name');
         $client->phonenumber = $request->get('phonenumber');
