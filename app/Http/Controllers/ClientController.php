@@ -111,7 +111,9 @@ class ClientController extends Controller
                 $client->delegation = '00';
             }
         }
+        echo"<pre>";var_dump($client);echo"</pre>";
         
+die();        
         $client->name = $request->get('name');
         $client->phonenumber = $request->get('phonenumber');
         $client->email = $request->get('email');

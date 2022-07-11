@@ -362,6 +362,18 @@ class AnswerController extends Controller
             $pre_answers->whereIn('status',$status);
         }
 
+        if(!empty($filters['team']) && $filters['team'] != '') {
+            $id=[];
+            $agents = Agent::where('team','=',$filters['team'])->get();
+            foreach($agents as $agent) {
+                $tasks = Task::where('owner','=',$agent->id)->get();
+                foreach($tasks as $t) {
+                    $id[] = $t->answer_id;
+                }
+            }
+            $pre_answers->whereIn('id',$id);
+        }
+
         /* End filters */
 
         $rol = auth()->user()->roles;
@@ -395,8 +407,9 @@ class AnswerController extends Controller
         $clients = Client::all();
         $agents = Agent::all();
         $workOrders = Task::all();
+        $teams = Team::all();
 
-        return view('admin.answer.index', ['answers' => $answers, 'agents' => $agents, 'stores' => $stores, 'clients' => $clients, 'workOrders' => $workOrders, 'filters' => $filters]);
+        return view('admin.answer.index', ['answers' => $answers, 'agents' => $agents, 'stores' => $stores, 'clients' => $clients, 'workOrders' => $workOrders, 'filters' => $filters, 'teams' => $teams]);
     }
 
     public function viewAnswer(Request $request, $id) {
