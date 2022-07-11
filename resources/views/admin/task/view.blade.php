@@ -198,6 +198,17 @@
           </div>
         </div>
         <div id="part5" class="question">
+          <h4>{{__("Technicians' mails")}}</h4>
+          <div class="mb-3">
+            <div class="mb-3">
+              <textarea class="form-control" id="emails" name="emails" row="3"></textarea>
+            </div>
+            <div class="btn-group" role="group" aria-label="Incidence" style="width:100%">
+              <button id="next4" type="button" onclick="next(6)" style="width:50%;" class="btn btn-primary btn-lg">{{__('Next')}}</button>
+            </div>
+          </div>
+        </div>
+        <div id="part6" class="question">
           <h4>{{__('Has there been any impact on this visit?')}}</h4>
           <div class="btn-group" role="group" aria-label="Incidence" style="width:100%">
             <button type="button" style="width:50%" class="btn btn-danger btn-lg" onclick="showIncidence()">{{__('Yes')}}</button>
@@ -247,6 +258,9 @@
 
 @section('javascript')
 <script>
+var elements = 6;
+var valueElement = 100/elements;
+var lastValue = valueElement*(elements-2)
 var totalSeconds = 0; var items = 0;
 var countTime;
 var elementPosition = $('#workOrder').offset();
@@ -343,9 +357,9 @@ $(window).scroll(function() {
 })
 
 function next(id) {
-  progress = (id-1)*20;
+  progress = (id-1)*valueElement;
 
-  if(progress<80) {
+  if(progress<lastValue) {
     if($('input[type=radio][name=valoration'+id+']').val().length > 0) {
       $('#next'+id).css('visibility','visible');
     }
@@ -354,15 +368,15 @@ function next(id) {
   $('#part'+(id-1)).css('visibility','hidden');
   $('#part'+id).css('visibility','visible');
   $('.progress-bar').css('width', progress+'%').attr('aria-valuenow', progress); 
-  $('.progress-bar').text(progress+'%');
+  $('.progress-bar').text(progress.toFixed(2)+'%');
 }
 function prev(id) {
-  progress = (id-2)*20;
+  progress = (id-2)*valueElement;
 
   $('#part'+(id-1)).css('visibility','visible');
   $('#part'+id).css('visibility','hidden');
   $('.progress-bar').css('width', progress+'%').attr('aria-valuenow', progress); 
-  $('.progress-bar').text(progress+'%');
+  $('.progress-bar').text(progress.toFixed(2)+'%');
   $('#next'+id).css('visibility','hidden');
 }
 
