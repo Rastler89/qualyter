@@ -47,6 +47,15 @@
                                     @endforeach
                                 </datalist>
                             </div>
+                            <div class="mb-3">
+                                <label for="team" class="form-label">{{__('Team')}}</label>
+                                <input type="text" list="teams" class="form-control" name="team" placeholder="{{__('Team')}}" @if(!empty($filters) && isset($filters['team'])) value="{{$filters['team']}}" @endif/>
+                                <datalist id="teams">
+                                    @foreach($teams as $team)
+                                        <option value="{{$team->url}}">{{$team->url}} - {{$team->name}}</option>
+                                    @endforeach
+                                </datalist>
+                            </div>  
                         </div>
                     <div class="col-md-4">
                         <label>{{__('Created')}}:</label>

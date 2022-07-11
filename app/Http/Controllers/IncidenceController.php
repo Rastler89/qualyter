@@ -106,6 +106,15 @@ class IncidenceController extends Controller
             }
             $incidences->whereIn('impact',$impact);
         }
+        if(!empty($filters['team']) && $filters['team'] != '') {
+            $id=[];
+            $agents = Agent::where('team','=',$filters['team'])->get();
+            foreach($agents as $agent) {
+                $id[] = $agent->id;
+            }
+            $incidences->whereIn('owner',$id);
+        }
+
         /* End filters */
 
         $rol = auth()->user()->roles;
@@ -134,8 +143,9 @@ class IncidenceController extends Controller
         $agents = Agent::all();
         $stores = Store::all();
         $clients = Client::all();
+        $teams = Team::all();
 
-        return view('admin.incidence.index', ['incidences' => $incidences, 'stores' => $stores, 'users' => $users, 'agents' => $agents, 'clients' => $clients, 'stores' => $stores, 'filters' => $filters]);
+        return view('admin.incidence.index', ['incidences' => $incidences, 'stores' => $stores, 'users' => $users, 'agents' => $agents, 'clients' => $clients, 'stores' => $stores, 'filters' => $filters, 'teams' => $teams]);
     }
 
     public function view($id) {
