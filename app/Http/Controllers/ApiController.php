@@ -10,14 +10,25 @@ use App\Models\Task;
 class ApiController extends Controller
 {
     public function window(Request $request) {
-        $current_day = date("N");
-        $days_to_sunday = 7 - $current_day;
-        $days_from_monday = $current_day - 1;
-        $monday = date("Y-m-d", strtotime("- {$days_from_monday} Days"));
-        $suneday = date("Y-m-d", strtotime("+ {$days_to_sunday} Days"));
-        
-        $old_monday = date("Y-m-d",strtotime($monday."-7 days"));
-        $old_suneday = date("Y-m-d",strtotime($suneday."-7 days"));
+        $body = json_decode($request->getContent(), true);
+
+        if($request->monthly==true) {
+            $monday = $this->first_month_day(0);
+            $suneday = $this->last_month_day(0);
+            
+            $old_monday = $this->first_month_day(1);
+            $old_suneday = $this->last_month_day(1);
+        } else {
+            $current_day = date("N");
+            $days_to_sunday = 7 - $current_day;
+            $days_from_monday = $current_day - 1;
+            $monday = date("Y-m-d", strtotime("- {$days_from_monday} Days"));
+            $suneday = date("Y-m-d", strtotime("+ {$days_to_sunday} Days"));
+            
+            $old_monday = date("Y-m-d",strtotime($monday."-7 days"));
+            $old_suneday = date("Y-m-d",strtotime($suneday."-7 days"));
+        }
+
 
         for($i=1;$i<=9;$i++) {
             $agents = Agent::where('team','LIKE','%'.$i.'%')->get();
@@ -137,5 +148,20 @@ class ApiController extends Controller
         }
 
         return $answers;
+    }
+
+    private function last_month_day($diff) { 
+        $month = date('m');
+        $year = date('Y');
+        $day = date("d", mktime(0,0,0, $month, 0, $year));
+        $day = ($diff==0) ? $day+1 : $day;
+        return date('Y-m-d', mktime(0,0,0, $month-$diff, $day, $year));
+    }
+
+    /** Actual month first day **/
+    private function first_month_day($diff) {
+        $month = date('m');
+        $year = date('Y');
+        return date('Y-m-d', mktime(0,0,0, $month-$diff, 1, $year));
     }
 }
