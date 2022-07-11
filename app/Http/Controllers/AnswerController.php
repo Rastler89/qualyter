@@ -152,6 +152,21 @@ class AnswerController extends Controller
         }
         $this->createIncidence($request,$answer);
 
+        if($request->get('emails') != '') {
+            if(strpos($request->get('emails'),',') !== false) {
+                $emails = explode(',',$request->get('emails'));
+                $this->send($emails,$body);
+            } else if(strpos($request->get('emails'),';') !== false) {
+                $emails = explode(';',$request->get('emails'));
+                $this->send($emails,$body);
+            } else if(strpos($request->get('emails'),"\n")) {
+                $emails = explode("\n",$request->get('emails'));
+                $this->send($emails,$body);
+            } else {
+                Mail::to($request->get('emails'))->send(new ClientMonthly($body));
+            }
+        }
+
         return redirect()->route('tasks')->with('success','Task Complete!');
     }
 
@@ -515,5 +530,9 @@ class AnswerController extends Controller
                 $body = null;
             }
         }
+    }
+
+    private function send($emails,$body) {
+        $this->send($emails,$body);
     }
 }
