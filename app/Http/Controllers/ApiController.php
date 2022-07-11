@@ -12,12 +12,16 @@ class ApiController extends Controller
     public function window(Request $request) {
         $body = json_decode($request->getContent(), true);
 
+        if($request->diff!='') {
+            $diff = $request->diff;
+        } 
+
         if($request->monthly==true) {
-            $monday = $this->first_month_day(0);
-            $suneday = $this->last_month_day(0);
+            $monday = $this->first_month_day($diff);
+            $suneday = $this->last_month_day($diff);
             
-            $old_monday = $this->first_month_day(1);
-            $old_suneday = $this->last_month_day(1);
+            $old_monday = $this->first_month_day($diff+1);
+            $old_suneday = $this->last_month_day($diff+1);
         } else {
             $current_day = date("N");
             $days_to_sunday = 7 - $current_day;
