@@ -32,6 +32,6 @@ class TechnicianMail extends Mailable
     {
         return $this->from('qc@optimaretail.es')
                     ->subject(__('New Valuation'))
-                    ->view('emails.technicians');
+                    ->view('emails.technician');
     }
 }

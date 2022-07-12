@@ -17,6 +17,7 @@ use Mail;
 use App\Mail\NotifyMail;
 use App\Mail\StoreMail;
 use App\Mail\ResponseMail;
+use App\Mail\TechnicianMail;
 
 class AnswerController extends Controller
 {
@@ -144,7 +145,6 @@ class AnswerController extends Controller
 
         $answer->status = 2;
         $answer->answer = json_encode($body,true);
-
         $answer->save();
 
         if($old_answer->status != $answer->status) {
@@ -153,6 +153,10 @@ class AnswerController extends Controller
         $this->createIncidence($request,$answer);
 
         if($request->get('emails') != '') {
+            $store = Store::where('code','=',$answer->store)->get();
+
+            $body['store'] = $store[0];
+
             if(strpos($request->get('emails'),',') !== false) {
                 $emails = explode(',',$request->get('emails'));
                 $this->send($emails,$body);
@@ -163,11 +167,38 @@ class AnswerController extends Controller
                 $emails = explode("\n",$request->get('emails'));
                 $this->send($emails,$body);
             } else {
-                Mail::to($request->get('emails'))->send(new ClientMonthly($body));
+                Mail::to($request->get('emails'))->send(new TechnicianMail($body));
             }
         }
 
         return redirect()->route('tasks')->with('success','Task Complete!');
+    }
+
+    public function sendTechnician(Request $request, $id) {
+
+        $answer = Answer::find($id);
+        $ans = json_decode($answer->answer,true);
+        $stores = Store::where('code','=',$answer->store)->get();
+
+        $body['valoration'][1] = $ans['valoration'][0];
+        $body['valoration'][0] = $ans['valoration'][1];
+        $body['valoration'][3] = $ans['valoration'][2];
+        $body['valoration'][2] = $ans['valoration'][3];
+        $body['store'] = $stores[0];
+        if(strpos($request->get('emails'),',') !== false) {
+            $emails = explode(',',$request->get('emails'));
+            $this->send($emails,$body);
+        } else if(strpos($request->get('emails'),';') !== false) {
+            $emails = explode(';',$request->get('emails'));
+            $this->send($emails,$body);
+        } else if(strpos($request->get('emails'),"\n")) {
+            $emails = explode("\n",$request->get('emails'));
+            $this->send($emails,$body);
+        } else {
+            Mail::to($request->get('emails'))->send(new TechnicianMail($body));
+        }
+
+        return redirect()->route('answers')->with('success','Send review!');
     }
 
     public function cancel(Request $request, $id) {
@@ -533,6 +564,8 @@ class AnswerController extends Controller
     }
 
     private function send($emails,$body) {
-        $this->send($emails,$body);
+        foreach($emails as $email) {
+            Mail::to($email)->send(new TechnicianMail($body));
+        }
     }
 }

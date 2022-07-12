@@ -84,6 +84,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('answers/{id}', [App\Http\Controllers\AnswerController::class, 'viewAnswer'])->middleware('permission:response-tasks')->name('answers.view');
     Route::post('answers/revised/{id}', [App\Http\Controllers\AnswerController::class, 'revised'])->middleware('permission:response-tasks')->name('answers.revised');
     Route::post('answers/complete/{id}',[App\Http\Controllers\AnswerController::class, 'complete'])->middleware('permission:response-tasks')->name('answers.complete');
+    Route::post('answers/send/{id}', [App\Http\Controllers\AnswerController::class, 'sendTechnician'])->name('answers.send');
     // WORK ORDER
     Route::get('workorder/new', [App\Http\Controllers\TaskController::class, 'new'])->name('workorder.new');
     Route::post('workorder/new', [App\Http\Controllers\TaskController::class, 'create'])->name('workorder.create');

@@ -193,7 +193,7 @@
                               <div style="line-height: 160%; word-wrap: break-word;">
 							  	<p style="margin:0 0 12px 0;font-size:14px;line-height:24px;font-family:Poppins,sans-serif;">{{__("¡Good days,")}}</p>
 								<p style="margin:0 0 12px 0;font-size:14px;line-height:24px;font-family:Poppins,sans-serif;">{{__("we are contacting you to inform you that you have received a rating for your attention to the shop:")}}</p>
-								<p style="margin:0 0 12px 0;font-size:14px;line-height:24px;font-family:Poppins,sans-serif;">nombre de la tienda</p>
+								<p style="margin:0 0 12px 0;font-size:14px;line-height:24px;font-family:Poppins,sans-serif;">{{$body['store']->code}} - {{$body['store']->name}}</p>
 								
                               </div>
 
@@ -213,13 +213,11 @@
             </div>
           </div>
 
-		  @foreach($body['sons'] as $name => $value)
-		  @if($loop->first || $loop->iteration == 4 || $loop->iteration == 7 || $loop->iteration == 10)
           <div class="u-row-container" style="padding: 0px;background-color: transparent">
             <div class="u-row" style="Margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: transparent;">
               <div style="border-collapse: collapse;display: table;width: 100%;background-color: transparent;">
                 <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding: 0px;background-color: transparent;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:600px;"><tr style="background-color: transparent;"><![endif]-->
-@endif
+
 				<!-- inicio bloque -->
                 <!--[if (mso)|(IE)]><td align="center" width="200" style="width: 200px;padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;" valign="top"><![endif]-->
                 <div class="u-col u-col-33p33" style="max-width: 320px;min-width: 200px;display: table-cell;vertical-align: top;">
@@ -232,12 +230,8 @@
                         <tbody>
                           <tr>
                             <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:'Poppins',sans-serif;" align="left">
-
-							  <h3 style="margin: 0px; line-height: 140%; text-align: center; word-wrap: break-word; font-weight: normal; font-family: arial,helvetica,sans-serif; font-size: 10px;">
-							  	<strong>{{__("Overall assessment result")}}</strong>
-                              </h3>
                               <h1 style="margin: 0px; line-height: 140%; text-align: center; word-wrap: break-word; font-weight: normal; font-family: arial,helvetica,sans-serif; font-size: 20px;">
-							  {{$name}}
+                                {{__('What overall score would you give us?')}}
                               </h1>
 
                             </td>
@@ -251,7 +245,7 @@
                             <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:'Poppins',sans-serif;" align="left">
 
                               <div style="line-height: 140%; text-align: center; word-wrap: break-word;">
-                                <p style="font-size: 18px; line-height: 140%;"><?= number_format($value,2)?></p>
+                                <p style="font-size: 18px; line-height: 140%;"><?= number_format($body['valoration'][0],2)?></p>
                               </div>
 
                             </td>
@@ -267,7 +261,7 @@
                               <table width="100%" cellpadding="0" cellspacing="0" border="0">
                                 <tr>
                                   <td style="padding-right: 0px;padding-left: 0px;" align="center">
-<?php $star = intval($value); ?>
+<?php $star = intval($body['valoration'][0]); ?>
 								  @for($i=0; $i <$star; $i++)
 											<img src="{{ asset('img/star-selected.svg') }}" width="30" height="30" />
 										@endfor
@@ -288,14 +282,240 @@
                 </div>
                 <!--[if (mso)|(IE)]></td><![endif]-->
 <!-- fin bloque -->
-@if($loop->last || $loop->iteration%3 == 0)
+
 
 <!--[if (mso)|(IE)]></tr></table></td></tr></table><![endif]-->
 </div>
 </div>
 </div>
-@endif
-@endforeach
+
+<div class="u-row-container" style="padding: 0px;background-color: transparent">
+  <div class="u-row" style="Margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: transparent;">
+    <div style="border-collapse: collapse;display: table;width: 100%;background-color: transparent;">
+      <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding: 0px;background-color: transparent;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:600px;"><tr style="background-color: transparent;"><![endif]-->
+
+<!-- inicio bloque -->
+      <!--[if (mso)|(IE)]><td align="center" width="200" style="width: 200px;padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;" valign="top"><![endif]-->
+      <div class="u-col u-col-33p33" style="max-width: 320px;min-width: 200px;display: table-cell;vertical-align: top;">
+        <div style="width: 100% !important;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;">
+          <!--[if (!mso)&(!IE)]><!-->
+          <div style="padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;">
+            <!--<![endif]-->
+
+            <table style="font-family:'Poppins',sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
+              <tbody>
+                <tr>
+                  <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:'Poppins',sans-serif;" align="left">
+                    <h1 style="margin: 0px; line-height: 140%; text-align: center; word-wrap: break-word; font-weight: normal; font-family: arial,helvetica,sans-serif; font-size: 20px;">
+                      {{__('Rate the speed of our service')}}
+                    </h1>
+
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table style="font-family:'Poppins',sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
+              <tbody>
+                <tr>
+                  <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:'Poppins',sans-serif;" align="left">
+
+                    <div style="line-height: 140%; text-align: center; word-wrap: break-word;">
+                      <p style="font-size: 18px; line-height: 140%;"><?= number_format($body['valoration'][1],2)?></p>
+                    </div>
+
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table style="font-family:'Poppins',sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
+              <tbody>
+                <tr>
+                  <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:'Poppins',sans-serif;" align="left">
+
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td style="padding-right: 0px;padding-left: 0px;" align="center">
+<?php $star = intval($body['valoration'][1]); ?>
+        @for($i=0; $i <$star; $i++)
+            <img src="{{ asset('img/star-selected.svg') }}" width="30" height="30" />
+          @endfor
+
+                        </td>
+                      </tr>
+                    </table>
+
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!--[if (!mso)&(!IE)]><!-->
+          </div>
+          <!--<![endif]-->
+        </div>
+      </div>
+      <!--[if (mso)|(IE)]></td><![endif]-->
+<!-- fin bloque -->
+
+
+<!--[if (mso)|(IE)]></tr></table></td></tr></table><![endif]-->
+</div>
+</div>
+</div>
+
+<div class="u-row-container" style="padding: 0px;background-color: transparent">
+  <div class="u-row" style="Margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: transparent;">
+    <div style="border-collapse: collapse;display: table;width: 100%;background-color: transparent;">
+      <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding: 0px;background-color: transparent;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:600px;"><tr style="background-color: transparent;"><![endif]-->
+
+<!-- inicio bloque -->
+      <!--[if (mso)|(IE)]><td align="center" width="200" style="width: 200px;padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;" valign="top"><![endif]-->
+      <div class="u-col u-col-33p33" style="max-width: 320px;min-width: 200px;display: table-cell;vertical-align: top;">
+        <div style="width: 100% !important;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;">
+          <!--[if (!mso)&(!IE)]><!-->
+          <div style="padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;">
+            <!--<![endif]-->
+
+            <table style="font-family:'Poppins',sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
+              <tbody>
+                <tr>
+                  <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:'Poppins',sans-serif;" align="left">
+                    <h1 style="margin: 0px; line-height: 140%; text-align: center; word-wrap: break-word; font-weight: normal; font-family: arial,helvetica,sans-serif; font-size: 20px;">
+                      {{__('Appreciates the friendliness of our technicians')}}
+                    </h1>
+
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table style="font-family:'Poppins',sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
+              <tbody>
+                <tr>
+                  <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:'Poppins',sans-serif;" align="left">
+
+                    <div style="line-height: 140%; text-align: center; word-wrap: break-word;">
+                      <p style="font-size: 18px; line-height: 140%;"><?= number_format($body['valoration'][2],2)?></p>
+                    </div>
+
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table style="font-family:'Poppins',sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
+              <tbody>
+                <tr>
+                  <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:'Poppins',sans-serif;" align="left">
+
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td style="padding-right: 0px;padding-left: 0px;" align="center">
+<?php $star = intval($body['valoration'][2]); ?>
+        @for($i=0; $i <$star; $i++)
+            <img src="{{ asset('img/star-selected.svg') }}" width="30" height="30" />
+          @endfor
+
+                        </td>
+                      </tr>
+                    </table>
+
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!--[if (!mso)&(!IE)]><!-->
+          </div>
+          <!--<![endif]-->
+        </div>
+      </div>
+      <!--[if (mso)|(IE)]></td><![endif]-->
+<!-- fin bloque -->
+
+
+<!--[if (mso)|(IE)]></tr></table></td></tr></table><![endif]-->
+</div>
+</div>
+</div>
+
+<div class="u-row-container" style="padding: 0px;background-color: transparent">
+  <div class="u-row" style="Margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: transparent;">
+    <div style="border-collapse: collapse;display: table;width: 100%;background-color: transparent;">
+      <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding: 0px;background-color: transparent;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:600px;"><tr style="background-color: transparent;"><![endif]-->
+
+<!-- inicio bloque -->
+      <!--[if (mso)|(IE)]><td align="center" width="200" style="width: 200px;padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;" valign="top"><![endif]-->
+      <div class="u-col u-col-33p33" style="max-width: 320px;min-width: 200px;display: table-cell;vertical-align: top;">
+        <div style="width: 100% !important;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;">
+          <!--[if (!mso)&(!IE)]><!-->
+          <div style="padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;">
+            <!--<![endif]-->
+
+            <table style="font-family:'Poppins',sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
+              <tbody>
+                <tr>
+                  <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:'Poppins',sans-serif;" align="left">
+                    <h1 style="margin: 0px; line-height: 140%; text-align: center; word-wrap: break-word; font-weight: normal; font-family: arial,helvetica,sans-serif; font-size: 20px;">
+                      {{__('Scores the resolution capacity of the incidences')}}
+                    </h1>
+
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table style="font-family:'Poppins',sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
+              <tbody>
+                <tr>
+                  <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:'Poppins',sans-serif;" align="left">
+
+                    <div style="line-height: 140%; text-align: center; word-wrap: break-word;">
+                      <p style="font-size: 18px; line-height: 140%;"><?= number_format($body['valoration'][3],2)?></p>
+                    </div>
+
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table style="font-family:'Poppins',sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
+              <tbody>
+                <tr>
+                  <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:'Poppins',sans-serif;" align="left">
+
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td style="padding-right: 0px;padding-left: 0px;" align="center">
+<?php $star = intval($body['valoration'][3]); ?>
+        @for($i=0; $i <$star; $i++)
+            <img src="{{ asset('img/star-selected.svg') }}" width="30" height="30" />
+          @endfor
+
+                        </td>
+                      </tr>
+                    </table>
+
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!--[if (!mso)&(!IE)]><!-->
+          </div>
+          <!--<![endif]-->
+        </div>
+      </div>
+      <!--[if (mso)|(IE)]></td><![endif]-->
+<!-- fin bloque -->
+
+
+<!--[if (mso)|(IE)]></tr></table></td></tr></table><![endif]-->
+</div>
+</div>
+</div>
 
           <div class="u-row-container" style="padding: 0px;background-color: transparent">
             <div class="u-row" style="Margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: #e5eaf5;">
@@ -308,23 +528,6 @@
                     <!--[if (!mso)&(!IE)]><!-->
                     <div style="padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;">
                       <!--<![endif]-->
-
-                      <table style="font-family:'Poppins',sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
-                        <tbody>
-                          <tr>
-                            <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:'Poppins',sans-serif;" align="left">
-
-                              <div align="center">
-                                <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;font-family:'Poppins',sans-serif;"><tr><td style="font-family:'Poppins',sans-serif;" align="center"><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://optimaquality.es/public/{{$body['id']}}" style="height:46px; v-text-anchor:middle; width:234px;" arcsize="8.5%" stroke="f" fillcolor="#ff6600"><w:anchorlock/><center style="color:#FFFFFF;font-family:'Poppins',sans-serif;"><![endif]-->
-                                <a href="https://optimaquality.es/public/{{$body['id']}}"  style="box-sizing: border-box;display: inline-block;font-family:'Poppins',sans-serif;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #FFFFFF; background-color: #ff6600; border-radius: 4px;-webkit-border-radius: 4px; -moz-border-radius: 4px; width:auto; max-width:100%; overflow-wrap: break-word; word-break: break-word; word-wrap:break-word; mso-border-alt: none;">
-                                  {{__('MORE INFORMATION')}}
-                                </a>
-                                <!--[if mso]></center></v:roundrect></td></tr></table><![endif]-->
-                              </div>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
 
                       <table style="font-family:'Poppins',sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
                         <tbody>

@@ -204,6 +204,7 @@
                                 <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#alloy"><i class="align-middle" data-feather="eye"></i></button>
                             @elseif($answer->status != 3)
                                 <a class="btn btn-outline-primary" href="{{route('answers.view', ['id'=>$answer->id])}}"><i class="align-middle" data-feather="eye"></i></a>
+                                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#technician{{$answer->id}}"><i class="align-middle" data-feather="send"></i></button>
                             @endif
                         </td>
                     </tr>
@@ -238,6 +239,23 @@
             </div>
         </div>
     </div>
+    @elseif($answer->status != 3)
+    <form method="POST" action="{{route('answers.send', ['id'=>$answer->id])}}">
+        @csrf;
+    <div class="modal fade" id="technician{{$answer->id}}" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <textarea name="emails" class="form-control"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success">{{__("Send emails")}}
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
     @endif
 @endforeach
 @endsection
