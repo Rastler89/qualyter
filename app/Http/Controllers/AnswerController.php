@@ -195,7 +195,7 @@ class AnswerController extends Controller
             $emails = explode("\n",$request->get('emails'));
             $this->send($emails,$body);
         } else {
-            Mail::to($request->get('emails'))->send(new TechnicianMail($body));
+            Mail::to($request->get('emails'))->locale($body['store']->language)->send(new TechnicianMail($body));
         }
 
         return redirect()->route('answers')->with('success','Send review!');
@@ -565,7 +565,7 @@ class AnswerController extends Controller
 
     private function send($emails,$body) {
         foreach($emails as $email) {
-            Mail::to($email)->send(new TechnicianMail($body));
+            Mail::to($email)->locale($body['store']->language)->send(new TechnicianMail($body));
         }
     }
 }
