@@ -1,6 +1,6 @@
 <nav id="sidebar" class="sidebar js-sidebar">
     <div class="sidebar-content js-simplebar">
-        <a class="sidebar-brand" href="index.html" style="text-align:center;padding:0;height:56px;background:white">
+        <a class="sidebar-brand" href="{{route('home')}}" style="text-align:center;padding:0;height:56px;background:white">
             <span class="align-middle" style="padding:3px">
                 <img src="{{asset('/img/fixner_logo.png')}}" style="height:50px"/>    
             </span>

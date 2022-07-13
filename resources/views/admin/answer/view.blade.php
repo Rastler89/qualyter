@@ -87,6 +87,7 @@
               <label for="responsable" class="form-label">{{__('Responsable')}}</label>
               <select class="form-select form-select mb-3" id="responable[]" name="responsable[]" required>
                 <option value="--" selected>{{__('Please select responsable')}}</option>
+                @if($owners != false)
                 @foreach($owners as $owner)
                 <optgroup label="{{$owner->name}}">
                   @foreach($tasks as $task)
@@ -96,6 +97,7 @@
                   @endforeach
                 </optgroup>
                 @endforeach;
+                @endif
               </select>
               <label for="impact" class="form-label">{{__('Impact')}}</label>
               <select class="form-select form-select-lg mb-3" id="impact[]" name="impact[]" required>

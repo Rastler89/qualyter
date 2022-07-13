@@ -473,8 +473,11 @@ class AnswerController extends Controller
         foreach($tasks as $task) {
             $owners[] = $task->owner;
         }
-
-        $owners = Agent::find($owners);
+        if(isset($owners)) {
+            $owners = Agent::find($owners);
+        } else {
+            $owners = false;
+        }
         
         return view('admin.answer.view', ['answer' => $answer, 'store' => $store, 'answers' => $res, 'tasks' => $tasks, 'agents' => $agents, 'owners' => $owners]);
     }
