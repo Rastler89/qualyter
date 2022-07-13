@@ -97,7 +97,7 @@ class PublicController extends Controller
         $first_day = $this->first_month_day();
         $last_day = $this->last_month_day();
 
-        $answers = Answer::where('client','=',$delegation->id)->whereBetween('expiration',[$first_day,$last_day])->get();
+        $answers = Answer::where('client','=',$delegation->id)->where('status','<>','8')->whereBetween('expiration',[$first_day,$last_day])->get();
         $visits += count($answers);
 
         $answers = Answer::where('client','=',$delegation->id)->where('status','=','2')->whereBetween('expiration',[$first_day,$last_day])->get();

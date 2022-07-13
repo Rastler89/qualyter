@@ -21,9 +21,9 @@
 														</div>
 													</div>
 												</div>
-												<h1 class="mt-1 mb-3">{{$finish_today}}</h1>
+												<h1 class="mt-1 mb-3" id="survey_carry_day"></h1>
 												<div class="mb-0">
-													<span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> {{$old_total}} %</span>
+													<span class="text-danger" id="survey_carry_percentatge"></span>
 													<span class="text-muted">{{__("Since last day")}}</span>
 												</div>
 											</div>
@@ -64,9 +64,9 @@
 														</div>
 													</div>
 												</div>
-												<h1 class="mt-1 mb-3">{{$total}}</h1>
+												<h1 class="mt-1 mb-3" id="survey_total_day"></h1>
 												<div class="mb-0">
-													<span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> {{$porcentaje_total}}% </span>
+													<span class="text-success" id="survey_total_percentatge"></span>
 													<span class="text-muted">{{__('Complete today')}}</span>
 												</div>
 											</div>
@@ -284,7 +284,6 @@
 				(document.msFullscreenElement && document.msFullscreenElement !== null);
 			var elem = document.getElementById(element);
 			if (!isInFullScreen) {
-				console.log('obrim');
 				if (elem.requestFullscreen) {
 					elem.requestFullscreen();
 				} else if (elem.webkitRequestFullscreen) { /* Safari */
@@ -295,18 +294,13 @@
 				$('#act'+element).css('display','none');
 				$('#des'+element).css('display','block');
 			} else {
-				console.log('hora de tancar');
 				if (elem.exitFullscreen) {
-					console.log(1);
 					elem.exitFullscreen();
 				} else if (elem.webkitExitFullscreen) {
-					console.log(2);
 					elem.webkitExitFullscreen();
 				} else if (elem.mozCancelFullScreen) {
-					console.log(3);
 					elem.mozCancelFullScreen();
 				} else if (elem.msExitFullscreen) {
-					console.log(4);
 					elem.msExitFullscreen();
 				}
 				$('#act'+element).css('display','block');
@@ -534,5 +528,32 @@
             defaultDate: defaultDate
         });
     });
+</script>
+<script>
+/* Petición a la api: Daniel Molina */
+function dashboards() {
+	//Panel 1 & 2
+	$.get('/api/answers/today/carried', function(data) {
+		//Panel 1
+		$('#survey_carry_day').html(data.finish);
+		$('#survey_carry_percentatge').html('<i class="mdi mdi-arrow-bottom-right"></i>'+data.porcentage+'%');
+		if(data.porcentage>=0) {
+			$('#survey_carry_percentatge').removeClass();
+			$('#survey_carry_percentatge').addClass('text-success');
+		}
+		//Panel 2
+		$('#survey_total_day').html(data.total);
+		$('#survey_total_percentatge').html('<i class="mdi mdi-arrow-bottom-right"></i>'+data.complete+'%');
+		if(data.porcentage>=0) {
+			$('#survey_total_percentatge').removeClass();
+			$('#survey_total_percentatge').addClass('text-success');
+		}
+	});
+
+}
+
+dashboards();
+setInterval(dashboards,300000);
+
 </script>
 @endsection

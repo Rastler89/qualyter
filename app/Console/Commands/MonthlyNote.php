@@ -165,7 +165,7 @@ class MonthlyNote extends Command
         $last_day = $this->last_month_day();
 
         foreach($delegations as $delegation) {
-            $answers = Answer::where('client','=',$delegation->id)->whereBetween('expiration',[$first_day,$last_day])->get();
+            $answers = Answer::where('client','=',$delegation->id)->where('status','<>','8')->whereBetween('expiration',[$first_day,$last_day])->get();
             $visits += count($answers);
 
             $answers = Answer::where('client','=',$delegation->id)->where('status','=','2')->whereBetween('expiration',[$first_day,$last_day])->get();
