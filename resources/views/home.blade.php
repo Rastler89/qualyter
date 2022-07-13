@@ -110,7 +110,7 @@
 												<h1 class="mt-1 mb-3" id="survey_cancel_day"></h1>
 												<div class="mb-0">
 													<span class="text-success" id="survey_cancel_percentatge"></span>
-													<span class="text-muted">{{__('Complete today')}}</span>
+													<span class="text-muted">{{__('Cancelled today')}}</span>
 												</div>
 											</div>
 										</div>
@@ -595,7 +595,7 @@ function dashboards() {
 		//Panel 3
 		$('#survey_cancel_day').html(data.cancelled);
 		$('#survey_cancel_percentatge').html('<i class="mdi mdi-arrow-bottom-right"></i>'+data.cancelled_yesterday+'%');
-		if(data.cancelled_yesterday>=0) {
+		if(data.cancelled_yesterday<0) {
 			$('#survey_cancel_percentatge').removeClass();
 			$('#survey_cancel_percentatge').addClass('text-success');
 		}
