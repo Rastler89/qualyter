@@ -21,3 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('emails',[App\Http\Controllers\ApiController::class,'emails']);
 Route::get('window',[App\Http\Controllers\ApiController::class,'window']);
 Route::get('answers/today/carried',[App\Http\Controllers\ApiController::class,'survey_carried_today']);
+Route::get('answers/month/carried',[App\Http\Controllers\ApiController::class,'survey_carried_month']);
