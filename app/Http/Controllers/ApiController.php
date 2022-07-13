@@ -21,7 +21,13 @@ class ApiController extends Controller
         $porcentaje_dia = number_format(($finish_today/$total_today)*100,2);
 
         $response['total'] = $total_today;
-        $response['complete'] = $porcentaje_finalizadas;
+        $response['complete'] = $porcentaje_dia;
+
+        $total_cancelled = count(Answer::where('expiration','=',date('Y-m-d'))->where('status','=','8')->get());
+        $total_cancelled_yesterday = count(Answer::where('status','=','8')->where('expiration','=',date('Y-m-d',strtotime("-1 days")))->get());
+
+        $response['cancelled'] = $total_cancelled;
+        $response['cancelled_yesterday'] = $total_cancelled_yesterday;
 
         return response()->json($response);
     }
