@@ -23,11 +23,15 @@ class AnswerController extends Controller
 {
     public function index(Request $request) {
         $filters = $request->query();
-        if(isset($filters['filtered'])  && isset($filters['filters'])) {
-            $filters = $filters['filters'];
-        }
 
         $pre_answers = Answer::query();
+
+        if(isset($filters['filtered'])  && isset($filters['filters'])) {
+            $filters = $filters['filters'];
+        } else {
+            $filters['start_date_closing'] = date('Y-m-d',strtotime("-7 days"));
+        }
+
 
         if(!empty($filters['store']) && $filters['store'] != '') {
             $id = [];

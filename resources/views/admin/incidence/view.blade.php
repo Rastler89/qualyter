@@ -113,7 +113,7 @@
                             <strong>
                                 {{$order->expiration}}
                             </strong>
-                            <div class="text-muted">{{__('Closed Day')}}</div>
+                            <div class="text-muted">{{__('Control Day')}}</div>
                             <strong>
                                 <input class="form-control" type="date" id="closed" name="closed" value="{{$incidence->closed->format('Y-m-d')}}" />
                             </strong>

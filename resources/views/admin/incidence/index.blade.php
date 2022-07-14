@@ -143,7 +143,7 @@
         <th scope="col">@sortablelink('responsable',__('Responsable'))</th>
         <th scope="col">@sortablelink('owner',__('Agent'))</th>
         <th scope="col">@sortablelink('created_at',__('Created'))</th>
-        <th scope="col">@sortablelink('closed',__('Closing day'))</th>
+        <th scope="col">@sortablelink('closed',__('Control day'))</th>
         <th scope="col"></th>
     </thead>
     <tbody>
