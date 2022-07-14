@@ -7,7 +7,7 @@
 						<div class="col-xl-12 col-xxl-12 d-flex">
 							<div class="w-100">
 								<div class="row">
-									<div class="col-sm-4">
+									<div class="col-sm-3">
 										<div class="card">
 											<div class="card-body">
 												<div class="row">
@@ -49,7 +49,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="col-sm-4">
+									<div class="col-sm-3">
 										
 										<div class="card">
 											<div class="card-body">
@@ -92,7 +92,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="col-sm-4">
+									<div class="col-sm-3">
 										
 										<div class="card">
 											<div class="card-body">
@@ -135,12 +135,30 @@
 											</div>
 										</div>
 									</div>
+									<div class="col-xl-3 col-xxl-3">
+									<div class="card flex-fill w-100">
+										<div class="card-header">
+
+											<h5 class="card-title mb-0">{{__("Survey's status in this month")}}</h5>
+										</div>
+										<div class="card-body d-flex">
+											<div class="align-self-center w-100">
+												<div class="py-3">
+													<div class="chart chart-xs">
+														<canvas id="pie_answer_status"></canvas>
+													</div>
+												</div>
+
+												<span id="pie_answer_body"></span>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
 						
 
-						<!--<div class="col-xl-4 col-xxl-6">
+						<!--<div class="col-xl-3 col-xxl-3">
 							<div class="card flex-fill w-100">
 								<div class="card-header">
 
@@ -600,21 +618,21 @@ function dashboards() {
 		}
 	});
 	$.get('/api/answers/month/carried', function(data) {
-		//Panel 1
+		//Panel 4
 		$('#survey_carry_month').html(data.finish);
 		$('#survey_carry_percentatge_month').html('<i class="mdi mdi-arrow-bottom-right"></i>'+data.porcentage+'%');
 		if(data.porcentage>=0) {
 			$('#survey_carry_percentatge_month').removeClass();
 			$('#survey_carry_percentatge_month').addClass('text-success');
 		}
-		//Panel 2
+		//Panel 5
 		$('#survey_total_month').html(data.total);
 		$('#survey_total_percentatge_month').html('<i class="mdi mdi-arrow-bottom-right"></i>'+data.complete+'%');
 		if(data.complete>=0) {
 			$('#survey_total_percentatge_month').removeClass();
 			$('#survey_total_percentatge_month').addClass('text-success');
 		}
-		//Panel 3
+		//Panel 6
 		$('#survey_cancel_month').html(data.cancelled);
 		$('#survey_cancel_percentatge_month').html('<i class="mdi mdi-arrow-bottom-right"></i>'+data.cancelled_yesterday+'%');
 		if(data.cancelled_yesterday<0) {
@@ -622,6 +640,46 @@ function dashboards() {
 			$('#survey_cancel_percentatge_month').addClass('text-success');
 		}
 	});
+	$.get('/api/answers/month/type', function(res) {
+		/*text = '<table class="table mb-0"><tbody><tr><td>Abiertos</td><td class="text-end">'+res.open+'</td></tr>';
+		text += '<tr><td>Asignados</td><td class="text-end">'+res.assigned+'</td></tr>';
+		text += '<tr><td>Cerrados por QC</td><td class="text-end">'+res.qc+'</td></tr>';
+		text += '<tr><td>Enviados</td><td class="text-end">'+res.send+'</td></tr>';
+		text += '<tr><td>Pendientes Revision</td><td class="text-end">'+res.review+'</td></tr>';
+		text += '<tr><td>Completados</td><td class="text-end">'+res.complete+'</td></tr>';
+		text += '<tr><td>Cancelados</td><td class="text-end">'+res.cancel+'</td></tr></tbody></table>';
+		$('#pie_answer_body').html(text);*/
+		new Chart(document.getElementById("pie_answer_status"), {
+            type: "bar",
+            data: {
+                labels: ["{{__('Open')}}", "{{__('Assigned')}}", "{{__('Completed by QC')}}", "{{__('Send')}}", "{{__('Review')}}", "{{__('Complete')}}", "{{__('Cancelled')}}"],
+                datasets: [{
+                    data: [res.open, res.assigned, res.qc, res.send, res.review, res.complete, res.cancel],
+                    backgroundColor: [
+                        window.theme.primary,
+                        window.theme.warning,
+                        window.theme.danger,
+						window.theme.primary,
+                        window.theme.warning,
+                        window.theme.danger,
+						window.theme.primary,
+                        window.theme.warning,
+                        window.theme.danger
+                    ],
+                    //borderWidth: 5
+                }]
+            },
+            options: {
+                responsive: !window.MSInputMethodContext,
+                maintainAspectRatio: true,
+                legend: {
+                    display: false
+                },
+                cutoutPercentage: 75
+            }
+        });
+		
+	})
 
 
 

@@ -11,14 +11,22 @@ class ApiController extends Controller
 {
     public function survey_carried_today() {
         $finish_today = count(Answer::whereIn('status',[2,4,5])->where('expiration','=',date('Y-m-d'))->get());
-        $fisnih_yesterday = count(Answer::whereIn('status',[2,4,5])->where('expiration','=',date('Y-m-d',strtotime("-1 days")))->get());
-        $porcentaje_finalizadas = number_format(($finish_today/$fisnih_yesterday)*100-100,2);
+        $finish_yesterday = count(Answer::whereIn('status',[2,4,5])->where('expiration','=',date('Y-m-d',strtotime("-1 days")))->get());
+        if($finish_yesterday!=0) {
+            $porcentaje_finalizadas = number_format(($finish_today/$finish_yesterday)*100-100,2);
+        } else {
+            $porcentaje_finalizadas = -100;
+        }
 
         $response['finish'] = $finish_today;
         $response['porcentage'] = $porcentaje_finalizadas;
 
         $total_today = count(Answer::where('expiration','=',date('Y-m-d'))->where('status','<>','8')->get());
-        $porcentaje_dia = number_format(($finish_today/$total_today)*100,2);
+        if($total_today!=0) {
+            $porcentaje_dia = number_format(($finish_today/$total_today)*100,2);
+        } else {
+            $porcentaje_dia = -100;
+        }
 
         $response['total'] = $total_today;
         $response['complete'] = $porcentaje_dia;
@@ -39,8 +47,8 @@ class ApiController extends Controller
         $last_month_pre = $this->last_month_day(1);
 
         $finish_today = count(Answer::whereIn('status',[2,4,5])->whereBetween('expiration',[$first_month,$last_month])->get());
-        $fisnih_yesterday = count(Answer::whereIn('status',[2,4,5])->whereBetween('expiration',[$first_month_pre,$last_month_pre])->get());
-        $porcentaje_finalizadas = number_format(($finish_today/$fisnih_yesterday)*100-100,2);
+        $finish_yesterday = count(Answer::whereIn('status',[2,4,5])->whereBetween('expiration',[$first_month_pre,$last_month_pre])->get());
+        $porcentaje_finalizadas = number_format(($finish_today/$finish_yesterday)*100-100,2);
 
         $response['finish'] = $finish_today;
         $response['porcentage'] = $porcentaje_finalizadas;
@@ -57,6 +65,23 @@ class ApiController extends Controller
         $response['cancelled'] = $total_cancelled;
         $response['cancelled_yesterday'] = $total_cancelled_yesterday;
 
+        return response()->json($response);
+    }
+
+    public function answer_type() {
+        $first_month = $this->first_month_day(0);
+        $last_month = $this->last_month_day(0);
+        $first_month_pre = $this->first_month_day(1);
+        $last_month_pre = $this->last_month_day(1);
+
+        $response['open'] = count(Answer::where('status','=','0')->whereBetween('expiration',[$first_month,$last_month])->get());
+        $response['assigned'] = count(Answer::where('status','=','1')->whereBetween('expiration',[$first_month,$last_month])->get());
+        $response['qc'] = count(Answer::where('status','=','2')->whereBetween('expiration',[$first_month,$last_month])->get());
+        $response['send'] = count(Answer::where('status','=','3')->whereBetween('expiration',[$first_month,$last_month])->get());
+        $response['review'] = count(Answer::where('status','=','4')->whereBetween('expiration',[$first_month,$last_month])->get());
+        $response['complete'] = count(Answer::where('status','=','5')->whereBetween('expiration',[$first_month,$last_month])->get());
+        $response['cancel'] = count(Answer::where('status','=','8')->whereBetween('expiration',[$first_month,$last_month])->get());
+        
         return response()->json($response);
     }
 
