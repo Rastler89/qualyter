@@ -21,6 +21,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('note:monthly')->when(function () {
             return \Carbon\Carbon::now()->isSameDay($this->findFirstBusinessDay());
         })->at('10:00');
+        $schedule->command('control:notify')->dailyAt('8:00');
     }
     
     /**

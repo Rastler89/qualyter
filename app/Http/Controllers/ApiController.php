@@ -6,9 +6,34 @@ use Illuminate\Http\Request;
 use App\Models\Answer;
 use App\Models\Agent;
 use App\Models\Task;
-
+/**
+ * @OA\Info(title="OptimaQuality API", version="1.0")
+ * 
+ * @OA\Server(url="http://localhost:8000", description="Test")
+ * @OA\Server(url="https://optimaquality.es", description="Production")
+ */
 class ApiController extends Controller
 {
+    /**
+     * @OA\Get(
+     *      path="/api/answers/today/carried",
+     *      summary="Show stadistics",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Show stadistics for today",
+     *          @OA\JsonContent(
+     *              oneOf={
+     *                  @OA\Schema(type="boolean")
+     *              },
+     *              @OA\Examples(example="result", value={"finish": 0, "porcentatge": -100, "total": 0, "complete": -100, "cancelled": 0, "cancelled_yesterday": 0}, summary="Example")
+     *          )
+     *       ),
+     *      @OA\Response(
+     *          response="default",
+     *          description="Error"
+     *      )
+     * )
+     */
     public function survey_carried_today() {
         $finish_today = count(Answer::whereIn('status',[2,4,5])->where('expiration','=',date('Y-m-d'))->get());
         $finish_yesterday = count(Answer::whereIn('status',[2,4,5])->where('expiration','=',date('Y-m-d',strtotime("-1 days")))->get());
@@ -40,6 +65,26 @@ class ApiController extends Controller
         return response()->json($response);
     }
 
+    /**
+     * @OA\Get(
+     *      path="/api/answers/month/carried",
+     *      summary="Show stadistics",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Show stadistics for month",
+     *          @OA\JsonContent(
+     *              oneOf={
+     *                  @OA\Schema(type="boolean")
+     *              },
+     *              @OA\Examples(example="result", value={"finish": 0, "porcentatge": -100, "total": 0, "complete": -100, "cancelled": 0, "cancelled_yesterday": 0}, summary="Example")
+     *          )
+     *       ),
+     *      @OA\Response(
+     *          response="default",
+     *          description="Error"
+     *      )
+     * )
+     */
     public function survey_carried_month() {
         $first_month = $this->first_month_day(0);
         $last_month = $this->last_month_day(0);

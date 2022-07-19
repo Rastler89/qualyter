@@ -1,3 +1,6 @@
+<?php 
+    $can_close = $incidence->closed>=date('Y-m-d',time());
+?>
 @extends('layouts.dashboard')
 
 @section('styles')
@@ -57,25 +60,30 @@
                             {{$store->name}}
                         </div>
                         <div class="col-md-6  text-md-end">
-                            @if($incidence->status == 4) 
-                                <button class="btn btn-outline-dark">{{__('Completed')}}</button>
+                            @if($can_close) 
+                                <input @if($incidence->status==4) disabled @endif  type="radio" class="btn-check" name="status" id="danger-outlined" autocomplete="off" value="4" data-bs-toggle="modal" data-bs-target="#confirmModal">
+                                <label class="btn btn-outline-dark" for="danger-outlined">{{__('Complete')}}</label>
                             @else
-                                @if($incidence->status == 2)
-                                    <input type="radio" class="btn-check" name="status" id="success-outlined" autocomplete="off" @if($incidence->status == 2) checked @endif value="2">
-                                    <label class="btn btn-outline-success" for="success-outlined">{{__('In Process')}}</label>
-                                    
-                                    <input type="radio" class="btn-check" name="status" id="danger-outlined" autocomplete="off" value="4" data-bs-toggle="modal" data-bs-target="#confirmModal">
-                                    <label class="btn btn-outline-dark" for="danger-outlined">{{__('Complete')}}</label>
-                                @elseif($incidence->status == 1)
-                                    <input type="radio" class="btn-check" name="status" id="success-outlined" autocomplete="off" @if($incidence->status == 1) checked @endif value="2">
-                                    <label class="btn btn-outline-success" for="success-outlined">{{__('Accept')}}</label>
-                                    
-                                    <input type="radio" class="btn-check" name="status" id="danger-outlined" autocomplete="off" @if($incidence->status == 3) checked @endif value="3">
-                                    <label class="btn btn-outline-danger" for="danger-outlined">{{__('Refuse')}}</label>
-                                @elseif($incidence->status == 0)
-                                <a href="{{route('incidences.resend',['id' => $incidence->id])}}" class="btn btn-outline-primary"><i class="align-middle" data-feather="send"></i></a>
+                                @if($incidence->status == 4) 
+                                    <button class="btn btn-outline-dark">{{__('Completed')}}</button>
                                 @else
-                                    <button class="btn btn-outline-dark">{{__('Refused')}}</button>
+                                    @if($incidence->status == 2)
+                                        <input @if($incidence->status==4) disabled @endif  type="radio" class="btn-check" name="status" id="success-outlined" autocomplete="off" @if($incidence->status == 2) checked @endif value="2">
+                                        <label class="btn btn-outline-success" for="success-outlined">{{__('In Process')}}</label>
+                                        
+                                        <input @if($incidence->status==4) disabled @endif  type="radio" class="btn-check" name="status" id="danger-outlined" autocomplete="off" value="4" data-bs-toggle="modal" data-bs-target="#confirmModal">
+                                        <label class="btn btn-outline-dark" for="danger-outlined">{{__('Complete')}}</label>
+                                    @elseif($incidence->status == 1)
+                                        <input @if($incidence->status==4) disabled @endif  type="radio" class="btn-check" name="status" id="success-outlined" autocomplete="off" @if($incidence->status == 1) checked @endif value="2">
+                                        <label class="btn btn-outline-success" for="success-outlined">{{__('Accept')}}</label>
+                                        
+                                        <input @if($incidence->status==4) disabled @endif  type="radio" class="btn-check" name="status" id="danger-outlined" autocomplete="off" @if($incidence->status == 3) checked @endif value="3">
+                                        <label class="btn btn-outline-danger" for="danger-outlined">{{__('Refuse')}}</label>
+                                    @elseif($incidence->status == 0)
+                                    <a href="{{route('incidences.resend',['id' => $incidence->id])}}" class="btn btn-outline-primary"><i class="align-middle" data-feather="send"></i></a>
+                                    @else
+                                        <button class="btn btn-outline-dark">{{__('Refused')}}</button>
+                                    @endif
                                 @endif
                             @endif
                         </div>
@@ -90,9 +98,11 @@
                         </div>
                         <div class="col-md-6 text-md-end">
                             <div class="text-muted">{{__('Agent')}}</div>
+                            @if($incidence->status != 4)
                             <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#defaultModalPrimary">
                                 <i class="align-middle" data-feather="edit"></i>
                             </button>
+                            @endif
                             <strong>{{$agent->name}}</strong>
                         </div>
                     </div>
@@ -114,8 +124,11 @@
                                 {{$order->expiration}}
                             </strong>
                             <div class="text-muted">{{__('Control Day')}}</div>
-                            <strong>
-                                <input class="form-control" type="date" id="closed" name="closed" value="{{$incidence->closed->format('Y-m-d')}}" />
+                            <strong class="input-group">
+                                <input @if($incidence->status==4) disabled @endif  class="form-control" type="date" id="closed" name="closed" value="{{$incidence->closed->format('Y-m-d')}}" />
+                                @if($incidence->status != 4)
+                                <button class="btn btn-outline-primary" id="button-send"><i class="align-middle" data-feather="save"></i></button>
+                                @endif
                             </strong>
                         </div>
                     </div>
@@ -135,8 +148,10 @@
                     </div>
                     
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" name="message" placeholder="{{__('Body message')}}" aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <input @if($incidence->status==4) disabled @endif  type="text" class="form-control" name="message" placeholder="{{__('Body message')}}" aria-label="Recipient's username" aria-describedby="button-addon2">
+                        @if($incidence->status != 4)
                         <button class="btn btn-outline-primary" id="button-addon2"><i class="align-middle" data-feather="send"></i></button>
+                        @endif
                     </div>
                 </div>
             </form>

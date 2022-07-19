@@ -188,9 +188,6 @@ class IncidenceController extends Controller
 
     public function modify($id, Request $request) {
         $log = new AuditionController();
-        $validated = $request->validate([
-            'message' => 'required'
-        ]);
         $incidence = Incidence::find($id);
         $old_incidence = Incidence::find($id);
 
@@ -206,7 +203,11 @@ class IncidenceController extends Controller
         $comments = json_decode($incidence->comments);
 
         if($request->get('status')!=4) {
-            $body_message['message'] = $request->get('message');
+            if($request->get('message') == null) {
+                $body_message['message'] = 'Modify control day: '.$incidence->closed;
+            } else {
+                $body_message['message'] = $request->get('message');
+            }
             $body_message['owner'] = auth()->user()->name;
             $body_message['type'] = 'user';
             $body_message['date'] = Carbon::now();

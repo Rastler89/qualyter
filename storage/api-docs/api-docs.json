@@ -1,0 +1,95 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "OptimaQuality API",
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000",
+            "description": "Test"
+        },
+        {
+            "url": "https://optimaquality.es",
+            "description": "Production"
+        }
+    ],
+    "paths": {
+        "/api/answers/today/carried": {
+            "get": {
+                "summary": "Show stadistics",
+                "operationId": "d1a6e79666a4a05cdf6b675ea6018f8b",
+                "responses": {
+                    "200": {
+                        "description": "Show stadistics for today",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "type": "boolean"
+                                        }
+                                    ]
+                                },
+                                "examples": {
+                                    "result": {
+                                        "summary": "Example",
+                                        "value": {
+                                            "finish": 0,
+                                            "porcentatge": -100,
+                                            "total": 0,
+                                            "complete": -100,
+                                            "cancelled": 0,
+                                            "cancelled_yesterday": 0
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error"
+                    }
+                }
+            }
+        },
+        "/api/answers/month/carried": {
+            "get": {
+                "summary": "Show stadistics",
+                "operationId": "10cbf210be9f6a54b8bf5d699845923f",
+                "responses": {
+                    "200": {
+                        "description": "Show stadistics for month",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "type": "boolean"
+                                        }
+                                    ]
+                                },
+                                "examples": {
+                                    "result": {
+                                        "summary": "Example",
+                                        "value": {
+                                            "finish": 0,
+                                            "porcentatge": -100,
+                                            "total": 0,
+                                            "complete": -100,
+                                            "cancelled": 0,
+                                            "cancelled_yesterday": 0
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error"
+                    }
+                }
+            }
+        }
+    }
+}

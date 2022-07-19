@@ -8,6 +8,7 @@
         "php": "^8.0",
         "barryvdh/laravel-translation-manager": "^0.6.1",
         "cmixin/business-day": "^1.14",
+        "darkaonline/l5-swagger": "^8.3",
         "fruitcake/laravel-cors": "^2.0.5",
         "guzzlehttp/guzzle": "^7.2",
         "kyslik/column-sortable": "^6.4",
