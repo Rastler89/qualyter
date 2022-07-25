@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Mail;
 use Carbon\Carbon;
 use App\Mail\NotifyMail;
+use Illuminate\Support\Str;
 
 class IncidenceController extends Controller
 {
@@ -144,8 +145,9 @@ class IncidenceController extends Controller
         $stores = Store::all();
         $clients = Client::all();
         $teams = Team::all();
+        $tasks = Task::all();
 
-        return view('admin.incidence.index', ['incidences' => $incidences, 'stores' => $stores, 'users' => $users, 'agents' => $agents, 'clients' => $clients, 'stores' => $stores, 'filters' => $filters, 'teams' => $teams]);
+        return view('admin.incidence.index', ['incidences' => $incidences, 'tasks' => $tasks, 'stores' => $stores, 'users' => $users, 'agents' => $agents, 'clients' => $clients, 'stores' => $stores, 'filters' => $filters, 'teams' => $teams]);
     }
 
     public function view($id) {
@@ -159,6 +161,37 @@ class IncidenceController extends Controller
         $owner = auth()->user();
 
         return view('admin.incidence.view', ['incidence' => $incidence, 'store' => $store[0], 'user' => $user, 'agent' => $agent, 'order' => $order, 'comments' => $comments, 'agents' => $agents, 'owner' => $owner]);
+    }
+
+    public function create(Request $request) {
+        $filters = $request->query();
+        if(isset($filters['filtered']) && isset($filters['filters'])) {
+            $filters = $filters['filters'];
+        }
+
+        $body = null;
+        $body[0]['message'] = $request['message'];
+        $body[0]['owner'] = auth()->user()->name;
+        $body[0]['type'] = 'user';
+
+        $store = Store::where('code','=',$request['store'])->get();
+
+        $incidence = new Incidence();
+
+        $incidence->responsable = auth()->user()->id;
+        $incidence->owner = $request['agent'];
+        $incidence->impact = $request['impact'];
+        $incidence->status = 0;
+        $incidence->comments = json_encode($body);
+        $incidence->client = $store[0]->client;
+        $incidence->store = $request['store'];
+        $incidence->order = $request['task'];
+        $incidence->token = Str::random(8);
+        $incidence->closed = $request['control'];
+
+        $incidence->save();
+
+        return view('admin.incidence.index', ['filters' => $filters])->with('success', 'Incidence created!');
     }
 
     public function changeAgent($id, Request $request) {

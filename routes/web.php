@@ -91,6 +91,7 @@ Route::group(['middleware' => 'auth'], function () {
     
     //INCIDENCE
     Route::get('incidences', [App\Http\Controllers\IncidenceController::class, 'index'])->middleware('permission:view-incidences')->name('incidences');
+    Route::post('incidences', [App\Http\Controllers\IncidenceController::class, 'create'])->middleware('permission:change-incidences')->name('incidences.create');
     Route::get('incidences/{id}', [App\Http\Controllers\IncidenceController::class, 'view'])->middleware('permission:response-incidences')->name('incidences.view');
     Route::post('incidences/{id}/changeAgent', [App\Http\Controllers\IncidenceController::class, 'changeAgent'])->middleware('permission:change-incidences')->name('incidences.changeAgent');
     Route::post('incidences/{id}', [App\Http\Controllers\IncidenceController::class, 'modify'])->middleware('permission:response-incidences')->name('incidences.modify');

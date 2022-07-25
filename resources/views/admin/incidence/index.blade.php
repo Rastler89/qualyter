@@ -7,6 +7,7 @@
 @section('content')
 <div class="btn-group" role="group" aria-label="Basic outlined example">
   <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#filters"><i class="align-middle" data-feather="filter"></i></button>
+  <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#addIncidence"><i class="align-middle" data-feather="plus"></i></button>
 </div>
 
 <!-- Start filter -->
@@ -134,6 +135,76 @@
 </div>
 </form>
 <!-- End Filter -->
+<form method="POST">
+    @csrf
+<div class="modal fade" id="addIncidence" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addIncidence" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="store" class="form-label">{{__('Store')}}</label>
+                                <input class="form-control" list="stores" id="store" name="store" placeholder="{{__('Type to search...')}}"/>
+                                <datalist id="stores">
+                                    @foreach($stores as $store)  
+                                        <option value="{{$store->code}}">{{$store->code}} - {{$store->name}}</option>
+                                    @endforeach"
+                                </datalist>
+                            </div>
+                            <div class="mb-3">
+                                <label for="agent" class="form-label">{{__('Agent')}}</label>
+                                <input class="form-control" list="agents" id="agent" name="agent" placeholder="{{__('Type to search...')}}" />
+                                <datalist id="agents">
+                                    @foreach($agents as $agent)  
+                                        <option value="{{$agent->id}}">{{$agent->name}}</option>
+                                    @endforeach
+                                </datalist>
+                            </div>
+                            <div class="mb-3">
+                                <label for="task" class="form-label">{{__('Work Order')}}</label>
+                                <input class="form-control" list="tasks" id="task" name="task" placeholder="{{__('Type to search...')}}" />
+                                <datalist id="tasks">
+                                    @foreach($tasks as $task)
+                                        <option value="{{$task->code}}">{{$task->code}} - {{$task->name}}</option>
+                                    @endforeach
+                                </datalist>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="control" class="form-label">{{__('Control day')}}</label>
+                                <input class="form-control" id="control" name="control" type="date" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="impact" class="form-label">{{__('Impact')}}</label>
+                                <select class="form-select form-select mb-3" id="impact" name="impact" required>
+                                    <option selected>{{__('Please select impact')}}</option>
+                                    <option value="0" style="background:red">{{__('Urgent')}}</option>
+                                    <option value="1" style="background:orange">{{__('High')}}</option>
+                                    <option value="2" style="background:yellow">{{__('Medium')}}</option>
+                                    <option value="3" style="background:green;color:white;">{{__('Low')}}</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">{{__("Message")}}</label>
+                                <textarea name="message" id="message" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__("Cancel")}}</button>
+                <button type="submit" class="btn btn-primary">{{__("Create")}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
 
 <table class="table table-hover table-striped">
     <thead>
