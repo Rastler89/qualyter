@@ -391,7 +391,7 @@ class AnswerController extends Controller
         }
 
         if(!empty($filters['start_date_closing']) && $filters['start_date_closing'] != '') {
-            if(!empty($filters['end_date_closing']) && $filters['end_date_closed'] != '') {
+            if(!empty($filters['end_date_closing']) && $filters['end_date_closing'] != '') {
                 $pre_answers->whereBetween('expiration',[$filters['start_date_closing'],$filters['end_date_closing']]);
             } else {
                 $pre_answers->where('expiration','>=',$filters['start_date_closing']);
