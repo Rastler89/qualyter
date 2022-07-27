@@ -368,7 +368,11 @@ class AnswerController extends Controller
 
         if(!empty($filters['start_date_created']) && $filters['start_date_created'] != '') {
             if(!empty($filters['end_date_created']) && $filters['end_date_created'] != '') {
-                $pre_answers->whereBetween('created_at',[$filters['start_date_created'],$filters['end_date_created']]);
+                if($filters['start_date_created']==$filters['end_date_created']) {
+                    $pre_answers->whereBetween('created_at',[$filters['start_date_created'].' 00:00:00',$filters['end_date_created'].' 23:59:59']);
+                } else {
+                    $pre_answers->whereBetween('created_at',[$filters['start_date_created'],$filters['end_date_created']]);
+                }
             } else {
                 $pre_answers->where('created_at','>=',$filters['start_date_created']);
             }
@@ -380,7 +384,11 @@ class AnswerController extends Controller
 
         if(!empty($filters['start_date_closed']) && $filters['start_date_closed'] != '') {
             if(!empty($filters['end_date_closed']) && $filters['end_date_closed'] != '') {
-                $pre_answers->whereBetween('updated_at',[$filters['start_date_closed'],$filters['end_date_closed']]);
+                if($filters['start_date_created']==$filters['end_date_created']) {
+                    $pre_answers->whereBetween('updated_at',[$filters['start_date_closed'].' 00:00:00',$filters['end_date_closed'].' 23:59:59']);
+                } else {
+                    $pre_answers->whereBetween('updated_at',[$filters['start_date_closed'],$filters['end_date_closed']]);
+                }
             } else {
                 $pre_answers->where('updated_at','>=',$filters['start_date_closed']);
             }
@@ -392,7 +400,11 @@ class AnswerController extends Controller
 
         if(!empty($filters['start_date_closing']) && $filters['start_date_closing'] != '') {
             if(!empty($filters['end_date_closing']) && $filters['end_date_closing'] != '') {
-                $pre_answers->whereBetween('expiration',[$filters['start_date_closing'],$filters['end_date_closing']]);
+                if($filters['start_date_created']==$filters['end_date_created']) {
+                    $pre_answers->whereBetween('expiration',[$filters['start_date_closing'].' 00:00:00',$filters['end_date_closing'].' 23:59:59']);
+                } else {
+                    $pre_answers->whereBetween('expiration',[$filters['start_date_closing'],$filters['end_date_closing']]);
+                }
             } else {
                 $pre_answers->where('expiration','>=',$filters['start_date_closing']);
             }
