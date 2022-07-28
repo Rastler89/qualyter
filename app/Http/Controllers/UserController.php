@@ -81,6 +81,8 @@ class UserController extends Controller
         $user = User::find(auth()->user()->id);
 
         $user->name = $request->get('name');
+        $user->token = $request->get('token');
+        $user->phone = $request->get('phone');
         $user->save();
 
         return redirect()->route('profile')->with('success','Update your name!');

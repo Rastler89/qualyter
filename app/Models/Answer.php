@@ -21,7 +21,8 @@ class Answer extends Model implements Auditable
         'token',
         'client',
         'created_at',
-        'user'
+        'user',
+        'callId'
     ];
 
     public $sortable = [

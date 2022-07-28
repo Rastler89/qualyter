@@ -34,6 +34,14 @@
                                             <label class="form-label" for="inputUsername">{{__('Username')}}</label>
                                             <input type="text" class="form-control" id="inputUsername" placeholder="Username" name="name" value="{{auth()->user()->name}}">
                                         </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="token">{{__('Token Ringover')}}</label>
+                                            <input type="text" class="form-control" id="token" placeholder="TokenCall" name="token" value="{{$user->token}}" />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="phone">{{__('Phone Number')}}</label>
+                                            <input type="phone" class="form-control" id="phone" placeholder="PhoneNumber" name="phone" value="{{$user->phone}}" />
+                                        </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="text-center">

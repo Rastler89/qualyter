@@ -18,6 +18,7 @@ use App\Mail\NotifyMail;
 use App\Mail\StoreMail;
 use App\Mail\ResponseMail;
 use App\Mail\TechnicianMail;
+use Artisan;
 
 class AnswerController extends Controller
 {
@@ -29,7 +30,9 @@ class AnswerController extends Controller
         if(isset($filters['filtered'])  && isset($filters['filters'])) {
             $filters = $filters['filters'];
         } else {
-            $filters['start_date_closing'] = date('Y-m-d',strtotime("-7 days"));
+            if(count($filters)==0) {
+                $filters['start_date_closing'] = date('Y-m-d',strtotime("-7 days"));
+            }
         }
 
 
@@ -71,7 +74,11 @@ class AnswerController extends Controller
 
         if(!empty($filters['start_date_created']) && $filters['start_date_created'] != '') {
             if(!empty($filters['end_date_created']) && $filters['end_date_created'] != '') {
-                $pre_answers->whereBetween('created_at',[$filters['start_date_created'],$filters['end_date_created']]);
+                if($filters['start_date_created']==$filters['end_date_created']) {
+                    $pre_answers->whereBetween('created_at',[$filters['start_date_created'].' 00:00:00',$filters['end_date_created'].' 23:59:59']);
+                } else {
+                    $pre_answers->whereBetween('created_at',[$filters['start_date_created'],$filters['end_date_created']]);
+                }
             } else {
                 $pre_answers->where('created_at','>=',$filters['start_date_created']);
             }
@@ -82,8 +89,12 @@ class AnswerController extends Controller
         }
 
         if(!empty($filters['start_date_closing']) && $filters['start_date_closing'] != '') {
-            if(!empty($filters['end_date_closing']) && $filters['end_date_closed'] != '') {
-                $pre_answers->whereBetween('expiration',[$filters['start_date_closing'],$filters['end_date_closing']]);
+            if(!empty($filters['end_date_closing']) && $filters['end_date_closing'] != '') {
+                if($filters['start_date_created']==$filters['end_date_created']) {
+                    $pre_answers->whereBetween('expiration',[$filters['start_date_closing'].' 00:00:00',$filters['end_date_closing'].' 23:59:59']);
+                } else {
+                    $pre_answers->whereBetween('expiration',[$filters['start_date_closing'],$filters['end_date_closing']]);
+                }
             } else {
                 $pre_answers->where('expiration','>=',$filters['start_date_closing']);
             }
@@ -102,12 +113,17 @@ class AnswerController extends Controller
 
         return view('admin.task.index',['answers' => $answers, 'stores' => $stores, 'clients' => $clients, 'id' => $id, 'agents' => $agents, 'filters' => $filters]);
     }
-
+    
     public function view($id) {
         $log = new AuditionController();
         $answer = Answer::find($id);
         $old_answer = Answer::find($id);
+        
+        $store = Store::where('code','=',$answer->store)->where('client','=',$answer->client)->first();
 
+        $artisan = Artisan::call('call:store',['user'=>auth()->user()->id, 'answerId'=>$answer->id]);
+        $output = Artisan::output();
+        
         //Add user and modify status
         $answer->status = 1;
         $answer->user = auth()->user()->id;
@@ -117,7 +133,6 @@ class AnswerController extends Controller
             $log->saveLog($old_answer,$answer,'a');
         }
 
-        $store = Store::where('code','=',$answer->store)->where('client','=',$answer->client)->first();
         $agents = Agent::all();
         $tasks = Task::where('answer_id','=',$answer->id)->get();
         foreach($tasks as $task) {
@@ -494,6 +509,7 @@ class AnswerController extends Controller
         } else {
             $owners = false;
         }
+        $answer->calls = $this->getCalls($answer);
         
         return view('admin.answer.view', ['answer' => $answer, 'store' => $store, 'answers' => $res, 'tasks' => $tasks, 'agents' => $agents, 'owners' => $owners]);
     }
@@ -586,5 +602,25 @@ class AnswerController extends Controller
         foreach($emails as $email) {
             Mail::to($email)->locale($body['store']->language)->send(new TechnicianMail($body));
         }
+    }
+
+    private function getCalls($answer) {
+        $call = [];
+        $callIds = json_decode($answer->callId,true);
+        foreach($callIds as $callid) {
+            $url = "https://public-api.ringover.com/v2/calls/".$callid;
+            $authorization = 'Authorization: 138a032c631da0db13b4d1252742ebb2ce17599a';
+
+            $curl = curl_init();
+            curl_setopt($curl, CURLOPT_URL, $url);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json',$authorization));
+
+            $response = curl_exec($curl);
+            $response = json_decode($response,true);
+
+            $call[] = $response['list'][0];
+        }
+        return $response;
     }
 }

@@ -19,6 +19,10 @@
             <p><strong>{{__('Expiration')}}</strong></p>
             <p>{{$answer->expiration}}</p>
           </div>
+          <div class="col">
+            <p></p>
+            <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#callInfo">{{__('Info Calls')}}</button>
+          </div>
         </div>
       </div>
     </div>
@@ -120,6 +124,26 @@
 </div>
   @endif
 </div>
+
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="CallInfo" id="callInfo" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="CallInfo">{{__('Information Calls')}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body m-3">
+      @foreach($answer->calls as $call)
+        {{$call->call_id}}
+      @endforeach
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dimiss="modal">{{__('Close')}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 @endsection
 
 @section('javascript')
