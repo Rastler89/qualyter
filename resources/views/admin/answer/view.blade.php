@@ -1,5 +1,9 @@
 @extends('layouts.dashboard')
 
+@section('styles')
+<link rel="stylesheet" href="{{ asset("css/essential_audio.css") }}">
+@endsection
+
 @section('content')
 <div class="row">
   <div class="col-6 d-grid gap-2 d-md-flex mb-3">
@@ -21,7 +25,9 @@
           </div>
           <div class="col">
             <p></p>
+            @if($answer->calls != null && $answer->calls != '')
             <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#callInfo">{{__('Info Calls')}}</button>
+            @endif
           </div>
         </div>
       </div>
@@ -133,13 +139,31 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body m-3">
+      @if($answer->calls != null && $answer->calls != '')
       @foreach($answer->calls as $call)
-        {{$call->call_id}}
+        <p style="font-size: 0.75em">{{__("Call ID")}}: {{$call['call_id']}}</p>
+        <p style="font-size: 0.75em">{{__("Status")}}: <strong>{{$call['last_state']}}</strong></p>
+        <table style="font-size:0.75em;width:100%">
+          <tr>
+            <td>{{__("Init call")}}: {{$call['start_time']}}</td>
+            <td>{{__("Answered call")}}: {{$call['answered_time']}}</td>
+            <td>{{__("Finish call")}}: {{$call['end_time']}}</td>
+          </tr>
+          <tr>
+            <td>{{__("Total duration")}}: {{$call['total_duration']}}</td>
+            <td>{{__("Incall duration")}}: {{$call['incall_duration']}}</td>
+          </tr>
+        </table>
+        @if($call['record']!=null) 
+        <div class="m-3 essential_audio" data-url="{{$call['record']}}">
+          <span class="no_js">Please activate JavaScript for the audio player.</span>
+        </div>
+        @endif
+        <hr>
       @endforeach
+      @endif
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dimiss="modal">{{__('Close')}}</button>
-      </div>
+
     </div>
   </div>
 </div>
@@ -147,6 +171,7 @@
 @endsection
 
 @section('javascript')
+<script  src="{{ asset("js/essential_audio.js") }}"></script>
 <script>
 $(document).ready(function() {
   $('#addIncidence').click(function(event) {

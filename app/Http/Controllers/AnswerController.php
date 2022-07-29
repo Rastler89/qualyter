@@ -509,7 +509,9 @@ class AnswerController extends Controller
         } else {
             $owners = false;
         }
-        $answer->calls = $this->getCalls($answer);
+        if($answer->calls != null || $answer->calls != '') {
+            $answer->calls = $this->getCalls($answer);
+        }
         
         return view('admin.answer.view', ['answer' => $answer, 'store' => $store, 'answers' => $res, 'tasks' => $tasks, 'agents' => $agents, 'owners' => $owners]);
     }
@@ -621,6 +623,6 @@ class AnswerController extends Controller
 
             $call[] = $response['list'][0];
         }
-        return $response;
+        return $call;
     }
 }
