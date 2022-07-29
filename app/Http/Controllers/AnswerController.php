@@ -593,6 +593,7 @@ class AnswerController extends Controller
                     
                     Mail::to($agent->email)->send(new NotifyMail($body));
                     Mail::to($user->email)->send(new NotifyMail($body));
+                    Mail::to('fran.ullod@optimaretail.es')->send(new NotifyMail($body));
                 }
 
                 $body = null;

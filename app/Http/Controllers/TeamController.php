@@ -11,11 +11,7 @@ class TeamController extends Controller
     public function index()
     {
         $teams = Team::all();
-        $manager = User::whereHas(
-            'roles', function($q){
-                $q->where('name', 'manager');
-            }
-        )->get();
+        $manager = User::where('status','=',1)->get();
         return view('admin.teams.index',['teams'=>$teams, 'managers' => $manager]);
     }
 
