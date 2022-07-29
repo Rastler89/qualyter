@@ -69,6 +69,7 @@ foreach($managers as $manager) {
                     <button class="btn btn-success" id="sendTeam{{$team->id}}" style="visibility:hidden">{{__("Save team")}}</button>
                 </td>
             </tr>
+            </form>
         @endforeach
     </tbody>
 </table>
