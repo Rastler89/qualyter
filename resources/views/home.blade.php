@@ -325,7 +325,7 @@
 									<h5 class="card-title mb-0">{{__("Evolution")}}</h5>
 								</div>
 								<div class="card-body d-flex w-100">
-									<div class="align-self-center chart chart-lg">
+									<div class="align-self-center chart chart-lg" id="evolutionChart">
 										<canvas id="chartjs-dashboard-bar"></canvas>
 									</div>
 								</div>
@@ -340,6 +340,9 @@
 		/* When the openFullscreen() function is executed, open the video in fullscreen.
 		Note that we must include prefixes for different browsers, as they don't support the requestFullscreen method yet */
 		function pantallaCompleta(element) { 
+			if(element == 'evolution') {
+				$('#evolutionChart').css('height',"90vh");
+			}
 			var isInFullScreen = (document.fullscreenElement && document.fullscreenElement !== null) ||
 				(document.webkitFullscreenElement && document.webkitFullscreenElement !== null) ||
 				(document.mozFullScreenElement && document.mozFullScreenElement !== null) ||
@@ -706,6 +709,7 @@ function dashboards() {
 				}]
             },
             options: {
+				responsive: true,
                 maintainAspectRatio: false,
                 legend: {
                     display: true
@@ -713,11 +717,13 @@ function dashboards() {
                 scales: {
                     yAxes: [{
                         gridLines: {
-                            display: false
+                            display: true
                         },
+						min: 2,
                         stacked: false,
                         ticks: {
-                            stepSize: 10
+							min: 3,
+                            stepSize: 0.10
                         }
                     }],
                     xAxes: [{
