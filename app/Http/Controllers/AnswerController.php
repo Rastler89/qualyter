@@ -374,7 +374,7 @@ class AnswerController extends Controller
 
         if(!empty($filters['agent']) && $filters['agent'] != '') {
             $id=[];
-            $tasks = Task::where('owner','=',$filters['agent']);
+            $tasks = Task::where('owner','=',$filters['agent'])->get();
             foreach($tasks as $t) {
                 $id[] = $t->answer_id;
             }

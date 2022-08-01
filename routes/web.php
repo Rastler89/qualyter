@@ -104,7 +104,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('teams/edit/{id}',[App\Http\Controllers\TeamController::class, 'update'])->name('team.update');
 
     // EXPORTS
-    Route::post('export/answer', [App\Http\Controllers\ExportController::class, 'answer'])->name('export.answer');
+    Route::get('export/answer', [App\Http\Controllers\ExportController::class, 'answer'])->name('export.answer');
 });
 // INCIDENCE
 Route::get('agent/incidence/{id}', [App\Http\Controllers\IncidenceController::class, 'response'])->name('incidences.agent');

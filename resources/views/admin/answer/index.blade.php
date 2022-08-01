@@ -3,7 +3,8 @@
 @section('content')
 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
     <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#filters"><i class="align-middle" data-feather="filter"></i></button>
-    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#downloadCSV"><i class="align-middle" data-feather="download"></i></button>
+    <?php if(count($filters)==0) $filters = 'none' ?>
+    <a href="{{route('export.answer',['filters' => $filters])}}" type="button" class="btn btn-outline-success"><i class="align-middle" data-feather="download"></i></a>
 </div>
 
 <form method="GET">
@@ -110,50 +111,7 @@
 </div>
 </form>
 
-<div class="modal fade" id="downloadCSV" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">{{__('Export CSV')}}*</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    </div>
-    <form method="POST" action="{{route('export.answer')}}">
-        @csrf
-        <p style="text-align:center;font-size:0.7em">*{{__("will only export between the dates indicated")}}</p>
-        <div class="modal-body">
-        <label>{{__('Search among')}}:</label>
-        <div class="input-group mb-3">
-            <input type="date" name="start_date" class="form-control" aria-label="{{__('Start date')}}">
-            <span class="input-group-text"><-></span>
-            <input type="date" name="end_date" class="form-control" aria-label="{{__('End date')}}">
-        </div>
-        <div class="mb-3">
-            <label for="client" class="form-label">{{__('Client')}}</label>
-            <input class="form-control" list="clients" id="client" name="client" placeholder="{{__('Type to search...')}}" />
-            <datalist id="clients">
-                @foreach($clients as $client)  
-                    <option value="{{$client->id}}">{{$client->name}}</option>
-                @endforeach
-            </datalist>
-        </div>
-        <div class="mb-3">
-            <label for="store" class="form-label">{{__('Store')}}</label>
-            <input class="form-control" list="stores" id="store" name="store" placeholder="{{__('Type to search...')}}" />
-            <datalist id="stores">
-                @foreach($stores as $store)  
-                    <option value="{{$store->code}}">{{$store->name}}</option>
-                @endforeach
-            </datalist>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__('Close')}}</button>
-        <button class="btn btn-success">{{__('Export')}}</button>
-      </div>
-</form>
-    </div>
-  </div>
-</div>
+
 <table class="table table-hover table-striped">
     <thead>
         <tr>
