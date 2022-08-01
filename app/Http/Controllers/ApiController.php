@@ -196,6 +196,28 @@ class ApiController extends Controller
        
     }
 
+    public function evolution() {
+        $month = date('m');
+        $time = [];
+        for($i=1; $i<=12; $i++) {
+            $year = date('Y');
+            $lastday = date('Y-m-t', mktime(0,0,0, $month-$i, 1, $year));
+            $firstday = date('Y-m-d', mktime(0,0,0, $month-$i, 1, $year));
+
+            $actual_month = date('M',mktime(0,0,0, $month-$i, 1, $year));
+
+            $all_answers = Answer::whereIn('status',[2,4,5])->whereBetween('expiration',[$firstday,$lastday])->get();
+            $arr['results'] = $this->media($all_answers);
+
+            $arr['first'] = $firstday;
+            $arr['last'] = $lastday;
+            
+
+            $time[$actual_month] = $arr;
+        }
+        return response()->json($time);
+    }
+
     public function emails(Request $request) {
         $body = json_decode($request->getContent(), true);
         
