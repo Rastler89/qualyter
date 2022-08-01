@@ -318,9 +318,9 @@
 								</table>
 							</div>
 						</div>
-						<div class="col-12 col-lg-4 col-xxl-3 d-flex">
+						<div class="col-12 col-lg-4 col-xxl-3 d-flex" id="evolution">
 							<div class="card flex-fill w-100">
-								<div class="card-header">
+								<div class="card-header" onclick="pantallaCompleta('evolution') "id="actevolution">
 
 									<h5 class="card-title mb-0">{{__("Evolution")}}</h5>
 								</div>
@@ -353,8 +353,8 @@
 				} else if (elem.msRequestFullscreen) { /* IE11 */
 					elem.msRequestFullscreen();
 				}
-				$('#act'+element).css('display','none');
-				$('#des'+element).css('display','block');
+				//$('#act'+element).css('display','none');
+				//$('#des'+element).css('display','block');
 			} else {
 				if (elem.exitFullscreen) {
 					elem.exitFullscreen();
@@ -639,18 +639,71 @@ function dashboards() {
 
 	$.get('/api/evolution', function(res) {
 		// Bar chart
-		console.log(res.May.results[0]);
         new Chart(document.getElementById("chartjs-dashboard-bar"), {
             type: "line",
             data: {
                 labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
                 datasets: [{
-                    label: "This year",
-					borderColor: 'rgb(75,192,192)',
+                    label: "General",
+					borderColor: 'rgb(0, 134, 255)',
 					tension: 0.1,
 					fill: false,
-                    data: [res.Jan.results[0], res.Feb.results[0], res.Mar.results[0], res.Apr.results[0], res.May.results[0], res.Jun.results[0], res.Jul.results[0], res.Aug.results[0], res.Sep.results[0], res.Oct.results[0], res.Nov.results[0], res.Dec.results[0]],
-                }]
+                    data: [res.Jan.general.results[0], res.Feb.general.results[0], res.Mar.general.results[0], res.Apr.general.results[0], res.May.general.results[0], res.Jun.general.results[0], res.Jul.general.results[0], res.Aug.general.results[0], res.Sep.general.results[0], res.Oct.general.results[0], res.Nov.general.results[0], res.Dec.general.results[0]],
+                }, {
+					borderColor: '#488f31',
+					label: 'Equipo 1',
+					tension: 0.1,
+					fill: false,
+                    data: [res.Jan.eq1.results[0], res.Feb.eq1.results[0], res.Mar.eq1.results[0], res.Apr.eq1.results[0], res.May.eq1.results[0], res.Jun.eq1.results[0], res.Jul.eq1.results[0], res.Aug.eq1.results[0], res.Sep.eq1.results[0], res.Oct.eq1.results[0], res.Nov.eq1.results[0], res.Dec.eq1.results[0]],
+				}, {
+					borderColor: '#75a760',
+					label: 'Equipo 2',
+					tension: 0.1,
+					fill: false,
+                    data: [res.Jan.eq2.results[0], res.Feb.eq2.results[0], res.Mar.eq2.results[0], res.Apr.eq2.results[0], res.May.eq2.results[0], res.Jun.eq2.results[0], res.Jul.eq2.results[0], res.Aug.eq2.results[0], res.Sep.eq2.results[0], res.Oct.eq2.results[0], res.Nov.eq2.results[0], res.Dec.eq2.results[0]],
+				}, {
+					borderColor: '#9fc08f',
+					label: 'Equipo 3',
+					tension: 0.1,
+					fill: false,
+                    data: [res.Jan.eq3.results[0], res.Feb.eq3.results[0], res.Mar.eq3.results[0], res.Apr.eq3.results[0], res.May.eq3.results[0], res.Jun.eq3.results[0], res.Jul.eq3.results[0], res.Aug.eq3.results[0], res.Sep.eq3.results[0], res.Oct.eq3.results[0], res.Nov.eq3.results[0], res.Dec.eq3.results[0]],
+				}, {
+					borderColor: '#c8d8bf',
+					label: 'Equipo 4',
+					tension: 0.1,
+					fill: false,
+                    data: [res.Jan.eq4.results[0], res.Feb.eq4.results[0], res.Mar.eq4.results[0], res.Apr.eq4.results[0], res.May.eq4.results[0], res.Jun.eq4.results[0], res.Jul.eq4.results[0], res.Aug.eq4.results[0], res.Sep.eq4.results[0], res.Oct.eq4.results[0], res.Nov.eq4.results[0], res.Dec.eq4.results[0]],
+				}, {
+					borderColor: '#f1f1f1',
+					label: 'Equipo 5',
+					tension: 0.1,
+					fill: false,
+                    data: [res.Jan.eq5.results[0], res.Feb.eq5.results[0], res.Mar.eq5.results[0], res.Apr.eq5.results[0], res.May.eq5.results[0], res.Jun.eq5.results[0], res.Jul.eq5.results[0], res.Aug.eq5.results[0], res.Sep.eq5.results[0], res.Oct.eq5.results[0], res.Nov.eq5.results[0], res.Dec.eq5.results[0]],
+				}, {
+					borderColor: '#f1c6c6',
+					label: 'Equipo 6',
+					tension: 0.1,
+					fill: false,
+                    data: [res.Jan.eq6.results[0], res.Feb.eq6.results[0], res.Mar.eq6.results[0], res.Apr.eq6.results[0], res.May.eq6.results[0], res.Jun.eq6.results[0], res.Jul.eq6.results[0], res.Aug.eq6.results[0], res.Sep.eq6.results[0], res.Oct.eq6.results[0], res.Nov.eq6.results[0], res.Dec.eq6.results[0]],
+				}, {
+					borderColor: '#ec9c9d',
+					label: 'Equipo 7',
+					tension: 0.1,
+					fill: false,
+                    data: [res.Jan.eq7.results[0], res.Feb.eq7.results[0], res.Mar.eq7.results[0], res.Apr.eq7.results[0], res.May.eq7.results[0], res.Jun.eq7.results[0], res.Jul.eq7.results[0], res.Aug.eq7.results[0], res.Sep.eq7.results[0], res.Oct.eq7.results[0], res.Nov.eq7.results[0], res.Dec.eq7.results[0]],
+				}, {
+					borderColor: '#e27076',
+					label: 'Equipo 8',
+					tension: 0.1,
+					fill: false,
+                    data: [res.Jan.eq8.results[0], res.Feb.eq8.results[0], res.Mar.eq8.results[0], res.Apr.eq8.results[0], res.May.eq8.results[0], res.Jun.eq8.results[0], res.Jul.eq8.results[0], res.Aug.eq8.results[0], res.Sep.eq8.results[0], res.Oct.eq8.results[0], res.Nov.eq8.results[0], res.Dec.eq8.results[0]],
+				}, {
+					borderColor: '#de425b',
+					label: 'Equipo 9',
+					tension: 0.1,
+					fill: false,
+                    data: [res.Jan.eq9.results[0], res.Feb.eq9.results[0], res.Mar.eq9.results[0], res.Apr.eq9.results[0], res.May.eq9.results[0], res.Jun.eq9.results[0], res.Jul.eq9.results[0], res.Aug.eq9.results[0], res.Sep.eq9.results[0], res.Oct.eq9.results[0], res.Nov.eq9.results[0], res.Dec.eq9.results[0]],
+				}]
             },
             options: {
                 maintainAspectRatio: false,
