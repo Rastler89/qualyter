@@ -45,10 +45,12 @@
                         <label for="email" class="form-label">{{__("Email")}}</label>
                         <textarea class="form-control" id="email" name="email" row="3">@if ($store != null) {{$store->email}} @endif</textarea>
                     </div>
-                    @if($store->language != null) 
-                    <div class="mb-3">
-                        <label for="language" class="form-label"><strong>{{__("Language")}}:</strong>{{$store->language}}</label>
-                    </div>
+                    @if($store != null)
+                        @if($store->language != null) 
+                        <div class="mb-3">
+                            <label for="language" class="form-label"><strong>{{__("Language")}}:</strong>{{$store->language}}</label>
+                        </div>
+                        @endif
                     @endif
                     <div class="mb-3">
                         <label for="country" class="form-label">{{__('Country')}}</label>
