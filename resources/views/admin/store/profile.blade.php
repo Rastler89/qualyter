@@ -45,6 +45,11 @@
                         <label for="email" class="form-label">{{__("Email")}}</label>
                         <textarea class="form-control" id="email" name="email" row="3">@if ($store != null) {{$store->email}} @endif</textarea>
                     </div>
+                    @if($store->language != null) 
+                    <div class="mb-3">
+                        <label for="language" class="form-label"><strong>{{__("Language")}}:</strong>{{$store->language}}</label>
+                    </div>
+                    @endif
                     <div class="mb-3">
                         <label for="country" class="form-label">{{__('Country')}}</label>
                         <input class="form-control" list="countries" @if($store!=null) value="--" @endif id="country" name="country" placeholder="{{__('Type to search...')}}" />
