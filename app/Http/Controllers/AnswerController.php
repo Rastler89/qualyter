@@ -108,6 +108,10 @@ class AnswerController extends Controller
         $answer = Answer::find($id);
         $old_answer = Answer::find($id);
 
+        if($answer->status != 1 || $answer->status != 0 ) {
+            abort(403, 'Unauthorized action.');
+        }
+
         //Add user and modify status
         $answer->status = 1;
         $answer->user = auth()->user()->id;
