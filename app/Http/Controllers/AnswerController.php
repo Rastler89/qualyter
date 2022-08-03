@@ -494,7 +494,14 @@ class AnswerController extends Controller
         $agents = Agent::all();
         $store = Store::where('code','=',$answer->store)->first();
         $tasks = Task::where('answer_id','=',$answer->id)->get();
-        
+
+        $incidence = [];
+        foreach($tasks as $task) {
+            $code = '%'.str_replace('/','%',$task->code).'%';
+            $inc = Incidence::where('order','like',$code)->get();
+            $incidence[] = $inc[0];
+        }
+
         $res = [];
         $answers = json_decode($answer->answer,true);
         foreach($answers['valoration'] as $index => $an) {
@@ -512,8 +519,7 @@ class AnswerController extends Controller
         if($answer->calls != null || $answer->calls != '') {
             $answer->calls = $this->getCalls($answer);
         }
-        
-        return view('admin.answer.view', ['answer' => $answer, 'store' => $store, 'answers' => $res, 'tasks' => $tasks, 'agents' => $agents, 'owners' => $owners]);
+        return view('admin.answer.view', ['answer' => $answer, 'store' => $store, 'answers' => $res, 'tasks' => $tasks, 'agents' => $agents, 'owners' => $owners, 'incidences' => $incidence]);
     }
 
     public function revised(Request $request, $id) {

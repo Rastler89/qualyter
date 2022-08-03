@@ -35,26 +35,53 @@
   </div>
 </div>
 <div class="row">
-  <div class="@if($answer->status == 2 || $answer->status == 5) col-12 col-sm-12 @else col-4 col-sm-4 @endif">
-    @if($answer->status != 2 && $answer->status != 5)
-    <div class="accordion" id="workOrder" style="position:sticky;display:none;">
-      @foreach($tasks as $task)
+  <div class="@if($answer->status == 2 || $answer->status == 5) col-4 col-sm-4 @else col-3 col-sm-3 @endif">
+  <div class="accordion" id="especial" style="position:sticky;">
       <div class="accordion-item">
         <h2 class="accordion-header">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{$loop->index}}" aria-expanded="true" aria-controls="collapse{{$loop->index}}">
-            {{$task->code}} {{$task->name}}
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#ots" aria-expanded="true" aria-controls="#ots">
+            <h3>OT</h3>
           </button>
         </h2>
-        <div id="collapse{{$loop->index}}" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#workOrder">
-          <div class="accordion-body">
-            <p><strong>@foreach($agents as $agent) @if($agent->id==$task->owner) {{$agent->name}} @endif @endforeach</strong></p>
-            <p>{{$task->priority}}</p>
+        <div id="ots" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#especial">
+          <div class="accordion" id="workOrder" style="position:sticky;">
+            @foreach($tasks as $task)
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{$loop->index}}" aria-expanded="true" aria-controls="collapse{{$loop->index}}">
+                  {{$task->code}} {{$task->name}}
+                </button>
+              </h2>
+              <div id="collapse{{$loop->index}}" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#workOrder">
+                <div class="accordion-body">
+                  <p><strong>@foreach($agents as $agent) @if($agent->id==$task->owner) {{$agent->name}} @endif @endforeach</strong></p>
+                  <p>{{$task->priority}}</p>
+                </div>
+              </div>
+            </div>
+            @endforeach
           </div>
         </div>
       </div>
-      @endforeach
-    </div>
-    @endif
+
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#incidences" aria-expanded="true" aria-controls="#incidences">
+            <h3>{{__('Incidence')}}</h3>
+          </button>
+        </h2>
+        <div id="incidences" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#especial">
+            <ul class="list-group">
+              @foreach($incidences as $incidence)
+              <li class="list-group-item"><a class="btn btn-outline-info" href="{{route('incidences.view',['id' => $incidence->id])}}" target="_blank">{{__('View more')}}</a></li>
+              @endforeach
+            </ul>
+        </div>
+      </div>
+</div>
+  </div>
+  <div class="@if($answer->status == 2 || $answer->status == 5) col-8 col-sm-8 @else col-3 col-sm-3 @endif">
+    
     <div class="accordion" id="answer" style="position:sticky;">
       @foreach($answers as $ans)
       <div class="accordion-item">
@@ -79,7 +106,7 @@
     </div>
   </div>
   @if($answer->status != 2 && $answer->status != 5) 
-  <div class="col-8 col-sm-8" id="bodyIncidence">
+  <div class="col-6 col-sm-6" id="bodyIncidence">
     <div id="anyIncidence">
       <h4>{{__('Has there been any impact on this visit?')}}</h4>
       <form method="POST" action="{{route('answers.complete', ['id' =>$answer->id])}}">

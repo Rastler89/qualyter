@@ -50,7 +50,7 @@ class CallStore extends Command
         if($user->token != null && $user->phone != null && $user->token != '' && $user->phone != '') {
             $post = [];
             $post['from_number'] = intval($user->phone);
-            $post['to_number'] = intval('34678048538');//$store->phonenumber;
+            $post['to_number'] = intval('34617370097');//$store->phonenumber;
             $post['timeout'] = 30;
             $post['device'] = 'SIP';
             //echo"<pre>";print_r(json_encode($post));echo"</pre>";die();
