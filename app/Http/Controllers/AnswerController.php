@@ -114,7 +114,7 @@ class AnswerController extends Controller
             } else if($answer->status == 3) {
                 return redirect()->route('tasks')->with('alert','This survey has been sent to shop');
             } else if($answer->status == 8) {
-                return redirect()->route('tasks')->with('danger','It was cancelled, reason: '.$asnwer->answer);
+                return redirect()->route('tasks')->with('danger','It was cancelled, reason: '.$answer->answer);
             } else {
                 abort(403, 'Unauthorized action.');
             }
