@@ -109,7 +109,15 @@ class AnswerController extends Controller
         $old_answer = Answer::find($id);
 
         if($answer->status > 1) {
-            abort(403, 'Unauthorized action.');
+            if($answer->status == 2 || $answer->status == 4 || $answer->status == 5) {
+                return redirect()->route('answers.view',['id' => $answer->id]);
+            } else if($answer->status == 3) {
+                return redirect()->route('tasks')->with('alert','This survey has been sent to shop');
+            } else if($answer->status == 8) {
+                return redirect()->route('tasks')->with('danger','It was cancelled, reason: '.$asnwer->answer);
+            } else {
+                abort(403, 'Unauthorized action.');
+            }
         }
 
         //Add user and modify status
