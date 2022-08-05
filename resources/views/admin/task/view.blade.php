@@ -52,8 +52,8 @@
           <div class="col" style="position:relative;">
             <p><strong>{{__('Phone Number')}}</strong></p>
             <a id="phoneNumber" class="btn btn-outline-primary" style="position:absolute;" href="tel:+@if($store->language=='ES' || $store->language==null || $store->language==' ') 34 @endif {{$store->phonenumber}}" onclick="initTime()">@if($store->phonenumber=='617370097') {{__("no phonenumber")}} @else {{$store->phonenumber}} @endif</a>
-            @if(is_null($store->email) || $store->email == '-')
-            <a id="notRespond" class="btn btn-danger" style="position:absolute;visibility:hidden;">{{__('No email')}}</a>
+            @if($store->email == '-')
+            <button id="notRespond" class="btn btn-danger" style="position:absolute;visibility:hidden;">{{__('No email')}}</button>
             @else
             <a id="notRespond" class="btn btn-danger" style="position:absolute;visibility:hidden;" href="{{route('tasks.notrespond', ['id'=>$answer->id])}}">{{__('Not respond')}}</a>
             @endif
@@ -386,7 +386,7 @@ function initTime() {
 
 function setTime() {
   ++totalSeconds;
-  if(totalSeconds == 30) {
+  if(totalSeconds == 20) {
     $('#phoneNumber').css('visibility','hidden');
     $('#notRespond').css('visibility','visible');
   } 

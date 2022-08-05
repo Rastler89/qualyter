@@ -108,7 +108,7 @@ class AnswerController extends Controller
         $answer = Answer::find($id);
         $old_answer = Answer::find($id);
 
-        if($answer->status != 1 && $answer->status != 0 ) {
+        if($answer->status > 1) {
             abort(403, 'Unauthorized action.');
         }
 
@@ -126,6 +126,10 @@ class AnswerController extends Controller
         $tasks = Task::where('answer_id','=',$answer->id)->get();
         foreach($tasks as $task) {
             $owners[] = $task->owner;
+        }
+
+        if(is_null($store->email) || $store->email == '') {
+            $store->email = '-';
         }
 
         $owners = Agent::find($owners);
