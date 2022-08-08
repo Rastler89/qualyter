@@ -98,22 +98,33 @@ class PublicController extends Controller
         $last_day = $this->last_month_day();
 
         $answers = Answer::where('client','=',$delegation->id)->where('status','<>','8')->whereBetween('expiration',[$first_day,$last_day])->get();
-        $visits += count($answers);
+        $visits = (int)count($answers);
+
+        $answers = Answer::where('client','=',$delegation->id)->whereIn('status',[2,3,4,5])->whereBetween('expiration',[$first_day,$last_day])->get();
+        $contacts = (int)count($answers);
 
         $answers = Answer::where('client','=',$delegation->id)->where('status','=','2')->whereBetween('expiration',[$first_day,$last_day])->get();
-        $qc += count($answers);
+        $qc = (int)count($answers);
 
         $answers = Answer::where('client','=',$delegation->id)->whereIn('status',[3,4,5])->whereBetween('expiration',[$first_day,$last_day])->get();
-        $send += count($answers);
+        $send = (int)count($answers);
 
         $answers = Answer::where('client','=',$delegation->id)->whereIn('status',[4,5])->whereBetween('expiration',[$first_day,$last_day])->get();
-        $resp += count($answers);
+        $resp = (int)count($answers);
+
+        $answers = Answer::where('client','=',$delegation->id)->whereIn('status',[2,4,5])->whereBetween('expiration',[$first_day,$last_day])->get();
+        $answered = (int)count($answers);
+
+        $per_con = number_format(($contacts/$visits)*100,2);
+        $per_ans = number_format(($answered/$contacts)*100,2);
 
         $body = [
             'visits' => $visits,
             'qc' => $qc,
             'send' => $send,
-            'resp' => $resp
+            'resp' => $resp,
+            'per_con' => $per_con,
+            'per_ans' => $per_ans
         ];
 
         return $body;
