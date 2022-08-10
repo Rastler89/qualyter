@@ -130,6 +130,12 @@ class ApiController extends Controller
         return response()->json($response);
     }
 
+    public function answered() {
+        $response = count(Answer::where('status','=','4')->get());
+
+        return response()->json($response);
+    }
+
     public function window(Request $request) {
         $body = json_decode($request->getContent(), true);
 
