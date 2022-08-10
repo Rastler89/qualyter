@@ -55,7 +55,7 @@ class AnswerController extends Controller
             $id=[];
             $tasks = Task::where('code','LIKE','%'.$filters['workOrder'].'%')->get();
             foreach($tasks as $t) {
-                if($t->answer_id == null) {
+                if($t->answer_id == null && $store->contact) {
                     $build_answer = Answer::where('expiration','=',date('Y-m-d', strtotime(str_replace('/','-',$t->expiration))))->where('store','=',$t->store)->first();
                     $build_store = Store::where('code','=',$t->store)->first();
                     if($build_answer == null) {
