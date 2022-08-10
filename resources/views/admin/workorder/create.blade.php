@@ -24,11 +24,11 @@
             <div class="card">
                 <div class="card-body">
                     <div class="mb-3">
-                        <label for="code" class="form-label">{{__('Code')}}</label>
+                        <label for="code" class="form-label">{{__('Code')}} <span style="font-size: 0.75em; color: red">{{__("Is public")}}</span></label>
                         <input type="text" class="form-control" id="code" name="code" value="{{old('code')}}" />
                     </div>
                     <div class="mb-3">
-                        <label for="name" class="form-label">{{__('Name')}}</label>
+                        <label for="name" class="form-label">{{__('Name')}} <span style="font-size: 0.75em; color: red">{{__("Is public")}}</span></label>
                         <input type="text" class="form-control" id="name" name="name" value="{{old('name')}}" />
                     </div>
                     <div class="mb-3">

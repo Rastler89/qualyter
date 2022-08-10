@@ -30,7 +30,7 @@
                         <input type="text" class="form-control" name="code" id="code" maxlength="10" @if ($store!=null) value="{{$store->code}}" @endif />
                     </div>
                     <div class="mb-3">
-                        <label for="name" class="form-label">{{__('Name')}}</label>
+                        <label for="name" class="form-label">{{__('Name')}} <span style="font-size: 0.75em; color: red">{{__("Is public")}}</span></label>
                         <input type="text" class="form-control" name="name" id="name" @if ($store!=null) value="{{$store->name}}" @endif/>
                     </div>
                     <div class="mb-3 form-check form-switch">
