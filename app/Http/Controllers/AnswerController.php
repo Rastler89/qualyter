@@ -64,9 +64,9 @@ class AnswerController extends Controller
                         $build_answer->status = 0;
                         $build_answer->store = $t->store;
                         $build_answer->client = ($build_store['client']==null || $build_store['client']=='') ? 1 : $build_store['client'];
+                        $build_answer->token = Str::random(8);
+                        $build_answer->save();
                     }
-                    $build_answer->token = Str::random(8);
-                    $build_answer->save();
                     $build_answer->tasks()->save($t);
                 }
                 $id[] = $t->answer_id;
