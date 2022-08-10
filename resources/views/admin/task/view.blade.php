@@ -111,7 +111,7 @@
             </div>
           </div>
           <div class="mb-3">
-            <label for="comment1" class="form-label">{{__('Comments')}}</label>
+            <label for="comment1" class="form-label">{{__('Comments')}} <span style="font-size: 0.75em; color: red">{{__("Is public")}}</span></label>
             <textarea class="form-control" id="comment1" name="comment1" row="3"></textarea>
           </div>
           <button type="button" id="next1" onclick="next(2)" style="width:100%;visibility:hidden;" class="btn btn-primary btn-lg btn-block">Next</button>
@@ -134,7 +134,7 @@
               <input type="radio" name="valoration2" value="1" id="valoration2-1"><label for="valoration2-1">1</label>
             </div>
             <div class="mb-3">
-              <label for="comment2" class="form-label">{{__('Comments')}}</label>
+              <label for="comment2" class="form-label">{{__('Comments')}} <span style="font-size: 0.75em; color: red">{{__("Is public")}}</span></label>
               <textarea class="form-control" id="comment2" name="comment2" row="3"></textarea>
             </div>
             <div class="btn-group" role="group" aria-label="Incidence" style="width:100%">
@@ -161,7 +161,7 @@
               <input type="radio" name="valoration3" value="1" id="valoration3-1"><label for="valoration3-1">1</label>
             </div>
             <div class="mb-3">
-              <label for="comment3" class="form-label">{{__('Comments')}}</label>
+              <label for="comment3" class="form-label">{{__('Comments')}} <span style="font-size: 0.75em; color: red">{{__("Is public")}}</span></label>
               <textarea class="form-control" id="comment3" name="comment3" row="3"></textarea>
             </div>
             <div class="btn-group" role="group" aria-label="Incidence" style="width:100%">
@@ -188,7 +188,7 @@
               <input type="radio" name="valoration4" value="1" id="valoration4-1"><label for="valoration4-1">1</label>
             </div>
             <div class="mb-3">
-              <label for="comment4" class="form-label">{{__('Comments')}}</label>
+              <label for="comment4" class="form-label">{{__('Comments')}} <span style="font-size: 0.75em; color: red">{{__("Is public")}}</span></label>
               <textarea class="form-control" id="comment4" name="comment4" row="3"></textarea>
             </div>
             <div class="btn-group" role="group" aria-label="Incidence" style="width:100%">
