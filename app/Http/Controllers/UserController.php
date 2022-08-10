@@ -73,9 +73,9 @@ class UserController extends Controller
         $data = [];
 
         $user = User::find(auth()->user()->id);
-        $data['day_answer'] = count(Answer::where('status','=',2)->where('user','=',auth()->user()->id)->where('updated_at','=',date('Y-m-d'))->get());
-        $data['day_open_incidence'] = count(Incidence::where('responsable','=',auth()->user()->id)->where('created_at','=',date('Y-m-d'))->get());
-        $data['day_close_incidence'] = count(Incidence::where('responsable','=',auth()->user()->id)->where('updated_at','=',date('Y-m-d'))->where('status','=',4)->get());
+        $data['day_answer'] = count(Answer::where('status','=',2)->where('user','=',auth()->user()->id)->where('updated_at','>=',date('Y-m-d 00:00:01'))->get());
+        $data['day_open_incidence'] = count(Incidence::where('responsable','=',auth()->user()->id)->where('created_at','>=',date('Y-m-d 00:00:01'))->get());
+        $data['day_close_incidence'] = count(Incidence::where('responsable','=',auth()->user()->id)->where('updated_at','>=',date('Y-m-d 00:00:01'))->where('status','=',4)->get());
         $data['total_answer'] = count(Answer::where('status','=',2)->where('user','=',auth()->user()->id)->get());
         $data['total_open_incidence'] = count(Incidence::where('responsable','=',auth()->user()->id)->get());
         $data['total_close_incidence'] = count(Incidence::where('responsable','=',auth()->user()->id)->where('status','=',4)->get());
