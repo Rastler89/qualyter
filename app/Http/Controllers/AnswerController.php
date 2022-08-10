@@ -55,6 +55,20 @@ class AnswerController extends Controller
             $id=[];
             $tasks = Task::where('code','LIKE','%'.$filters['workOrder'].'%')->get();
             foreach($tasks as $t) {
+                if($t->answer_id == null) {
+                    $build_answer = Answer::where('expiration','=',date('Y-m-d', strtotime(str_replace('/','-',$t->expiration))))->where('store','=',$t->store)->first();
+                    $build_store = Store::where('code','=',$t->store)->first();
+                    if($build_answer == null) {
+                        $build_answer = new Answer;
+                        $build_answer->expiration = date('Y-m-d', strtotime(str_replace('/','-',$t->expiration)));
+                        $build_answer->status = 0;
+                        $build_answer->store = $t->store;
+                        $build_answer->client = ($build_store['client']==null || $build_store['client']=='') ? 1 : $build_store['client'];
+                    }
+                    $build_answer->token = Str::random(8);
+                    $build_answer->save();
+                    $build_answer->tasks()->save($t);
+                }
                 $id[] = $t->answer_id;
             }
             $pre_answers->whereIn('id',$id);
