@@ -110,29 +110,29 @@ class UploadController extends Controller
             if($store==null) {
                 $store = new Store;
                 $store->code = $resp[0];
+                if(isset($sep[13])) {
+                    $store->email = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', trim($resp[13]));
+                } else {
+                    $store->email = '';
+                }
+                if(isset($resp[12])) {
+                    $store->phonenumber = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', trim($resp[12]));
+                }
+                if(isset($resp[14])) {
+                    $store->language = substr($resp[14],2);
+                } else {
+                    $store->language = 'en';
+                }
+                if(isset($resp[15])) {
+                    $store->contact = ($resp[15]=='SI') ? 1 : 0; 
+                } else {
+                    $store->contact = 1;
+                }
             }
             $client = Client::find($resp[5]);
 
             $store->name = utf8_encode($resp[1]);
             $store->status = ($resp[7]=='Abierto') ? 1 : 0;
-            if(isset($resp[12])) {
-                $store->phonenumber = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', trim($resp[12]));
-            }
-            if(isset($sep[13])) {
-                $store->email = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', trim($resp[13]));
-            } else {
-                $store->email = '';
-            }
-            if(isset($resp[14])) {
-                $store->language = substr($resp[14],2);
-            } else {
-                $store->language = 'en';
-            }
-            if(isset($resp[15])) {
-                $store->contact = ($resp[15]=='SI') ? 1 : 0; 
-            } else {
-                $store->contact = 1;
-            }
             $store->client = ($client==null) ? 1 : $resp[5];
 
             $store->save();       
