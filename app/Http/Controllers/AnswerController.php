@@ -25,10 +25,7 @@ class AnswerController extends Controller
         $filters = $request->query();
 
         $pre_answers = Answer::query();
-
-        if(isset($filters['filtered'])  && isset($filters['filters'])) {
-            $filters = $filters['filters'];
-        } else {
+        if(empty($filters)) {
             $filters['start_date_closing'] = date('Y-m-d',strtotime("-7 days"));
         }
 
