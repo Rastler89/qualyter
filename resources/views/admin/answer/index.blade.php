@@ -201,7 +201,7 @@
                         </td>
                         <td>
                             @if($answer->status == 8)
-                                <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#alloy"><i class="align-middle" data-feather="eye"></i></button>
+                                <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#alloy{{$answer->id}}"><i class="align-middle" data-feather="eye"></i></button>
                             @elseif($answer->status != 3)
                                 <a class="btn btn-outline-primary" href="{{route('answers.view', ['id'=>$answer->id])}}"><i class="align-middle" data-feather="eye"></i></a>
                                 <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#technician{{$answer->id}}"><i class="align-middle" data-feather="send"></i></button>
@@ -219,7 +219,7 @@
     ])->links()}}
 @foreach($answers as $answer)
     @if($answer->status == 8)
-    <div class="modal fade" id="alloy" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade" id="alloy{{$answer->id}}" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
