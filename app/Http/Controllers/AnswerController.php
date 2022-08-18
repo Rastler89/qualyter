@@ -108,10 +108,10 @@ class AnswerController extends Controller
         $stores = Store::all();
         $clients = Client::all();
         $agents = Agent::all();
+        $users = User::all();
 
         $id = auth()->user()->id;
-
-        return view('admin.task.index',['answers' => $answers, 'stores' => $stores, 'clients' => $clients, 'id' => $id, 'agents' => $agents, 'filters' => $filters]);
+        return view('admin.task.index',['answers' => $answers, 'stores' => $stores, 'clients' => $clients, 'id' => $id, 'agents' => $agents, 'filters' => $filters, 'users' => $users]);
     }
 
     public function view($id) {

@@ -78,6 +78,7 @@
             <th scope="col">@sortablelink('store',__('Store'))</th>
             <th scope="col">@sortablelink('client',__('Client'))</th>
             <th scope="col">@sortablelink('expiration',__('Expiration'))</th>
+            <th scope="col">{{__('Assigned')}}</th>
             <th scope="col"></th>
         </tr>
     </thead>
@@ -106,6 +107,13 @@
                         </td>
                         <td>
                             {{$answer->expiration}}
+                        </td>
+                        <td>
+                            @foreach($users as $user)
+                                @if($user->id == $answer->user) 
+                                    {{$user->name}}
+                                @endif
+                            @endforeach
                         </td>
                         <td>
                     @if($store->phonenumber!=null)
