@@ -234,6 +234,7 @@
                     <p class="mb-0">{{$answer->answer}}</p>
                 </div>
                 <div class="modal-footer">
+                    <a href="{{route('answers.reactivate', ['id' => $answer->id]) }}" class="btn btn-outline-danger">{{__("Activate")}}</a>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__('Close')}}</button>
                 </div>
             </div>

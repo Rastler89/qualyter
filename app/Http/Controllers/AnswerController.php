@@ -543,6 +543,16 @@ class AnswerController extends Controller
         return redirect()->route('answers')->with('success','Answer closed!');
     }
 
+    public function reactivate($id) {
+        $answer = Answer::find($id);
+        $answer->status = 1;
+        $answer->user = auth()->user()->id;
+
+        $answer->save();
+
+        return redirect()->route('answers')->with('success','Answer re-activated');
+    }
+
     public function complete($id) {
         $log = new AuditionController();
         $answer = Answer::find($id);
