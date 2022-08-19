@@ -411,7 +411,7 @@ class AnswerController extends Controller
 
         if(!empty($filters['start_date_closed']) && $filters['start_date_closed'] != '') {
             if(!empty($filters['end_date_closed']) && $filters['end_date_closed'] != '') {
-                if($filters['start_date_created']==$filters['end_date_created']) {
+                if($filters['start_date_closed']==$filters['end_date_closed']) {
                     $pre_answers->whereBetween('updated_at',[$filters['start_date_closed'].' 00:00:00',$filters['end_date_closed'].' 23:59:59']);
                 } else {
                     $pre_answers->whereBetween('updated_at',[$filters['start_date_closed'],$filters['end_date_closed']]);
