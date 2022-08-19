@@ -141,7 +141,9 @@ class ApiController extends Controller
 
         if($request->diff!='') {
             $diff = $request->diff;
-        } 
+        } else {
+            $diff = 0;
+        }
 
         if($request->monthly==true) {
             $monday = $this->first_month_day($diff);
