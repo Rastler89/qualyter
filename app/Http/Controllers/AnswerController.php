@@ -550,8 +550,8 @@ class AnswerController extends Controller
         } else {
             $owners = false;
         }
-        if($answer->calls != null || $answer->calls != '') {
-            $answer->calls = $this->getCalls($answer);
+        if($answer->callId != null || $answer->callId != '') {
+            $answer->calls = $this->getCalls($answer->callId);
         }
         return view('admin.answer.view', ['answer' => $answer, 'store' => $store, 'answers' => $res, 'tasks' => $tasks, 'agents' => $agents, 'owners' => $owners, 'incidences' => $incidence]);
     }
@@ -657,10 +657,14 @@ class AnswerController extends Controller
         }
     }
 
-    private function getCalls($answer) {
+    private function getCalls($calls) {
         $call = [];
-        $callIds = json_decode($answer->callId,true);
+        $callIds = json_decode($calls,true);
+
         foreach($callIds as $callid) {
+            if (strpos($callid, 'E') !== false) {
+                $callid = number_format($callid,0,'','');
+            }
             $url = "https://public-api.ringover.com/v2/calls/".$callid;
             $authorization = 'Authorization: 138a032c631da0db13b4d1252742ebb2ce17599a';
 
@@ -671,7 +675,6 @@ class AnswerController extends Controller
 
             $response = curl_exec($curl);
             $response = json_decode($response,true);
-
             $call[] = $response['list'][0];
         }
         return $call;
