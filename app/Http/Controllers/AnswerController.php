@@ -531,7 +531,9 @@ class AnswerController extends Controller
         foreach($tasks as $task) {
             $code = '%'.str_replace('/','%',$task->code).'%';
             $inc = Incidence::where('order','like',$code)->get();
-            $incidence[] = $inc[0];
+            if(isset($inc[0])) {
+                $incidence[] = $inc[0];
+            }
         }
 
         $res = [];
