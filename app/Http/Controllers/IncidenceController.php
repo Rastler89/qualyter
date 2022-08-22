@@ -175,6 +175,7 @@ class IncidenceController extends Controller
         $body[0]['type'] = 'user';
 
         $store = Store::where('code','=',$request['store'])->get();
+        $task = Task::where('code','=',$request['task'])->first();
 
         $incidence = new Incidence();
 
@@ -185,7 +186,7 @@ class IncidenceController extends Controller
         $incidence->comments = json_encode($body);
         $incidence->client = $store[0]->client;
         $incidence->store = strval($request['store']);
-        $incidence->order = strval($request['task']);
+        $incidence->order = $task;
         $incidence->token = Str::random(8);
         $incidence->closed = $request['control'];
 
