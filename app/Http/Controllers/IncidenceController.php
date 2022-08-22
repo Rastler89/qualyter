@@ -184,8 +184,8 @@ class IncidenceController extends Controller
         $incidence->status = 0;
         $incidence->comments = json_encode($body);
         $incidence->client = $store[0]->client;
-        $incidence->store = $request['store'];
-        $incidence->order = $request['task'];
+        $incidence->store = strval($request['store']);
+        $incidence->order = strval($request['task']);
         $incidence->token = Str::random(8);
         $incidence->closed = $request['control'];
 
