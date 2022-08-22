@@ -116,14 +116,14 @@
                             @endforeach
                         </td>
                         <td>
-                    @if($store->phonenumber!=null)
-                        <a href="{{route('tasks.view',['id'=>$answer->id])}}" class="btn btn-outline-primary @if($answer->user != $id && $answer->user != null) disabled @endif"><i class="align-middle" data-feather="phone"></i></a>
-                    @elseif($store->email!=null)
-                        <a href="{{route('tasks.notrespond', ['id'=>$answer->id])}}" class="btn btn-outline-primary @if($answer->user != null && $answer->user != $id) disabled @endif"><i class="align-middle" data-feather="send"></i></a>
-                    @else 
-                        <?php $id = str_replace('/','_',$store->code); ?>
-                        <a href="{{route('stores.edit',['id'=>$id])}}" class="btn btn-outline-warning"><i class="align-middle" data-feather="edit"></i></a>
-                    @endif
+                        @if($store->phonenumber!=null)
+                            <a href="{{route('tasks.view',['id'=>$answer->id])}}" class="btn btn-outline-primary @if($answer->user != $id && $answer->user != null) disabled @endif"><i class="align-middle" data-feather="phone"></i></a>
+                        @elseif($store->email!=null)
+                            <a href="{{route('tasks.notrespond', ['id'=>$answer->id])}}" class="btn btn-outline-primary @if($answer->user != null && $answer->user != $id) disabled @endif"><i class="align-middle" data-feather="send"></i></a>
+                        @else 
+                            <?php $id = str_replace('/','_',$store->code); ?>
+                            <a href="{{route('stores.edit',['id'=>$id])}}" class="btn btn-outline-warning"><i class="align-middle" data-feather="edit"></i></a>
+                        @endif
                         </td>
                     </tr>
                 @endif
