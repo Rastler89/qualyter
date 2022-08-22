@@ -118,6 +118,8 @@ class AnswerController extends Controller
             }
         }
 
+        $pre_answers->whereIn('status',[0,1]);
+
         $answers = $pre_answers->sortable()->paginate(10);
         $stores = Store::all();
         $clients = Client::all();
