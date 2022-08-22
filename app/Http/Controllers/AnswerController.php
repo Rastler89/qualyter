@@ -675,7 +675,9 @@ class AnswerController extends Controller
 
             $response = curl_exec($curl);
             $response = json_decode($response,true);
-            $call[] = $response['list'][0];
+            if($response!=null) {
+                $call[] = $response['list'][0];
+            }
         }
         return $call;
     }
