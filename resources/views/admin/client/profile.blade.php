@@ -17,7 +17,7 @@
                 </div>
                 <div class="card-body">
                     <div class="mb-3">
-                        <label for="name" class="form-label">{{__('Name')}}</label>
+                        <label for="name" class="form-label">{{__('Name')}} <span style="font-size: 0.75em; color: red">{{__("Is public")}}</span></label>
                         <input type="text" class="form-control" id="name" name="name" @if ($client != null) value="{{$client->name}}" @endif/>
                     </div>
                     <div class="mb-3">

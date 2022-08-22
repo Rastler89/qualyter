@@ -52,8 +52,8 @@
           <div class="col" style="position:relative;">
             <p><strong>{{__('Phone Number')}}</strong></p>
             <a id="phoneNumber" class="btn btn-outline-primary" style="position:absolute;" href="tel:+@if($store->language=='ES' || $store->language==null || $store->language==' ') 34 @endif {{$store->phonenumber}}" onclick="initTime()">@if($store->phonenumber=='617370097') {{__("no phonenumber")}} @else {{$store->phonenumber}} @endif</a>
-            @if(is_null($store->email) || $store->email == '-')
-            <a id="notRespond" class="btn btn-danger" style="position:absolute;visibility:hidden;">{{__('No email')}}</a>
+            @if($store->email == '-')
+            <button id="notRespond" class="btn btn-danger" style="position:absolute;visibility:hidden;">{{__('No email')}}</button>
             @else
             <a id="notRespond" class="btn btn-danger" style="position:absolute;visibility:hidden;" href="{{route('tasks.notrespond', ['id'=>$answer->id])}}">{{__('Not respond')}}</a>
             @endif
@@ -111,7 +111,7 @@
             </div>
           </div>
           <div class="mb-3">
-            <label for="comment1" class="form-label">{{__('Comments')}}</label>
+            <label for="comment1" class="form-label">{{__('Comments')}} <span style="font-size: 0.75em; color: red">{{__("Is public")}}</span></label>
             <textarea class="form-control" id="comment1" name="comment1" row="3"></textarea>
           </div>
           <button type="button" id="next1" onclick="next(2)" style="width:100%;visibility:hidden;" class="btn btn-primary btn-lg btn-block">Next</button>
@@ -134,7 +134,7 @@
               <input type="radio" name="valoration2" value="1" id="valoration2-1"><label for="valoration2-1">1</label>
             </div>
             <div class="mb-3">
-              <label for="comment2" class="form-label">{{__('Comments')}}</label>
+              <label for="comment2" class="form-label">{{__('Comments')}} <span style="font-size: 0.75em; color: red">{{__("Is public")}}</span></label>
               <textarea class="form-control" id="comment2" name="comment2" row="3"></textarea>
             </div>
             <div class="btn-group" role="group" aria-label="Incidence" style="width:100%">
@@ -161,7 +161,7 @@
               <input type="radio" name="valoration3" value="1" id="valoration3-1"><label for="valoration3-1">1</label>
             </div>
             <div class="mb-3">
-              <label for="comment3" class="form-label">{{__('Comments')}}</label>
+              <label for="comment3" class="form-label">{{__('Comments')}} <span style="font-size: 0.75em; color: red">{{__("Is public")}}</span></label>
               <textarea class="form-control" id="comment3" name="comment3" row="3"></textarea>
             </div>
             <div class="btn-group" role="group" aria-label="Incidence" style="width:100%">
@@ -188,7 +188,7 @@
               <input type="radio" name="valoration4" value="1" id="valoration4-1"><label for="valoration4-1">1</label>
             </div>
             <div class="mb-3">
-              <label for="comment4" class="form-label">{{__('Comments')}}</label>
+              <label for="comment4" class="form-label">{{__('Comments')}} <span style="font-size: 0.75em; color: red">{{__("Is public")}}</span></label>
               <textarea class="form-control" id="comment4" name="comment4" row="3"></textarea>
             </div>
             <div class="btn-group" role="group" aria-label="Incidence" style="width:100%">
@@ -386,7 +386,7 @@ function initTime() {
 
 function setTime() {
   ++totalSeconds;
-  if(totalSeconds == 30) {
+  if(totalSeconds == 20) {
     $('#phoneNumber').css('visibility','hidden');
     $('#notRespond').css('visibility','visible');
   } 

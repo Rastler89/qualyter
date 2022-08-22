@@ -318,14 +318,14 @@
 								</table>
 							</div>
 						</div>
-						<div class="col-12 col-lg-4 col-xxl-3 d-flex">
+						<div class="col-12 col-lg-4 col-xxl-3 d-flex" id="evolution">
 							<div class="card flex-fill w-100">
-								<div class="card-header">
+								<div class="card-header" onclick="pantallaCompleta('evolution') "id="actevolution">
 
-									<h5 class="card-title mb-0">Monthly Sales</h5>
+									<h5 class="card-title mb-0">{{__("Evolution")}}</h5>
 								</div>
 								<div class="card-body d-flex w-100">
-									<div class="align-self-center chart chart-lg">
+									<div class="align-self-center chart chart-lg" id="evolutionChart">
 										<canvas id="chartjs-dashboard-bar"></canvas>
 									</div>
 								</div>
@@ -340,6 +340,9 @@
 		/* When the openFullscreen() function is executed, open the video in fullscreen.
 		Note that we must include prefixes for different browsers, as they don't support the requestFullscreen method yet */
 		function pantallaCompleta(element) { 
+			if(element == 'evolution') {
+				$('#evolutionChart').css('height',"90vh");
+			}
 			var isInFullScreen = (document.fullscreenElement && document.fullscreenElement !== null) ||
 				(document.webkitFullscreenElement && document.webkitFullscreenElement !== null) ||
 				(document.mozFullScreenElement && document.mozFullScreenElement !== null) ||
@@ -353,8 +356,8 @@
 				} else if (elem.msRequestFullscreen) { /* IE11 */
 					elem.msRequestFullscreen();
 				}
-				$('#act'+element).css('display','none');
-				$('#des'+element).css('display','block');
+				//$('#act'+element).css('display','none');
+				//$('#des'+element).css('display','block');
 			} else {
 				if (elem.exitFullscreen) {
 					elem.exitFullscreen();
@@ -464,50 +467,6 @@
                     display: false
                 },
                 cutoutPercentage: 75
-            }
-        });
-    });
-</script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Bar chart
-        new Chart(document.getElementById("chartjs-dashboard-bar"), {
-            type: "bar",
-            data: {
-                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                datasets: [{
-                    label: "This year",
-                    backgroundColor: window.theme.primary,
-                    borderColor: window.theme.primary,
-                    hoverBackgroundColor: window.theme.primary,
-                    hoverBorderColor: window.theme.primary,
-                    data: [54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79],
-                    barPercentage: .75,
-                    categoryPercentage: .5
-                }]
-            },
-            options: {
-                maintainAspectRatio: false,
-                legend: {
-                    display: false
-                },
-                scales: {
-                    yAxes: [{
-                        gridLines: {
-                            display: false
-                        },
-                        stacked: false,
-                        ticks: {
-                            stepSize: 20
-                        }
-                    }],
-                    xAxes: [{
-                        stacked: false,
-                        gridLines: {
-                            color: "transparent"
-                        }
-                    }]
-                }
             }
         });
     });
@@ -679,6 +638,103 @@ function dashboards() {
             }
         });
 		
+	})
+
+	$.get('/api/evolution', function(res) {
+		// Bar chart
+        new Chart(document.getElementById("chartjs-dashboard-bar"), {
+            type: "line",
+            data: {
+                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                datasets: [{
+                    label: "General",
+					borderColor: 'rgb(0, 134, 255)',
+					tension: 0.1,
+					fill: false,
+                    data: [res.Jan.general.results[0], res.Feb.general.results[0], res.Mar.general.results[0], res.Apr.general.results[0], res.May.general.results[0], res.Jun.general.results[0], res.Jul.general.results[0], res.Aug.general.results[0], res.Sep.general.results[0], res.Oct.general.results[0], res.Nov.general.results[0], res.Dec.general.results[0]],
+                }, {
+					borderColor: '#488f31',
+					label: 'Equipo 1',
+					tension: 0.1,
+					fill: false,
+                    data: [res.Jan.eq1.results[0], res.Feb.eq1.results[0], res.Mar.eq1.results[0], res.Apr.eq1.results[0], res.May.eq1.results[0], res.Jun.eq1.results[0], res.Jul.eq1.results[0], res.Aug.eq1.results[0], res.Sep.eq1.results[0], res.Oct.eq1.results[0], res.Nov.eq1.results[0], res.Dec.eq1.results[0]],
+				}, {
+					borderColor: '#75a760',
+					label: 'Equipo 2',
+					tension: 0.1,
+					fill: false,
+                    data: [res.Jan.eq2.results[0], res.Feb.eq2.results[0], res.Mar.eq2.results[0], res.Apr.eq2.results[0], res.May.eq2.results[0], res.Jun.eq2.results[0], res.Jul.eq2.results[0], res.Aug.eq2.results[0], res.Sep.eq2.results[0], res.Oct.eq2.results[0], res.Nov.eq2.results[0], res.Dec.eq2.results[0]],
+				}, {
+					borderColor: '#9fc08f',
+					label: 'Equipo 3',
+					tension: 0.1,
+					fill: false,
+                    data: [res.Jan.eq3.results[0], res.Feb.eq3.results[0], res.Mar.eq3.results[0], res.Apr.eq3.results[0], res.May.eq3.results[0], res.Jun.eq3.results[0], res.Jul.eq3.results[0], res.Aug.eq3.results[0], res.Sep.eq3.results[0], res.Oct.eq3.results[0], res.Nov.eq3.results[0], res.Dec.eq3.results[0]],
+				}, {
+					borderColor: '#c8d8bf',
+					label: 'Equipo 4',
+					tension: 0.1,
+					fill: false,
+                    data: [res.Jan.eq4.results[0], res.Feb.eq4.results[0], res.Mar.eq4.results[0], res.Apr.eq4.results[0], res.May.eq4.results[0], res.Jun.eq4.results[0], res.Jul.eq4.results[0], res.Aug.eq4.results[0], res.Sep.eq4.results[0], res.Oct.eq4.results[0], res.Nov.eq4.results[0], res.Dec.eq4.results[0]],
+				}, {
+					borderColor: '#f1f1f1',
+					label: 'Equipo 5',
+					tension: 0.1,
+					fill: false,
+                    data: [res.Jan.eq5.results[0], res.Feb.eq5.results[0], res.Mar.eq5.results[0], res.Apr.eq5.results[0], res.May.eq5.results[0], res.Jun.eq5.results[0], res.Jul.eq5.results[0], res.Aug.eq5.results[0], res.Sep.eq5.results[0], res.Oct.eq5.results[0], res.Nov.eq5.results[0], res.Dec.eq5.results[0]],
+				}, {
+					borderColor: '#f1c6c6',
+					label: 'Equipo 6',
+					tension: 0.1,
+					fill: false,
+                    data: [res.Jan.eq6.results[0], res.Feb.eq6.results[0], res.Mar.eq6.results[0], res.Apr.eq6.results[0], res.May.eq6.results[0], res.Jun.eq6.results[0], res.Jul.eq6.results[0], res.Aug.eq6.results[0], res.Sep.eq6.results[0], res.Oct.eq6.results[0], res.Nov.eq6.results[0], res.Dec.eq6.results[0]],
+				}, {
+					borderColor: '#ec9c9d',
+					label: 'Equipo 7',
+					tension: 0.1,
+					fill: false,
+                    data: [res.Jan.eq7.results[0], res.Feb.eq7.results[0], res.Mar.eq7.results[0], res.Apr.eq7.results[0], res.May.eq7.results[0], res.Jun.eq7.results[0], res.Jul.eq7.results[0], res.Aug.eq7.results[0], res.Sep.eq7.results[0], res.Oct.eq7.results[0], res.Nov.eq7.results[0], res.Dec.eq7.results[0]],
+				}, {
+					borderColor: '#e27076',
+					label: 'Equipo 8',
+					tension: 0.1,
+					fill: false,
+                    data: [res.Jan.eq8.results[0], res.Feb.eq8.results[0], res.Mar.eq8.results[0], res.Apr.eq8.results[0], res.May.eq8.results[0], res.Jun.eq8.results[0], res.Jul.eq8.results[0], res.Aug.eq8.results[0], res.Sep.eq8.results[0], res.Oct.eq8.results[0], res.Nov.eq8.results[0], res.Dec.eq8.results[0]],
+				}, {
+					borderColor: '#de425b',
+					label: 'Equipo 9',
+					tension: 0.1,
+					fill: false,
+                    data: [res.Jan.eq9.results[0], res.Feb.eq9.results[0], res.Mar.eq9.results[0], res.Apr.eq9.results[0], res.May.eq9.results[0], res.Jun.eq9.results[0], res.Jul.eq9.results[0], res.Aug.eq9.results[0], res.Sep.eq9.results[0], res.Oct.eq9.results[0], res.Nov.eq9.results[0], res.Dec.eq9.results[0]],
+				}]
+            },
+            options: {
+				responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    display: true
+                },
+                scales: {
+                    yAxes: [{
+                        gridLines: {
+                            display: true
+                        },
+						min: 2,
+                        stacked: false,
+                        ticks: {
+							min: 3,
+                            stepSize: 0.10
+                        }
+                    }],
+                    xAxes: [{
+                        stacked: false,
+                        gridLines: {
+                            color: "transparent"
+                        }
+                    }]
+                }
+            }
+        });
 	})
 
 

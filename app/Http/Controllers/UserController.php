@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Role;
+use App\Models\Answer;
+use App\Models\Incidence;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -68,9 +70,17 @@ class UserController extends Controller
     }
 
     public function getProfile() {
-        $user = User::find(auth()->user()->id);
+        $data = [];
 
-        return view('admin.users.profile', ['user' => $user]);
+        $user = User::find(auth()->user()->id);
+        $data['day_answer'] = count(Answer::where('status','=',2)->where('user','=',auth()->user()->id)->where('updated_at','>=',date('Y-m-d 00:00:01'))->get());
+        $data['day_open_incidence'] = count(Incidence::where('responsable','=',auth()->user()->id)->where('created_at','>=',date('Y-m-d 00:00:01'))->get());
+        $data['day_close_incidence'] = count(Incidence::where('responsable','=',auth()->user()->id)->where('updated_at','>=',date('Y-m-d 00:00:01'))->where('status','=',4)->get());
+        $data['total_answer'] = count(Answer::where('status','=',2)->where('user','=',auth()->user()->id)->get());
+        $data['total_open_incidence'] = count(Incidence::where('responsable','=',auth()->user()->id)->get());
+        $data['total_close_incidence'] = count(Incidence::where('responsable','=',auth()->user()->id)->where('status','=',4)->get());
+
+        return view('admin.users.profile', ['user' => $user, 'data' => $data]);
     }
 
     public function saveName(Request $request) {

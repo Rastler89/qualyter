@@ -15,6 +15,9 @@
                     <a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#password" role="tab">
                         {{__('Password')}}
                     </a>
+                    <a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#statistics" role="tab">
+                        {{__('Statistics')}}
+                    </a>
                 </div>
             </div>
         </div>
@@ -78,6 +81,44 @@
                                 </div>
                                 <button type="submit" class="btn btn-primary">{{__('Save changes')}}</button>
                             </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="statistics" role="tabpanel">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">{{__('Statistics')}}</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-4">
+                                    <h3 style="font-size:0.75em">{{__("Answers Complete Today")}}</h3>
+                                    <div class="text-center">{{$data['day_answer']}}</div>
+                                </div>
+                                <div class="col-4">
+                                    <h3 style="font-size:0.75em">{{__("Incidence Open Today")}}</h3>
+                                    <div class="text-center">{{$data['day_open_incidence']}}</div>
+                                </div>
+                                <div class="col-4">
+                                    <h3 style="font-size:0.75em">{{__("Incidence Closed Today")}}</h3>
+                                    <div class="text-center">{{$data['day_close_incidence']}}</div>
+                                </div>
+                            </div>
+                            Total
+                            <div class="row">
+                                <div class="col-4">
+                                    <h3 style="font-size:0.75em">{{__("Answers Complete Total")}}</h3>
+                                    <div class="text-center">{{$data['total_answer']}}</div>
+                                </div>
+                                <div class="col-4">
+                                    <h3 style="font-size:0.75em">{{__("Incidence Open Today")}}</h3>
+                                    <div class="text-center">{{$data['total_open_incidence']}}</div>
+                                </div>
+                                <div class="col-4">
+                                    <h3 style="font-size:0.75em">{{__("Incidence Closed Total")}}</h3>
+                                    <div class="text-center">{{$data['total_close_incidence']}}</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

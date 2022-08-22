@@ -30,7 +30,7 @@
                         <input type="text" class="form-control" name="code" id="code" maxlength="10" @if ($store!=null) value="{{$store->code}}" @endif />
                     </div>
                     <div class="mb-3">
-                        <label for="name" class="form-label">{{__('Name')}}</label>
+                        <label for="name" class="form-label">{{__('Name')}} <span style="font-size: 0.75em; color: red">{{__("Is public")}}</span></label>
                         <input type="text" class="form-control" name="name" id="name" @if ($store!=null) value="{{$store->name}}" @endif/>
                     </div>
                     <div class="mb-3 form-check form-switch">
@@ -45,6 +45,13 @@
                         <label for="email" class="form-label">{{__("Email")}}</label>
                         <textarea class="form-control" id="email" name="email" row="3">@if ($store != null) {{$store->email}} @endif</textarea>
                     </div>
+                    @if($store != null)
+                        @if($store->language != null) 
+                        <div class="mb-3">
+                            <label for="language" class="form-label"><strong>{{__("Language")}}:</strong>{{$store->language}}</label>
+                        </div>
+                        @endif
+                    @endif
                     <div class="mb-3">
                         <label for="country" class="form-label">{{__('Country')}}</label>
                         <input class="form-control" list="countries" @if($store!=null) value="--" @endif id="country" name="country" placeholder="{{__('Type to search...')}}" />

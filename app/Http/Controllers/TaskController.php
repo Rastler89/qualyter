@@ -52,9 +52,11 @@ class TaskController extends Controller
             $answer->save();
 
             $answer->tasks()->save($task);
+
+            return back()->with('success', 'New work order created and assign answer: '.$answer->id);
         }
 
-        return back()->with('success', 'New word order created!');
+        return back()->with('success', 'New work order created!');
 
     }
 }

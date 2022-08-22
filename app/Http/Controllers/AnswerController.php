@@ -58,6 +58,20 @@ class AnswerController extends Controller
             $id=[];
             $tasks = Task::where('code','LIKE','%'.$filters['workOrder'].'%')->get();
             foreach($tasks as $t) {
+                $build_store = Store::where('code','=',$t->store)->first();
+                if($t->answer_id == null && $build_store->contact) {
+                    $build_answer = Answer::where('expiration','=',date('Y-m-d', strtotime(str_replace('/','-',$t->expiration))))->where('store','=',$t->store)->first();
+                    if($build_answer == null) {
+                        $build_answer = new Answer;
+                        $build_answer->expiration = date('Y-m-d', strtotime(str_replace('/','-',$t->expiration)));
+                        $build_answer->status = 0;
+                        $build_answer->store = $t->store;
+                        $build_answer->client = ($build_store['client']==null || $build_store['client']=='') ? 1 : $build_store['client'];
+                        $build_answer->token = Str::random(8);
+                        $build_answer->save();
+                    }
+                    $build_answer->tasks()->save($t);
+                }
                 $id[] = $t->answer_id;
             }
             $pre_answers->whereIn('id',$id);
@@ -108,10 +122,10 @@ class AnswerController extends Controller
         $stores = Store::all();
         $clients = Client::all();
         $agents = Agent::all();
+        $users = User::all();
 
         $id = auth()->user()->id;
-
-        return view('admin.task.index',['answers' => $answers, 'stores' => $stores, 'clients' => $clients, 'id' => $id, 'agents' => $agents, 'filters' => $filters]);
+        return view('admin.task.index',['answers' => $answers, 'stores' => $stores, 'clients' => $clients, 'id' => $id, 'agents' => $agents, 'filters' => $filters, 'users' => $users]);
     }
     
     public function view($id) {
@@ -124,6 +138,18 @@ class AnswerController extends Controller
         $artisan = Artisan::call('call:store',['user'=>auth()->user()->id, 'answerId'=>$answer->id]);
         $output = Artisan::output();
         
+        if($answer->status > 1) {
+            if($answer->status == 2 || $answer->status == 4 || $answer->status == 5) {
+                return redirect()->route('answers.view',['id' => $answer->id]);
+            } else if($answer->status == 3) {
+                return redirect()->route('tasks')->with('alert','This survey has been sent to shop');
+            } else if($answer->status == 8) {
+                return redirect()->route('tasks')->with('alert','It was cancelled, reason: '.$answer->answer);
+            } else {
+                abort(403, 'Unauthorized action.');
+            }
+        }
+
         //Add user and modify status
         $answer->status = 1;
         $answer->user = auth()->user()->id;
@@ -137,6 +163,10 @@ class AnswerController extends Controller
         $tasks = Task::where('answer_id','=',$answer->id)->get();
         foreach($tasks as $task) {
             $owners[] = $task->owner;
+        }
+
+        if(is_null($store->email) || $store->email == '') {
+            $store->email = '-';
         }
 
         $owners = Agent::find($owners);
@@ -399,7 +429,7 @@ class AnswerController extends Controller
 
         if(!empty($filters['start_date_closed']) && $filters['start_date_closed'] != '') {
             if(!empty($filters['end_date_closed']) && $filters['end_date_closed'] != '') {
-                if($filters['start_date_created']==$filters['end_date_created']) {
+                if($filters['start_date_closed']==$filters['end_date_closed']) {
                     $pre_answers->whereBetween('updated_at',[$filters['start_date_closed'].' 00:00:00',$filters['end_date_closed'].' 23:59:59']);
                 } else {
                     $pre_answers->whereBetween('updated_at',[$filters['start_date_closed'],$filters['end_date_closed']]);
@@ -538,6 +568,16 @@ class AnswerController extends Controller
         $this->createIncidence($request,$answer);
 
         return redirect()->route('answers')->with('success','Answer closed!');
+    }
+
+    public function reactivate($id) {
+        $answer = Answer::find($id);
+        $answer->status = 1;
+        $answer->user = auth()->user()->id;
+
+        $answer->save();
+
+        return redirect()->route('answers')->with('success','Answer re-activated');
     }
 
     public function complete($id) {

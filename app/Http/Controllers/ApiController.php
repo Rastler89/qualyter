@@ -130,12 +130,19 @@ class ApiController extends Controller
         return response()->json($response);
     }
 
+    public function answered() {
+        $response = count(Answer::where('status','=','4')->get());
+
+        return response()->json($response);
+    }
+
     public function window(Request $request) {
-        $body = json_decode($request->getContent(), true);
 
         if($request->diff!='') {
             $diff = $request->diff;
-        } 
+        } else {
+            $diff = 0;
+        }
 
         if($request->monthly==true) {
             $monday = $this->first_month_day($diff);
@@ -194,6 +201,50 @@ class ApiController extends Controller
 
         return response()->json($response);
        
+    }
+
+    public function evolution() {
+        $month = date('m');
+        $time = [];
+        $teams = [];
+
+        for($i=1;$i<=9;$i++) {
+            $agents = Agent::where('team','LIKE','%'.$i.'%')->get();
+            $id = [];
+            foreach($agents as $agent) {
+                $id[] = $agent->id;
+            }
+            $tasks = Task::whereIn('owner',$id)->get();
+            
+            $id = [];
+            foreach($tasks as $task) {
+                if($task->answer_id != '') $id[] = $task->answer_id;
+            }
+            $teams[] = $id;
+        }
+
+        for($i=1; $i<=12; $i++) {
+            $year = date('Y');
+            $lastday = date('Y-m-t', mktime(0,0,0, $month-$i, 1, $year));
+            $firstday = date('Y-m-d', mktime(0,0,0, $month-$i, 1, $year));
+            $actual_month = date('M',mktime(0,0,0, $month-$i, 1, $year));
+
+            $time[$actual_month] = [];
+            
+            foreach($teams as $key => $team) {
+                $name = 'eq'.$key+1;
+                
+                $all_answers = Answer::whereIn('status',[2,4,5])->whereBetween('expiration',[$firstday,$lastday])->whereIn('id',$team)->get();
+                $arr['results'] = $this->media($all_answers);
+                
+                $time[$actual_month][$name] = $arr;
+            }
+            $all_answers = Answer::whereIn('status',[2,4,5])->whereBetween('expiration',[$firstday,$lastday])->get();
+            $arr['results'] = $this->media($all_answers);
+
+            $time[$actual_month]['general'] = $arr;
+        }
+        return response()->json($time);
     }
 
     public function emails(Request $request) {

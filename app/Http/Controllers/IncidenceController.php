@@ -191,7 +191,9 @@ class IncidenceController extends Controller
 
         $incidence->save();
 
-        return view('admin.incidence.index', ['filters' => $filters])->with('success', 'Incidence created!');
+        
+
+        return redirect()->to('/incidences')->with('success', 'Incidence created!');
     }
 
     public function changeAgent($id, Request $request) {
