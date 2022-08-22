@@ -106,6 +106,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     // EXPORTS
     Route::post('export/answer', [App\Http\Controllers\ExportController::class, 'answer'])->name('export.answer');
+
+    // REPORTS
+    Route::get('reports/leaderboard/agent', [App\Http\Controllers\ReportsController::class, 'leaderboardAgents'])->name('leaderboard.agents');
 });
 // INCIDENCE
 Route::get('agent/incidence/{id}', [App\Http\Controllers\IncidenceController::class, 'response'])->name('incidences.agent');

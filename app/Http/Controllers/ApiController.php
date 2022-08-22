@@ -137,7 +137,6 @@ class ApiController extends Controller
     }
 
     public function window(Request $request) {
-        $body = json_decode($request->getContent(), true);
 
         if($request->diff!='') {
             $diff = $request->diff;
