@@ -118,7 +118,7 @@
                         <td>
                         @if($store->phonenumber!=null)
                             <a href="{{route('tasks.view',['id'=>$answer->id])}}" class="btn btn-outline-primary @if($answer->user != $id && $answer->user != null) disabled @endif"><i class="align-middle" data-feather="phone"></i></a>
-                        @elseif($store->email!=null)
+                        @elseif($store->email!=null && $store->email!='-')
                             <a href="{{route('tasks.notrespond', ['id'=>$answer->id])}}" class="btn btn-outline-primary @if($answer->user != null && $answer->user != $id) disabled @endif"><i class="align-middle" data-feather="send"></i></a>
                         @else 
                             <?php $id = str_replace('/','_',$store->code); ?>
