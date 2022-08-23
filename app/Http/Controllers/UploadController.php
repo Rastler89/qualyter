@@ -10,6 +10,8 @@ use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File; 
 use Illuminate\Support\Str;
+use Mail;
+use App\Mail\NotExistStoreMail;
 
 
 class UploadController extends Controller

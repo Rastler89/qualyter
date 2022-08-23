@@ -138,7 +138,9 @@ class AnswerController extends Controller
         
         $store = Store::where('code','=',$answer->store)->where('client','=',$answer->client)->first();
 
-        $artisan = Artisan::call('call:store',['user'=>auth()->user()->id, 'answerId'=>$answer->id]);
+        if(env('APP_NAME')!='QualyterTEST') {
+            $artisan = Artisan::call('call:store',['user'=>auth()->user()->id, 'answerId'=>$answer->id]);
+        }
         $output = Artisan::output();
         
         if($answer->status > 1) {
