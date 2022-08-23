@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Mail;
 use Carbon\Carbon;
 use App\Mail\NotifyMail;
+use App\Mail\ManagerMail;
 use Illuminate\Support\Str;
 
 class IncidenceController extends Controller
@@ -372,10 +373,15 @@ class IncidenceController extends Controller
             'new' => true
         ];
 
+        $team = Team::where('url','=',$agent->team)->first();
+        $user = User::find($team->manager);
+
         if(env('APP_NAME')=='QualyterTEST') {
             Mail::to('test@optimaretail.es')->send(new NotifyMail($body));
         } else {
             Mail::to($agent['email'])->send(new NotifyMail($body));
+            Mail::to($user->email)->send(new ManagerMail($body));
+
         }
 
         return redirect()->to('/incidences/'.$id)->with('success','Incidence sended!');
