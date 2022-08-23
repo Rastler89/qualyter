@@ -51,6 +51,10 @@ class UploadController extends Controller
             }
             $task->expiration = date('Y-m-d h:i:s', strtotime(str_replace('/','-',$resp['Fecha Vencimiento'])));
 
+            if($store->name=='.' || $store->name=='......' || $store->name=='...') {
+                Mail::to($agent->email)->send(new NotExistStoreMail($task->code));
+            }
+
             $task->save();
 
             $task = Task::where('code','=',$resp['Código'])->first();
