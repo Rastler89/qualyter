@@ -8,7 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
 class ManagerMail extends Mailable {
-    use Queuable, SerializesModels;
+    use Queueable, SerializesModels;
 
     public $body;
 
