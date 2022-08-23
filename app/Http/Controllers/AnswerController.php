@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Mail;
 use App\Mail\NotifyMail;
+use App\Mail\ManagerMail;
 use App\Mail\StoreMail;
 use App\Mail\ResponseMail;
 use App\Mail\TechnicianMail;
@@ -642,7 +643,7 @@ class AnswerController extends Controller
                     $user = User::find($team->manager);
                     
                     Mail::to($agent->email)->send(new NotifyMail($body));
-                    Mail::to($user->email)->send(new NotifyMail($body));
+                    Mail::to($user->email)->send(new ManagerMail($body));
                     Mail::to('fran.ullod@optimaretail.es')->send(new NotifyMail($body));
                 }
 

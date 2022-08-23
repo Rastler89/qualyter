@@ -28,6 +28,9 @@
             @if($answer->calls != null && $answer->calls != '')
             <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#callInfo">{{__('Info Calls')}}</button>
             @endif
+            @if($answer->status == 4)
+            <!-- TODO llamar -->
+            @endif
           </div>
         </div>
       </div>
