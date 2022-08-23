@@ -49,8 +49,11 @@
             <p><strong>{{__('Language')}}</strong></p>
             <p>{{$store->language}}</p>
           </div>
-          <div class="col" style="position:relative;">
+          <div class="col">
             <p><strong>{{__('Phone Number')}}</strong></p>
+            {{$store->phonenumber}}
+          </div>
+          <div class="col" style="position:relative;">
             <button id="phoneNumber" class="btn btn-outline-primary" style="position:absolute;">{{__('Calling')}}</button>
             @if($store->email == '-')
             <button id="notRespond" class="btn btn-danger" style="position:absolute;visibility:hidden;">{{__('No email')}}</button>
@@ -58,6 +61,7 @@
             <a id="notRespond" class="btn btn-danger" style="position:absolute;visibility:hidden;" href="{{route('tasks.notrespond', ['id'=>$answer->id])}}">{{__('Not respond')}}</a>
             @endif
           </div>
+          <button id="recall" class="btn btn-outline-primary" style="visibility:hidden;" onClick="call()">{{__('Recall')}}</button>
         </div>
       </div>
     </div>
@@ -387,9 +391,10 @@ function initTime() {
 
 function setTime() {
   ++totalSeconds;
-  if(totalSeconds == 30) {
+  if(totalSeconds == 5) {
     $('#phoneNumber').css('visibility','hidden');
     $('#notRespond').css('visibility','visible');
+    $('#recall').css('visibility','visible');
   } 
 }
 
@@ -400,6 +405,13 @@ function showIncidence() {
 
 function sendForm() {
   $('#questionary').submit();
+}
+
+function call() {
+  let xhr = new XMLHttpRequest();
+  xhr.open("GET", "{{route('call.answer',['id' => $answer->id, 'user' => auth()->user()->id])}}");
+  xhr.send();
+  console.log(xhr.responseText);
 }
 
 

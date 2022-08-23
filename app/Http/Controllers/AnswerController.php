@@ -130,6 +130,13 @@ class AnswerController extends Controller
         $id = auth()->user()->id;
         return view('admin.task.index',['answers' => $answers, 'stores' => $stores, 'clients' => $clients, 'id' => $id, 'agents' => $agents, 'filters' => $filters, 'users' => $users]);
     }
+
+    public function call($id) {
+        $user = $_GET['user'];
+        $artisan = Artisan::call('call:store',['user'=>$user, 'answerId'=>$id]);
+        $output = Artisan::output();
+        return response()->json($output);
+    }
     
     public function view($id) {
         $log = new AuditionController();
