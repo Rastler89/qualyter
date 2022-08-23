@@ -51,7 +51,7 @@
           </div>
           <div class="col" style="position:relative;">
             <p><strong>{{__('Phone Number')}}</strong></p>
-            <a id="phoneNumber" class="btn btn-outline-primary" style="position:absolute;" href="tel:+@if($store->language=='ES' || $store->language==null || $store->language==' ') 34 @endif {{$store->phonenumber}}" onclick="initTime()">@if($store->phonenumber=='617370097') {{__("no phonenumber")}} @else {{$store->phonenumber}} @endif</a>
+            <button id="phoneNumber" class="btn btn-outline-primary" style="position:absolute;">{{__('Calling')}}</button>
             @if($store->email == '-')
             <button id="notRespond" class="btn btn-danger" style="position:absolute;visibility:hidden;">{{__('No email')}}</button>
             @else
@@ -346,6 +346,7 @@ $(document).ready(function() {
   if($('input[type=radio][name=valoration1]').val().length > 0) {
     $('#next1').css('visibility','visible');
   }
+  initTime();
 });
 
 $(window).scroll(function() {
@@ -386,7 +387,7 @@ function initTime() {
 
 function setTime() {
   ++totalSeconds;
-  if(totalSeconds == 20) {
+  if(totalSeconds == 30) {
     $('#phoneNumber').css('visibility','hidden');
     $('#notRespond').css('visibility','visible');
   } 
