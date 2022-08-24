@@ -148,7 +148,7 @@
                     </div>
                     
                     <div class="input-group mb-3">
-                        <input @if($incidence->status==4) disabled @endif  type="text" class="form-control" name="message" placeholder="{{__('Body message')}}" aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <textarea @if($incidence->status==4) disabled @endif  type="text" class="form-control" name="message" placeholder="{{__('Body message')}}" aria-label="Recipient's username" aria-describedby="button-addon2"></textarea>
                         @if($incidence->status != 4)
                         <button class="btn btn-outline-primary" id="button-addon2"><i class="align-middle" data-feather="send"></i></button>
                         @endif
