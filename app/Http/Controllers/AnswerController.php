@@ -562,6 +562,7 @@ class AnswerController extends Controller
         }
         if($answer->callId != null || $answer->callId != '') {
             $answer->calls = $this->getCalls($answer->callId);
+            //print_r($answer->calls);die();
         }
         return view('admin.answer.view', ['answer' => $answer, 'store' => $store, 'answers' => $res, 'tasks' => $tasks, 'agents' => $agents, 'owners' => $owners, 'incidences' => $incidence]);
     }
@@ -675,6 +676,7 @@ class AnswerController extends Controller
             if (strpos($callid, 'E') !== false) {
                 $callid = number_format($callid,0,'','');
             }
+            
             $url = "https://public-api.ringover.com/v2/calls/".$callid;
             $authorization = 'Authorization: 138a032c631da0db13b4d1252742ebb2ce17599a';
 
@@ -684,6 +686,7 @@ class AnswerController extends Controller
             curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json',$authorization));
 
             $response = curl_exec($curl);
+            echo"<pre>";print_r($url);echo"</pre>";die();
             $response = json_decode($response,true);
             if($response!=null) {
                 $call[] = $response['list'][0];
