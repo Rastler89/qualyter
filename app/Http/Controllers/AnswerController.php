@@ -669,9 +669,14 @@ class AnswerController extends Controller
 
     private function getCalls($calls) {
         $call = [];
-        $callIds = json_decode($calls,true);
+        $responses = json_decode($calls,true);
 
-        foreach($callIds as $callid) {
+        foreach($responses as $response) {
+            if(gettype($response)==='array') {
+                $callid = $response['call_id'];
+            } else {
+                $callid = $response;
+            }
             if (strpos($callid, 'E') !== false) {
                 $callid = number_format($callid,0,'','');
             }

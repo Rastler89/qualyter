@@ -70,11 +70,11 @@ class CallStore extends Command
             if($code == 200) {
                 $response = json_decode($response, true);
                 $callids = json_decode($answer->callId,true);
-                $callids[] = strval(number_format($response['call_id'],0,'',''));
+                $callids[] = $response;
                 $answer->callId = json_encode($callids);
                 $answer->save();
             }
 
-        }
+        //}
     }
 }
