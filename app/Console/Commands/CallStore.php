@@ -41,11 +41,16 @@ class CallStore extends Command
     public function handle()
     {
         $userid = $this->argument('user');
-        $answerId = $this->argument('answerId');
+        $elementId = $this->argument('id');
+        $type = $this->argument('type');
 
         $user = User::find($userid);
-        $answer = Answer::find($answerId);
-        $store = $store = Store::where('code','=',$answer->store)->where('client','=',$answer->client)->first();
+        if($type=='answer') {
+            $element = Answer::find($elementId);
+        } else if($type=='incidence') {
+            $element = Incidence::find($elementId);
+        }
+        $store = $store = Store::where('code','=',$element->store)->where('client','=',$element->client)->first();
 
         if($user->token != null && $user->phone != null && $user->token != '' && $user->phone != '') {
             $post = [];
@@ -69,10 +74,10 @@ class CallStore extends Command
             
             if($code == 200) {
                 $response = json_decode($response, true);
-                $callids = json_decode($answer->callId,true);
+                $callids = json_decode($element->callId,true);
                 $callids[] = strval(number_format($response['call_id'],0,'',''));
-                $answer->callId = json_encode($callids);
-                $answer->save();
+                $element->callId = json_encode($callids);
+                $element->save();
             }
 
         }

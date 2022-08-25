@@ -132,9 +132,12 @@
                             </strong>
                         </div>
                     </div>
-
                     <hr class="my-4" />
-
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-outline-success" data-bs-toggle="tooltip" data-bs-placement="top" title="{{__('History')}}"><i class="align-middle" data-feather="layers"></i></button>
+                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="{{__('Call Store')}}"><i class="align-middle" data-feather="phone"></i></button>
+                    </div>
+                    <hr class="my-4" />
                     <div class="conversation">
                         <div class="conversation-container">
                         @foreach($comments as $comment)

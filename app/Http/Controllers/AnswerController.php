@@ -133,7 +133,7 @@ class AnswerController extends Controller
 
     public function call($id) {
         $user = $_GET['user'];
-        $artisan = Artisan::call('call:store',['user'=>$user, 'answerId'=>$id]);
+        $artisan = Artisan::call('call:store',['user'=>$user, 'id'=>$id, 'type'=>'answer']);
         $output = Artisan::output();
         return response()->json($output);
     }
@@ -146,7 +146,7 @@ class AnswerController extends Controller
         $store = Store::where('code','=',$answer->store)->where('client','=',$answer->client)->first();
 
         if(env('APP_NAME')!='QualyterTEST') {
-            $artisan = Artisan::call('call:store',['user'=>auth()->user()->id, 'answerId'=>$answer->id]);
+            $artisan = Artisan::call('call:store',['user'=>auth()->user()->id, 'id'=>$answer->id, 'type'=>'answer']);
             $output = Artisan::output();
         }
         
