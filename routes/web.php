@@ -112,7 +112,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('reports/leaderboard/agent', [App\Http\Controllers\ReportsController::class, 'leaderboardAgents'])->name('leaderboard.agents');
 
     // CALL
-    Route::get('call/{id}', [App\Http\Controllers\AnswerController::class, 'call'])->name('call.answer');
+    Route::get('answer/call/{id}', [App\Http\Controllers\AnswerController::class, 'call'])->name('call.answer');
+    Route::get('incidence/call/{id}', [App\Http\Controllers\IncidenceController::class, 'call'])->name('call.incidence');
 });
 // INCIDENCE
 Route::get('agent/incidence/{id}', [App\Http\Controllers\IncidenceController::class, 'response'])->name('incidences.agent');

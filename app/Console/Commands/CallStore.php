@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Store;
 use App\Models\Answer;
+use App\Models\Incidence;
 use App\Models\User;
 use Illuminate\Console\Command;
 
@@ -14,7 +15,7 @@ class CallStore extends Command
      *
      * @var string
      */
-    protected $signature = 'call:store {answerId} {user}';
+    protected $signature = 'call:store {id} {user} {type}';
 
     /**
      * The console command description.
@@ -40,6 +41,7 @@ class CallStore extends Command
      */
     public function handle()
     {
+        $this->info('holaaaa');
         $userid = $this->argument('user');
         $elementId = $this->argument('id');
         $type = $this->argument('type');
@@ -52,14 +54,21 @@ class CallStore extends Command
         }
         $store = $store = Store::where('code','=',$element->store)->where('client','=',$element->client)->first();
 
-        if($user->token != null && $user->phone != null && $user->token != '' && $user->phone != '') {
+        if(($user->token != null && $user->phone != null && $user->token != '' && $user->phone != '') || env('APP_NAME')=='QualyterTEST') {
             $post = [];
-            $post['from_number'] = intval($user->phone);
-            $post['to_number'] = intval(trim(str_replace('+','',$store->phonenumber)));//$store->phonenumber;
+            if(env('APP_NAME')=='QualyterTEST') {
+                $this->info('local');
+                $post['from_number'] = intval('34872583167');
+                $post['to_number'] = intval('617370097');
+                $authorization = 'Authorization:  138a032c631da0db13b4d1252742ebb2ce17599a';
+            } else {
+                $this->info('production');
+                $post['from_number'] = intval($user->phone);
+                $post['to_number'] = intval(trim(str_replace('+','',$store->phonenumber)));//$store->phonenumber;
+                $authorization = 'Authorization: '.$user->token;
+            }
             $post['timeout'] = 30;
             $post['device'] = 'SIP';
-            //echo"<pre>";print_r(json_encode($post));echo"</pre>";die();
-            $authorization = 'Authorization: '.$user->token;
             //lanzar curl
             $callback = curl_init();
             curl_setopt($callback, CURLOPT_URL, "https://public-api.ringover.com/v2/callback");
@@ -79,6 +88,8 @@ class CallStore extends Command
                 $element->callId = json_encode($callids);
                 $element->save();
             }
+
+            return $response;
 
         }
     }

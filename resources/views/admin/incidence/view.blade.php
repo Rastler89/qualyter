@@ -135,7 +135,7 @@
                     <hr class="my-4" />
                     <div class="btn-group" role="group" aria-label="Basic example">
                         <button type="button" class="btn btn-outline-success" data-bs-toggle="tooltip" data-bs-placement="top" title="{{__('History')}}"><i class="align-middle" data-feather="layers"></i></button>
-                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="{{__('Call Store')}}"><i class="align-middle" data-feather="phone"></i></button>
+                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="{{__('Call Store')}}" onClick="call('{{route('call.incidence',['id' => $incidence->id, 'user' => auth()->user()->id])}}')"><i class="align-middle" data-feather="phone"></i></button>
                     </div>
                     <hr class="my-4" />
                     <div class="conversation">
@@ -208,4 +208,14 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('javascript')
+<script>
+function call(url) {
+  let xhr = new XMLHttpRequest();
+  xhr.open("GET", url);
+  xhr.send();
+}
+</script>
 @endsection

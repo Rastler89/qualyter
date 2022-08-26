@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::table('incidences', function (Blueprint $table) {
             $table->string('callId')->nullable();
+            $table->string('reason')->nullable();
         });
     }
 
@@ -27,6 +28,7 @@ return new class extends Migration
     {
         Schema::table('incidences', function(Blueprint $table) {
             $table->dropColumn('callId');
+            $table->dropColumn('reason');
         });
     }
 };

@@ -16,6 +16,8 @@ use Carbon\Carbon;
 use App\Mail\NotifyMail;
 use App\Mail\ManagerMail;
 use Illuminate\Support\Str;
+use Artisan;
+
 
 class IncidenceController extends Controller
 {
@@ -192,8 +194,6 @@ class IncidenceController extends Controller
         $incidence->closed = $request['control'];
 
         $incidence->save();
-
-        
 
         return redirect()->to('/incidences')->with('success', 'Incidence created!');
     }
@@ -385,5 +385,12 @@ class IncidenceController extends Controller
         }
 
         return redirect()->to('/incidences/'.$id)->with('success','Incidence sended!');
+    }
+
+    public function call($id) {
+        $user = $_GET['user'];
+        $artisan = Artisan::call('call:store',['user'=>$user, 'id'=>$id, 'type'=>'incidence']);
+        $output = Artisan::output();
+        return $artisan.$output;
     }
 }
