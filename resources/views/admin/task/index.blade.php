@@ -119,6 +119,7 @@
                         @if($store->phonenumber!=null)
                             <a href="{{route('tasks.view',['id'=>$answer->id])}}" class="btn btn-outline-primary @if($answer->user != $id && $answer->user != null) disabled @endif"><i class="align-middle" data-feather="phone"></i></a>
                         @elseif($store->email!=null && $store->email!='-')
+                            <button class="btn btn-outline-dark" type="button" data-bs-toggle="modal" data-bs-target="#cancelVisit"  data-toggle="tooltip" data-placement="top" title="{{__('Cancel visit')}}"><i class="align-middle" data-feather="slash"></i></button>
                             <a href="{{route('tasks.notrespond', ['id'=>$answer->id])}}" class="btn btn-outline-primary @if($answer->user != null && $answer->user != $id) disabled @endif"><i class="align-middle" data-feather="send"></i></a>
                         @else 
                             <?php $id = str_replace('/','_',$store->code); ?>
@@ -128,6 +129,26 @@
                     </tr>
                 @endif
             @endforeach
+            <div class="modal fade" id="cancelVisit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <form method="POST" action="{{route('tasks.cancel', ['id' =>$answer->id])}}">
+      @csrf
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{__('Explains the reason for canceling the visit.')}}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <textarea name="reason" class="form-control"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__('Close')}}</button>
+          <button class="btn btn-danger">{{__('Cancel visit')}}</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
         @endforeach
     </tbody>
 </table>

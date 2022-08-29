@@ -41,7 +41,6 @@ class CallStore extends Command
      */
     public function handle()
     {
-        $this->info('holaaaa');
         $userid = $this->argument('user');
         $elementId = $this->argument('id');
         $type = $this->argument('type');
@@ -83,10 +82,10 @@ class CallStore extends Command
             
             if($code == 200) {
                 $response = json_decode($response, true);
-                $callids = json_decode($element->callId,true);
-                $callids[] = strval(number_format($response['call_id'],0,'',''));
-                $element->callId = json_encode($callids);
-                $element->save();
+                $callids = json_decode($answer->callId,true);
+                $callids[] = $response;
+                $answer->callId = json_encode($callids);
+                $answer->save();
             }
 
             return $response;
