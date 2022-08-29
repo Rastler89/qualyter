@@ -61,8 +61,7 @@
                         </div>
                         <div class="col-md-6  text-md-end">
                             @if($can_close) 
-                                <input @if($incidence->status==4) disabled @endif  type="radio" class="btn-check" name="status" id="danger-outlined" autocomplete="off" value="4" data-bs-toggle="modal" data-bs-target="#confirmModal">
-                                <label class="btn btn-outline-dark" for="danger-outlined">{{__('Complete')}}</label>
+                                <button type="button" class="btn btn-outline-dark" @if($incidence->status==4) disabled @endif data-bs-toggle="modal" data-bs-target="#confirmModal">{{__('Complete')}}</button>
                             @else
                                 @if($incidence->status == 4) 
                                     <button class="btn btn-outline-dark">{{__('Completed')}}</button>
@@ -70,9 +69,7 @@
                                     @if($incidence->status == 2)
                                         <input @if($incidence->status==4) disabled @endif  type="radio" class="btn-check" name="status" id="success-outlined" autocomplete="off" @if($incidence->status == 2) checked @endif value="2">
                                         <label class="btn btn-outline-success" for="success-outlined">{{__('In Process')}}</label>
-                                        
-                                        <input @if($incidence->status==4) disabled @endif  type="radio" class="btn-check" name="status" id="danger-outlined" autocomplete="off" value="4" data-bs-toggle="modal" data-bs-target="#confirmModal">
-                                        <label class="btn btn-outline-dark" for="danger-outlined">{{__('Complete')}}</label>
+                                        <button type="button" class="btn btn-outline-dark" @if($incidence->status==4) disabled @endif data-bs-toggle="modal" data-bs-target="#confirmModal">{{__('Complete')}}</button>
                                     @elseif($incidence->status == 1)
                                         <input @if($incidence->status==4) disabled @endif  type="radio" class="btn-check" name="status" id="success-outlined" autocomplete="off" @if($incidence->status == 1) checked @endif value="2">
                                         <label class="btn btn-outline-success" for="success-outlined">{{__('Accept')}}</label>
@@ -87,10 +84,7 @@
                                 @endif
                             @endif
                         </div>
-
-                        
                     </div>
-
                     <div class="row">
                         <div class="col-md-6">
                             <div class="text-muted">{{__('Responsable')}}</div>
@@ -106,9 +100,7 @@
                             <strong>{{$agent->name}}</strong>
                         </div>
                     </div>
-
                     <hr class="my-4" />
-
                     <div class="row mb-4">
                         <div class="col-md-6">
                             <div class="text-muted">{{$order->code}}</div>
@@ -134,7 +126,7 @@
                     </div>
                     <hr class="my-4" />
                     <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-outline-success" data-bs-toggle="tooltip" data-bs-placement="top" title="{{__('History')}}"><i class="align-middle" data-feather="layers"></i></button>
+                        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#callInfo"><i class="align-middle" data-feather="layers"></i></button>
                         <button type="button" class="btn btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="{{__('Call Store')}}" onClick="call('{{route('call.incidence',['id' => $incidence->id, 'user' => auth()->user()->id])}}')"><i class="align-middle" data-feather="phone"></i></button>
                     </div>
                     <hr class="my-4" />
@@ -187,7 +179,6 @@
         </div>
     </div>
 </div>
-
 <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -199,14 +190,52 @@
                 </div>
                 <div class="modal-body m-3">
                     <p class="mb-0" style="color:red;text-align:center">{{__('Are you sure that the incident has been completed? First of all make sure, customer satisfaction is very important.')}}</p>
+                    <textarea name="reason" id="reason" class="form-control" style="visibility:hidden;"></textarea>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__('Close')}}</button>
-                    <button class="btn btn-outline-danger">{{__('Complete')}}</button>
+                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="{{__('Call Store')}}" onClick="call('{{route('call.incidence',['id' => $incidence->id, 'user' => auth()->user()->id])}}')"><i class="align-middle" data-feather="phone"></i></button>
+                    <button id="closeIncidence" class="btn btn-outline-danger">{{__('Complete')}}</button>
                 </div>
             </form>
         </div>
     </div>
+</div>
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="CallInfo" id="callInfo" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="CallInfo">{{__('Information Calls')}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body m-3">
+      @if($incidence->calls != null && $incidence->calls != '')
+      @foreach($incidence->calls as $call)
+        <p style="font-size: 0.75em">{{__("Call ID")}}: {{$call['call_id']}}</p>
+        <p style="font-size: 0.75em">{{__("Status")}}: <strong>{{$call['last_state']}}</strong></p>
+        <table style="font-size:0.75em;width:100%">
+          <tr>
+            <td>{{__("Init call")}}: {{$call['start_time']}}</td>
+            <td>{{__("Answered call")}}: {{$call['answered_time']}}</td>
+            <td>{{__("Finish call")}}: {{$call['end_time']}}</td>
+          </tr>
+          <tr>
+            <td>{{__("Total duration")}}: {{$call['total_duration']}}</td>
+            <td>{{__("Incall duration")}}: {{$call['incall_duration']}}</td>
+          </tr>
+        </table>
+        @if($call['record']!=null) 
+        <div class="m-3 essential_audio" data-url="{{$call['record']}}">
+          <span class="no_js">Please activate JavaScript for the audio player.</span>
+        </div>
+        @endif
+        <hr>
+      @endforeach
+      @endif
+      </div>
+
+    </div>
+  </div>
 </div>
 @endsection
 
@@ -216,6 +245,17 @@ function call(url) {
   let xhr = new XMLHttpRequest();
   xhr.open("GET", url);
   xhr.send();
+  $('#closeIncidence').css('visibility','visible');
 }
+
+$(document).ready(function() {
+    if({{$incidence->callid == null}}==1) {
+        $('#closeIncidence').css('visibility','hidden');
+        $('#reason').css('visibility','visible');
+    }
+    $('#reason').on('change',function () {
+        $('#closeIncidence').css('visibility','visible');
+    })
+});
 </script>
 @endsection

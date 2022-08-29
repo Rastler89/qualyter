@@ -163,6 +163,10 @@ class IncidenceController extends Controller
         $agents = Agent::all();
         $owner = auth()->user();
 
+        if($incidence->callId != null || $incidence->callId != '') {
+            $incidence->calls = $this->getCalls($incidence->callId);
+        }
+echo"<pre>";print_r($incidence->calls);echo"</pre>";die();
         return view('admin.incidence.view', ['incidence' => $incidence, 'store' => $store[0], 'user' => $user, 'agent' => $agent, 'order' => $order, 'comments' => $comments, 'agents' => $agents, 'owner' => $owner]);
     }
 
@@ -206,7 +210,7 @@ class IncidenceController extends Controller
         return redirect()->to('/incidences/'.$id)->with('success','Agent changed!');
     }
 
-    public function complete($id) {
+    public function complete($id,Request $request) {
         $log = new AuditionController();
         $incidence = Incidence::find($id);
         $old_incidence = Incidence::find($id);
@@ -215,7 +219,9 @@ class IncidenceController extends Controller
         if($old_incidence->status != $incidence->status) {
             $log->saveLog($old_incidence,$incidence,'i');
         }
-
+        if($request->get('reason')!=null && $request->get('reason') != '') {
+            $incidence->reason = $request->get('reason');
+        }
         $incidence->updated_at = Carbon::now();
 
         $incidence->save();
@@ -392,5 +398,31 @@ class IncidenceController extends Controller
         $artisan = Artisan::call('call:store',['user'=>$user, 'id'=>$id, 'type'=>'incidence']);
         $output = Artisan::output();
         return $artisan.$output;
+    }
+
+    private function getCalls($calls) {
+        $call = [];
+        $callIds = json_decode($calls,true);
+
+        foreach($callIds as $callid) {
+            if (strpos($callid, 'E') !== false) {
+                $callid = number_format($callid,0,'','');
+            }
+            
+            $url = "https://public-api.ringover.com/v2/calls/".$callid;
+            $authorization = 'Authorization: 138a032c631da0db13b4d1252742ebb2ce17599a';
+
+            $curl = curl_init();
+            curl_setopt($curl, CURLOPT_URL, $url);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json',$authorization));
+
+            $response = curl_exec($curl);
+            $response = json_decode($response,true);
+            if($response!=null) {
+                $call[] = $response['list'][0];
+            }
+        }
+        return $call;
     }
 }
