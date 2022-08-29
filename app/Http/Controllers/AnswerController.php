@@ -10,6 +10,7 @@ use App\Models\Task;
 use App\Models\Incidence;
 use App\Models\User;
 use App\Models\Team;
+use App\Models\Call;
 use App\Http\Controllers\AuditionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
