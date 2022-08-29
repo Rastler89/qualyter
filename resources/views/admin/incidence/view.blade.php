@@ -240,6 +240,7 @@
 @endsection
 
 @section('javascript')
+<script  src="{{ asset("js/essential_audio.js") }}"></script>
 <script>
 function call(url) {
   let xhr = new XMLHttpRequest();

@@ -17,10 +17,6 @@ return new class extends Migration
             $table->string('token')->nullable();
             $table->string('phone')->nullable();
         });
-
-        Schema::table('answers', function (Blueprint $table) {
-            $table->string('callId')->nullable();
-        });
     }
 
     /**
@@ -33,10 +29,6 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('token');
             $table->dropColumn('phone');
-        });
-
-        Schema::table('answers', function (Blueprint $table) {
-            $table->dropColumn('callId');
         });
     }
 };

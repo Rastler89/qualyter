@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Task;
 use App\Models\Log;
 use App\Models\Team;
+use App\Models\Call;
 use Illuminate\Http\Request;
 use Mail;
 use Carbon\Carbon;
@@ -163,10 +164,8 @@ class IncidenceController extends Controller
         $agents = Agent::all();
         $owner = auth()->user();
 
-        if($incidence->callId != null || $incidence->callId != '') {
-            $incidence->calls = $this->getCalls($incidence->callId);
-        }
-echo"<pre>";print_r($incidence->calls);echo"</pre>";die();
+        $incidence->calls = $this->getCalls($incidence->id);
+        
         return view('admin.incidence.view', ['incidence' => $incidence, 'store' => $store[0], 'user' => $user, 'agent' => $agent, 'order' => $order, 'comments' => $comments, 'agents' => $agents, 'owner' => $owner]);
     }
 
@@ -397,32 +396,30 @@ echo"<pre>";print_r($incidence->calls);echo"</pre>";die();
         $user = $_GET['user'];
         $artisan = Artisan::call('call:store',['user'=>$user, 'id'=>$id, 'type'=>'incidence']);
         $output = Artisan::output();
-        return $artisan.$output;
+        return $artisan;
     }
 
-    private function getCalls($calls) {
-        $call = [];
-        $callIds = json_decode($calls,true);
+    private function getCalls($incidence_id) {
+        
+        $calls = Call::where('external_id','=',$incidence_id)->where('type','=','i')->get();
 
-        foreach($callIds as $callid) {
-            if (strpos($callid, 'E') !== false) {
-                $callid = number_format($callid,0,'','');
-            }
-            
-            $url = "https://public-api.ringover.com/v2/calls/".$callid;
+        $res = [];
+
+        foreach($calls as $call) { 
+            $url = "https://public-api.ringover.com/v2/calls/".$call->call_id;
             $authorization = 'Authorization: 138a032c631da0db13b4d1252742ebb2ce17599a';
-
+            
             $curl = curl_init();
             curl_setopt($curl, CURLOPT_URL, $url);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json',$authorization));
-
+            
             $response = curl_exec($curl);
             $response = json_decode($response,true);
             if($response!=null) {
-                $call[] = $response['list'][0];
+                $res[] = $response['list'][0];
             }
         }
-        return $call;
+        return $res;
     }
 }

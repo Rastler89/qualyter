@@ -560,9 +560,8 @@ class AnswerController extends Controller
         } else {
             $owners = false;
         }
-        if($answer->callId != null || $answer->callId != '') {
-            $answer->calls = $this->getCalls($answer->callId);
-        }
+        $answer->calls = $this->getCalls($answer->id);
+        
         return view('admin.answer.view', ['answer' => $answer, 'store' => $store, 'answers' => $res, 'tasks' => $tasks, 'agents' => $agents, 'owners' => $owners, 'incidences' => $incidence]);
     }
 
@@ -667,34 +666,27 @@ class AnswerController extends Controller
         }
     }
 
-    private function getCalls($calls) {
-        $call = [];
-        $responses = json_decode($calls,true);
+    private function getCalls($incidence_id) {
+        
+        $calls = Call::where('external_id','=',$incidence_id)->where('type','=','i')->get();
 
-        foreach($responses as $response) {
-            if(gettype($response)==='array') {
-                $callid = $response['call_id'];
-            } else {
-                $callid = $response;
-            }
-            if (strpos($callid, 'E') !== false) {
-                $callid = number_format($callid,0,'','');
-            }
-            
-            $url = "https://public-api.ringover.com/v2/calls/".$callid;
+        $res = [];
+
+        foreach($calls as $call) { 
+            $url = "https://public-api.ringover.com/v2/calls/".$call->call_id;
             $authorization = 'Authorization: 138a032c631da0db13b4d1252742ebb2ce17599a';
-
+            
             $curl = curl_init();
             curl_setopt($curl, CURLOPT_URL, $url);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json',$authorization));
-
+            
             $response = curl_exec($curl);
             $response = json_decode($response,true);
             if($response!=null) {
-                $call[] = $response['list'][0];
+                $res[] = $response['list'][0];
             }
         }
-        return $call;
+        return $res;
     }
 }

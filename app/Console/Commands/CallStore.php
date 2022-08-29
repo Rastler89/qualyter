@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Store;
 use App\Models\Answer;
 use App\Models\Incidence;
+use App\Models\Call;
 use App\Models\User;
 use Illuminate\Console\Command;
 
@@ -81,11 +82,13 @@ class CallStore extends Command
             curl_close($callback);
             
             if($code == 200) {
-                $response = json_decode($response, true);
-                $callids = json_decode($answer->callId,true);
-                $callids[] = $response;
-                $answer->callId = json_encode($callids);
-                $answer->save();
+                $response = json_decode($response, true, 512, JSON_BIGINT_AS_STRING);
+                $call = new Call();
+                $call->call_id = $response['call_id'];
+                $call->external_id = $elementId;
+                $call->type = substr($type,0,1);
+                $call->user_id = $userid;
+                $call->save();
             }
 
             return $response;
