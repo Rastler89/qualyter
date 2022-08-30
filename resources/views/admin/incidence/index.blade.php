@@ -218,6 +218,7 @@
 <table class="table table-hover table-striped">
     <thead>
         <th scope="col">@sortablelink('store',__('Store'))</th>
+        <th scoep="col">{{__('Work Order')}}</th>
         <th scope="col">@sortablelink('status',__('Status'))</th>
         <th scope="col">@sortablelink('impact',__('Impact'))</th>
         <th scope="col">@sortablelink('responsable',__('Responsable'))</th>
@@ -238,6 +239,10 @@
                         {{$store->name}}
                     @endif
                     @endforeach
+                </td>
+                <td>
+                    <?php $workOrder = json_decode($incidence->order,true); ?>
+                    {{$workOrder['code']}}
                 </td>
                 <td>
                     @switch($incidence->status)
