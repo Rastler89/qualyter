@@ -119,7 +119,14 @@ class IncidenceController extends Controller
             }
             $incidences->whereIn('owner',$id);
         }
-
+        if(!empty($filters['workOrder']) && $filters['workOrder'] != '') {
+            $id=[];
+            $tasks = Task::where('code','LIKE','%'.$filters['workOrder'].'%')->get();
+            foreach($tasks as $task) {
+                $id[] = $t->answer_id;
+            }
+            $incidences->whereIn('id',$id);
+        }
         /* End filters */
 
         $rol = auth()->user()->roles;
