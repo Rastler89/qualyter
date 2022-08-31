@@ -110,6 +110,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     // REPORTS
     Route::get('reports/leaderboard/agent', [App\Http\Controllers\ReportsController::class, 'leaderboardAgents'])->name('leaderboard.agents');
+    Route::get('reports/teams', [App\Http\Controllers\ReportsController::class, 'teams'])->name('leaderboard.teams');
 
     // CALL
     Route::get('answer/call/{id}', [App\Http\Controllers\AnswerController::class, 'call'])->name('call.answer');

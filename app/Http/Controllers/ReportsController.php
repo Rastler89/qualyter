@@ -38,6 +38,12 @@ class ReportsController extends Controller
         return view('admin.reports.leaderboard_agents', ['leaderboard' => $res]);
     }
 
+    public function teams() {
+
+
+        return view('admin.reports.teams');
+    }
+
     private function last_month_day() { 
         $month = date('m');
         $year = date('Y');

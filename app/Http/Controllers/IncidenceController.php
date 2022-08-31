@@ -282,11 +282,7 @@ class IncidenceController extends Controller
             'new' => false
         ];
 
-        if(env('APP_NAME')=='QualyterTEST') {
-            Mail::to('test@optimaretail.es')->send(new NotifyMail($body));
-        } else {
-            Mail::to($agent['email'])->send(new NotifyMail($body));
-        }
+        $this->notifyResponse($body,$incidence);
 
         return redirect()->to('/incidences')->with('success','Notify agent in this moment');
     }
@@ -353,11 +349,7 @@ class IncidenceController extends Controller
             'new' => false
         ];
 
-        if(env('APP_NAME')=='QualyterTEST') {
-            Mail::to('test@optimaretail.es')->send(new NotifyMail($body));
-        } else {
-            Mail::to($user['email'])->send(new NotifyMail($body));
-        }
+        $this->notifyResponse($body,$incidence);
 
         return view('public.thanksAgents');
     }
@@ -423,5 +415,16 @@ class IncidenceController extends Controller
             }
         }
         return $res;
+    }
+
+    private function notifyResponse($body, $incidence) {
+        if(env('APP_NAME')=='QualyterTEST') {
+            Mail::to('test@optimaretail.es')->send(new NotifyMail($body));
+        } else {
+            $agent = Agent::find($incidence->owner);
+            $user = User::find($incidence->responsable);
+            Mail::to($agent['email'])->send(new NotifyMail($body));
+            Mail::to($user['email'])->send(new ManagerMail($body));
+        }
     }
 }
