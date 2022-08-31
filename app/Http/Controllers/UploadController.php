@@ -57,7 +57,7 @@ class UploadController extends Controller
                 if(env('APP_NAME')!='QualyterTEST') {
                     Mail::to($owner->email)->send(new NotExistStoreMail($task->code));
                 } else {
-                    Mail::to('test@optimaet')->send(new NotExistStoreMail($task->code));
+                    Mail::to('test@optimaretail.es')->send(new NotExistStoreMail($task->code));
                 }
             }
 
