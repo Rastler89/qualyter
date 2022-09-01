@@ -263,10 +263,15 @@ class ApiController extends Controller
         foreach($results as $result) {
             $prepare[$result->owner][] = $result->answer;
         }
+        print_r($prepare);die();
         $res = [];
         foreach($prepare as $key => $pre) {
-            $res[$key] = $this->media($pre,false);
-            $res[$key]['agent'] = Agent::find($key);
+            if($request->type=='agent') {
+                $res[$key] = $this->media($pre,false);
+                $res[$key]['agent'] = Agent::find($key);
+            } else {
+
+            }
         }
         if(count($res)!=0) {
             foreach($res as $key => $values) {

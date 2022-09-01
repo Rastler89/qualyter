@@ -15,6 +15,17 @@
         </div>
     </div>
 </div>
+<div class="row">
+  <div class="col-md mt-1">
+      <div class="form-floating">
+        <select class="form-select" id="type">
+          <option value="agent">{{__('Agent')}}</option>
+          <option value="teams">{{__('Teams')}}</option>
+        </select>
+        <label for="type">{{__('Type')}}</label>
+      </div>
+  </div>
+</div>
 <table class="table table-hover">
   <thead>
     <tr>
