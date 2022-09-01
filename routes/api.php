@@ -18,10 +18,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('emails',[App\Http\Controllers\ApiController::class,'emails']);
 Route::get('window',[App\Http\Controllers\ApiController::class,'window']);
 Route::get('evolution',[App\Http\Controllers\ApiController::class,'evolution']);
 Route::get('answers/today/carried',[App\Http\Controllers\ApiController::class,'survey_carried_today']);
 Route::get('answers/month/carried',[App\Http\Controllers\ApiController::class,'survey_carried_month']);
 Route::get('answers/month/type',[App\Http\Controllers\ApiController::class,'answer_type']);
 Route::get('answers/answered',[App\Http\Controllers\Apicontroller::class, 'answered']);
+Route::post('leaderboard', [App\Http\Controllers\ApiController::class, 'leaderboard']);

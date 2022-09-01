@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Answer;
 use App\Models\Agent;
 use App\Models\Task;
+use Illuminate\Support\Facades\DB;
 /**
  * @OA\Info(title="OptimaQuality API", version="1.0")
  * 
@@ -35,8 +36,8 @@ class ApiController extends Controller
      * )
      */
     public function survey_carried_today() {
-        $finish_today = count(Answer::whereIn('status',[2,4,5])->where('expiration','=',date('Y-m-d'))->get());
-        $finish_yesterday = count(Answer::whereIn('status',[2,4,5])->where('expiration','=',date('Y-m-d',strtotime("-1 days")))->get());
+        $finish_today = count(Answer::whereIn('status',[2,4,5])->where('updated_at','=',date('Y-m-d'))->get());
+        $finish_yesterday = count(Answer::whereIn('status',[2,4,5])->where('updated_at','=',date('Y-m-d',strtotime("-1 days")))->get());
         if($finish_yesterday!=0) {
             $porcentaje_finalizadas = number_format(($finish_today/$finish_yesterday)*100-100,2);
         } else {
@@ -48,7 +49,8 @@ class ApiController extends Controller
 
         $total_today = count(Answer::where('expiration','=',date('Y-m-d'))->where('status','<>','8')->get());
         if($total_today!=0) {
-            $porcentaje_dia = number_format(($finish_today/$total_today)*100,2);
+            $ftoday = count(Answer::whereIn('status',[2,4,5])->where('expiration','=',date('Y-m-d'))->get());
+            $porcentaje_dia = number_format(($ftoday/$total_today)*100,2);
         } else {
             $porcentaje_dia = -100;
         }
@@ -56,8 +58,8 @@ class ApiController extends Controller
         $response['total'] = $total_today;
         $response['complete'] = $porcentaje_dia;
 
-        $total_cancelled = count(Answer::where('expiration','=',date('Y-m-d'))->where('status','=','8')->get());
-        $total_cancelled_yesterday = count(Answer::where('status','=','8')->where('expiration','=',date('Y-m-d',strtotime("-1 days")))->get());
+        $total_cancelled = count(Answer::where('updated_at','=',date('Y-m-d'))->where('status','=','8')->get());
+        $total_cancelled_yesterday = count(Answer::where('status','=','8')->where('updated_at','=',date('Y-m-d',strtotime("-1 days")))->get());
 
         $response['cancelled'] = $total_cancelled;
         $response['cancelled_yesterday'] = $total_cancelled_yesterday;
@@ -91,21 +93,23 @@ class ApiController extends Controller
         $first_month_pre = $this->first_month_day(1);
         $last_month_pre = $this->last_month_day(1);
 
-        $finish_today = count(Answer::whereIn('status',[2,4,5])->whereBetween('expiration',[$first_month,$last_month])->get());
-        $finish_yesterday = count(Answer::whereIn('status',[2,4,5])->whereBetween('expiration',[$first_month_pre,$last_month_pre])->get());
+        $finish_today = count(Answer::whereIn('status',[2,4,5])->whereBetween('updated_at',[$first_month,$last_month])->get());
+        $finish_yesterday = count(Answer::whereIn('status',[2,4,5])->whereBetween('updated_at',[$first_month_pre,$last_month_pre])->get());
         $porcentaje_finalizadas = number_format(($finish_today/$finish_yesterday)*100-100,2);
 
         $response['finish'] = $finish_today;
         $response['porcentage'] = $porcentaje_finalizadas;
 
+        $ftoday = count(Answer::whereIn('status',[2,4,5])->whereBetween('expiration',[$first_month,$last_month])->get());
+
         $total_today = count(Answer::whereBetween('expiration',[$first_month,$last_month])->where('status','<>','8')->get());
-        $porcentaje_dia = number_format(($finish_today/$total_today)*100,2);
+        $porcentaje_dia = number_format(($ftoday/$total_today)*100,2);
 
         $response['total'] = $total_today;
         $response['complete'] = $porcentaje_dia;
 
-        $total_cancelled = count(Answer::whereBetween('expiration',[$first_month,$last_month])->where('status','=','8')->get());
-        $total_cancelled_yesterday = count(Answer::where('status','=','8')->whereBetween('expiration',[$first_month_pre,$last_month_pre])->get());
+        $total_cancelled = count(Answer::whereBetween('updated_at',[$first_month,$last_month])->where('status','=','8')->get());
+        $total_cancelled_yesterday = count(Answer::where('status','=','8')->whereBetween('updated_at',[$first_month_pre,$last_month_pre])->get());
 
         $response['cancelled'] = $total_cancelled;
         $response['cancelled_yesterday'] = $total_cancelled_yesterday;
@@ -119,13 +123,13 @@ class ApiController extends Controller
         $first_month_pre = $this->first_month_day(1);
         $last_month_pre = $this->last_month_day(1);
 
-        $response['open'] = count(Answer::where('status','=','0')->whereBetween('expiration',[$first_month,$last_month])->get());
-        $response['assigned'] = count(Answer::where('status','=','1')->whereBetween('expiration',[$first_month,$last_month])->get());
-        $response['qc'] = count(Answer::where('status','=','2')->whereBetween('expiration',[$first_month,$last_month])->get());
-        $response['send'] = count(Answer::where('status','=','3')->whereBetween('expiration',[$first_month,$last_month])->get());
-        $response['review'] = count(Answer::where('status','=','4')->whereBetween('expiration',[$first_month,$last_month])->get());
-        $response['complete'] = count(Answer::where('status','=','5')->whereBetween('expiration',[$first_month,$last_month])->get());
-        $response['cancel'] = count(Answer::where('status','=','8')->whereBetween('expiration',[$first_month,$last_month])->get());
+        $response['open'] = count(Answer::where('status','=','0')->whereBetween('updated_at',[$first_month,$last_month])->get());
+        $response['assigned'] = count(Answer::where('status','=','1')->whereBetween('updated_at',[$first_month,$last_month])->get());
+        $response['qc'] = count(Answer::where('status','=','2')->whereBetween('updated_at',[$first_month,$last_month])->get());
+        $response['send'] = count(Answer::where('status','=','3')->whereBetween('updated_at',[$first_month,$last_month])->get());
+        $response['review'] = count(Answer::where('status','=','4')->whereBetween('updated_at',[$first_month,$last_month])->get());
+        $response['complete'] = count(Answer::where('status','=','5')->whereBetween('updated_at',[$first_month,$last_month])->get());
+        $response['cancel'] = count(Answer::where('status','=','8')->whereBetween('updated_at',[$first_month,$last_month])->get());
         
         return response()->json($response);
     }
@@ -247,32 +251,35 @@ class ApiController extends Controller
         return response()->json($time);
     }
 
-    public function emails(Request $request) {
-        $body = json_decode($request->getContent(), true);
-        
-        $answers = Answer::whereIn('status',[3,4,5]);
+    public function leaderboard(Request $request) {
+        $first = $request->init;
+        $last = $request->finish;
 
-        $answers = $this->dating($body,$answers);
-
-        $answers = $answers->get();
-
+        $results = DB::select('SELECT answers.answer, tasks.owner FROM answers, tasks WHERE answers.id = tasks.answer_id AND answers.status IN (2,4,5) AND answers.expiration BETWEEN :first AND :last', [
+            'first' => $first,
+            'last' => $last
+        ]);
+        $prepare = [];
+        foreach($results as $result) {
+            $prepare[$result->owner][] = $result->answer;
+        }
         $res = [];
-        $res['total'] = count($answers);
-
-        if($body['not_respond']) {
-            $responds = Answer::where('status','=',3);
-            $responds = $this->dating($body,$responds);
-            $responds = $responds->get();
-            $res['not_respond'] = count($responds);
+        foreach($prepare as $key => $pre) {
+            $res[$key] = $this->media($pre,false);
+            $res[$key]['agent'] = Agent::find($key);
         }
-        foreach($answers as $answer) {
-            $res['body'][] = $answer;
+        if(count($res)!=0) {
+            foreach($res as $key => $values) {
+                $order1[$key] = $values[0];
+                $order2[$key] = $values['total'];
+            }
+            array_multisort($order1, SORT_DESC, $order2, SORT_DESC, $res);
+            return response()->json($res);
         }
-
-        return response()->json($res);
+        return response()->json(0);
     }
 
-    private function media($answers) {
+    private function media($answers,$object=true) {
         $question = [];
         $question[0] = 0;
         $question[1] = 0;
@@ -282,7 +289,11 @@ class ApiController extends Controller
         $sum = 0;
 
         foreach($answers as $answer) {
-            $res = json_decode($answer->answer);
+            if($object) {
+                $res = json_decode($answer->answer);
+            } else {
+                $res = json_decode($answer);
+            }
             $question[0]+=$res->valoration[0];
             $question[1]+=$res->valoration[1];
             $question[2]+=$res->valoration[2];
