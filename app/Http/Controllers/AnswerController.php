@@ -562,7 +562,7 @@ class AnswerController extends Controller
             $owners = false;
         }
         $answer->calls = $this->getCalls($answer->id);
-        
+
         return view('admin.answer.view', ['answer' => $answer, 'store' => $store, 'answers' => $res, 'tasks' => $tasks, 'agents' => $agents, 'owners' => $owners, 'incidences' => $incidence]);
     }
 
@@ -667,9 +667,9 @@ class AnswerController extends Controller
         }
     }
 
-    private function getCalls($incidence_id) {
+    private function getCalls($answer_id) {
         
-        $calls = Call::where('external_id','=',$incidence_id)->where('type','=','i')->get();
+        $calls = Call::where('external_id','=',$answer_id)->where('type','=','a')->get();
 
         $res = [];
 
