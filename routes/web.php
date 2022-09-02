@@ -109,7 +109,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('export/answer', [App\Http\Controllers\ExportController::class, 'answer'])->name('export.answer');
 
     // REPORTS
-    Route::get('reports/leaderboard/agent', [App\Http\Controllers\ReportsController::class, 'leaderboardAgents'])->name('leaderboard.agents');
+    Route::get('reports/leaderboard', [App\Http\Controllers\ReportsController::class, 'leaderboardAgents'])->name('leaderboard');
     Route::get('reports/teams', [App\Http\Controllers\ReportsController::class, 'teams'])->name('leaderboard.teams');
 
     // CALL
