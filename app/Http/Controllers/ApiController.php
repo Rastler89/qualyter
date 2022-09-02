@@ -252,6 +252,8 @@ class ApiController extends Controller
     }
 
     public function leaderboard(Request $request) {
+        $type = ($request->type != null) ? $request->type : 'agent';
+
         $first = $request->init;
         $last = $request->finish;
 
@@ -261,12 +263,23 @@ class ApiController extends Controller
         ]);
         $prepare = [];
         foreach($results as $result) {
-            $prepare[$result->owner][] = $result->answer;
+            if($type=='agent') {
+                $prepare[$result->owner][] = $result->answer;
+            } else if($type=='teams') {
+                $agent = Agent::find($result->owner);
+                $prepare[$agent->team][] = $result->answer;
+            } else {
+                $prepare['general'][]=$result->answer;
+            }
         }
         $res = [];
         foreach($prepare as $key => $pre) {
             $res[$key] = $this->media($pre,false);
-            $res[$key]['agent'] = Agent::find($key);
+            if($request->type=='agent') {
+                $res[$key]['agent'] = Agent::find($key);
+            } else if($request->type=='teams') {
+                $res[$key]['team'] = $key;
+            }
         }
         if(count($res)!=0) {
             foreach($res as $key => $values) {

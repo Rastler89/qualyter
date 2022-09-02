@@ -11,7 +11,7 @@ class ReportsController extends Controller
     public function leaderboardAgents() {
         $first = $this->first_month_day();
         $last = $this->last_month_day();
-        return view('admin.reports.leaderboard_agents', ['first' => $first, 'last' => $last]);
+        return view('admin.reports.leaderboard', ['first' => $first, 'last' => $last]);
     }
 
     public function teams() {
