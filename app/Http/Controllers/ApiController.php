@@ -261,6 +261,7 @@ class ApiController extends Controller
             'first' => $first,
             'last' => $last
         ]);
+        $total = count($results);
         $prepare = [];
         foreach($results as $result) {
             if($type=='agent') {
@@ -283,10 +284,10 @@ class ApiController extends Controller
         }
         if(count($res)!=0) {
             foreach($res as $key => $values) {
-                $order1[$key] = $values[0];
-                $order2[$key] = $values['total'];
+                $percentatge = $values['total']/$total;
+                $order1[$key] = $percentatge*0.75+$values[0]*0.025;
             }
-            array_multisort($order1, SORT_DESC, $order2, SORT_DESC, $res);
+            array_multisort($order1, SORT_DESC, $res);
             return response()->json($res);
         }
         return response()->json(0);
