@@ -257,12 +257,13 @@ class ApiController extends Controller
         $first = $request->init;
         $last = $request->finish;
 
-        $results = DB::select('SELECT answers.answer, tasks.owner FROM answers, tasks WHERE answers.id = tasks.answer_id AND answers.status IN (2,4,5) AND answers.expiration BETWEEN :first AND :last', [
+        $results = DB::select('SELECT answers.answer, tasks.owner, answers.id FROM answers, tasks WHERE answers.id = tasks.answer_id AND answers.status IN (2,4,5) AND answers.expiration BETWEEN :first AND :last', [
             'first' => $first,
             'last' => $last
         ]);
         $total = count($results);
         $prepare = [];
+        $general = [];
         foreach($results as $result) {
             if($type=='agent') {
                 $prepare[$result->owner][] = $result->answer;
@@ -270,7 +271,11 @@ class ApiController extends Controller
                 $agent = Agent::find($result->owner);
                 $prepare[$agent->team][] = $result->answer;
             } else {
-                $prepare['general'][]=$result->answer;
+                $string = $result->owner.' - '.$result->id;
+                if(!in_array($string,$general)) {
+                    $general[] = $string;
+                    $prepare['general'][]=$result->answer;
+                }
             }
         }
         $res = [];

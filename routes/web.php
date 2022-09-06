@@ -115,6 +115,9 @@ Route::group(['middleware' => 'auth'], function () {
     // CALL
     Route::get('answer/call/{id}', [App\Http\Controllers\AnswerController::class, 'call'])->name('call.answer');
     Route::get('incidence/call/{id}', [App\Http\Controllers\IncidenceController::class, 'call'])->name('call.incidence');
+
+    //Special
+    Route::get('leaderboard',[App\Http\Controllers\ReportsController::class, 'leaderboard_animated']);
 });
 // INCIDENCE
 Route::get('agent/incidence/{id}', [App\Http\Controllers\IncidenceController::class, 'response'])->name('incidences.agent');

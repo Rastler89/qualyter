@@ -13,6 +13,17 @@ class ReportsController extends Controller
         $last = $this->last_month_day();
         return view('admin.reports.leaderboard', ['first' => $first, 'last' => $last]);
     }
+    
+    public function leaderboard_animated() {
+        $first = '2022-08-01';//$this->first_month_day();
+        $last = '2022-08-31';//$this->last_month_day();
+        $results = DB::select('SELECT tasks.owner FROM answers, tasks WHERE answers.id = tasks.answer_id AND answers.status IN (2,4,5) AND answers.expiration BETWEEN :first AND :last GROUP BY tasks.owner', [
+            'first' => $first,
+            'last' => $last
+        ]);
+        $agents = Agent::whereIn('id',json_decode(json_encode ( $results ) , true))->get();//where('active','=','1')->get();
+        return view('admin.reports.leaderboard_animated', ['first' => $first, 'last' => $last, 'agents' => $agents]);
+    }
 
     public function teams() {
         $first = $this->first_month_day();
