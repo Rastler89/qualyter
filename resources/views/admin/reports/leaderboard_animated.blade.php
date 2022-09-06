@@ -278,7 +278,7 @@
 
             function init() {
                 
-                $.post('/api/leaderboard',{init:'2022-08-01',finish:'2022-08-31',type:'agent' }, function(res) {
+                $.post('/api/leaderboard',{init:'{{$first}}',finish:'{{$last}}',type:'agent' }, function(res) {
                     res.forEach(function(result,index) {
                         agents.find(function(agent,key) {
                             if(agent.email == result.agent.email) {
