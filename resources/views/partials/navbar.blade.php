@@ -15,7 +15,7 @@
                     <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">{{__('Dashboard')}}</span>
                 </a>
             </li>
-            <li class="sidebar-item @if(Request::is('reports/leaderboard') || Request::is('reports/targets') active @endif">
+            <li class="sidebar-item @if(Request::is('reports/leaderboard') || Request::is('reports/targets')) active @endif">
                 <a class="sidebar-link" data-bs-target="#specialReports" data-bs-toggle="collapse" aria-expanded="true">
                     <i class="align-middle" data-feather="sliders"></i><span class="align-middle">{{__('Stadistics')}}</span>
                 </a>
