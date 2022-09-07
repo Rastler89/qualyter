@@ -161,8 +161,8 @@ class MonthlyNote extends Command
         $send = 0;
         $resp = 0;
 
-        $first_day = $this->first_month_day();
-        $last_day = $this->last_month_day();
+        $first_day = first_month_day();
+        $last_day = last_month_day();
 
         foreach($delegations as $delegation) {
             $answers = Answer::where('client','=',$delegation->id)->where('status','<>','8')->whereBetween('expiration',[$first_day,$last_day])->get();
@@ -190,8 +190,8 @@ class MonthlyNote extends Command
     private function getAverage($client) {
         $resp = [];
 
-        $first_day = $this->first_month_day();
-        $last_day = $this->last_month_day();
+        $first_day = first_month_day();
+        $last_day = last_month_day();
 
         $stores = Store::where('client','=',$client->id)->get();
         foreach($stores as $store) {
@@ -215,21 +215,6 @@ class MonthlyNote extends Command
         } else {
             return false;
         }
-    }
-    /** Actual month last day **/
-    private function last_month_day() { 
-        $month = date('m');
-        $year = date('Y');
-        $day = date("d", mktime(0,0,0, $month, 0, $year));
-
-        return date('Y-m-d', mktime(0,0,0, $month-1, $day, $year));
-    }
-
-    /** Actual month first day **/
-    private function first_month_day() {
-        $month = date('m');
-        $year = date('Y');
-        return date('Y-m-d', mktime(0,0,0, $month-1, 1, $year));
     }
 
     private function send($emails,$body) {

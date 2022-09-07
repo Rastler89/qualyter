@@ -27,7 +27,20 @@
       </div>
   </div>
 </div>
-
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">{{__('Agent')}}</th>
+            <th scope="col">{{__('Visits')}}</th>
+            <th scope="col">{{__('Complete Call')}}</th>
+            <th scope="col">{{__('Emails Send')}}</th>
+            <th scope="col">{{__('Emails Respond')}}</th>
+            <th scope="col">{{__('% Visits contacted')}}</th>
+            <th scope="col">{{__('% Responses rate')}}</th>
+        </tr>
+    </thead>
+    <tbody id='bodytable'></tbody>
+</table>
 
 @endsection
 
@@ -36,15 +49,48 @@
 $(document).ready(function() {
     $('.filter').on('change',function() {
         limits();
-        //carga();
+        carga();
     })
     limits();
-    //carga();
+    carga();
 });
 
 function limits() {
     $('#first_date').attr('max',$('#last_date').val());
     $('#last_date').attr('min',$('#first_date').val());
 }    
+
+function carga() {
+    $('#bodytable').empty();
+    $.post('/api/targets',{init:$('#first_date').val(),finish:$('#last_date').val(),type:$('#type').val() }, function(res) {
+        $.each(res, function(index,line) {
+            console.log(line);
+            if(index%2==0) {
+                text='<tr class="table-light">';
+            } else {
+                text='<tr class="table-primary">'
+            }
+            switch($('#type').val()) {
+                case 'agent':
+                    text=text+'<td>'+line.agent.name+'</td>';
+                    break;
+                case 'teams':
+                    text=text+'<td>'+line.team+'</td>';
+                    break;
+                case 'general':
+                    text=text+'<td>Optima Retail</td>';
+                    break;
+            } 
+            text=text+'<td class="text-center">'+line.targets.visits+'</td>';
+            text=text+'<td class="text-center">'+line.targets.qc+'</td>';
+            text=text+'<td class="text-center">'+line.targets.send+'</td>';
+            text=text+'<td class="text-center">'+line.targets.resp+'</td>';
+            text=text+'<td class="text-center">'+line.targets.per_con+'</td>';
+            text=text+'<td class="text-center">'+line.targets.per_ans+'</td>';
+            text=text+'</tr>';
+            $('#bodytable').append(text);
+        })
+    })
+}
 </script>
 @endsection

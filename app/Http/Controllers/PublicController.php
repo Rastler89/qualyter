@@ -31,15 +31,15 @@ class PublicController extends Controller
             }
             return view('public.index',['delegations' => $delegations, 'month' => $month, 'central' => $client, 'type' => 'delegation']);
         } else {
-            $first_day = $this->first_month_day();
-            $last_day = $this->last_month_day();
+            $first_day = first_month_day();
+            $last_day = last_month_day();
 
             $average = $this->getAverage($client);
             if($average!=false) {
                 $client['average'] = $average['media'];
                 $client['visits'] = $average['total'];
             }
-            $extra = $this->getExtra($client);
+            $extra = getExtra($client);
 
             $answers = Answer::where('client','=',$client->id)->whereIn('status',[2,4,5])->whereBetween('expiration',[$first_day,$last_day])->get();
             foreach($answers as &$answer) {
@@ -60,8 +60,8 @@ class PublicController extends Controller
     }
 
     public function detail($central, $delegation) {
-        $first_day = $this->first_month_day();
-        $last_day = $this->last_month_day();
+        $first_day = first_month_day();
+        $last_day = last_month_day();
 
         $client = Client::find($delegation);
         $average = $this->getAverage($client);
@@ -69,7 +69,7 @@ class PublicController extends Controller
             $client['average'] = $average['media'];
             $client['visits'] = $average['total'];
         }
-        $extra = $this->getExtra($client);
+        $extra = getExtra($client);
 
         $answers = Answer::where('client','=',$client->id)->whereIn('status',[2,4,5])->whereBetween('expiration',[$first_day,$last_day])->get();
         foreach($answers as &$answer) {
@@ -87,53 +87,11 @@ class PublicController extends Controller
         return view('public.detail',['first_day'=>$first_day, 'last_day'=>$last_day, 'client'=>$client, 'extra' => $extra, 'answers' => $answers, 'total' => count($answers), 'notResponds' => $shops]);
     }
 
-
-    private function getExtra($delegation) {
-        $visits = 0;
-        $qc = 0;
-        $send = 0;
-        $resp = 0;
-        
-        $first_day = $this->first_month_day();
-        $last_day = $this->last_month_day();
-
-        $answers = Answer::where('client','=',$delegation->id)->where('status','<>','8')->whereBetween('expiration',[$first_day,$last_day])->get();
-        $visits = (int)count($answers);
-
-        $answers = Answer::where('client','=',$delegation->id)->whereIn('status',[2,3,4,5])->whereBetween('expiration',[$first_day,$last_day])->get();
-        $contacts = (int)count($answers);
-
-        $answers = Answer::where('client','=',$delegation->id)->where('status','=','2')->whereBetween('expiration',[$first_day,$last_day])->get();
-        $qc = (int)count($answers);
-
-        $answers = Answer::where('client','=',$delegation->id)->whereIn('status',[3,4,5])->whereBetween('expiration',[$first_day,$last_day])->get();
-        $send = (int)count($answers);
-
-        $answers = Answer::where('client','=',$delegation->id)->whereIn('status',[4,5])->whereBetween('expiration',[$first_day,$last_day])->get();
-        $resp = (int)count($answers);
-
-        $answers = Answer::where('client','=',$delegation->id)->whereIn('status',[2,4,5])->whereBetween('expiration',[$first_day,$last_day])->get();
-        $answered = (int)count($answers);
-
-        $per_con = number_format(($contacts/$visits)*100,2);
-        $per_ans = number_format(($answered/$contacts)*100,2);
-
-        $body = [
-            'visits' => $visits,
-            'qc' => $qc,
-            'send' => $send,
-            'resp' => $resp,
-            'per_con' => $per_con,
-            'per_ans' => $per_ans
-        ];
-
-        return $body;
-    }
     private function getAverage($client) {
         $resp = [];
 
-        $first_day = $this->first_month_day();
-        $last_day = $this->last_month_day();
+        $first_day = first_month_day();
+        $last_day = last_month_day();
 
         $stores = Store::where('client','=',$client->id)->get();
         foreach($stores as $store) {
@@ -158,19 +116,5 @@ class PublicController extends Controller
             return false;
         }
     }
-    /** Actual month last day **/
-    private function last_month_day() { 
-        $month = date('m');
-        $year = date('Y');
-        $day = date("d", mktime(0,0,0, $month, 0, $year));
-
-        return date('Y-m-d', mktime(0,0,0, $month-1, $day, $year));
-    }
-
-    /** Actual month first day **/
-    private function first_month_day() {
-        $month = date('m');
-        $year = date('Y');
-        return date('Y-m-d', mktime(0,0,0, $month-1, 1, $year));
-    }
+    
 }

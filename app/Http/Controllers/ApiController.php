@@ -88,10 +88,10 @@ class ApiController extends Controller
      * )
      */
     public function survey_carried_month() {
-        $first_month = $this->first_month_day(0);
-        $last_month = $this->last_month_day(0);
-        $first_month_pre = $this->first_month_day(1);
-        $last_month_pre = $this->last_month_day(1);
+        $first_month = $this->first_month_day_api(0);
+        $last_month = $this->last_month_day_api(0);
+        $first_month_pre = $this->first_month_day_api(1);
+        $last_month_pre = $this->last_month_day_api(1);
 
         $finish_today = count(Answer::whereIn('status',[2,4,5])->whereBetween('updated_at',[$first_month,$last_month])->get());
         $finish_yesterday = count(Answer::whereIn('status',[2,4,5])->whereBetween('updated_at',[$first_month_pre,$last_month_pre])->get());
@@ -118,10 +118,10 @@ class ApiController extends Controller
     }
 
     public function answer_type() {
-        $first_month = $this->first_month_day(0);
-        $last_month = $this->last_month_day(0);
-        $first_month_pre = $this->first_month_day(1);
-        $last_month_pre = $this->last_month_day(1);
+        $first_month = $this->first_month_day_api(0);
+        $last_month = $this->last_month_day_api(0);
+        $first_month_pre = $this->first_month_day_api(1);
+        $last_month_pre = $this->last_month_day_api(1);
 
         $response['open'] = count(Answer::where('status','=','0')->whereBetween('updated_at',[$first_month,$last_month])->get());
         $response['assigned'] = count(Answer::where('status','=','1')->whereBetween('updated_at',[$first_month,$last_month])->get());
@@ -149,11 +149,11 @@ class ApiController extends Controller
         }
 
         if($request->monthly==true) {
-            $monday = $this->first_month_day($diff);
-            $suneday = $this->last_month_day($diff);
+            $monday = $this->first_month_day_api($diff);
+            $suneday = $this->last_month_day_api($diff);
             
-            $old_monday = $this->first_month_day($diff+1);
-            $old_suneday = $this->last_month_day($diff+1);
+            $old_monday = $this->first_month_day_api($diff+1);
+            $old_suneday = $this->last_month_day_api($diff+1);
         } else {
             $current_day = date("N");
             $days_to_sunday = 7 - $current_day;
@@ -301,6 +301,90 @@ class ApiController extends Controller
         return response()->json(0);
     }
 
+    public function targets(Request $request) {
+        $type = ($request->type != null) ? $request->type : 'agent';
+
+        $first = $request->init;
+        $last = $request->finish;
+
+        $visits = 0;
+        $qc = 0;
+        $send = 0;
+        $resp = 0;
+
+        $ots = Task::whereBetween('expiration',[$first,$last])->where('answer_id','<>',null)->get();
+        switch($type) {
+            case 'agent':
+                foreach($ots as $ot) {
+                    $agent = Agent::find($ot->owner);
+                    $prepare[$ot->owner]['targets'][] = $ot->answer_id;
+                    $prepare[$ot->owner]['agent'] = $agent;
+                }
+                break;
+            case 'teams':
+                foreach($ots as $ot) {
+                    $agent = Agent::find($ot->owner);
+                    $prepare[$agent->team]['targets'][] = $ot->answer_id;
+                    $prepare[$agent->team]['team'] = $agent->team;
+                }
+                break;
+
+            case 'general':
+                foreach($ots as $ot) {
+                    $prepare['all'][] = $ot->answer_id;
+                }
+
+                $res['general']['targets'] = $this->information($prepare['all']);
+                return response()->json($res);
+                break;
+        }
+
+        foreach($prepare as &$item) {
+            $item['targets'] = $this->information($item['targets']);
+        }
+
+
+        return response()->json($prepare);
+    }
+
+    private function information($id) {
+        $answers = Answer::whereIn('id',$id)->where('status','<>','8')->get();
+        $visits = (int)count($answers);
+    
+        $answers = Answer::whereIn('id',$id)->whereIn('status',[2,3,4,5])->get();
+        $contacts = (int)count($answers);
+    
+        $answers = Answer::whereIn('id',$id)->where('status','=','2')->get();
+        $qc = (int)count($answers);
+    
+        $answers = Answer::whereIn('id',$id)->whereIn('status',[3,4,5])->get();
+        $send = (int)count($answers);
+    
+        $answers = Answer::whereIn('id',$id)->whereIn('status',[4,5])->get();
+        $resp = (int)count($answers);
+    
+        $answers = Answer::whereIn('id',$id)->whereIn('status',[2,4,5])->get();
+        $answered = (int)count($answers);
+    
+        $per_con = number_format(($contacts/$visits)*100,2);
+        if($contacts==0) {
+            $per_ans = 0;
+        } else {
+            $per_ans = number_format(($answered/$contacts)*100,2);
+        }
+    
+        $body = [
+            'visits' => $visits,
+            'qc' => $qc,
+            'send' => $send,
+            'resp' => $resp,
+            'per_con' => $per_con,
+            'per_ans' => $per_ans
+        ];
+
+        return $body;
+    }
+
     private function media($answers,$object=true) {
         $question = [];
         $question[0] = 0;
@@ -359,7 +443,7 @@ class ApiController extends Controller
         return $answers;
     }
 
-    private function last_month_day($diff) { 
+    private function last_month_day_api($diff) { 
         $month = date('m');
         $year = date('Y');
         $day = date("d", mktime(0,0,0, $month, 0, $year));
@@ -368,7 +452,7 @@ class ApiController extends Controller
     }
 
     /** Actual month first day **/
-    private function first_month_day($diff) {
+    private function first_month_day_api($diff) {
         $month = date('m');
         $year = date('Y');
         return date('Y-m-d', mktime(0,0,0, $month-$diff, 1, $year));
