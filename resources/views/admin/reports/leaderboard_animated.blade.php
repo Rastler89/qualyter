@@ -153,7 +153,7 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>
         <script>
             document.getElementById('loader').style.visibility='visible';
-            document.getElementById('leaderboard').st
+            document.getElementById('leaderboard').style.visibility='hidden';
             // ----- On render -----
             var green = "#3CC796";
             var black = "rgba(0,0,0,0.65)";
@@ -169,8 +169,9 @@
                 agent.position = index;
                 agent.old_position = index;
             });
-            console.log('una');
+            console.log(agents);
             init();
+            console.log(agents);
             setInterval(init,10000);
 
 
@@ -281,7 +282,7 @@
 
             function init() {
                 
-                $.post('/api/leaderboard',{init:'{{$first}}',finish:'{{$last}}',type:'agent' }, function(res) {
+                $.post('https://optimaquality.es/api/leaderboard',{init:'{{$first}}',finish:'{{$last}}',type:'agent' }, function(res) {
                     res.forEach(function(result,index) {
                         agents.find(function(agent,key) {
                             if(agent.email == result.agent.email) {
@@ -309,7 +310,7 @@
                                 }
                             }
                         })
-                    });
+                    })
                     document.getElementById('loader').style.visibility='visible';
                     document.getElementById('leaderboard').style.visibility='hidden';
                     if(up.length != 0 || down.length != 0) {
