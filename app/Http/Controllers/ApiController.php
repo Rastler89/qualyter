@@ -266,7 +266,10 @@ class ApiController extends Controller
         $general = [];
         foreach($results as $result) {
             if($type=='agent') {
-                $prepare[$result->owner][] = $result->answer;
+                $agent = Agent::find($result->owner);
+                if($agent->active==1) {
+                    $prepare[$result->owner][] = $result->answer;
+                }
             } else if($type=='teams') {
                 $agent = Agent::find($result->owner);
                 $prepare[$agent->team][] = $result->answer;

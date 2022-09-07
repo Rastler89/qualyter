@@ -21,14 +21,14 @@ class ReportsController extends Controller
             'first' => $first,
             'last' => $last
         ]);
-        $agents = Agent::whereIn('id',json_decode(json_encode ( $results ) , true))->get();//where('active','=','1')->get();
+        $agents = Agent::all();//where('active','=','1')->get();//whereIn('id',json_decode(json_encode ( $results ) , true))->get();
         return view('admin.reports.leaderboard_animated', ['first' => $first, 'last' => $last, 'agents' => $agents]);
     }
 
-    public function teams() {
+    public function targets() {
         $first = $this->first_month_day();
-        $last  = $this->last_month_day();
-        return view('admin.reports.teams', ['first' => $first, 'last' => $last]);
+        $last = $this->last_month_day();
+        return view('admin.reports.targets', ['first' => $first, 'last' => $last]);
     }
 
     private function last_month_day() { 

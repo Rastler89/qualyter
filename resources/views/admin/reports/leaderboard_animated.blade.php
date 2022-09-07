@@ -152,6 +152,8 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>
         <script>
+            document.getElementById('loader').style.visibility='visible';
+            document.getElementById('leaderboard').st
             // ----- On render -----
             var green = "#3CC796";
             var black = "rgba(0,0,0,0.65)";
@@ -168,6 +170,7 @@
                 agent.old_position = index;
             });
             console.log('una');
+            init();
             setInterval(init,10000);
 
 
@@ -306,7 +309,7 @@
                                 }
                             }
                         })
-                    })
+                    });
                     document.getElementById('loader').style.visibility='visible';
                     document.getElementById('leaderboard').style.visibility='hidden';
                     if(up.length != 0 || down.length != 0) {
