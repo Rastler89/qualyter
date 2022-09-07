@@ -22,7 +22,6 @@ class ReportsController extends Controller
             'last' => $last
         ]);
         $agents = Agent::where('active','=','1')->get();//whereIn('id',json_decode(json_encode ( $results ) , true))->get();
-        echo"<pre>";print_r($agents);echo"</pre>";die();
         return view('admin.reports.leaderboard_animated', ['first' => $first, 'last' => $last, 'agents' => $agents]);
     }
 
