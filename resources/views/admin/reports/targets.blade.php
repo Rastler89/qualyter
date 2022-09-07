@@ -33,6 +33,7 @@
             <th scope="col">{{__('Agent')}}</th>
             <th scope="col">{{__('Visits')}}</th>
             <th scope="col">{{__('Complete Call')}}</th>
+            <th scope="col">{{__('Not Emails')}}</th>
             <th scope="col">{{__('Emails Send')}}</th>
             <th scope="col">{{__('Emails Respond')}}</th>
             <th scope="col">{{__('% Visits contacted')}}</th>
@@ -84,6 +85,7 @@ function carga() {
             } 
             text=text+'<td class="text-center">'+line.targets.visits+'</td>';
             text=text+'<td class="text-center">'+line.targets.qc+'</td>';
+            text=text+'<td class="text-center">'+line.targets.not_emails+'</td>';
             text=text+'<td class="text-center">'+line.targets.send+'</td>';
             text=text+'<td class="text-center">'+line.targets.resp+'</td>';
             text=text+'<td class="text-center">'+line.targets.per_con+'</td>';

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Answer;
 use App\Models\Agent;
 use App\Models\Task;
+use App\Models\Store;
 use Illuminate\Support\Facades\DB;
 /**
  * @OA\Info(title="OptimaQuality API", version="1.0")
@@ -350,6 +351,15 @@ class ApiController extends Controller
     private function information($id) {
         $answers = Answer::whereIn('id',$id)->where('status','<>','8')->get();
         $visits = (int)count($answers);
+
+        $answers = Answer::whereIn('id',$id)->where('status','=','1')->get();
+        $not_emails = 0;
+        foreach($answers as $answer) {
+            $store = Store::where('code','=',$answer->store)->first();
+            if($store->email!=null && $store->email=='') {
+                $not_emails = $not_emails + 1;
+            }
+        }
     
         $answers = Answer::whereIn('id',$id)->whereIn('status',[2,3,4,5])->get();
         $contacts = (int)count($answers);
@@ -377,6 +387,7 @@ class ApiController extends Controller
     
         $body = [
             'visits' => $visits,
+            'not_emails' => $not_emails,
             'qc' => $qc,
             'send' => $send,
             'resp' => $resp,
