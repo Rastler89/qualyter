@@ -169,14 +169,10 @@
                 agent.position = index;
                 agent.old_position = index;
             });
-            console.log(agents);
             init();
-            console.log(agents);
-            setInterval(init,10000);
-
 
             //cambios
-            var swappem = function() {  
+            function swappem() {  
                 document.getElementById('loader').style.visibility='hidden';
                 document.getElementById('leaderboard').style.visibility='visible';
                 //Sube
@@ -281,7 +277,6 @@
             }
 
             function init() {
-                
                 $.post('https://optimaquality.es/api/leaderboard',{init:'{{$first}}',finish:'{{$last}}',type:'agent' }, function(res) {
                     res.forEach(function(result,index) {
                         agents.find(function(agent,key) {
@@ -326,7 +321,16 @@
                 up = [];
                 down = [];
                 
+                for(var i=1; i<30; i++){    
+                    doThing(i, i >= 19);
+                }
             }
+            function doThing(i, last){
+                setTimeout(function(){
+                    console.log(i);
+                    if (last) location.reload();
+                }, 1000 * i);
+        }
 
             function getPosition(id1,id2,up) {
                 let agente1 = agents.find(agent => agent.id == id1);
@@ -346,7 +350,6 @@
                         }
                     }
                 });
-
                 return position;
             }
 
@@ -358,14 +361,11 @@
                 /*drew.find('.number').css({
                     'color': green
                 });*/
-
-                    TweenMax.staggerTo($('.leader>li'), 0.6, {
+                TweenMax.staggerTo($('.leader>li'), 0.6, {
                     autoAlpha: 1,
                     y: 0,
                     ease: Expo.easeOut
-
-                    }, 0.075, swappem)
-
+                }, 0.075, swappem)
             }
         </script>
     </body>
