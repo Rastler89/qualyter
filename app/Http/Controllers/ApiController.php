@@ -369,8 +369,10 @@ class ApiController extends Controller
         $per_con = number_format(($contacts/$visits)*100,2);
         if($contacts==0) {
             $per_ans = 0;
+            $tot_ans = 0;
         } else {
             $per_ans = number_format(($answered/$contacts)*100,2);
+            $tot_ans = number_format(($answered/$visits)*100,2);
         }
     
         $body = [
@@ -379,7 +381,8 @@ class ApiController extends Controller
             'send' => $send,
             'resp' => $resp,
             'per_con' => $per_con,
-            'per_ans' => $per_ans
+            'per_ans' => $per_ans,
+            'tot_ans' => $tot_ans
         ];
 
         return $body;

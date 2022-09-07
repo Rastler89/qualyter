@@ -37,6 +37,7 @@
             <th scope="col">{{__('Emails Respond')}}</th>
             <th scope="col">{{__('% Visits contacted')}}</th>
             <th scope="col">{{__('% Responses rate')}}</th>
+            <th scope="col">{{__('% Total Responses rate')}}</th>
         </tr>
     </thead>
     <tbody id='bodytable'></tbody>
@@ -87,6 +88,7 @@ function carga() {
             text=text+'<td class="text-center">'+line.targets.resp+'</td>';
             text=text+'<td class="text-center">'+line.targets.per_con+'</td>';
             text=text+'<td class="text-center">'+line.targets.per_ans+'</td>';
+            text=text+'<td class="text-center">'+line.targets.tot_ans+'</td>';
             text=text+'</tr>';
             $('#bodytable').append(text);
         })
