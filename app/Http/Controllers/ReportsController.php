@@ -30,5 +30,11 @@ class ReportsController extends Controller
         $last = last_month_day();
         return view('admin.reports.targets', ['first' => $first, 'last' => $last]);
     }
+
+    public function incidences() {
+        $first = first_month_day();
+        $last = last_month_day();
+        return view('admin.reports.incidences', ['first' => $first, 'last' => $last]);
+    }
     
 }

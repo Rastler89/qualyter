@@ -30,15 +30,15 @@
 <table class="table table-hover">
     <thead>
         <tr>
-            <th scope="col">{{__('Agent')}}</th>
-            <th scope="col">{{__('Visits')}}</th>
-            <th scope="col">{{__('Complete Call')}}</th>
-            <th scope="col">{{__('Not Emails')}}</th>
-            <th scope="col">{{__('Emails Send')}}</th>
-            <th scope="col">{{__('Emails Respond')}}</th>
-            <th scope="col">{{__('% Visits contacted')}}</th>
-            <th scope="col">{{__('% Responses rate')}}</th>
-            <th scope="col">{{__('% Total Responses rate')}}</th>
+            <th scope="col">{{__('Name')}}</th>
+            <th scope="col">{{__('% incidences Generated')}}</th>
+            <th scope="col">{{__('Number of incidences')}}</th>
+            <th scope="col">{{__('% Completed')}}</th>
+            <th scope="col">{{__('Average Time')}}</th>
+            <th scope="col">{{__('% Urgent')}}</th>
+            <th scope="col">{{__('% High')}}</th>
+            <th scope="col">{{__('% Medium')}}</th>
+            <th scope="col">{{__('% Low')}}</th>
         </tr>
     </thead>
     <tbody id='bodytable'></tbody>
@@ -60,14 +60,16 @@ $(document).ready(function() {
 function limits() {
     $('#first_date').attr('max',$('#last_date').val());
     $('#last_date').attr('min',$('#first_date').val());
-}    
+}
 
 function carga() {
     $('#bodytable').empty();
-    $.post('/api/reports/targets',{init:$('#first_date').val(),finish:$('#last_date').val(),type:$('#type').val() }, function(res) {
+    $.post('/api/reports/incidences',{init:$('#first_date').val(),finish:$('#last_date').val(),type:$('#type').val() }, function(res) {
+        console.log(res);
+        var count=0;
         $.each(res, function(index,line) {
-            console.log(line);
-            if(index%2==0) {
+            count++;
+            if(count%2==0) {
                 text='<tr class="table-light">';
             } else {
                 text='<tr class="table-primary">'
@@ -83,18 +85,32 @@ function carga() {
                     text=text+'<td>Optima Retail</td>';
                     break;
             } 
-            text=text+'<td class="text-center">'+line.targets.visits+'</td>';
-            text=text+'<td class="text-center">'+line.targets.qc+'</td>';
-            text=text+'<td class="text-center">'+line.targets.not_emails+'</td>';
-            text=text+'<td class="text-center">'+line.targets.send+'</td>';
-            text=text+'<td class="text-center">'+line.targets.resp+'</td>';
-            text=text+'<td class="text-center">'+line.targets.per_con+'</td>';
-            text=text+'<td class="text-center">'+line.targets.per_ans+'</td>';
-            text=text+'<td class="text-center">'+line.targets.tot_ans+'</td>';
+            time = '';
+            if(line.incidences.average_time.days!=0) {
+                time = time + line.incidences.average_time.days + "days ";
+            }
+            if(line.incidences.average_time.hours!=0) {
+                time = time + line.incidences.average_time.hours + "hours ";
+            }
+            if(line.incidences.average_time.minutes!=0) {
+                time = time + line.incidences.average_time.minutes + "minutes ";
+            }
+            if(time=='') {
+                time = '0';
+            }
+            text=text+'<td class="text-center">'+line.incidences.per_incidences+'</td>';
+            text=text+'<td class="text-center">'+line.incidences.num_incidences+'</td>';
+            text=text+'<td class="text-center">'+line.incidences.per_completed+'</td>';
+            text=text+'<td class="text-center">'+time+'</td>';
+            text=text+'<td class="text-center">'+line.incidences.per_urgent+'</td>';
+            text=text+'<td class="text-center">'+line.incidences.per_high+'</td>';
+            text=text+'<td class="text-center">'+line.incidences.per_medium+'</td>';
+            text=text+'<td class="text-center">'+line.incidences.per_low+'</td>';
             text=text+'</tr>';
             $('#bodytable').append(text);
         })
     })
 }
+
 </script>
 @endsection

@@ -15,13 +15,14 @@
                     <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">{{__('Dashboard')}}</span>
                 </a>
             </li>
-            <li class="sidebar-item @if(Request::is('reports/leaderboard') || Request::is('reports/targets')) active @endif">
+            <li class="sidebar-item @if(Request::is('reports/leaderboard') || Request::is('reports/targets') ||Request::is('reports/incidences')) active @endif">
                 <a class="sidebar-link" data-bs-target="#specialReports" data-bs-toggle="collapse" aria-expanded="true">
                     <i class="align-middle" data-feather="sliders"></i><span class="align-middle">{{__('Stadistics')}}</span>
                 </a>
                 <ul id="specialReports" class="sidebar-dropdown list-unstyled collapse @if(Request::is('reports/leaderboard/agent')) show @endif" data-bs-parent="#sidebar">
                     <li class="sidebar-item @if(Request::is('reports/leaderboard')) active @endif" ><a class="sidebar-link" href="{{route('leaderboard')}}">{{__('Leaderboard')}}</a></li>
                     <li class="sidebar-item @if(Request::is('reports/targets')) active @endif" ><a class="sidebar-link" href="{{route('reports.target')}}">{{__('KPI')}}</a></li>
+                    <li class="sidebar-item @if(Request::is('reports/incidences')) active @endif" ><a class="sidebar-link" href="{{route('reports.incidences')}}">{{__('Incidences')}}</a></li>
                 </ul>
             </li>
             @can('view-tasks')

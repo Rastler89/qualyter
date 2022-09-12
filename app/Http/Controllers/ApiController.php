@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Answer;
 use App\Models\Agent;
 use App\Models\Task;
+use App\Models\Incidence;
 use App\Models\Store;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 /**
  * @OA\Info(title="OptimaQuality API", version="1.0")
@@ -344,8 +346,103 @@ class ApiController extends Controller
             $item['targets'] = $this->information($item['targets']);
         }
 
+        return response()->json($prepare);
+    }
+
+    public function incidences(Request $request) {
+        $type = ($request->type != null) ? $request->type : 'agent';
+
+        $first = $request->init;
+        $last = $request->finish;
+
+        $incidences = Incidence::whereBetween('created_at',[$first,$last])->get();
+        $prepare = [];
+        if($type=='general') {
+            $prepare['general']['incidences']=$this->information_incidence($incidences,$first,$last);
+
+            return response()->json($prepare);
+        } else {
+            foreach($incidences as $incidence) {
+                $agent = Agent::find($incidence->owner);
+                if($type=='agent') {
+                    $prepare[$incidence->owner]['incidences'][] = $incidence;
+                    $prepare[$incidence->owner]['agent']=$agent;
+                } else {
+                    $prepare[$agent->team]['incidences'][] = $incidence;
+                    $prepare[$agent->team]['team']=$agent->team;
+                }
+            }
+        }
+
+        foreach($prepare as &$item) {
+            $item['incidences'] = $this->information_incidence($item['incidences'],$first,$last);
+        }
 
         return response()->json($prepare);
+    }
+
+    private function information_incidence($incidences,$first,$last) {
+
+        $ots = DB::select('SELECT answer_id FROM tasks where expiration BETWEEN :first AND :last GROUP BY answer_id', [
+            'first' => $first,
+            'last' => $last
+        ]);
+        $answers = count($ots);
+
+        $num_incidences = count($incidences);
+        $per_incidences = number_format(($num_incidences/$answers)*100,2);
+
+        $count = 0;
+        $urgent = 0;
+        $high = 0;
+        $medium = 0;
+        $low = 0;
+        $time_total = 0;
+
+        foreach($incidences as $incidence) {
+            if($incidence->status==4) {
+                $count = $count + 1;
+                
+                $init = Carbon::parse($incidence->created_at);
+                $finish = Carbon::parse($incidence->updated_at);
+
+                $time_total = $time_total + $init->diffInMinutes($finish,false);
+                switch($incidence->impact) {
+                    case 0: 
+                        $urgent = $urgent+1;
+                        break;
+                    case 1:
+                        $high = $high+1;
+                        break;
+                    case 2:
+                        $medium = $medium+1;
+                        break;
+                    case 3:
+                        $low = $low+1;
+                        break;
+                }
+            }
+        }
+
+        $per_completed = number_format(($count/$num_incidences)*100,2);
+        $per_urgent = number_format(($urgent/$num_incidences)*100,2);
+        $per_high = number_format(($high/$num_incidences)*100,2);
+        $per_medium = number_format(($medium/$num_incidences)*100,2);
+        $per_low = number_format(($low/$num_incidences)*100,2);
+        $time_average = $time_total / $num_incidences;
+
+        $body = [
+            'per_incidences' => $per_incidences,
+            'num_incidences' => $num_incidences,
+            'per_completed'  => $per_completed,
+            'average_time'   => $this->calcMinutes($time_average),
+            'per_urgent'      => $per_urgent,
+            'per_high'       => $per_high,
+            'per_medium'     => $per_medium,
+            'per_low'        => $per_low
+        ];
+
+        return $body;
     }
 
     private function information($id) {
@@ -470,5 +567,21 @@ class ApiController extends Controller
         $month = date('m');
         $year = date('Y');
         return date('Y-m-d', mktime(0,0,0, $month-$diff, 1, $year));
+    }
+
+    function calcMinutes($minutes) {
+        $time = ['days' => 0, 'hours' => 0, 'minutes' => 0];
+
+        while ($minutes >= 60) {
+            if ($minutes >= 1440) {
+                $time['days']++;
+                $minutes = $minutes - 1440;
+            } else if ($minutes >= 60) {
+                $time['hours']++;
+                $minutes = $minutes - 60;
+            }
+        }
+        $time['minutes'] = number_format($minutes,2);
+        return $time;
     }
 }

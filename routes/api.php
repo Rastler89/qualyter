@@ -25,4 +25,5 @@ Route::get('answers/month/carried',[App\Http\Controllers\ApiController::class,'s
 Route::get('answers/month/type',[App\Http\Controllers\ApiController::class,'answer_type']);
 Route::get('answers/answered',[App\Http\Controllers\Apicontroller::class, 'answered']);
 Route::post('leaderboard', [App\Http\Controllers\ApiController::class, 'leaderboard']);
-Route::post('targets', [App\Http\Controllers\ApiController::class, 'targets']);
+Route::post('reports/targets', [App\Http\Controllers\ApiController::class, 'targets']);
+Route::post('reports/incidences', [App\Http\Controllers\ApiController::class, 'incidences']);
