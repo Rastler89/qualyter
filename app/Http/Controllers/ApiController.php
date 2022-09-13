@@ -264,7 +264,11 @@ class ApiController extends Controller
             'first' => $first,
             'last' => $last
         ]);
-        $total = count($results);
+        $calc = DB::select('SELECT COUNT(answers.id) as total FROM answers WHERE answers.status IN (2,4,5) AND answers.expiration BETWEEN :first AND :last', [
+            'first' => $first,
+            'last' => $last
+        ]);
+        $total = $calc[0]->total;
         $prepare = [];
         $general = [];
         foreach($results as $result) {
@@ -333,8 +337,9 @@ class ApiController extends Controller
                 break;
 
             case 'general':
+                $ots = Answer::whereBetween('expiration',[$first,$last])->get();
                 foreach($ots as $ot) {
-                    $prepare['all'][] = $ot->answer_id;
+                    $prepare['all'][] = $ot->id;
                 }
 
                 $res['general']['targets'] = $this->information($prepare['all']);
@@ -472,7 +477,7 @@ class ApiController extends Controller
     
         $answers = Answer::whereIn('id',$id)->whereIn('status',[2,4,5])->get();
         $answered = (int)count($answers);
-    
+
         $per_con = number_format(($contacts/$visits)*100,2);
         if($contacts==0) {
             $per_ans = 0;
