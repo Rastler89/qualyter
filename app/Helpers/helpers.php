@@ -33,6 +33,7 @@ if(!function_exists('getExtra')) {
     
         $per_con = number_format(($contacts/$visits)*100,2);
         $per_ans = number_format(($answered/$contacts)*100,2);
+        $tot_ans = number_format(($answered/$visits)*100,2);
     
         $body = [
             'visits' => $visits,
@@ -40,7 +41,8 @@ if(!function_exists('getExtra')) {
             'send' => $send,
             'resp' => $resp,
             'per_con' => $per_con,
-            'per_ans' => $per_ans
+            'per_ans' => $per_ans,
+            'tot_ans' => $tot_ans
         ];
     
         return $body;

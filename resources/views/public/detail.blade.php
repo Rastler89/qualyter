@@ -18,6 +18,7 @@
             <li class="list-group-item">{{__("Number of responses to email surveys")}}: <strong>{{$extra['resp']}} {{__("surveys answered")}}</strong></li>
             <li class="list-group-item">{{__("Percentage of visits contacted")}}: <strong>{{$extra['per_con']}} %</strong></li>
             <li class="list-group-item">{{__("Response rate")}}: <strong>{{$extra['per_ans']}} %</strong></li>
+            <li class="list-group-item">{{__("Total response rate")}}: <strong>{{$extra['tot_ans']}} %</strong></li>
             <li class="list-group-item"><button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#notRespond">{{__("View unanswered")}}</button></li>
         </ul>
     </div>
