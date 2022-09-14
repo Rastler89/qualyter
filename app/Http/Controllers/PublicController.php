@@ -41,19 +41,19 @@ class PublicController extends Controller
             }
             $extra = getExtra($client);
 
-            $answers = Answer::where('client','=',$client->id)->whereIn('status',[2,4,5])->whereBetween('expiration',[$first_day,$last_day])->get();
+            $answers = Answer::where('client','=',$client->id)->whereIn('status',[2,4,5])->whereBetween('updated_at',[$first_day,$last_day])->get();
             foreach($answers as &$answer) {
                 $store =  Store::where('code','=',$answer->store)->first();
                 $answer['shop'] = $store->name;
                 $answer['workOrders'] = Task::where('answer_id', '=',$answer->id)->get();
             }
 
-            $not_answers = Answer::where('client','=',$client->id)->where('status','=',3)->whereBetween('expiration',[$first_day,$last_day])->get();
+            $not_answers = Answer::where('client','=',$client->id)->where('status','=',3)->whereBetween('updated_at',[$first_day,$last_day])->get();
             $id = [];
             foreach($not_answers as $not_answer) {
                 $id[] = $not_answer->store;
             }
-            $shops = DB::select("SELECT stores.code, stores.name, COUNT(stores.id) as total FROM stores, answers WHERE stores.code = answers.store AND stores.client = ".$client->id." AND answers.status = 3 AND answers.expiration BETWEEN '".$first_day."' AND '".$last_day."' GROUP BY stores.code, stores.name");
+            $shops = DB::select("SELECT stores.code, stores.name, COUNT(stores.id) as total FROM stores, answers WHERE stores.code = answers.store AND stores.client = ".$client->id." AND answers.status = 3 AND answers.updated_at BETWEEN '".$first_day."' AND '".$last_day."' GROUP BY stores.code, stores.name");
         
             return view('public.detail',['first_day'=>$first_day, 'last_day'=>$last_day, 'client'=>$client, 'extra' => $extra, 'answers' => $answers, 'total' => count($answers), 'notResponds' => $shops]);
         }
@@ -71,19 +71,19 @@ class PublicController extends Controller
         }
         $extra = getExtra($client);
 
-        $answers = Answer::where('client','=',$client->id)->whereIn('status',[2,4,5])->whereBetween('expiration',[$first_day,$last_day])->get();
+        $answers = Answer::where('client','=',$client->id)->whereIn('status',[2,4,5])->whereBetween('updated_at',[$first_day,$last_day])->get();
         foreach($answers as &$answer) {
             $store =  Store::where('code','=',$answer->store)->first();
             $answer['shop'] = $store->name;
             $answer['workOrders'] = Task::where('answer_id', '=',$answer->id)->get();
         }
 
-        $not_answers = Answer::where('client','=',$client->id)->where('status','=',3)->whereBetween('expiration',[$first_day,$last_day])->get();
+        $not_answers = Answer::where('client','=',$client->id)->where('status','=',3)->whereBetween('updated_at',[$first_day,$last_day])->get();
         $id = [];
         foreach($not_answers as $not_answer) {
             $id[] = $not_answer->store;
         }
-        $shops = DB::select("SELECT stores.code, stores.name, COUNT(stores.id) as total FROM stores, answers WHERE stores.code = answers.store AND stores.client = ".$client->id." AND answers.status = 3 AND answers.expiration BETWEEN '".$first_day."' AND '".$last_day."' GROUP BY stores.code, stores.name");
+        $shops = DB::select("SELECT stores.code, stores.name, COUNT(stores.id) as total FROM stores, answers WHERE stores.code = answers.store AND stores.client = ".$client->id." AND answers.status = 3 AND answers.updated_at BETWEEN '".$first_day."' AND '".$last_day."' GROUP BY stores.code, stores.name");
         return view('public.detail',['first_day'=>$first_day, 'last_day'=>$last_day, 'client'=>$client, 'extra' => $extra, 'answers' => $answers, 'total' => count($answers), 'notResponds' => $shops]);
     }
 
@@ -95,7 +95,7 @@ class PublicController extends Controller
 
         $stores = Store::where('client','=',$client->id)->get();
         foreach($stores as $store) {
-            $answer = Answer::where('store','=',$store->code)->whereIn('status',[2,4,5])->whereBetween('expiration',[$first_day,$last_day])->get();
+            $answer = Answer::where('store','=',$store->code)->whereIn('status',[2,4,5])->whereBetween('updated_at',[$first_day,$last_day])->get();
             if(count($answer) > 0) {
                 foreach($answer as $ans) {
                     $response = json_decode($ans->answer,true);

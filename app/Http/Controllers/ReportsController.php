@@ -17,7 +17,7 @@ class ReportsController extends Controller
     public function leaderboard_animated() {
         $first = first_month_day();
         $last = last_month_day();
-        $results = DB::select('SELECT tasks.owner FROM answers, tasks WHERE answers.id = tasks.answer_id AND answers.status IN (2,4,5) AND answers.expiration BETWEEN :first AND :last GROUP BY tasks.owner', [
+        $results = DB::select('SELECT tasks.owner FROM answers, tasks WHERE answers.id = tasks.answer_id AND answers.status IN (2,4,5) AND answers.updated_at BETWEEN :first AND :last GROUP BY tasks.owner', [
             'first' => $first,
             'last' => $last
         ]);

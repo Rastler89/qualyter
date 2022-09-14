@@ -50,9 +50,9 @@ class ApiController extends Controller
         $response['finish'] = $finish_today;
         $response['porcentage'] = $porcentaje_finalizadas;
 
-        $total_today = count(Answer::where('expiration','=',date('Y-m-d'))->where('status','<>','8')->get());
+        $total_today = count(Answer::where('updated_at','=',date('Y-m-d'))->where('status','<>','8')->get());
         if($total_today!=0) {
-            $ftoday = count(Answer::whereIn('status',[2,4,5])->where('expiration','=',date('Y-m-d'))->get());
+            $ftoday = count(Answer::whereIn('status',[2,4,5])->where('updated_at','=',date('Y-m-d'))->get());
             $porcentaje_dia = number_format(($ftoday/$total_today)*100,2);
         } else {
             $porcentaje_dia = -100;
@@ -103,9 +103,9 @@ class ApiController extends Controller
         $response['finish'] = $finish_today;
         $response['porcentage'] = $porcentaje_finalizadas;
 
-        $ftoday = count(Answer::whereIn('status',[2,4,5])->whereBetween('expiration',[$first_month,$last_month])->get());
+        $ftoday = count(Answer::whereIn('status',[2,4,5])->whereBetween('updated_at',[$first_month,$last_month])->get());
 
-        $total_today = count(Answer::whereBetween('expiration',[$first_month,$last_month])->where('status','<>','8')->get());
+        $total_today = count(Answer::whereBetween('updated_at',[$first_month,$last_month])->where('status','<>','8')->get());
         $porcentaje_dia = number_format(($ftoday/$total_today)*100,2);
 
         $response['total'] = $total_today;
@@ -182,11 +182,11 @@ class ApiController extends Controller
                 $id[] = $task->answer_id;
             }
 
-            $answers = Answer::whereIn('status',[2,4,5])->whereBetween('expiration',[$monday,$suneday])->whereIn('id',$id)->get();
+            $answers = Answer::whereIn('status',[2,4,5])->whereBetween('updated_at',[$monday,$suneday])->whereIn('id',$id)->get();
     
             $results = $this->media($answers);
     
-            $old_answers = Answer::whereIn('status',[2,4,5])->whereBetween('expiration',[$old_monday,$old_suneday])->whereIn('id',$id)->get();
+            $old_answers = Answer::whereIn('status',[2,4,5])->whereBetween('updated_at',[$old_monday,$old_suneday])->whereIn('id',$id)->get();
     
             $old_results = $this->media($old_answers);
     
@@ -196,9 +196,9 @@ class ApiController extends Controller
             $response[$i] = $team;
 
         }
-        $all_answers = Answer::whereIn('status',[2,4,5])->whereBetween('expiration',[$monday,$suneday])->get();
+        $all_answers = Answer::whereIn('status',[2,4,5])->whereBetween('updated_at',[$monday,$suneday])->get();
         $all_results = $this->media($all_answers);
-        $all_old_answers = Answer::whereIn('status',[2,4,5])->whereBetween('expiration',[$old_monday,$old_suneday])->get();
+        $all_old_answers = Answer::whereIn('status',[2,4,5])->whereBetween('updated_at',[$old_monday,$old_suneday])->get();
         $all_old_results = $this->media($all_old_answers);
 
         $team['new'] = $all_results;
@@ -241,12 +241,12 @@ class ApiController extends Controller
             foreach($teams as $key => $team) {
                 $name = 'eq'.$key+1;
                 
-                $all_answers = Answer::whereIn('status',[2,4,5])->whereBetween('expiration',[$firstday,$lastday])->whereIn('id',$team)->get();
+                $all_answers = Answer::whereIn('status',[2,4,5])->whereBetween('updated_at',[$firstday,$lastday])->whereIn('id',$team)->get();
                 $arr['results'] = $this->media($all_answers);
                 
                 $time[$actual_month][$name] = $arr;
             }
-            $all_answers = Answer::whereIn('status',[2,4,5])->whereBetween('expiration',[$firstday,$lastday])->get();
+            $all_answers = Answer::whereIn('status',[2,4,5])->whereBetween('updated_at',[$firstday,$lastday])->get();
             $arr['results'] = $this->media($all_answers);
 
             $time[$actual_month]['general'] = $arr;
@@ -260,11 +260,11 @@ class ApiController extends Controller
         $first = $request->init;
         $last = $request->finish;
 
-        $results = DB::select('SELECT answers.answer, tasks.owner, answers.id FROM answers, tasks WHERE answers.id = tasks.answer_id AND answers.status IN (2,4,5) AND answers.expiration BETWEEN :first AND :last', [
+        $results = DB::select('SELECT answers.answer, tasks.owner, answers.id FROM answers, tasks WHERE answers.id = tasks.answer_id AND answers.status IN (2,4,5) AND answers.updated_at BETWEEN :first AND :last', [
             'first' => $first,
             'last' => $last
         ]);
-        $calc = DB::select('SELECT COUNT(answers.id) as total FROM answers WHERE answers.status IN (2,4,5) AND answers.expiration BETWEEN :first AND :last', [
+        $calc = DB::select('SELECT COUNT(answers.id) as total FROM answers WHERE answers.status IN (2,4,5) AND answers.updated_at BETWEEN :first AND :last', [
             'first' => $first,
             'last' => $last
         ]);
@@ -319,7 +319,7 @@ class ApiController extends Controller
         $send = 0;
         $resp = 0;
 
-        $ots = Task::whereBetween('expiration',[$first,$last])->where('answer_id','<>',null)->get();
+        $ots = Task::whereBetween('updated_at',[$first,$last])->where('answer_id','<>',null)->get();
         switch($type) {
             case 'agent':
                 foreach($ots as $ot) {
@@ -337,7 +337,7 @@ class ApiController extends Controller
                 break;
 
             case 'general':
-                $ots = Answer::whereBetween('expiration',[$first,$last])->get();
+                $ots = Answer::whereBetween('updated_at',[$first,$last])->get();
                 foreach($ots as $ot) {
                     $prepare['all'][] = $ot->id;
                 }
@@ -396,7 +396,7 @@ class ApiController extends Controller
         }
         $id = array_unique($id);
 
-        $ots = DB::select('SELECT tasks.answer_id FROM answers, tasks WHERE answers.status IN (2,4,5) AND tasks.owner = :id AND tasks.expiration BETWEEN :first AND :last GROUP BY tasks.answer_id', [
+        $ots = DB::select('SELECT tasks.answer_id FROM answers, tasks WHERE answers.status IN (2,4,5) AND tasks.owner = :id AND answers.updated_at BETWEEN :first AND :last GROUP BY tasks.answer_id', [
             'first' => $first,
             'last' => $last,
             'id' => $incidences[0]->owner
@@ -553,15 +553,15 @@ class ApiController extends Controller
             //tenemos fecha inicio
             if($body['end_date'] != null) {
                 //tenemos fechas
-                $answers->whereBetween('expiration',[$body['start_date'],$body['end_date']]);
+                $answers->whereBetween('updated_at',[$body['start_date'],$body['end_date']]);
             } else {
                 //hasta fecha actual
-                $answers->where('expiration','<=',$body['start_date']);
+                $answers->where('updated_at','<=',$body['start_date']);
             }
         } else {
             if($body['end_date'] != null) {
                 //tenemos fecha final
-                $answers->where('expiration','>=',$body['end_date']);
+                $answers->where('updated_at','>=',$body['end_date']);
             }
         }
 
