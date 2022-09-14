@@ -387,10 +387,19 @@ class ApiController extends Controller
     }
 
     private function information_incidence($incidences,$first,$last) {
+        $answers = 0;
+        $id = [];
 
-        $ots = DB::select('SELECT id FROM answers WHERE status IN (2,4,5) AND expiration BETWEEN :first AND :last', [
+        foreach($incidences as $incidence) {
+            $agent = Agent::find($incidence->owner);
+            array_push($id,$agent->id);
+        }
+        $id = array_unique($id);
+
+        $ots = DB::select('SELECT tasks.answer_id FROM answers, tasks WHERE answers.status IN (2,4,5) AND tasks.owner = :id AND tasks.expiration BETWEEN :first AND :last GROUP BY tasks.answer_id', [
             'first' => $first,
-            'last' => $last
+            'last' => $last,
+            'id' => $incidences[0]->owner
         ]);
         $answers = count($ots);
 
