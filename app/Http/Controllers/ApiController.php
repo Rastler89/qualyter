@@ -388,7 +388,7 @@ class ApiController extends Controller
 
     private function information_incidence($incidences,$first,$last) {
 
-        $ots = DB::select('SELECT answer_id FROM tasks where expiration BETWEEN :first AND :last GROUP BY answer_id', [
+        $ots = DB::select('SELECT answer_id FROM tasks WHERE status IN (2,4,5) AND expiration BETWEEN :first AND :last GROUP BY answer_id', [
             'first' => $first,
             'last' => $last
         ]);
