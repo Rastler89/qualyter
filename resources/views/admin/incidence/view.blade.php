@@ -1,5 +1,5 @@
 <?php 
-    $can_close = $incidence->closed<=date('Y-m-d',time());
+    $can_close = $incidence->closed>=date('Y-m-d',time());
 ?>
 @extends('layouts.dashboard')
 
