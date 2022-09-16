@@ -418,13 +418,21 @@ class IncidenceController extends Controller
     }
 
     private function notifyResponse($body, $incidence) {
+        $team = Team::where('url','=',$agent->team)->first();
+        $manager = User::find($team->manager);
+
         if(env('APP_NAME')=='QualyterTEST') {
             Mail::to('test@optimaretail.es')->send(new NotifyMail($body));
         } else {
             $agent = Agent::find($incidence->owner);
             $user = User::find($incidence->responsable);
             Mail::to($agent['email'])->send(new NotifyMail($body));
-            Mail::to($user['email'])->send(new ManagerMail($body));
+            if($manager->id!=auth()->uswer()->id) {
+                Mail::to($manager->email)->send(new ManagerMail($body));
+            }
+            if($user['id']!=auth()->uswer()->id) {
+                Mail::to($user['email'])->send(new ManagerMail($body));
+            }
         }
     }
 }
