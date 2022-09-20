@@ -260,7 +260,7 @@ class ApiController extends Controller
         $first = $request->init;
         $last = $request->finish;
 
-        $results = DB::select('SELECT answers.answer, tasks.owner, answers.id FROM answers, tasks WHERE answers.id = tasks.answer_id AND answers.status IN (2,4,5) AND answers.updated_at BETWEEN :first AND :last', [
+        $results = DB::select('SELECT answers.answer, tasks.owner, answers.id, tasks.priority FROM answers, tasks WHERE answers.id = tasks.answer_id AND answers.status IN (2,4,5) AND answers.updated_at BETWEEN :first AND :last', [
             'first' => $first,
             'last' => $last
         ]);
@@ -271,26 +271,29 @@ class ApiController extends Controller
         $total = $calc[0]->total;
         $prepare = [];
         $general = [];
+        $arr = [];
         foreach($results as $result) {
+            $arr['answer'] = $result->answer;
+            $arr['type'] = $result->priority;
             if($type=='agent') {
                 $agent = Agent::find($result->owner);
                 if($agent->active==1) {
-                    $prepare[$result->owner][] = $result->answer;
+                    $prepare[$result->owner][] = $arr;
                 }
             } else if($type=='teams') {
                 $agent = Agent::find($result->owner);
-                $prepare[$agent->team][] = $result->answer;
+                $prepare[$agent->team][] = $arr;
             } else {
                 $string = $result->owner.' - '.$result->id;
                 if(!in_array($string,$general)) {
                     $general[] = $string;
-                    $prepare['general'][]=$result->answer;
+                    $prepare['general'][]=$arr;
                 }
             }
         }
         $res = [];
         foreach($prepare as $key => $pre) {
-            $res[$key] = $this->media($pre,false);
+            $res[$key] = $this->media($pre,false,true);
             if($request->type=='agent') {
                 $res[$key]['agent'] = Agent::find($key);
             } else if($request->type=='teams') {
@@ -510,7 +513,7 @@ class ApiController extends Controller
         return $body;
     }
 
-    private function media($answers,$object=true) {
+    private function media($answers,$object=true,$leaderboard=false) {
         $question = [];
         $question[0] = 0;
         $question[1] = 0;
@@ -523,12 +526,16 @@ class ApiController extends Controller
             if($object) {
                 $res = json_decode($answer->answer);
             } else {
-                $res = json_decode($answer);
+                if($leaderboard) {
+                    $res = json_decode($answer['answer']);
+                } else {
+                    $res = json_decode($answer);
+                }
             }
-            $question[0]+=$res->valoration[0];
-            $question[1]+=$res->valoration[1];
-            $question[2]+=$res->valoration[2];
-            $question[3]+=$res->valoration[3];
+            $question[0]+=($answer['type']=='PREVENTIVO')? $res->valoration[0]/2 : $res->valoration[0];
+            $question[1]+=($answer['type']=='PREVENTIVO')? $res->valoration[1]/2 : $res->valoration[1];
+            $question[2]+=($answer['type']=='PREVENTIVO')? $res->valoration[2]/2 : $res->valoration[2];
+            $question[3]+=($answer['type']=='PREVENTIVO')? $res->valoration[3]/2 : $res->valoration[3];
             
             $sum++;
         }
