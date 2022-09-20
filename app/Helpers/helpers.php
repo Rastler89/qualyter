@@ -50,19 +50,30 @@ if(!function_exists('getExtra')) {
 }
 
 if(!function_exists('last_month_day')) {
-    function last_month_day() { 
+    function last_month_day($actually=false) { 
         $month = date('m');
         $year = date('Y');
-        $day = date("d", mktime(0,0,0, $month, 0, $year));
+        if($actually) {
+            $day = date("d", mktime(0,0,0, $month+1, 0, $year));
+            $month = $month;
+        } else {
+            $day = date("d", mktime(0,0,0, $month, 0, $year));
+            $month = $month-1;
+        }
 
-        return date('Y-m-d', mktime(0,0,0, $month-1, $day, $year));
+        return date('Y-m-d', mktime(0,0,0, $month, $day, $year));
     }
 }
 
 if(!function_exists('first_month_day')) {
-    function first_month_day() {
+    function first_month_day($actually=false) {
         $month = date('m');
         $year = date('Y');
-        return date('Y-m-d', mktime(0,0,0, $month-1, 1, $year));
+        if($actually) {
+            $month = $month;
+        } else {
+            $month = $month-1;
+        }
+        return date('Y-m-d', mktime(0,0,0, $month, 1, $year));
     }
 }
