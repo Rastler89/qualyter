@@ -259,7 +259,7 @@ class ApiController extends Controller
 
         $first = $request->init;
         $last = $request->finish;
-echo $first." -_-".$last;die();
+
         $results = DB::select('SELECT answers.answer, tasks.owner, answers.id, tasks.priority FROM answers, tasks WHERE answers.id = tasks.answer_id AND answers.status IN (2,4,5) AND answers.updated_at BETWEEN :first AND :last', [
             'first' => $first,
             'last' => $last
