@@ -183,11 +183,11 @@
                     onComplete: function() {
                         joel.find('.list_num').text(agent.position+1);
                         if(agent.position==0) {
-                            joel.css('background', '#ffbf00');
+                            joel.css('background', 'gold');
                         } else if(agent.position==1) {
                             joel.css('background', 'silver');
                         } else if(agent.position==2) {
-                            joel.css('background', '#cd7f32');
+                            joel.css('background', 'bronze');
                         }
 
                     }
@@ -201,6 +201,10 @@
                         delay: 0.6,
                         ease: Elastic.easeOut.config(1, 0.3)
                     })
+                    TweenMax.to(joel, 0.667, {
+                    onUpdate: function() {
+                        joel.find('.number').text(agent.points)
+                    }})
                 })
                 //Baja
                 down.forEach(function(agent) {
@@ -212,6 +216,11 @@
                             drew.find('.list_num').text(agent.position+1);
                         }
                     })
+                    TweenMax.to(drew, 0.667, {
+                    onUpdate: function() {
+                        drew.find('.number').text(agent.points)
+                    }
+                })
                 })
 
                 //Puntuaciones
@@ -281,6 +290,7 @@
                     res.forEach(function(result,index) {
                         agents.find(function(agent,key) {
                             if(agent.email == result.agent.email) {
+                                agent.points = result['points'];
                                 agent.new_position = index;
                                 agent.objeto = $('#'+agent.id);
                                 agent2 = agents.find(ag => ag.position == index);
@@ -327,7 +337,6 @@
             }
             function doThing(i, last){
                 setTimeout(function(){
-                    console.log(i);
                     if (last) location.reload();
                 }, 1000 * i);
         }

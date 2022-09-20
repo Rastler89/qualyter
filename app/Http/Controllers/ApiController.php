@@ -303,7 +303,9 @@ class ApiController extends Controller
         if(count($res)!=0) {
             foreach($res as $key => $values) {
                 $percentatge = $values['total']/$total;
-                $order1[$key] = $percentatge*0.75+$values[0]*0.025;
+                $points = $percentatge*0.75+$values[0]*0.025;
+                $order1[$key] = $points;
+                $res[$key]['points'] = number_format($points*10,2);
             }
             array_multisort($order1, SORT_DESC, $res);
             return response()->json($res);
