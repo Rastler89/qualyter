@@ -282,7 +282,7 @@ class IncidenceController extends Controller
             'new' => false
         ];
 
-        $this->notifyResponse($body,$incidence);
+        $this->notifyResponse($body,$incidence,$agent);
 
         return redirect()->to('/incidences')->with('success','Notify agent in this moment');
     }
@@ -349,7 +349,7 @@ class IncidenceController extends Controller
             'new' => false
         ];
 
-        $this->notifyResponse($body,$incidence);
+        $this->notifyResponse($body,$incidence,$agent);
 
         return view('public.thanksAgents');
     }
@@ -417,7 +417,7 @@ class IncidenceController extends Controller
         return $res;
     }
 
-    private function notifyResponse($body, $incidence) {
+    private function notifyResponse($body, $incidence,$agent) {
         $team = Team::where('url','=',$agent->team)->first();
         $manager = User::find($team->manager);
 
