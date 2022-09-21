@@ -23,7 +23,8 @@ class Store extends Model implements Auditable
         'email',
         'language',
         'client',
-        'contact'
+        'contact',
+        'whatsapp'
     ];
 
     public $sortable = [

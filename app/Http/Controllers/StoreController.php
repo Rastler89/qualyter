@@ -65,6 +65,13 @@ class StoreController extends Controller
         $store->email = $request->get('email');
         $store->client = $request->get('client');
         $store->contact = ($request->get('contact') == 'on') ? true : false;
+
+        if($request->get('contact') == 'on' && $request->get('whatsapp') == 'on'){
+            $store->whatsapp = true;
+        }else{
+            $store->whatsapp = false;
+        }
+        
         $store->language = $resp[0]->languages[0]->iso639_1;
 
         $store->save();
@@ -107,6 +114,12 @@ class StoreController extends Controller
         $store->email = $request->get('email');
         $store->client = $request->get('client');
         $store->contact = ($request->get('contact') == 'on') ? true : false;
+
+        if($request->get('contact') == 'on' && $request->get('whatsapp') == 'on'){
+            $store->whatsapp = true;
+        }else{
+            $store->whatsapp = false;
+        } 
 
         $store->save();
 
