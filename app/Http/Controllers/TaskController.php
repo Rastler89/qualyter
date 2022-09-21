@@ -59,4 +59,6 @@ class TaskController extends Controller
         return back()->with('success', 'New work order created!');
 
     }
+
+    
 }

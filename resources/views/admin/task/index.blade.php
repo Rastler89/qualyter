@@ -116,10 +116,10 @@
                             @endforeach
                         </td>
                         <td>
+                            <button class="btn btn-outline-dark" type="button" data-bs-toggle="modal" data-bs-target="#cancelVisit"  data-toggle="tooltip" data-placement="top" title="{{__('Cancel visit')}}"><i class="align-middle" data-feather="slash"></i></button>
                         @if($store->phonenumber!=null)
                             <a href="{{route('tasks.view',['id'=>$answer->id])}}" class="btn btn-outline-primary @if($answer->user != $id && $answer->user != null) disabled @endif"><i class="align-middle" data-feather="phone"></i></a>
                         @elseif($store->email!=null && $store->email!='-')
-                            <button class="btn btn-outline-dark" type="button" data-bs-toggle="modal" data-bs-target="#cancelVisit"  data-toggle="tooltip" data-placement="top" title="{{__('Cancel visit')}}"><i class="align-middle" data-feather="slash"></i></button>
                             <a href="{{route('tasks.notrespond', ['id'=>$answer->id])}}" class="btn btn-outline-primary @if($answer->user != null && $answer->user != $id) disabled @endif"><i class="align-middle" data-feather="send"></i></a>
                         @else 
                             <?php $id = str_replace('/','_',$store->code); ?>
