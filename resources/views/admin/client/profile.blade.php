@@ -55,6 +55,12 @@
                             <span class="form-check-label">{{__('Extra information')}}</span>
                         </label>
                     </div>
+                    <div class="mb-3">
+                        <label class="form-check">
+                            <input class="form-check-input" type="checkbox" id="whatsapp" name="whatsapp" @if($client != null) @if($client->whatsapp) checked @endif @endif />
+                            <span class="form-check-label">{{__('Whatsapp is available')}}</span>
+                        </label>
+                    </div>
                     <div class="d-grid gap-2">
                         <button class="btn btn-success">{{__('Save')}}</button>
                     </div>

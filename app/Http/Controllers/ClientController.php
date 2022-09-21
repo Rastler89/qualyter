@@ -73,6 +73,8 @@ class ClientController extends Controller
         $client->language = $resp[0]->languages[0]->iso639_1;
         $client->extra = $request->get('extra') == 'on';
         $client->father = ($request->get('father') == '--') ? NULL : $request->get('father');
+        $client->whatsapp = ($request->get('whatsapp') == 'on') ? true : false;
+
 
         $client->save();
         
@@ -117,6 +119,7 @@ class ClientController extends Controller
         $client->email = $request->get('email');
         $client->extra = $request->get('extra') == 'on';
         $client->father = ($request->get('father') == '--') ? NULL : $request->get('father');
+        $client->whatsapp = ($request->get('whatsapp') == 'on') ? true : false;
 
         $client->save();
         
