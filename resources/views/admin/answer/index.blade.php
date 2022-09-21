@@ -119,11 +119,16 @@
             <th scope="col">@sortablelink('client',__('Client'))</th>
             <th scoep="col">@sortablelink('status',__('Status'))</th>
             <th scope="col">@sortablelink('expiration',__('Expiration'))</th>
+            <th scope="col">{{__('Answer 1')}}</th>
+            <th scope="col">{{__('Answer 2')}}</th>
+            <th scope="col">{{__('Answer 3')}}</th>
+            <th scope="col">{{__('Answer 4')}}</th>
             <th scope="col"></th>
         </tr>
     </thead>
     <tbody>
         @foreach($answers as $answer)
+        <?php  $respuestas = json_decode($answer->answer,true);?>
             @foreach($stores as $store)
                 @if($store->code == $answer->store && $store->client == $answer->client)
                     
@@ -157,6 +162,17 @@
                         <td>
                             {{$answer->expiration}}
                         </td>
+                        @if($answer->status != 8 && $respuestas!=null)
+                        <td>{{$respuestas['valoration'][0]}}</td>
+                        <td>{{$respuestas['valoration'][1]}}</td>
+                        <td>{{$respuestas['valoration'][2]}}</td>
+                        <td>{{$respuestas['valoration'][3]}}</td>
+                        @else 
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        @endif
                         <td>
                             @if($answer->status == 8)
                                 <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#alloy{{$answer->id}}"><i class="align-middle" data-feather="eye"></i></button>
