@@ -20,6 +20,7 @@ use App\Mail\ManagerMail;
 use App\Mail\StoreMail;
 use App\Mail\ResponseMail;
 use App\Mail\TechnicianMail;
+
 use Artisan;
 
 class AnswerController extends Controller
@@ -281,6 +282,7 @@ class AnswerController extends Controller
     }
 
     public function notrespond(Request $request, $id) {
+        
         $log = new AuditionController();
         $answer = Answer::find($id);
         $store = Store::where('code','=',$answer->store)->first();
@@ -309,16 +311,23 @@ class AnswerController extends Controller
             'date' => $answer->expiration,
             'workOrders' => $workOrders,
         ];
-        if(env('APP_NAME')=='QualyterTEST') {
-            Mail::to('test@optimaretail.es')->locale($body['locale'])->send(new StoreMail($body));
-        } else {
-            $emails = explode(';',$store->email);
-            foreach($emails as $email) {
-                Mail::to($email)->locale($body['locale'])->send(new StoreMail($body));
-            }
-        }
 
-        return redirect()->route('tasks')->with('success','Questionnaire sended!');
+        //Mirar si se envía por correo o por whatsapp
+        if($request->type == 'mail'){
+            
+            if(env('APP_NAME')=='QualyterTEST') {
+                Mail::to('test@optimaretail.es')->locale($body['locale'])->send(new StoreMail($body));
+            } else {
+                $emails = explode(';',$store->email);
+                foreach($emails as $email) {
+                    Mail::to($email)->locale($body['locale'])->send(new StoreMail($body));
+                }
+            }
+            return redirect()->route('tasks')->with('success','Questionnaire sended!');
+        }else{
+            $url = $request->getHttpHost() . '/store/survey/'. $body['id'] . '?code='. $body['token'];
+            return redirect()->route('tasks')->with('success','Survey link: ' . $url);
+        }
     }
 
     public function viewSurvey(Request $request, $id) {

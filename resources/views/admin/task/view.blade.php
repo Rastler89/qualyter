@@ -58,7 +58,12 @@
             @if($store->email == '-')
             <button id="notRespond" class="btn btn-danger" style="position:absolute;visibility:hidden;">{{__('No email')}}</button>
             @else
-            <a id="notRespond" class="btn btn-danger" style="position:absolute;visibility:hidden;" href="{{route('tasks.notrespond', ['id'=>$answer->id])}}">{{__('Not respond')}}</a>
+            <div class="mb-3">
+              <a id="notRespond" class="btn btn-danger" style="visibility:hidden;" href="{{route('tasks.notrespond', ['id'=>$answer->id, 'type'=>'mail'])}}">{{__('Not respond')}}</a>
+              @if($store->whatsapp == 1)
+              <a id="whatsapp" class="btn btn-success" style="visibility:hidden;" href="{{route('tasks.notrespond', ['id'=>$answer->id, 'type'=>'whatsapp'])}}">{{__('Whatsapp')}}</a>
+              @endif    
+            </div>
             @endif
           </div>
           <button id="recall" class="btn btn-outline-primary" style="visibility:hidden;" onClick="call()">{{__('Recall')}}</button>
@@ -395,6 +400,7 @@ function setTime() {
     $('#phoneNumber').css('visibility','hidden');
     $('#notRespond').css('visibility','visible');
     $('#recall').css('visibility','visible');
+    $('#whatsapp').css('visibility','visible');
   } 
 }
 
