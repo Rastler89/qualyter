@@ -59,7 +59,7 @@ function limits() {
 }
 function carga() {
   $('#bodytable').empty();
-  $.post('/api/leaderboard',{init:$('#first_date').val(),finish:$('#last_date').val(),type:$('#type').val() }, function(res) {
+  $.post('/api/leaderboard',{init:$('#first_date').val(),finish:$('#last_date').val(),type:$('#type').val(),leaderboard:"false" }, function(res) {
     $.each(res, function(index,line) {
       if(index%2==0) {
         text='<tr class="table-light">';

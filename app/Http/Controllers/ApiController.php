@@ -292,8 +292,9 @@ class ApiController extends Controller
             }
         }
         $res = [];
+        
         foreach($prepare as $key => $pre) {
-            $res[$key] = $this->media($pre,false,true);
+            $res[$key] = $this->media($pre,false,$request->leaderboard);
             if($request->type=='agent') {
                 $res[$key]['agent'] = Agent::find($key);
             } else if($request->type=='teams') {
@@ -516,6 +517,11 @@ class ApiController extends Controller
     }
 
     private function media($answers,$object=true,$leaderboard=false) {
+        if($leaderboard=='false') {
+            $leaderboard = false;
+        } else {
+            $leaderboard = true;
+        }
         $question = [];
         $question[0] = 0;
         $question[1] = 0;
@@ -528,12 +534,10 @@ class ApiController extends Controller
             if($object) {
                 $res = json_decode($answer->answer);
             } else {
-                if($leaderboard) {
-                    $res = json_decode($answer['answer']);
-                } else {
-                    $res = json_decode($answer);
-                }
+                $res = json_decode($answer['answer']);
             }
+            $answer['type'] = ($leaderboard) ? $answer['type'] : 'none';
+            
             $question[0]+=($answer['type']=='PREVENTIVO')? $res->valoration[0]/2 : $res->valoration[0];
             $question[1]+=($answer['type']=='PREVENTIVO')? $res->valoration[1]/2 : $res->valoration[1];
             $question[2]+=($answer['type']=='PREVENTIVO')? $res->valoration[2]/2 : $res->valoration[2];

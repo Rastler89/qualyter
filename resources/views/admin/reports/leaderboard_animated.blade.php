@@ -286,7 +286,7 @@
             }
 
             function init() {
-                $.post('https://optimaquality.es/api/leaderboard',{init:'{{$first}}',finish:'{{$last}}',type:'agent' }, function(res) {
+                $.post('https://optimaquality.es/api/leaderboard',{init:'{{$first}}',finish:'{{$last}}',type:'agent',leaderboard: true }, function(res) {
                     res.forEach(function(result,index) {
                         agents.find(function(agent,key) {
                             if(agent.email == result.agent.email) {
