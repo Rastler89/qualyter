@@ -103,7 +103,7 @@
                                 {{$order->expiration}}
                             </strong>
                             <div class="text-muted">{{__('Closed Day')}}</div>
-                            <input class="form-control" type="date" id="closed" name="closed" value="{{$incidence->closed->format('Y-m-d')}}" />
+                            <input class="form-control" type="date" id="closed" name="closed" value="{{$incidence->closed->format('Y-m-d')}}" @if($incidence->status==4) disabled @endif />
                         </div>
                     </div>
 
@@ -122,8 +122,8 @@
                     </div>
                     
                     <div class="input-group mb-3">
-                        <textarea class="form-control" name="message" aria-label="With textarea"></textarea>
-                        <button class="btn btn-outline-primary btn-lg" id="button-addon2"><i class="align-middle" data-feather="send"></i></button>
+                        <textarea class="form-control" name="message" aria-label="With textarea" @if($incidence->status==4) disabled @endif></textarea>
+                        <button class="btn btn-outline-primary btn-lg" id="button-addon2"  @if($incidence->status==4) disabled @endif><i class="align-middle" data-feather="send"></i></button>
                     </div>
                 </div>
             </form>
