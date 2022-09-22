@@ -182,6 +182,8 @@ class AnswerController extends Controller
         if(is_null($store->email) || $store->email == '') {
             $store->email = '-';
         }
+        
+        $answer->calls = $this->getCalls($answer->id);
 
         $owners = Agent::find($owners);
         return view('admin.task.view', ['answer' => $answer, 'store' => $store, 'tasks' => $tasks, 'agents' => $agents, 'owners' => $owners]);
@@ -699,4 +701,5 @@ class AnswerController extends Controller
         }
         return $res;
     }
+    
 }
