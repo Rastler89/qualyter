@@ -402,7 +402,7 @@ function initTime() {
 
 function setTime() {
   ++totalSeconds;
-  if(totalSeconds == 1) {
+  if(totalSeconds == 30) {
     $('#phoneNumber').css('visibility','hidden');
     $('#notRespond').css('visibility','visible');
     $('#recall').css('visibility','visible');
