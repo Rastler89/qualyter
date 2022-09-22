@@ -41,7 +41,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="phonenumber" class="form-label">{{__('Phone Number')}}</label>
-                        <input type="text" class="form-control" name="phonenumber" id="phonenumber" @if($store!=null) value="{{$store->phonenumber}}" @endif />
+                        <input type="text" class="form-control" name="phonenumber" id="b" @if($store!=null) value="{{$store->phonenumber}}" @endif />
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">{{__("Email")}}</label>
@@ -101,6 +101,7 @@
     });
     $( document ).ready(function() {
         var status =  $("#contact").is(':checked')
+        console.log(phoneNumber)
         if(!status) {
             $("#divwhatsapp").hide();
         }
