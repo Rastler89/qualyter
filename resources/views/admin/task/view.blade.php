@@ -2,6 +2,7 @@
 
 @section('sytles')
 <link rel="stylesheet" href="{{ asset("css/custom.css") }}">
+<link rel="stylesheet" href="{{ asset("css/essential_audio.css") }}">
 @endsection
 
 @section('content')
@@ -52,6 +53,9 @@
           <div class="col">
             <p><strong>{{__('Phone Number')}}</strong></p>
             {{$store->phonenumber}}
+            @if($store->phonenumber != '-')
+            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#callInfo"><i class="align-middle" data-feather="list"></i></button>
+            @endif
           </div>
           <div class="col" style="position:relative;">
             <button id="phoneNumber" class="btn btn-outline-primary" style="position:absolute;">{{__('Calling')}}</button>
@@ -269,6 +273,44 @@
     </form>
   </div>
 </div>
+
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="CallInfo" id="callInfo" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="CallInfo">{{__('Information Calls')}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body m-3">
+      @if($answer->calls != null && $answer->calls != '')
+      @foreach($answer->calls as $call)
+        <p style="font-size: 0.75em">{{__("Call ID")}}: {{$call['call_id']}}</p>
+        <p style="font-size: 0.75em">{{__("Status")}}: <strong>{{$call['last_state']}}</strong></p>
+        <table style="font-size:0.75em;width:100%">
+          <tr>
+            <td>{{__("Init call")}}: {{$call['start_time']}}</td>
+            <td>{{__("Answered call")}}: {{$call['answered_time']}}</td>
+            <td>{{__("Finish call")}}: {{$call['end_time']}}</td>
+          </tr>
+          <tr>
+            <td>{{__("Total duration")}}: {{$call['total_duration']}}</td>
+            <td>{{__("Incall duration")}}: {{$call['incall_duration']}}</td>
+          </tr>
+        </table>
+        @if($call['record']!=null) 
+        <div class="m-3 essential_audio" data-url="{{$call['record']}}">
+          <span class="no_js">Please activate JavaScript for the audio player.</span>
+        </div>
+        @endif
+        <hr>
+      @endforeach
+      @endif
+      </div>
+
+    </div>
+  </div>
+</div>
+
 @endsection
 
 @section('javascript')
