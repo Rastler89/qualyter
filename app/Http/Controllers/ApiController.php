@@ -538,10 +538,10 @@ class ApiController extends Controller
             }
             $answer['type'] = ($leaderboard) ? $answer['type'] : 'none';
             
-            $question[0]+=($answer['type']=='PREVENTIVO')? $res->valoration[0]/2 : $res->valoration[0];
-            $question[1]+=($answer['type']=='PREVENTIVO')? $res->valoration[1]/2 : $res->valoration[1];
-            $question[2]+=($answer['type']=='PREVENTIVO')? $res->valoration[2]/2 : $res->valoration[2];
-            $question[3]+=($answer['type']=='PREVENTIVO')? $res->valoration[3]/2 : $res->valoration[3];
+            $question[0]+=($answer['type']=='PREVENTIVO')? $res->valoration[0]*0.6 : $res->valoration[0];
+            $question[1]+=($answer['type']=='PREVENTIVO')? $res->valoration[1]*0.6 : $res->valoration[1];
+            $question[2]+=($answer['type']=='PREVENTIVO')? $res->valoration[2]*0.6 : $res->valoration[2];
+            $question[3]+=($answer['type']=='PREVENTIVO')? $res->valoration[3]*0.6 : $res->valoration[3];
             
             $sum++;
         }
