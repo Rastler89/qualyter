@@ -503,11 +503,12 @@ class ApiController extends Controller
         $answers = Answer::whereIn('id',$id)->whereIn('status',[2,4,5])->get();
         $answered = (int)count($answers);
 
-        $per_con = number_format(($contacts/$visits)*100,2);
         if($contacts==0) {
             $per_ans = 0;
             $tot_ans = 0;
+            $per_con = 0;
         } else {
+            $per_con = number_format(($contacts/$visits)*100,2);
             $per_ans = number_format(($answered/$contacts)*100,2);
             $tot_ans = number_format(($answered/$visits)*100,2);
         }
