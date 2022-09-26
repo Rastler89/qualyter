@@ -334,7 +334,6 @@ class ApiController extends Controller
         $prepare=[];
         switch($type) {
             case 'agent':
-                print_r($ots);die();
                 foreach($ots as $ot) {
                     $agent = Agent::find($ot->owner);
                     $prepare[$ot->owner]['targets'][] = $ot->answer_id;
@@ -350,7 +349,11 @@ class ApiController extends Controller
                 break;
 
             case 'general':
-                $ots = Answer::whereBetween('updated_at',[$first,$last])->get();
+                if($first==$last) {
+                    $ots = Task::whereBetween('updated_at',[$first.' 00:00:01',$last.' 23:59:59'])->where('answer_id','<>',null)->get();
+                } else {
+                    $ots = Task::whereBetween('updated_at',[$first,$last])->where('answer_id','<>',null)->get();
+                }
                 foreach($ots as $ot) {
                     $prepare['all'][] = $ot->id;
                 }
