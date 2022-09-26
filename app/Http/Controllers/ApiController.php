@@ -326,6 +326,8 @@ class ApiController extends Controller
         $resp = 0;
 
         $ots = Task::whereBetween('updated_at',[$first,$last])->where('answer_id','<>',null)->get();
+
+        $prepare=[];
         switch($type) {
             case 'agent':
                 foreach($ots as $ot) {

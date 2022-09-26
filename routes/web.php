@@ -118,7 +118,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 });
 //Special
-Route::get('leaderboard',[App\Http\Controllers\ReportsController::class, 'leaderboard_animated']);
+//Route::get('leaderboard',[App\Http\Controllers\ReportsController::class, 'leaderboard_animated']);
 // INCIDENCE
 Route::get('agent/incidence/{id}', [App\Http\Controllers\IncidenceController::class, 'response'])->name('incidences.agent');
 Route::post('agent/incidence/{id}', [App\Http\Controllers\IncidenceController::class, 'update'])->name('incidences.update');

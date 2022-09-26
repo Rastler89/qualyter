@@ -89,7 +89,6 @@ class UploadController extends Controller
     public function pushAgents(Request $request) {
         Agent::disableAuditing();
         $respuesta = $this->exportCSV($request);
-
         
         foreach($respuesta as $resp) {
             $resp[1] = str_replace('optima.retail','optimaretail',$resp[1]);
@@ -101,10 +100,10 @@ class UploadController extends Controller
                     $agent = new Agent;
                 }
             }
-
+            
             $agent->name = utf8_encode($resp[0]);
             $agent->email = $resp[1];
-
+            
             $agent->save();
         }
         return back()->with('success','Upload agents successfuly!');
