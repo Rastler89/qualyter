@@ -66,7 +66,6 @@ function carga() {
     $('#bodytable').empty();
     $.post('/api/reports/targets',{init:$('#first_date').val(),finish:$('#last_date').val(),type:$('#type').val() }, function(res) {
         $.each(res, function(index,line) {
-            console.log(line);
             if(index%2==0) {
                 text='<tr class="table-light">';
             } else {
