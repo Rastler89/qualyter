@@ -163,7 +163,7 @@
         <div class="modal-body">
           <ul>
             @foreach($answer->ot as $ot)
-                <li><b>{{$ot->code}}</b> - {{$ot->name}}</li>
+                <li style="list-style:none"><b>{{$ot->code}}</b> - {{$ot->name}}</li>
             @endforeach
         </ul>
         </div>
