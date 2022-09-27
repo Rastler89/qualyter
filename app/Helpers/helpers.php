@@ -77,3 +77,13 @@ if(!function_exists('first_month_day')) {
         return date('Y-m-d', mktime(0,0,0, $month, 1, $year));
     }
 }
+if(!function_exists('purge_accent')) {
+    function purge_accent($string) {
+        $string = str_replace('ï¿½','ó',$string);
+        $string = str_replace('Ã©','é',$string);
+        $string = str_replace('Ã³','ò',$string);
+        $string = str_replace('AbillÃ','Abillà',$string);
+        $string = str_replace('MartÃ­n','Martín',$string);
+        return $string;
+    }
+}
