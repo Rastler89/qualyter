@@ -41,7 +41,7 @@ class UploadController extends Controller
             }
             Task::disableAuditing();
             //Creem la tasca
-            $owner = Agent::where('name','=',utf8_encode($resp['Responsable']))->first();
+            $owner = Agent::where('name','=',purge_accent(utf8_encode($resp['Responsable'])))->first();
             $task = Task::where('code','=',$resp['Código'])->first();
             if($task == null) {
                 $task = new Task;
@@ -50,6 +50,9 @@ class UploadController extends Controller
                 $task->priority = utf8_encode($resp['Prioridad']);
                 $task->owner = ($owner==null) ? 11 : $owner->id;
                 $task->store = $resp['Proyecto Código'];
+                if($task->owner == 11) {
+                    echo $resp['Código']." -- ";print_r(purge_accent(utf8_encode($resp['Responsable'])));die();
+                }
             }
             $task->expiration = date('Y-m-d h:i:s', strtotime(str_replace('/','-',$resp['Fecha Vencimiento'])));
 
@@ -101,7 +104,7 @@ class UploadController extends Controller
                 }
             }
             
-            $agent->name = utf8_encode($resp[0]);
+            $agent->name = purge_accent($resp[0]);
             $agent->email = $resp[1];
             
             $agent->save();
