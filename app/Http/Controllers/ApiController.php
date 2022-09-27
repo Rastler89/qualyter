@@ -10,6 +10,7 @@ use App\Models\Incidence;
 use App\Models\Store;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use \Debugbar;
 /**
  * @OA\Info(title="OptimaQuality API", version="1.0")
  * 
@@ -39,8 +40,8 @@ class ApiController extends Controller
      * )
      */
     public function survey_carried_today() {
-        $finish_today = count(Answer::whereIn('status',[2,4,5])->where('updated_at','=',date('Y-m-d'))->get());
-        $finish_yesterday = count(Answer::whereIn('status',[2,4,5])->where('updated_at','=',date('Y-m-d',strtotime("-1 days")))->get());
+        $finish_today = count(Answer::whereIn('status',[2,4,5])->where('updated_at','like', '%'.date('Y-m-d').'%')->get());
+        $finish_yesterday = count(Answer::whereIn('status',[2,4,5])->where('updated_at','like', '%'.date('Y-m-d',strtotime("-1 days")).'%')->get());
         if($finish_yesterday!=0) {
             $porcentaje_finalizadas = number_format(($finish_today/$finish_yesterday)*100-100,2);
         } else {
@@ -50,9 +51,9 @@ class ApiController extends Controller
         $response['finish'] = $finish_today;
         $response['porcentage'] = $porcentaje_finalizadas;
 
-        $total_today = count(Answer::where('updated_at','=',date('Y-m-d'))->where('status','<>','8')->get());
+        $total_today = count(Answer::where('updated_at','like','%'.date('Y-m-d').'%')->where('status','<>','8')->get());
         if($total_today!=0) {
-            $ftoday = count(Answer::whereIn('status',[2,4,5])->where('updated_at','=',date('Y-m-d'))->get());
+            $ftoday = count(Answer::whereIn('status',[2,4,5])->where('updated_at','like','%'.date('Y-m-d').'%')->get());
             $porcentaje_dia = number_format(($ftoday/$total_today)*100,2);
         } else {
             $porcentaje_dia = -100;
@@ -61,8 +62,8 @@ class ApiController extends Controller
         $response['total'] = $total_today;
         $response['complete'] = $porcentaje_dia;
 
-        $total_cancelled = count(Answer::where('updated_at','=',date('Y-m-d'))->where('status','=','8')->get());
-        $total_cancelled_yesterday = count(Answer::where('status','=','8')->where('updated_at','=',date('Y-m-d',strtotime("-1 days")))->get());
+        $total_cancelled = count(Answer::where('updated_at','like','%'.date('Y-m-d').'%')->where('status','=','8')->get());
+        $total_cancelled_yesterday = count(Answer::where('status','=','8')->where('updated_at','like','%'.date('Y-m-d',strtotime("-1 days")).'%')->get());
 
         $response['cancelled'] = $total_cancelled;
         $response['cancelled_yesterday'] = $total_cancelled_yesterday;
@@ -326,7 +327,8 @@ class ApiController extends Controller
         $resp = 0;
 
         if($first==$last) {
-            $ots = Task::whereBetween('updated_at',[$first.' 00:00:01',$last.' 23:59:59'])->where('answer_id','<>',null)->get();
+            $ots = Task::whereBetween('updated_at',[$first.' 00:00:01',$last.' 23:59:59'])->where('answer_id','<>',null)->get(); 
+                 
         } else {
             $ots = Task::whereBetween('updated_at',[$first,$last])->where('answer_id','<>',null)->get();
         }
@@ -334,7 +336,6 @@ class ApiController extends Controller
         $prepare=[];
         switch($type) {
             case 'agent':
-                print_r($ots);die();
                 foreach($ots as $ot) {
                     $agent = Agent::find($ot->owner);
                     $prepare[$ot->owner]['targets'][] = $ot->answer_id;
