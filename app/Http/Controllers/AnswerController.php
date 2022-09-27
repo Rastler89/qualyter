@@ -123,7 +123,26 @@ class AnswerController extends Controller
             }
         }
         
-       
+        if(!empty($filters['team']) && $filters['team'] != '') {
+            $id=[];
+            $teams = explode(",", $filters['team']);
+            $agents = [];
+            if (count($teams) > 1) {
+                
+                $agents = Agent::whereIn('team',$teams)->get();
+                
+            }else {
+                $agents = Agent::where('team','=',$teams[0])->get();
+            }
+            
+            foreach($agents as $agent) {
+                $tasks = Task::where('owner','=',$agent->id)->get();
+                foreach($tasks as $t) {
+                    $id[] = $t->answer_id;
+                }
+            }
+            $pre_answers->whereIn('id',$id);
+        }
 
         $pre_answers->whereIn('status',[0,1]);
         
@@ -141,9 +160,10 @@ class AnswerController extends Controller
         $clients = Client::all();
         $agents = Agent::all();
         $users = User::all();
-        Debugbar::info($answers);
+        $teams = Team::all();
         $id = auth()->user()->id;
-        return view('admin.task.index',['answers' => $answers, 'stores' => $stores, 'clients' => $clients, 'id' => $id, 'agents' => $agents, 'filters' => $filters, 'users' => $users]);
+        return view('admin.task.index',['answers' => $answers, 'stores' => $stores, 'clients' => $clients, 'id' => $id, 'agents' => $agents, 'filters' => $filters, 'users' => $users, 'teams' => $teams]);
+
     }
 
     public function call($id) {
@@ -508,7 +528,13 @@ class AnswerController extends Controller
 
         if(!empty($filters['team']) && $filters['team'] != '') {
             $id=[];
-            $agents = Agent::where('team','=',$filters['team'])->get();
+            $teams = explode(",", $filters['team']);
+            $agents = [];
+            if (count($teams) > 1) {             
+                $agents = Agent::whereIn('team',$teams)->get();               
+            }else {
+                $agents = Agent::where('team','=',$filters['team'])->get();
+            }
             foreach($agents as $agent) {
                 $tasks = Task::where('owner','=',$agent->id)->get();
                 foreach($tasks as $t) {
