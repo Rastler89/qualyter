@@ -125,11 +125,13 @@
                             <?php $id = str_replace('/','_',$store->code); ?>
                             <a href="{{route('stores.edit',['id'=>$id])}}" class="btn btn-outline-warning"><i class="align-middle" data-feather="edit"></i></a>
                         @endif
+                        <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#relatedOT-{{$answer->id}}"  data-toggle="tooltip" data-placement="top" title=""><i class="align-middle" data-feather="file-text"></i></button>
                         </td>
+                        
                     </tr>
                 @endif
             @endforeach
-            <div class="modal fade" id="cancelVisit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="cancelVisit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <form method="POST" action="{{route('tasks.cancel', ['id' =>$answer->id])}}">
       @csrf
@@ -147,6 +149,29 @@
         </div>
       </div>
     </form>
+  </div>
+</div>
+
+<div class="modal fade" id="relatedOT-{{$answer->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    
+      @csrf
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{__('Related OT')}}</h5>
+        </div>
+        <div class="modal-body">
+          <ul>
+            @foreach($answer->ot as $ot)
+                <li><b>{{$ot->code}}</b> - {{$ot->name}}</li>
+            @endforeach
+        </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__('Close')}}</button>
+        </div>
+      </div>
+    
   </div>
 </div>
         @endforeach

@@ -20,16 +20,18 @@ use App\Mail\ManagerMail;
 use App\Mail\StoreMail;
 use App\Mail\ResponseMail;
 use App\Mail\TechnicianMail;
+use \Debugbar;
 
 use Artisan;
 
 class AnswerController extends Controller
 {
     public function index(Request $request) {
+        
         $filters = $request->query();
-
+        
         $pre_answers = Answer::query();
-
+        
         if(isset($filters['filtered'])  && isset($filters['filters'])) {
             $filters = $filters['filters'];
         } else {
@@ -120,15 +122,26 @@ class AnswerController extends Controller
                 $pre_answers->where('expiration','<=',$filters['end_date_closing']);
             }
         }
+        
+       
 
         $pre_answers->whereIn('status',[0,1]);
-
+        
         $answers = $pre_answers->sortable()->paginate(10);
+
+        //Añadir operaciones de trabajo relacionadas a los respuestas
+        foreach($answers as $answer){
+            $ot = Task::where('answer_id','=',$answer->id)->get();
+            $answer->ot = $ot;
+        }
+
+        
+
         $stores = Store::all();
         $clients = Client::all();
         $agents = Agent::all();
         $users = User::all();
-
+        Debugbar::info($answers);
         $id = auth()->user()->id;
         return view('admin.task.index',['answers' => $answers, 'stores' => $stores, 'clients' => $clients, 'id' => $id, 'agents' => $agents, 'filters' => $filters, 'users' => $users]);
     }
