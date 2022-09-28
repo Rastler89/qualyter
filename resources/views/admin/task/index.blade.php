@@ -100,7 +100,6 @@
                     <tr class="table-dark">
                     @else
                         @switch($answer->status)
-                            @case(0) <tr class="table-success"> @break
                             @case(1) <tr class="table-warning"> @break
                             @case(3) <tr class="table-danger"> @break
                         @endswitch
@@ -126,7 +125,7 @@
                             @endforeach
                         </td>
                         <td>
-                            <button class="btn btn-outline-dark" type="button" data-bs-toggle="modal" data-bs-target="#cancelVisit"  data-toggle="tooltip" data-placement="top" title="{{__('Cancel visit')}}"><i class="align-middle" data-feather="slash"></i></button>
+                            <button class="btn btn-outline-danger" type="button" data-bs-toggle="modal" data-bs-target="#cancelVisit"  data-toggle="tooltip" data-placement="top" title="{{__('Cancel visit')}}"><i class="align-middle" data-feather="slash"></i></button>
                         @if($store->phonenumber!=null)
                             <a href="{{route('tasks.view',['id'=>$answer->id])}}" class="btn btn-outline-primary @if($answer->user != $id && $answer->user != null) disabled @endif"><i class="align-middle" data-feather="phone"></i></a>
                         @elseif($store->email!=null && $store->email!='-')

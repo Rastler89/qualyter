@@ -23,7 +23,7 @@ Route::get('evolution',[App\Http\Controllers\ApiController::class,'evolution']);
 Route::get('answers/today/carried',[App\Http\Controllers\ApiController::class,'survey_carried_today']);
 Route::get('answers/month/carried',[App\Http\Controllers\ApiController::class,'survey_carried_month']);
 Route::get('answers/month/type',[App\Http\Controllers\ApiController::class,'answer_type']);
-Route::get('answers/answered',[App\Http\Controllers\Apicontroller::class, 'answered']);
+Route::get('answers/answered',[App\Http\Controllers\ApiController::class, 'answered']);
 Route::post('leaderboard', [App\Http\Controllers\ApiController::class, 'leaderboard']);
 Route::post('reports/targets', [App\Http\Controllers\ApiController::class, 'targets']);
 Route::post('reports/incidences', [App\Http\Controllers\ApiController::class, 'incidences']);
