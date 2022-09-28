@@ -3,7 +3,18 @@
 @section('content')
 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
     <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#filters"><i class="align-middle" data-feather="filter"></i></button>
-    <?php if(count($filters)==0) $filters = 'none' ?>
+    <?php 
+    if(gettype($filters) === 'array') {
+        if(count($filters)==0) {
+            $filters = 'none';
+        } 
+    }else {
+        if(strlen($filters)===0) {
+            $filters = 'none';
+        } 
+    }
+    
+    ?>
     <a href="{{route('export.answer',['filters' => $filters])}}" type="button" class="btn btn-outline-success"><i class="align-middle" data-feather="download"></i></a>
 </div>
 
