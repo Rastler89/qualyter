@@ -375,7 +375,7 @@ class ApiController extends Controller
         $incidences = Incidence::whereBetween('created_at',[$first,$last])->get();
         $prepare = [];
         if($type=='general') {
-            $prepare['general']['incidences']=$this->information_incidence($incidences,$first,$last);
+            $prepare['general']['incidences']=$this->information_incidence($incidences,$first,$last,true);
 
             return response()->json($prepare);
         } else {
@@ -398,7 +398,7 @@ class ApiController extends Controller
         return response()->json($prepare);
     }
 
-    private function information_incidence($incidences,$first,$last) {
+    private function information_incidence($incidences,$first,$last,$general=false) {
         $answers = 0;
         $id = [];
 
@@ -408,11 +408,18 @@ class ApiController extends Controller
         }
         $id = array_unique($id);
 
-        $ots = DB::select('SELECT tasks.answer_id FROM answers, tasks WHERE answers.status IN (2,4,5) AND tasks.owner = :id AND answers.updated_at BETWEEN :first AND :last GROUP BY tasks.answer_id', [
-            'first' => $first,
-            'last' => $last,
-            'id' => $incidences[0]->owner
-        ]);
+        if($general) {
+            $ots = DB::select('SELECT tasks.answer_id FROM answers, tasks WHERE answers.status IN (2,4,5) AND answers.updated_at BETWEEN :first AND :last GROUP BY tasks.answer_id', [
+                'first' => $first,
+                'last' => $last
+            ]);
+        } else {
+            $ots = DB::select('SELECT tasks.answer_id FROM answers, tasks WHERE answers.status IN (2,4,5) AND tasks.owner = :id AND answers.updated_at BETWEEN :first AND :last GROUP BY tasks.answer_id', [
+                'first' => $first,
+                'last' => $last,
+                'id' => $incidences[0]->owner
+            ]);
+        }
         $answers = count($ots);
 
         $num_incidences = count($incidences);
