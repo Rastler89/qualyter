@@ -230,8 +230,10 @@
     <tbody>
         @foreach($incidences as $incidence)
             @switch($incidence->status)
-                @case(0) <tr class="table-danger"> @break
-                @case(1) <tr class="table-warning"> @break
+                @case(1) <tr class="table-sent"> @break
+                @case(2) <tr class="table-warning"> @break
+                @case(3) <tr class="table-danger"> @break
+                @case(4) <tr class="table-success"> @break
             @endswitch
                 <td>
                     @foreach($stores as $store)
