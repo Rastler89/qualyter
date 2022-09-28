@@ -334,7 +334,6 @@ class ApiController extends Controller
         $prepare=[];
         switch($type) {
             case 'agent':
-                print_r($ots);die();
                 foreach($ots as $ot) {
                     $agent = Agent::find($ot->owner);
                     $prepare[$ot->owner]['targets'][] = $ot->answer_id;
