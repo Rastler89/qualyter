@@ -427,7 +427,7 @@ class IncidenceController extends Controller
             $agent = Agent::find($incidence->owner);
             $user = User::find($incidence->responsable);
             Mail::to($agent['email'])->send(new NotifyMail($body));
-            if(aut()->user() != null) {
+            if(auth()->user() != null) {
                 if($manager->id!=auth()->user()->id) {
                     Mail::to($manager->email)->send(new ManagerMail($body));
                 }

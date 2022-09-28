@@ -111,7 +111,7 @@
                                     <div class="text-center">{{$data['total_answer']}}</div>
                                 </div>
                                 <div class="col-4">
-                                    <h3 style="font-size:0.75em">{{__("Incidence Open Today")}}</h3>
+                                    <h3 style="font-size:0.75em">{{__("Incidence Open Total")}}</h3>
                                     <div class="text-center">{{$data['total_open_incidence']}}</div>
                                 </div>
                                 <div class="col-4">
