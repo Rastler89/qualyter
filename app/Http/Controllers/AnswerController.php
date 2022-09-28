@@ -154,8 +154,6 @@ class AnswerController extends Controller
             $answer->ot = $ot;
         }
 
-        
-
         $stores = Store::all();
         $clients = Client::all();
         $agents = Agent::all();
@@ -219,6 +217,14 @@ class AnswerController extends Controller
         $answer->calls = $this->getCalls($answer->id);
 
         $owners = Agent::find($owners);
+
+        
+        //Añadir incidencias abiertas de una tienda
+        
+        $incidence = Incidence::join('answers', 'answers.store','=','incidences.store')->where('incidences.status','!=',4)->where('answers.store','=',$answer->store)->count();
+        $answer->incidence = $incidence;
+        
+        
         return view('admin.task.view', ['answer' => $answer, 'store' => $store, 'tasks' => $tasks, 'agents' => $agents, 'owners' => $owners]);
     }
 

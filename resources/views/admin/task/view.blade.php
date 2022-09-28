@@ -36,6 +36,12 @@
     </form>
   </div>
 </div>
+<!-- Incidencias a biertas -->
+@if($answer->incidence > 0 )
+<div class="alert alert-warning">
+  <b>{{__('This store still have incidences pending to be solved.')}}</b>
+</div>
+@endif
 <!-- Table -->
 <div class="row">
   <div class="col">
