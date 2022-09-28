@@ -133,11 +133,11 @@
                 @if($store->code == $answer->store && $store->client == $answer->client)
                     
                     @switch($answer->status)
-                        @case(5)
                         @case(2) <tr class="table-success"> @break
+                        @case(3) <tr class="table-sent"> @break
                         @case(4) <tr class="table-warning"> @break
-                        @case(4) <tr class="table-danger"> @break
-                        @case(8) <tr class="table-dark"> @break
+                        @case(5) <tr class="table-success"> @break
+                        @case(8) <tr class="table-danger"> @break
                     @endswitch
 
                         <td>
