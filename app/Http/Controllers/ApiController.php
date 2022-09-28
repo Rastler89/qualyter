@@ -357,7 +357,7 @@ class ApiController extends Controller
                     $ots = Task::whereBetween('updated_at',[$first,$last])->where('answer_id','<>',null)->get();
                 }
                 foreach($ots as $ot) {
-                    $prepare['all'][] = $ot->id;
+                    $prepare['all'][] = $ot->answer_id;
                 }
 
                 $res['general']['targets'] = $this->information($prepare['all']);
@@ -485,7 +485,7 @@ class ApiController extends Controller
         $not_emails = 0;
         foreach($answers as $answer) {
             $store = Store::where('code','=',$answer->store)->first();
-            if($store->email!=null && $store->email=='') {
+            if($store->email==null || $store->email=='' || $store->email == '-') {
                 $not_emails = $not_emails + 1;
             }
         }
