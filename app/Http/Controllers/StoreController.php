@@ -6,6 +6,8 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use App\Models\Store;
 use Illuminate\Http\Request;
+use App\Models\Answer;
+use Barryvdh\Debugbar\Facade as Debugbar;
 
 class StoreController extends Controller
 {
@@ -122,6 +124,35 @@ class StoreController extends Controller
         } 
 
         $store->save();
+        
+        //Si el estado contact pasa de TRUE a FALSE todas las Answwers con estado 0 o 1 pasarán automáticamente a estado 8
+
+        if($store->contact != 1 ) {
+
+            $answers = Answer::where('store', '=', $store->code)->whereIn('status',[1,2])->get();
+
+            if(isset($answers)){
+                foreach($answers as $answer){
+                    $body = [];
+                    $body['problem'] = 'No se ha podido contactar';
+                    $answer->status = 8;
+                    $answer->answer=json_encode($body,true);    
+                    $answer->save();
+                }
+            }
+            
+        }else{
+            $today = date("Y-m-d");
+            $answers = Answer::where('store', '=', $store->code)->where('status', '!=', 0)->where('expiration', 'like', '%'.$today.'%')->get();
+           
+            if(isset($answers)){
+                foreach($answers as $answer){
+                    $answer->status = 0;
+                    $answer->answer = null;    
+                    $answer->save();
+                }
+            }
+        }
 
         return redirect()->route('stores')->with('success','Store updted succesfully');
     }
