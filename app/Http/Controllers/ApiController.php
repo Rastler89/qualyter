@@ -351,9 +351,13 @@ class ApiController extends Controller
                 break;
 
             case 'general':
-                $ots = Answer::whereBetween('updated_at',[$first,$last])->get();
+                if($first==$last) {
+                    $ots = Task::whereBetween('updated_at',[$first.' 00:00:01',$last.' 23:59:59'])->where('answer_id','<>',null)->get();
+                } else {
+                    $ots = Task::whereBetween('updated_at',[$first,$last])->where('answer_id','<>',null)->get();
+                }
                 foreach($ots as $ot) {
-                    $prepare['all'][] = $ot->id;
+                    $prepare['all'][] = $ot->answer_id;
                 }
 
                 $res['general']['targets'] = $this->information($prepare['all']);
@@ -481,7 +485,7 @@ class ApiController extends Controller
         $not_emails = 0;
         foreach($answers as $answer) {
             $store = Store::where('code','=',$answer->store)->first();
-            if($store->email!=null && $store->email=='') {
+            if($store->email==null || $store->email=='' || $store->email == '-') {
                 $not_emails = $not_emails + 1;
             }
         }
@@ -501,11 +505,12 @@ class ApiController extends Controller
         $answers = Answer::whereIn('id',$id)->whereIn('status',[2,4,5])->get();
         $answered = (int)count($answers);
 
-        $per_con = number_format(($contacts/$visits)*100,2);
         if($contacts==0) {
             $per_ans = 0;
             $tot_ans = 0;
+            $per_con = 0;
         } else {
+            $per_con = number_format(($contacts/$visits)*100,2);
             $per_ans = number_format(($answered/$contacts)*100,2);
             $tot_ans = number_format(($answered/$visits)*100,2);
         }
