@@ -23,6 +23,8 @@ class UploadController extends Controller
     public function pushTasks(Request $request) {
         $respuesta = $this->exportCSVAsocciative($request,true,true);
         Store::disableAuditing();
+
+        $count = 0;
         foreach($respuesta as $resp) {
             $store = Store::where('code','=',$resp['Proyecto Código'])->where('client','=',$resp['Código cliente'])->first();
             if($store==null) {
@@ -77,6 +79,7 @@ class UploadController extends Controller
                     $answer->status = 0;
                     $answer->store = $task->store;
                     $answer->client = ($resp['Código cliente']==null || $resp['Código cliente']=='') ? 1 : $resp['Código cliente'];
+                    $count++;
                 }
                 $answer->token = Str::random(8);
                 $answer->save();
@@ -86,7 +89,7 @@ class UploadController extends Controller
 
         }
 
-        return back()->with('success','Upload tasks successfuly!');
+        return back()->with('success','Upload tasks successfuly! '.$count.' tasks created!');
     }
     
     public function pushAgents(Request $request) {
