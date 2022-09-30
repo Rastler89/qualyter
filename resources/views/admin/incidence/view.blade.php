@@ -298,14 +298,19 @@ function call(url, tlf = false) {
             $("#error").text("Wrong format")
         }else {
            url = url.concat('&phonenumber=',number)
+           let xhr = new XMLHttpRequest();
+           xhr.open("GET", url);
+           xhr.send();
+           $('#closeIncidence').css('visibility','visible');
         }
         
+    }else {
+        let xhr = new XMLHttpRequest();
+           xhr.open("GET", url);
+           xhr.send();
+           $('#closeIncidence').css('visibility','visible');
     }
-    
-    let xhr = new XMLHttpRequest();
-    xhr.open("GET", url);
-    xhr.send();
-    $('#closeIncidence').css('visibility','visible');
+
 }
 
 $(document).ready(function() {
