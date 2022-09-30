@@ -248,12 +248,21 @@
                 </div>
                 <div class="modal-body m-3">
                     <p class="mb-3">
+                        
                         <button type="button" class="btn btn-outline-primary mb-3" data-bs-toggle="tooltip" data-bs-placement="top" title="{{__('Call Store')}}" onClick="call('{{route('call.incidence',['id' => $incidence->id, 'user' => auth()->user()->id])}}')">
+                            {{__("Call default number")}}    
                             <i class="align-middle" data-feather="phone"></i>
                         </button>
                     </p>
-                    <p class="mb-1">Mobile</p>
-                    <input type="text" class="form-control col-xs-3" id="ec-mobile-number" aria-describedby="emailHelp"  />
+                    <div class="row">
+                        <p class="mb-1">{{__("Different number")}}</p>
+                        <div class="col-sm"><input type="text" class="form-control col-xs-3" id="ec-mobile-number" aria-describedby="emailHelp"  /></div>
+                        <div class="col-sm">                        
+                            <button type="button" class="btn btn-outline-primary mb-3" data-bs-toggle="tooltip" data-bs-placement="top" title="{{__('Call Store')}}" onClick="call('{{route('call.incidence',['id' => $incidence->id, 'user' => auth()->user()->id])}}')">
+                            <i class="align-middle" data-feather="phone"></i>
+                        </button>
+                        </div>
+                    </div>
                 </div>                  
                 
                 <div class="modal-footer">
