@@ -256,12 +256,14 @@
                     </p>
                     <div class="row">
                         <p class="mb-1">{{__("Different number")}}</p>
-                        <div class="col-sm"><input type="text" class="form-control col-xs-3" id="ec-mobile-number" aria-describedby="emailHelp"  /></div>
+                        <div class="col-sm"><input type="text" class="form-control col-xs-3" id="phonenumber"/></div>
                         <div class="col-sm">                        
-                            <button type="button" class="btn btn-outline-primary mb-3" data-bs-toggle="tooltip" data-bs-placement="top" title="{{__('Call Store')}}" onClick="call('{{route('call.incidence',['id' => $incidence->id, 'user' => auth()->user()->id])}}')">
+                            <button type="button" class="btn btn-outline-primary mb-3" data-bs-toggle="tooltip" data-bs-placement="top" title="{{__('Call Store')}}" 
+                            onClick="call('{{route('call.incidence',['id' => $incidence->id, 'user' => auth()->user()->id])}}', 'true')">
                             <i class="align-middle" data-feather="phone"></i>
                         </button>
                         </div>
+                        <a  id="error" style="color:red"><a>
                     </div>
                 </div>                  
                 
@@ -275,13 +277,35 @@
 @endsection
 
 @section('javascript')
-<script  src="{{ asset("js/essential_audio.js") }}"></script>
+<script  src="{{ asset('js/essential_audio.js') }}"></script>
 <script>
-function call(url) {
-  let xhr = new XMLHttpRequest();
-  xhr.open("GET", url);
-  xhr.send();
-  $('#closeIncidence').css('visibility','visible');
+function call(url, tlf = false) {
+
+    if($("#error").val != ""){
+        $("#error").text("");
+    }
+
+    //Validar que el teléfono sea correcto
+    if(tlf) {
+        var error = false
+        const number = $( "#phonenumber" ).val().trim()
+        if(number != ''){
+            if (/^[0-9]+$/.test(number) != true) {
+                error = true
+            }
+        }
+        if(error){
+            $("#error").text("Wrong format")
+        }else {
+           url = url.concat('&phonenumber=',number)
+        }
+        
+    }
+    
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", url);
+    xhr.send();
+    $('#closeIncidence').css('visibility','visible');
 }
 
 $(document).ready(function() {
