@@ -43,11 +43,15 @@
             </div>
             <div class="card-body">
                 <div class="card-title">
-                    <h4><?= number_format($delegation['average'],2)?></h4>
+                    <h4><?= number_format($delegation['average'],2);?></h4>
                     <?php $star = intval($delegation['average']); ?>
+                    <?php $partir = explode(".", number_format($delegation['average'],2) ); ?>
                 @for($i=0; $i <$star; $i++)
                     <img src="{{ asset('img/star-hover.svg') }}" width="30" height="30" />
                 @endfor
+                @if(isset($partir) && $partir[1] >= 5)
+                    <img src="{{ asset('img/star-hover-half.svg') }}" width="30" height="30" />
+                @endif
                 </div>
                 <p class="card-text">
                     {{$delegation['visits']}} {{__("surveys conducted")}}
