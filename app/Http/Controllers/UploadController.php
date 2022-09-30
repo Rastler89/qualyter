@@ -104,7 +104,7 @@ class UploadController extends Controller
                 }
             }
             
-            $agent->name = purge_accent($resp[0]);
+            $agent->name = purge_accent(utf8_encode($resp[0]));
             $agent->email = $resp[1];
             
             $agent->save();
