@@ -58,30 +58,24 @@ class CallStore extends Command
         if(($user->token != null && $user->phone != null && $user->token != '' && $user->phone != '') || env('APP_NAME')=='QualyterTEST') {
             $post = [];
             if(env('APP_NAME')=='QualyterTEST') {
+                $this->info('local');
+                $post['from_number'] = intval('34872583167');
                 if($phonenumber != ''){
-                    $this->info('local');
-                    $post['from_number'] = intval('34872583167');
                     $post['to_number'] = intval($phonenumber);
-                    $authorization = 'Authorization:  138a032c631da0db13b4d1252742ebb2ce17599a';
                 }else{
-                    $this->info('local');
-                    $post['from_number'] = intval('34872583167');
                     $post['to_number'] = intval('617370097');
-                    $authorization = 'Authorization:  138a032c631da0db13b4d1252742ebb2ce17599a';
+                    
                 }
-                
+                $authorization = 'Authorization:  138a032c631da0db13b4d1252742ebb2ce17599a';
             } else {
+                $this->info('production');
+                    $post['from_number'] = intval($user->phone);
                 if($phonenumber != ''){
-                    $this->info('production');
-                    $post['from_number'] = intval($user->phone);
                     $post['to_number'] = intval(trim(str_replace('+','',$phonenumber)));//$store->phonenumber;
-                    $authorization = 'Authorization: '.$user->token;
                 }else{
-                    $this->info('production');
-                    $post['from_number'] = intval($user->phone);
                     $post['to_number'] = intval(trim(str_replace('+','',$store->phonenumber)));//$store->phonenumber;
-                    $authorization = 'Authorization: '.$user->token;
                 }
+                $authorization = 'Authorization: '.$user->token;
                 
             }
             $post['timeout'] = 30;
