@@ -8,9 +8,14 @@
 <div class="row">
     <div class="col-md-4">
         <h5 class="mb-4">{{__("reporting period")}}: {{$first_day}} - {{$last_day}}</h5>
+        <?php $partir = explode(".", number_format($client->average,2) ); ?>
         <?php $star = intval($client->average); ?>
         <h2 class="text-center mt-3">{{$client->average}}</h2>
-        <p class="text-center">@for($i=0; $i <$star; $i++)<img src="{{ asset('img/star-hover.svg') }}" width="60" height="60" />@endfor</p>
+        <p class="text-center">@for($i=0; $i <$star; $i++)<img src="{{ asset('img/star-hover.svg') }}" width="60" height="60" />@endfor 
+        @if(isset($partir) && $partir[1] >= 5)
+                    <img src="{{ asset('img/star-hover-half.svg') }}" width="60" height="60" />
+        @endif
+        </p>
         <ul class="list-group">
             <li class="list-group-item">{{__("Number of cases in the investigation period")}}: <strong>{{$extra['visits']}} {{__("visits")}}</strong></li>
             <li class="list-group-item">{{__("Number of responses to telephone surveys")}}: <strong>{{$extra['qc']}} {{__("calls")}}</strong></li>
