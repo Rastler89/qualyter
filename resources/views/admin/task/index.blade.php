@@ -125,7 +125,8 @@
                             @endforeach
                         </td>
                         <td>
-                            <button class="btn btn-outline-danger" type="button" data-bs-toggle="modal" data-bs-target="#cancelVisit"  data-toggle="tooltip" data-placement="top" title="{{__('Cancel visit')}}"><i class="align-middle" data-feather="slash"></i></button>
+                            
+                            <button class="btn btn-outline-danger" type="button" data-bs-toggle="modal" data-bs-target="#cancelVisit-{{$answer->id}}"  data-toggle="tooltip" data-placement="top" title="{{__('Cancel visit')}}"><i class="align-middle" data-feather="slash"></i></button>
                         @if($store->phonenumber!=null)
                             <a href="{{route('tasks.view',['id'=>$answer->id])}}" class="btn btn-outline-primary @if($answer->user != $id && $answer->user != null) disabled @endif"><i class="align-middle" data-feather="phone"></i></a>
                         @elseif($store->email!=null && $store->email!='-')
@@ -140,8 +141,10 @@
                     </tr>
                 @endif
             @endforeach
-<div class="modal fade" id="cancelVisit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+<div class="modal fade" id="cancelVisit-{{$answer->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
+
     <form method="POST" action="{{route('tasks.cancel', ['id' =>$answer->id])}}">
       @csrf
       <div class="modal-content">
