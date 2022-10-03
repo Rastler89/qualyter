@@ -120,6 +120,9 @@ Route::group(['middleware' => 'auth'], function () {
 //Special
 //Route::get('leaderboard',[App\Http\Controllers\ReportsController::class, 'leaderboard_animated']);
 // INCIDENCE
+Route::get('agent/', [App\Http\Controllers\IncidenceController::class, 'agent_login'])->name('incidences.agent_login');
+Route::post('agent/', [App\Http\Controllers\IncidenceController::class, 'agent_session']);
+Route::get('agent/dashboard', [App\Http\Controllers\IncidenceController::class, 'agent_dashboard'])->name('incidences.agent_dashboard');
 Route::get('agent/incidence/{id}', [App\Http\Controllers\IncidenceController::class, 'response'])->name('incidences.agent');
 Route::post('agent/incidence/{id}', [App\Http\Controllers\IncidenceController::class, 'update'])->name('incidences.update');
 // STORE

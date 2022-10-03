@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('stores', function (Blueprint $table) {
-            $table->boolean('whatsapp')->nullable();
+        Schema::table('agents', function(Blueprint $table) {
+            $table->string('token',6)->nullable();
         });
     }
 
@@ -25,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('stores', function (Blueprint $table) {
-            $table->dropColumn('whatsapp');
+        Schema::table('agents', function(Blueprint $table) {
+            $table->dropColumn('agents');
         });
     }
 };

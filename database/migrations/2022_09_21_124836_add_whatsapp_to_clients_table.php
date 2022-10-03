@@ -16,6 +16,9 @@ return new class extends Migration
         Schema::table('clients', function (Blueprint $table) {
             $table->boolean('whatsapp')->nullable();
         });
+        Schema::table('stores', function (Blueprint $table) {
+            $table->boolean('whatsapp')->nullable();
+        });
     }
 
     /**
@@ -26,6 +29,9 @@ return new class extends Migration
     public function down()
     {
         Schema::table('clients', function (Blueprint $table) {
+            $table->dropColumn('whatsapp');
+        });
+        Schema::table('stores', function (Blueprint $table) {
             $table->dropColumn('whatsapp');
         });
     }

@@ -18,7 +18,7 @@ use App\Mail\NotifyMail;
 use App\Mail\ManagerMail;
 use Illuminate\Support\Str;
 use Artisan;
-
+use Session;
 
 class IncidenceController extends Controller
 {
@@ -393,6 +393,34 @@ class IncidenceController extends Controller
         return $artisan;
     }
 
+    public function agent_login() {
+        return view('public.agent.login');
+    }
+
+    public function agent_session(Request $request) {
+        $token = $request->token;
+
+        $agent = Agent::where('token','=',$token)->first();
+        if($agent) {
+            $request->session()->put('agent',$agent);
+            return redirect('/agent/dashboard');
+        }
+        return redirect('/agent');
+    }
+
+    public function agent_dashboard() {
+        $agent = Session::get('agent');
+        if($agent==null) {
+            return redirect('/agent');
+        }
+
+        $incidences = Incidence::where('owner', '=', $agent->id)->paginate(10);
+        $stores = Store::all();
+        //echo"<pre>";print_r($incidences);echo"</pre>";
+        return view('public.agent.dashboard',['incidences'=>$incidences, 'stores' => $stores]);
+    }
+
+    // FUNCTIONS
     private function getCalls($incidence_id) {
         
         $calls = Call::where('external_id','=',$incidence_id)->where('type','=','i')->get();
