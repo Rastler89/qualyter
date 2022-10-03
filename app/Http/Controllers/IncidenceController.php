@@ -388,7 +388,12 @@ class IncidenceController extends Controller
 
     public function call($id) {
         $user = $_GET['user'];
-        $artisan = Artisan::call('call:store',['user'=>$user, 'id'=>$id, 'type'=>'incidence']);
+        if(isset($_GET['phonenumber'])){
+            $number = $_GET['phonenumber'];
+            $artisan = Artisan::call('call:store',['user'=>$user, 'id'=>$id, 'type'=>'incidence', 'phonenumber'=>$number]);
+        }else{
+            $artisan = Artisan::call('call:store',['user'=>$user, 'id'=>$id, 'type'=>'incidence', 'phonenumber'=>'']);
+        }
         $output = Artisan::output();
         return $artisan;
     }

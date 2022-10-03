@@ -127,7 +127,7 @@
                     <hr class="my-4" />
                     <div class="btn-group" role="group" aria-label="Basic example">
                         <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#callInfo"><i class="align-middle" data-feather="layers"></i></button>
-                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="{{__('Call Store')}}" onClick="call('{{route('call.incidence',['id' => $incidence->id, 'user' => auth()->user()->id])}}')"><i class="align-middle" data-feather="phone"></i></button>
+                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" title="{{__('Call Store')}}" data-bs-target="#modalLlamadas" ><i class="align-middle" data-feather="phone"></i></button>
                     </div>
                     <hr class="my-4" />
                     <div class="conversation">
@@ -188,7 +188,7 @@
                     <h5 class="modal-title">{{__('Confirm complete incidence')}}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body m-3">
+                <div class="modal-body m-3"> 
                     <p class="mb-0" style="color:red;text-align:center">{{__('Are you sure that the incident has been completed? First of all make sure, customer satisfaction is very important.')}}</p>
                     <textarea name="reason" id="reason" class="form-control" style="visibility:hidden;"></textarea>
                 </div>
@@ -237,16 +237,80 @@
     </div>
   </div>
 </div>
+
+<!-- selector de llamadas -->
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="ModalLlamadas" id="modalLlamadas" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{__("Call")}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body m-3">
+                    <p class="mb-3">
+                        
+                        <button type="button" class="btn btn-outline-primary mb-3" data-bs-toggle="tooltip" data-bs-placement="top" title="{{__('Call Store')}}" onClick="call('{{route('call.incidence',['id' => $incidence->id, 'user' => auth()->user()->id])}}')">
+                            {{__("Call default number")}}    
+                            <i class="align-middle" data-feather="phone"></i>
+                        </button>
+                    </p>
+                    <div class="row">
+                        <p class="mb-1">{{__("Different number")}}</p>
+                        <div class="col-sm"><input type="text" class="form-control col-xs-3" id="phonenumber"/></div>
+                        <div class="col-sm">                        
+                            <button type="button" class="btn btn-outline-primary mb-3" data-bs-toggle="tooltip" data-bs-placement="top" title="{{__('Call Store')}}" 
+                            onClick="call('{{route('call.incidence',['id' => $incidence->id, 'user' => auth()->user()->id])}}', 'true')">
+                            <i class="align-middle" data-feather="phone"></i>
+                        </button>
+                        </div>
+                        <a  id="error" style="color:red"><a>
+                    </div>
+                </div>                  
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>         
+        </div>
+    </div>
+</div>
+
 @endsection
 
 @section('javascript')
-<script  src="{{ asset("js/essential_audio.js") }}"></script>
+<script  src="{{ asset('js/essential_audio.js') }}"></script>
 <script>
-function call(url) {
-  let xhr = new XMLHttpRequest();
-  xhr.open("GET", url);
-  xhr.send();
-  $('#closeIncidence').css('visibility','visible');
+function call(url, tlf = false) {
+
+    if($("#error").val != ""){
+        $("#error").text("");
+    }
+
+    //Validar que el teléfono sea correcto
+    if(tlf) {
+        var error = false
+        const number = $( "#phonenumber" ).val().trim()
+        if(number != ''){
+            if (/^[0-9]+$/.test(number) != true) {
+                error = true
+            }
+        }
+        if(error){
+            $("#error").text("Wrong format")
+        }else {
+           url = url.concat('&phonenumber=',number)
+           let xhr = new XMLHttpRequest();
+           xhr.open("GET", url);
+           xhr.send();
+           $('#closeIncidence').css('visibility','visible');
+        }
+        
+    }else {
+        let xhr = new XMLHttpRequest();
+           xhr.open("GET", url);
+           xhr.send();
+           $('#closeIncidence').css('visibility','visible');
+    }
+
 }
 
 $(document).ready(function() {
