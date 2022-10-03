@@ -186,7 +186,7 @@ class AnswerController extends Controller
         $store = Store::where('code','=',$answer->store)->where('client','=',$answer->client)->first();
 
         if(env('APP_NAME')!='QualyterTEST') {
-            $artisan = Artisan::call('call:store',['user'=>auth()->user()->id, 'id'=>$answer->id, 'type'=>'answer']);
+            $artisan = Artisan::call('call:store',['user'=>auth()->user()->id, 'id'=>$answer->id, 'type'=>'answer','phonenumber'=>'']);
             $output = Artisan::output();
         }
         
