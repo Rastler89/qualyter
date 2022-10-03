@@ -166,7 +166,14 @@ class AnswerController extends Controller
 
     public function call($id) {
         $user = $_GET['user'];
-        $artisan = Artisan::call('call:store',['user'=>$user, 'id'=>$id, 'type'=>'answer']);
+
+        if(isset($_GET['phonenumber'])){
+            $phonenumber = $_GET['phonenumber'];
+            $artisan = Artisan::call('call:store',['user'=>$user, 'id'=>$id, 'type'=>'answer', 'phonenumber' => $phonenumber]);
+        }else {
+            $artisan = Artisan::call('call:store',['user'=>$user, 'id'=>$id, 'type'=>'answer', 'phonenumber' => '']);
+        }
+        
         $output = Artisan::output();
         return response()->json($output);
     }
