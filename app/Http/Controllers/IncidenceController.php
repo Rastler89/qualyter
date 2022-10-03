@@ -419,7 +419,7 @@ class IncidenceController extends Controller
             return redirect('/agent');
         }
 
-        $incidences = Incidence::where('owner', '=', $agent->id)->paginate(10);
+        $incidences = Incidence::where('owner', '=', $agent->id)->where('status','<>',4)->paginate(10);
         $stores = Store::all();
         //echo"<pre>";print_r($incidences);echo"</pre>";
         return view('public.agent.dashboard',['incidences'=>$incidences, 'stores' => $stores]);
