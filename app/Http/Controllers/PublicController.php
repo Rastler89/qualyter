@@ -64,7 +64,7 @@ class PublicController extends Controller
         $last_day = last_month_day();
 
         $client = Client::find($delegation);
-        $average = $this->getAverage($client);
+        $average = getAverage($client);
         if($average!=false) {
             $client['average'] = $average['media'];
             $client['visits'] = $average['total'];
@@ -87,34 +87,5 @@ class PublicController extends Controller
         return view('public.detail',['first_day'=>$first_day, 'last_day'=>$last_day, 'client'=>$client, 'extra' => $extra, 'answers' => $answers, 'total' => count($answers), 'notResponds' => $shops]);
     }
 
-    private function getAverage($client) {
-        $resp = [];
-
-        $first_day = first_month_day();
-        $last_day = last_month_day();
-
-        $stores = Store::where('client','=',$client->id)->get();
-        foreach($stores as $store) {
-            $answer = Answer::where('store','=',$store->code)->whereIn('status',[2,4,5])->whereBetween('updated_at',[$first_day,$last_day])->get();
-            if(count($answer) > 0) {
-                foreach($answer as $ans) {
-                    $response = json_decode($ans->answer,true);
-                    $resp[] = $response['valoration'][0];
-                }
-            }
-        }
-        if(count($resp) > 0) {
-            $total = array_sum($resp);
-            $divisor = count($resp);
-            $media = $total/$divisor;
-            $body = [
-                'media' => round($media,2),
-                'total' => $divisor,
-            ];
-            return $body;
-        } else {
-            return false;
-        }
-    }
     
 }
