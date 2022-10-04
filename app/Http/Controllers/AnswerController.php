@@ -14,6 +14,7 @@ use App\Models\Call;
 use App\Http\Controllers\AuditionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Redirect;
 use Mail;
 use App\Mail\NotifyMail;
 use App\Mail\ManagerMail;
@@ -326,7 +327,7 @@ class AnswerController extends Controller
             $log->saveLog($old_answer,$answer,'a');
         }
 
-        return redirect()->route('tasks')->with('success','Task cancelled!');
+        return Redirect::to(url()->previous())->with('success','Task cancelled!');
     }
 
     public function notrespond(Request $request, $id) {
