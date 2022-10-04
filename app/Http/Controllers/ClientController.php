@@ -183,16 +183,16 @@ class ClientController extends Controller
            foreach($delegacion as $row){
                
                $respuestas = json_decode($row[2],true);
-               echo $row[0];
-               echo "\t" . $row[1];
+               echo  utf8_decode($row[0]);
+               echo "\t" .$row[1];
                echo "\t" . $respuestas['valoration'][0];
-               echo "\t" . $respuestas['comment'][0];
+               echo "\t" . utf8_decode($respuestas['comment'][0]);
                echo "\t" . $respuestas['valoration'][1];
-               echo "\t" . $respuestas['comment'][1];
+               echo "\t" . utf8_decode($respuestas['comment'][1]);
                echo "\t" . $respuestas['valoration'][2];
-               echo "\t" . $respuestas['comment'][2];
+               echo "\t" . utf8_decode($respuestas['comment'][2]);
                echo "\t" . $respuestas['valoration'][3];
-               echo "\t" . $respuestas['comment'][3] . "\n";
+               echo "\t" . utf8_decode($respuestas['comment'][3]) . "\n";
 
                $total0 = $total0 + (int)$respuestas['valoration'][0];
                $total1 = $total1 + (int)$respuestas['valoration'][1];
@@ -209,6 +209,6 @@ class ClientController extends Controller
 
        echo "\n" . "\t". "PUNTUACION MEDIA" . "\t" . $media0 . "\t". "\t" . $media1 . "\t" . "\t" . $media2 . "\t" . "\t".$media3;
 
-   exit;
+       exit;
 }
 }
