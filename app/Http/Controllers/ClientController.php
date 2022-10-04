@@ -146,6 +146,7 @@ class ClientController extends Controller
         $delegations = Client::where('father','=',$client)->get();
         $allResults = [];
         $data = [];
+        $answersArray = [];
         //$average = getAverage($client);
         foreach($delegations as $delegation){
             $datosDelegacion = [];
@@ -160,19 +161,22 @@ class ClientController extends Controller
                 array_push($datosAnswer, $answer->answer);
 
                 array_push($datosDelegacion, $datosAnswer);
+                array_push($answersArray, $answers);
             }
             array_push($data, $datosDelegacion);
         }
 
         
-       //datos fichero
+       if(count($answersArray)>0){
+               //datos fichero
        $today = date("Y-m-d");
        $fileName = str_replace("-","",$today).str_replace(" ","",$cliente->name). ".xls";
-       $divisor = count($data[0]);
+       
        $total0 = 0;
        $total1 = 0;
        $total2 = 0;
        $total3 = 0;
+       $divisor = count($answersArray);
        
        header("Content-Disposition: attachment; filename=\"$fileName\"");
        header("Content-Type: application/vnd.ms-excel");
@@ -208,7 +212,11 @@ class ClientController extends Controller
        $media3 = round($total1 / $divisor,2);
 
        echo "\n" . "\t". "PUNTUACION MEDIA" . "\t" . $media0 . "\t". "\t" . $media1 . "\t" . "\t" . $media2 . "\t" . "\t".$media3;
-
        exit;
+
+       }else {
+        return redirect()->route('clients')->with('warning',"No data found");
+       }
+
 }
 }
