@@ -22,7 +22,7 @@ class PublicController extends Controller
             
             $delegations = [];
             foreach($clients as $key => $delegation) {
-                $average = $this->getAverage($delegation);
+                $average = getAverage($delegation);
                 if($average!=false) {
                     $delegation['average'] = $average['media'];
                     $delegation['visits'] = $average['total'];
@@ -34,7 +34,7 @@ class PublicController extends Controller
             $first_day = first_month_day();
             $last_day = last_month_day();
 
-            $average = $this->getAverage($client);
+            $average = getAverage($client);
             if($average!=false) {
                 $client['average'] = $average['media'];
                 $client['visits'] = $average['total'];
@@ -72,7 +72,7 @@ class PublicController extends Controller
         $extra = getExtra($client);
 
         $answers = Answer::where('client','=',$client->id)->whereIn('status',[2,4,5])->whereBetween('updated_at',[$first_day,$last_day])->get();
-        foreach($answers as &$answer) {
+        foreach($answers as $answer) {
             $store =  Store::where('code','=',$answer->store)->first();
             $answer['shop'] = $store->name;
             $answer['workOrders'] = Task::where('answer_id', '=',$answer->id)->get();
