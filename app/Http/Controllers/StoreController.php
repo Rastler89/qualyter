@@ -129,14 +129,15 @@ class StoreController extends Controller
 
         if($store->contact != 1 ) {
 
-            $answers = Answer::where('store', '=', $store->code)->whereIn('status',[1,2])->get();
+            $answers = Answer::where('store', '=', $store->code)->whereIn('status',[0,1])->get();
 
             if(isset($answers)){
                 foreach($answers as $answer){
                     $body = [];
                     $body['problem'] = 'No se ha podido contactar';
                     $answer->status = 8;
-                    $answer->answer=json_encode($body,true);    
+                    $answer->answer=json_encode($body,true);
+                    $answer->user = null;
                     $answer->save();
                 }
             }
