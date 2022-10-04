@@ -78,7 +78,7 @@
                 <a href="{{route('clients.edit',['id'=>$client->id])}}" class="btn btn-outline-warning"><i class="align-middle" data-feather="edit"></i></a>
                 @if($client->delegation=='00' || $client->father == null)<a href="{{route('public.index',['id'=>$client->id])}}" target="_blank" class="btn btn-outline-success"><i class="align-middle" data-feather="activity"></i></a>@endif
                 @if($client->delegation=='00' || $client->father == null)<a href="{{route('clients.send',['id'=>$client->id])}}" class="btn btn-outline-danger"><i class="align-middle" data-feather="send"></i></a>@endif
-
+                @if($client->delegation=='00' || $client->father == null)<a href="{{route('clients.download',['id'=>$client->id])}}" class="btn btn-outline-primary"><i class="align-middle" data-feather="download"></i></a>@endif
             </td>
         </tr>
         @endforeach
