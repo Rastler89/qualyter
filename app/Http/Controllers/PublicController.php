@@ -59,6 +59,69 @@ class PublicController extends Controller
         }
     }
 
+    public function info($id) {
+        $month = date('m')-1;
+
+        $client = Client::find($id);
+
+
+        if($client->delegation == '00') {
+            $clients = Client::where('father','=',$client->id)->orderBy('id','desc')->get();
+            
+            $delegations = [];
+            foreach($clients as $key => $delegation) {
+                $average = $this->getAverage($delegation);
+                if($average!=false) {
+                    $delegation['average'] = $average['media'];
+                    $delegation['visits'] = $average['total'];
+                    $delegations[]=$delegation;
+                }
+            }
+
+            $response['delegations'] = $delegations;
+            $response['month'] = $month;
+            $response['central'] = $client;
+            $response['type'] = 'delegation';
+
+            return response()->json($response);
+        } else {
+            $first_day = first_month_day();
+            $last_day = last_month_day();
+
+            $average = $this->getAverage($client);
+            if($average!=false) {
+                $client['average'] = $average['media'];
+                $client['visits'] = $average['total'];
+            }
+            $extra = getExtra($client);
+
+            $answers = Answer::where('client','=',$client->id)->whereIn('status',[2,4,5])->whereBetween('updated_at',[$first_day,$last_day])->get();
+            foreach($answers as &$answer) {
+                $store =  Store::where('code','=',$answer->store)->first();
+                $answer['shop'] = $store->name;
+                $answer['workOrders'] = Task::where('answer_id', '=',$answer->id)->get();
+            }
+
+            $not_answers = Answer::where('client','=',$client->id)->where('status','=',3)->whereBetween('updated_at',[$first_day,$last_day])->get();
+            $id = [];
+            foreach($not_answers as $not_answer) {
+                $id[] = $not_answer->store;
+            }
+            $shops = DB::select("SELECT stores.code, stores.name, COUNT(stores.id) as total FROM stores, answers WHERE stores.code = answers.store AND stores.client = ".$client->id." AND answers.status = 3 AND answers.updated_at BETWEEN '".$first_day."' AND '".$last_day."' GROUP BY stores.code, stores.name");
+        
+            $response['first_day'] = $first_day;
+            $response['last_day'] = $last_day;
+            $response['client'] = $client;
+            $response['extra'] = $extra;
+            $response['answers'] = $answers;
+            $response['total'] = count($answers);
+            $response['notResponds'] = $shops;
+            $response['type'] = 'detail';
+
+            return response()->json($response);
+        }
+    }
+
     public function detail($central, $delegation) {
         $first_day = first_month_day();
         $last_day = last_month_day();

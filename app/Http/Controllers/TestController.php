@@ -16,9 +16,9 @@ use App\Mail\ReminderManager;
 
 class TestController extends Controller
 {
-    public function handle()
+    public function handle($id)
     {
         
-return 'ok';        
+        return view('public.test', compact('id'));
     }
 }

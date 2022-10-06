@@ -34,6 +34,7 @@
 
 @section('content')
 <h3 class="text-center mb-3">{{__('Month: :month',['month'=>$month])}}</h3>
+<div id="public-index"></div>
 <div class="row">
     @foreach($delegations as $delegation)
     <div class="col-md-{{$size}}">
@@ -65,4 +66,10 @@
     @endforeach
 
 </div>
+@endsection
+
+@section('javascript')
+<script>
+    let id = '{{$id}}';
+</script>
 @endsection
