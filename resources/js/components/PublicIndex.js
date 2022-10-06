@@ -3,12 +3,11 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 
-function PublicIndex() {
-    useEffect(() => {
+export const PublicIndex= () => {
+
         var URLactual = window.location.pathname;
         let array = URLactual.split('/');
-        
-        fetch('/api/public/2236', {
+        var data = fetch('/api/public/2236', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -17,11 +16,11 @@ function PublicIndex() {
         })
         .then(res => res.json())
         .then(response => {
-        const  data  = response
+            return response;
         });
 
         console.log(data);
-    });
+
 
     return (
         <h1>Hello sReact!</h1>
