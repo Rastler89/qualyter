@@ -72,11 +72,11 @@ class UploadController extends Controller
             Answer::disableAuditing();
             //Si no volen contacte no generem cap visita...
             if($store != null && $store->contact) {
-                $answer = Answer::where('expiration','=',date('Y-m-d', strtotime(str_replace('/','-',$resp['Fecha Vencimiento']))))->where('store','=',$task->store)->where('client','=',$resp['Código cliente'])->first();
-                if($answer == null) {
+                $answer = Answer::where('expiration','=',date('Y-m-d', strtotime(str_replace('/','-',$resp['Fecha Vencimiento']))))->where('store','=',$task->store)->where('client','=',$resp['Código cliente'])->where('status','<>',-1)->first();
+                if($answer == null || $task->priority == 'CÓDIGO ROJO - URGENCIA') {
                     $answer = new Answer;
                     $answer->expiration = date('Y-m-d', strtotime(str_replace('/','-',$resp['Fecha Vencimiento'])));
-                    $answer->status = 0;
+                    $answer->status = ($task->priority == 'CÓDIGO ROJO - URGENCIA')? -1 : 0;
                     $answer->store = $task->store;
                     $answer->client = ($resp['Código cliente']==null || $resp['Código cliente']=='') ? 1 : $resp['Código cliente'];
                     $count++;
