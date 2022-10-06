@@ -145,7 +145,7 @@ class AnswerController extends Controller
             $pre_answers->whereIn('id',$id);
         }
 
-        $pre_answers->whereIn('status',[0,1]);
+        $pre_answers->whereIn('status',[-1,0,1]);
         
         $answers = $pre_answers->sortable()->paginate(10);
 
