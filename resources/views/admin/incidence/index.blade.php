@@ -234,6 +234,7 @@
                 @case(2) <tr class="table-warning"> @break
                 @case(3) <tr class="table-danger"> @break
                 @case(4) <tr class="table-success"> @break
+                @case(5) <tr class="table-waiting"> @break
             @endswitch
                 <td>
                     @foreach($stores as $store)
@@ -262,6 +263,9 @@
                             @break
                         @case(4)
                             {{__('Complete')}}
+                            @break
+                        @case(5)
+                            {{__('Waiting')}}
                             @break
                     @endswitch
                 </td>
