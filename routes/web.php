@@ -99,6 +99,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('incidences/{id}', [App\Http\Controllers\IncidenceController::class, 'modify'])->middleware('permission:response-incidences')->name('incidences.modify');
     Route::get('incidences/send/{id}', [App\Http\Controllers\IncidenceController::class, 'resend'])->name('incidences.resend');
     Route::post('incidences/{id}/complete', [App\Http\Controllers\IncidenceController::class, 'complete'])->middleware('permission:change-incidences')->name('incidences.complete');
+    Route::post('incidences/{id}/wait', [App\Http\Controllers\IncidenceController::class, 'wait'])->middleware('permission:change-incidences')->name('incidences.wait');
+    Route::post('incidences/{id}/process', [App\Http\Controllers\IncidenceController::class, 'process'])->middleware('permission:change-incidences')->name('incidences.process');
 
     //TEAM
     Route::get('teams',[App\Http\Controllers\TeamController::class, 'index'])->name('team.index');
