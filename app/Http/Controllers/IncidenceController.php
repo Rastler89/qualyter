@@ -200,7 +200,7 @@ class IncidenceController extends Controller
 
         $incidence->save();
 
-        return redirect()->to('/incidences')->with('success', 'Incidence created!');
+        return redirect()->to('/incidences')->with('success', "Incidence created! Agent won't get notified.");
     }
 
     public function changeAgent($id, Request $request) {
