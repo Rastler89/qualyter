@@ -109,6 +109,29 @@
                                     <label class="form-check-label" for="status8">{{__('Cancelled')}}</label>
                                 </div>
                             </div>
+                            <label class="form-label">{{__('Priority')}}</label>
+                            <div class="row mb-3">
+                                <div class="form-check col-6">
+                                    <input class="form-check-input" type="checkbox" @if(isset($filters['priority'][0])) checked @endif value="true" name="priority[0]" id="priority0"/>
+                                    <label class="form-check-label" for="priority0">{{__('Greed')}}</label>
+                                </div>
+                                <div class="form-check col-6">
+                                    <input class="form-check-input" type="checkbox" @if(isset($filters['priority'][1])) checked @endif value="true" name="priority[1]" id="priority1"/>
+                                    <label class="form-check-label" for="priority1">{{__('Yellow')}}</label>
+                                </div>
+                                <div class="form-check col-6">
+                                    <input class="form-check-input" type="checkbox" @if(isset($filters['priority'][2])) checked @endif value="true" name="priority[2]" id="priority2"/>
+                                    <label class="form-check-label" for="priority2">{{__('Orange')}}</label>
+                                </div>
+                                <div class="form-check col-6">
+                                    <input class="form-check-input" type="checkbox" @if(isset($filters['priority'][3])) checked @endif value="true" name="priority[3]" id="priority3"/>
+                                    <label class="form-check-label" for="priority3">{{__('Red')}}</label>
+                                </div>
+                                <div class="form-check col-6">
+                                    <input class="form-check-input" type="checkbox" @if(isset($filters['priority'][4])) checked @endif value="true" name="priority[4]" id="priority4"/>
+                                    <label class="form-check-label" for="priority4">{{__('Preventive')}}</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
