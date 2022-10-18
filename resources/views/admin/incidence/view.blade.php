@@ -69,6 +69,7 @@
                                     @if($incidence->status == 2)
                                         <input @if($incidence->status==4) disabled @endif  type="radio" class="btn-check" name="status" id="success-outlined" autocomplete="off" @if($incidence->status == 2) checked @endif value="2">
                                         <label class="btn btn-outline-success" for="success-outlined">{{__('In Process')}}</label>
+                                        <button type="button" class="btn btn-outline-primary" @if($incidence->status==4) disabled @endif data-bs-toggle="modal" data-bs-target="#confirmWaitingModal">{{__('Waiting')}}</button>
                                         <button type="button" class="btn btn-outline-dark" @if($incidence->status==4) disabled @endif data-bs-toggle="modal" data-bs-target="#confirmModal">{{__('Complete')}}</button>
                                     @elseif($incidence->status == 1)
                                         <input @if($incidence->status==4) disabled @endif  type="radio" class="btn-check" name="status" id="success-outlined" autocomplete="off" @if($incidence->status == 1) checked @endif value="2">
@@ -78,6 +79,11 @@
                                         <label class="btn btn-outline-danger" for="danger-outlined">{{__('Refuse')}}</label>
                                     @elseif($incidence->status == 0)
                                     <a href="{{route('incidences.resend',['id' => $incidence->id])}}" class="btn btn-outline-primary"><i class="align-middle" data-feather="send"></i></a>
+                                    @elseif($incidence->status == 5)
+                                        <input @if($incidence->status==5) disabled @endif  type="radio" class="btn-check" name="status" id="primary-outlined" autocomplete="off" @if($incidence->status == 5) checked @endif value="5">
+                                        <label class="btn btn-outline-primary" for="success-outlined">{{__('Waiting')}}</label>
+                                        <button type="button" class="btn btn-outline-success" @if($incidence->status==4) disabled @endif data-bs-toggle="modal" data-bs-target="#confirmInProcessModal">{{__('In process')}}</button>
+                                        <button type="button" class="btn btn-outline-dark" @if($incidence->status==4) disabled @endif data-bs-toggle="modal" data-bs-target="#confirmModal">{{__('Complete')}}</button>
                                     @else
                                         <button class="btn btn-outline-dark">{{__('Refused')}}</button>
                                     @endif
@@ -196,6 +202,46 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__('Close')}}</button>
                     <button type="button" class="btn btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="{{__('Call Store')}}" onClick="call('{{route('call.incidence',['id' => $incidence->id, 'user' => auth()->user()->id])}}')"><i class="align-middle" data-feather="phone"></i></button>
                     <button id="closeIncidence" class="btn btn-outline-danger">{{__('Complete')}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="confirmWaitingModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form method="POST" action="{{route('incidences.wait',['id' => $incidence->id])}}">
+                @csrf
+                <div class="modal-header">
+                    <h5 class="modal-title">{{__('Confirm waiting incidence')}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body m-3"> 
+                    <p class="mb-0" style="color:red;text-align:center">{{__('Are you sure you want to put the incidence on hold?')}}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">{{__('Close')}}</button>
+                    <button id="closeIncidence" class="btn btn-outline-success">{{__('Yes')}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="confirmInProcessModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form method="POST" action="{{route('incidences.process',['id' => $incidence->id])}}">
+                @csrf
+                <div class="modal-header">
+                    <h5 class="modal-title">{{__('Confirm in process incidence')}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body m-3"> 
+                    <p class="mb-0" style="color:red;text-align:center">{{__('Are you sure you want to set the incidence in process?')}}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">{{__('Close')}}</button>
+                    <button id="closeIncidence" class="btn btn-outline-success">{{__('Yes')}}</button>
                 </div>
             </form>
         </div>

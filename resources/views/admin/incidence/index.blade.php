@@ -111,6 +111,10 @@
                                 <input class="form-check-input" type="checkbox" value="true" @if(isset($filters['status'][4])) checked @endif name="status[4]" id="status4"/>
                                 <label class="form-check-label" for="status4">{{__('Completed')}}</label>
                             </div>
+                            <div class="form-check col-6">
+                                <input class="form-check-input" type="checkbox" value="true" @if(isset($filters['status'][5])) checked @endif name="status[5]" id="status5"/>
+                                <label class="form-check-label" for="status5">{{__('Waiting')}}</label>
+                            </div>
                         </div>
                         <label class="form-label">{{__('Impact')}}</label>
                         <div class="row">
@@ -234,6 +238,7 @@
                 @case(2) <tr class="table-warning"> @break
                 @case(3) <tr class="table-danger"> @break
                 @case(4) <tr class="table-success"> @break
+                @case(5) <tr class="table-waiting"> @break
             @endswitch
                 <td>
                     @foreach($stores as $store)
@@ -262,6 +267,9 @@
                             @break
                         @case(4)
                             {{__('Complete')}}
+                            @break
+                        @case(5)
+                            {{__('Waiting')}}
                             @break
                     @endswitch
                 </td>

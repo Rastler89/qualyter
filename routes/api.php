@@ -27,3 +27,6 @@ Route::get('answers/answered',[App\Http\Controllers\ApiController::class, 'answe
 Route::post('leaderboard', [App\Http\Controllers\ApiController::class, 'leaderboard']);
 Route::post('reports/targets', [App\Http\Controllers\ApiController::class, 'targets']);
 Route::post('reports/incidences', [App\Http\Controllers\ApiController::class, 'incidences']);
+
+Route::post('public/{id}', [App\Http\Controllers\PublicController::class,'info']);
+Route::post('public/{central}/detail/{delegation}', [App\Http\Controllers\PublicController::class, 'detail']);
