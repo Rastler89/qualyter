@@ -44,13 +44,12 @@ class PublicController extends Controller
 
             return response()->json($response);
         } else {
-
             $average = $this->getAverage($client,$first_day,$last_day);
             if($average!=false) {
                 $client['average'] = $average['media'];
                 $client['visits'] = $average['total'];
             }
-            $extra = getExtra($client);
+            $extra = getExtra($client,false,$first_day,$last_day);
 
             $answers = Answer::where('client','=',$client->id)->whereIn('status',[2,4,5])->whereBetween('updated_at',[$first_day,$last_day])->get();
             foreach($answers as &$answer) {
@@ -92,7 +91,7 @@ class PublicController extends Controller
             $client['average'] = $average['media'];
             $client['visits'] = $average['total'];
         }
-        $extra = getExtra($client);
+        $extra = getExtra($client,false,$first_day,$last_day);
 
         $answers = Answer::where('client','=',$client->id)->whereIn('status',[2,4,5])->whereBetween('updated_at',[$first_day,$last_day])->get();
         foreach($answers as $answer) {
