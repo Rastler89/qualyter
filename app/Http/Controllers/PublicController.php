@@ -12,65 +12,24 @@ use Illuminate\Support\Facades\DB;
 class PublicController extends Controller
 {
     public function index($id) {
-        $month = date('m')-1;
-
-        $client = Client::find($id);
-
-
-        if($client->delegation == '00') {
-            $clients = Client::where('father','=',$client->id)->orderBy('id','desc')->get();
-            
-            $delegations = [];
-            foreach($clients as $key => $delegation) {
-                $average = $this->getAverage($delegation);
-                if($average!=false) {
-                    $delegation['average'] = $average['media'];
-                    $delegation['visits'] = $average['total'];
-                    $delegations[]=$delegation;
-                }
-            }
-            return view('public.index',['delegations' => $delegations, 'month' => $month, 'central' => $client, 'type' => 'delegation']);
-        } else {
-            $first_day = first_month_day();
-            $last_day = last_month_day();
-
-            $average = $this->getAverage($client);
-            if($average!=false) {
-                $client['average'] = $average['media'];
-                $client['visits'] = $average['total'];
-            }
-            $extra = getExtra($client);
-
-            $answers = Answer::where('client','=',$client->id)->whereIn('status',[2,4,5])->whereBetween('updated_at',[$first_day,$last_day])->get();
-            foreach($answers as &$answer) {
-                $store =  Store::where('code','=',$answer->store)->first();
-                $answer['shop'] = $store->name;
-                $answer['workOrders'] = Task::where('answer_id', '=',$answer->id)->get();
-            }
-
-            $not_answers = Answer::where('client','=',$client->id)->where('status','=',3)->whereBetween('updated_at',[$first_day,$last_day])->get();
-            $id = [];
-            foreach($not_answers as $not_answer) {
-                $id[] = $not_answer->store;
-            }
-            $shops = DB::select("SELECT stores.code, stores.name, COUNT(stores.id) as total FROM stores, answers WHERE stores.code = answers.store AND stores.client = ".$client->id." AND answers.status = 3 AND answers.updated_at BETWEEN '".$first_day."' AND '".$last_day."' GROUP BY stores.code, stores.name");
-        
-            return view('public.detail',['first_day'=>$first_day, 'last_day'=>$last_day, 'client'=>$client, 'extra' => $extra, 'answers' => $answers, 'total' => count($answers), 'notResponds' => $shops]);
-        }
+        return view('public.index',['id'=>$id]);
     }
 
-    public function info($id) {
-        $month = date('m')-1;
+    public function info($id, Request $request) {
+        $month = $request->month;
+        $year = $request->year;
+
+        $first_day = $this->first_day($month,$year);
+        $last_day = $this->last_day($month,$year);
 
         $client = Client::find($id);
-
 
         if($client->delegation == '00') {
             $clients = Client::where('father','=',$client->id)->orderBy('id','desc')->get();
             
             $delegations = [];
             foreach($clients as $key => $delegation) {
-                $average = $this->getAverage($delegation);
+                $average = $this->getAverage($delegation,$first_day,$last_day);
                 if($average!=false) {
                     $delegation['average'] = $average['media'];
                     $delegation['visits'] = $average['total'];
@@ -85,10 +44,8 @@ class PublicController extends Controller
 
             return response()->json($response);
         } else {
-            $first_day = first_month_day();
-            $last_day = last_month_day();
 
-            $average = $this->getAverage($client);
+            $average = $this->getAverage($client,$first_day,$last_day);
             if($average!=false) {
                 $client['average'] = $average['media'];
                 $client['visits'] = $average['total'];
@@ -122,12 +79,15 @@ class PublicController extends Controller
         }
     }
 
-    public function detail($central, $delegation) {
-        $first_day = first_month_day();
-        $last_day = last_month_day();
+    public function detail($central, $delegation, Request $request) {
+        $month = $request->month;
+        $year = $request->year;
+        
+        $first_day = $this->first_day($month,$year);
+        $last_day = $this->last_day($month,$year);
 
         $client = Client::find($delegation);
-        $average = $this->getAverage($client);
+        $average = $this->getAverage($client,$first_day,$last_day);
         if($average!=false) {
             $client['average'] = $average['media'];
             $client['visits'] = $average['total'];
@@ -147,14 +107,20 @@ class PublicController extends Controller
             $id[] = $not_answer->store;
         }
         $shops = DB::select("SELECT stores.code, stores.name, COUNT(stores.id) as total FROM stores, answers WHERE stores.code = answers.store AND stores.client = ".$client->id." AND answers.status = 3 AND answers.updated_at BETWEEN '".$first_day."' AND '".$last_day."' GROUP BY stores.code, stores.name");
-        return view('public.detail',['first_day'=>$first_day, 'last_day'=>$last_day, 'client'=>$client, 'extra' => $extra, 'answers' => $answers, 'total' => count($answers), 'notResponds' => $shops]);
+
+        $response['first_day'] = $first_day;
+        $response['last_day']= $last_day;
+        $response['client'] = $client;
+        $response['extra'] = $extra;
+        $response['answers'] = $answers;
+        $response['total'] = count($answers);
+        $response['notResponds'] = $shops;
+
+        return response()->json($response);
     }
 
-    private function getAverage($client) {
+    private function getAverage($client,$first_day,$last_day) {
         $resp = [];
-
-        $first_day = first_month_day();
-        $last_day = last_month_day();
 
         $stores = Store::where('client','=',$client->id)->get();
         foreach($stores as $store) {
@@ -178,6 +144,14 @@ class PublicController extends Controller
         } else {
             return false;
         }
+    }
+
+    private function last_day($month,$year) {
+        $day = date("d", mktime(0,0,0, $month, 0, $year));
+        return date('Y-m-d', mktime(0,0,0, $month, $day, $year));
+    }
+    private function first_day($month,$year) {
+        return date('Y-m-d', mktime(0,0,0, $month, 1, $year));
     }
     
 }

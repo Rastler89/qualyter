@@ -29,3 +29,4 @@ Route::post('reports/targets', [App\Http\Controllers\ApiController::class, 'targ
 Route::post('reports/incidences', [App\Http\Controllers\ApiController::class, 'incidences']);
 
 Route::post('public/{id}', [App\Http\Controllers\PublicController::class,'info']);
+Route::post('public/{central}/detail/{delegation}', [App\Http\Controllers\PublicController::class, 'detail']);
