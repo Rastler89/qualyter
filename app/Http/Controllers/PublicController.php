@@ -95,7 +95,7 @@ class PublicController extends Controller
         $extra = getExtra($client);
 
         $answers = Answer::where('client','=',$client->id)->whereIn('status',[2,4,5])->whereBetween('updated_at',[$first_day,$last_day])->get();
-        foreach($answers as &$answer) {
+        foreach($answers as $answer) {
             $store =  Store::where('code','=',$answer->store)->first();
             $answer['shop'] = $store->name;
             $answer['workOrders'] = Task::where('answer_id', '=',$answer->id)->get();

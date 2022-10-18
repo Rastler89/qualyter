@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Mail;
 use App\Mail\NotExistStoreMail;
+use \Debugbar;
 
 
 class UploadController extends Controller
@@ -45,6 +46,7 @@ class UploadController extends Controller
             //Creem la tasca
             $owner = Agent::where('name','=',purge_accent(utf8_encode($resp['Responsable'])))->first();
             $task = Task::where('code','=',$resp['Código'])->first();
+            
             if($task == null) {
                 $task = new Task;
                 $task->code = $resp['Código'];
@@ -55,7 +57,10 @@ class UploadController extends Controller
                 if($task->owner == 11) {
                     echo $resp['Código']." -- ";print_r(purge_accent(utf8_encode($resp['Responsable'])));die();
                 }
+            }else{
+                $answerid = $task->answer_id;
             }
+            
             $task->expiration = date('Y-m-d h:i:s', strtotime(str_replace('/','-',$resp['Fecha Vencimiento'])));
 
             if($store->name=='.' || $store->name=='......' || $store->name=='...') {
@@ -65,18 +70,20 @@ class UploadController extends Controller
                     Mail::to('test@optimaretail.es')->send(new NotExistStoreMail($task->code));
                 }
             }
-
+            
             $task->save();
 
             $task = Task::where('code','=',$resp['Código'])->first();
+        
             Answer::disableAuditing();
             //Si no volen contacte no generem cap visita...
             if($store != null && $store->contact) {
-                $answer = Answer::where('expiration','=',date('Y-m-d', strtotime(str_replace('/','-',$resp['Fecha Vencimiento']))))->where('store','=',$task->store)->where('client','=',$resp['Código cliente'])->first();
-                if($answer == null) {
+                $answer = Answer::where('expiration','=',date('Y-m-d', strtotime(str_replace('/','-',$resp['Fecha Vencimiento']))))->where('store','=',$task->store)->where('client','=',$resp['Código cliente'])->where('status','<>',-1)->first();
+               
+                if($answer == null || $task->priority == 'CÓDIGO ROJO - URGENCIA') {
                     $answer = new Answer;
                     $answer->expiration = date('Y-m-d', strtotime(str_replace('/','-',$resp['Fecha Vencimiento'])));
-                    $answer->status = 0;
+                    $answer->status = ($task->priority == 'CÓDIGO ROJO - URGENCIA')? -1 : 0;
                     $answer->store = $task->store;
                     $answer->client = ($resp['Código cliente']==null || $resp['Código cliente']=='') ? 1 : $resp['Código cliente'];
                     $count++;
@@ -84,7 +91,17 @@ class UploadController extends Controller
                 $answer->token = Str::random(8);
                 $answer->save();
 
-                $answer->tasks()->save($task);
+                $answer->tasks()->save($task);  
+
+                if(isset($answerid)) {
+                $taskCount = Task::where('answer_id','=',$answerid)->get()->count();
+               
+                if($taskCount == 0){
+                    $pastAnswer = Answer::find($answerid);
+                    
+                    $pastAnswer->status = 8;
+                    $pastAnswer->save();
+                }}
             }
 
         }

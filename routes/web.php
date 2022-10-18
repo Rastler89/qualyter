@@ -63,6 +63,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('clients/edit/{id}', [App\Http\Controllers\ClientController::class, 'edit'])->middleware('permission:edit-clients')->name('clients.edit');
     Route::put('clients/edit/{id}', [App\Http\Controllers\ClientController::class, 'update'])->middleware('permission:edit-clients')->name('clients.update');
     Route::get('clients/send/{id}', [App\Http\Controllers\ClientController::class, 'send'])->middleware('permission:view-clients')->name('clients.send');
+    Route::get('clients/download/{id}', [App\Http\Controllers\ClientController::class, 'download'])->middleware('permission:view-clients')->name('clients.download');
     // STORE
     Route::get('stores', [App\Http\Controllers\StoreController::class, 'index'])->middleware('permission:view-stores')->name('stores');
     Route::get('stores/new', [App\Http\Controllers\StoreController::class, 'new'])->middleware('permission:add-stores')->name('stores.new');
@@ -98,6 +99,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('incidences/{id}', [App\Http\Controllers\IncidenceController::class, 'modify'])->middleware('permission:response-incidences')->name('incidences.modify');
     Route::get('incidences/send/{id}', [App\Http\Controllers\IncidenceController::class, 'resend'])->name('incidences.resend');
     Route::post('incidences/{id}/complete', [App\Http\Controllers\IncidenceController::class, 'complete'])->middleware('permission:change-incidences')->name('incidences.complete');
+    Route::post('incidences/{id}/wait', [App\Http\Controllers\IncidenceController::class, 'wait'])->middleware('permission:change-incidences')->name('incidences.wait');
+    Route::post('incidences/{id}/process', [App\Http\Controllers\IncidenceController::class, 'process'])->middleware('permission:change-incidences')->name('incidences.process');
 
     //TEAM
     Route::get('teams',[App\Http\Controllers\TeamController::class, 'index'])->name('team.index');

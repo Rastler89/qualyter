@@ -200,7 +200,7 @@ class IncidenceController extends Controller
 
         $incidence->save();
 
-        return redirect()->to('/incidences')->with('success', 'Incidence created!');
+        return redirect()->to('/incidences')->with('success', "Incidence created! Agent won't get notified.");
     }
 
     public function changeAgent($id, Request $request) {
@@ -229,7 +229,39 @@ class IncidenceController extends Controller
 
         return redirect()->to('/incidences')->with('success','Incident closed, thank you for your cooperation.'); 
     }
+    public function wait($id,Request $request) {
+        $log = new AuditionController();
+        $incidence = Incidence::find($id);
+        $old_incidence = Incidence::find($id);
 
+        $incidence->status = 5;
+        if($old_incidence->status != $incidence->status) {
+            $log->saveLog($old_incidence,$incidence,'i');
+        }
+
+        $incidence->updated_at = Carbon::now();
+
+        $incidence->save();
+
+        return redirect()->to('/incidences')->with('success','Incident on hold.'); 
+    }
+
+    public function process($id,Request $request) {
+        $log = new AuditionController();
+        $incidence = Incidence::find($id);
+        $old_incidence = Incidence::find($id);
+
+        $incidence->status = 2;
+        if($old_incidence->status != $incidence->status) {
+            $log->saveLog($old_incidence,$incidence,'i');
+        }
+
+        $incidence->updated_at = Carbon::now();
+
+        $incidence->save();
+
+        return redirect()->to('/incidences')->with('success','Incident back in process.'); 
+    }
     public function modify($id, Request $request) {
         $log = new AuditionController();
         $incidence = Incidence::find($id);
