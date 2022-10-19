@@ -4,14 +4,14 @@ use App\Models\Answer;
 use App\Models\Store;
 
 if(!function_exists('getExtra')) {
-    function getExtra($delegation,$agent=false) {
+    function getExtra($delegation,$agent=false,$first_day=false,$last_day=false) {
         $visits = 0;
         $qc = 0;
         $send = 0;
         $resp = 0;
         
-        $first_day = first_month_day();
-        $last_day = last_month_day();
+        $first_day = ($first_day==false) ? first_month_day() : $first_day;
+        $last_day = ($last_day==false) ? last_month_day() : $last_day;
     
         $answers = Answer::where('client','=',$delegation->id)->where('status','<>','8')->whereBetween('expiration',[$first_day,$last_day])->get();
         $visits = (int)count($answers);
