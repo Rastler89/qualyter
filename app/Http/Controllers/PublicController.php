@@ -41,7 +41,6 @@ class PublicController extends Controller
 
             return response()->json($response);
         } else {
-
             $average = $this->getAverage($client,$first_day,$last_day);
             if($average!=false) {
                 $client['average'] = $average['media'];
