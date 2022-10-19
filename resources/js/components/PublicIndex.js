@@ -6,6 +6,7 @@ import Detail from './Detail';
 import Delegation from './Delegation';
 import i18n from "../helpers/i18n";
 
+import { DateRangePicker } from 'react-date-range';
 import { Dna } from  'react-loader-spinner'
 
 const getInfo = (url,m,y) => {
@@ -15,7 +16,7 @@ const getInfo = (url,m,y) => {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({month: m, year: y})
+        body: JSON.stringify({init: m, final: y})
     })
     .then(res => res.json())
     .then(response => {
@@ -25,9 +26,13 @@ const getInfo = (url,m,y) => {
 }
 
 export const PublicIndex= () => {
-    const [month, setMonth] = useState(new Date().getMonth());
-    const [year, setYear] = useState(new Date().getFullYear());
+
     const [info, setInfo] = useState([]);
+    const [range, setRange] = useState({
+        startDate: new Date(),
+        endDate: new Date(),
+        key: 'selection',
+      });
     const [loading, setLoading] = useState(false);
     
     let father = '';
@@ -41,91 +46,53 @@ export const PublicIndex= () => {
         father = <a className={'btn btn-outline-primary'} href={'/public/'+array[2]}><img width="30px" height="30px" src="/img/preview.svg" /></a>;
     }
 
-    function change(e,type) {
-        if(type=='m') {
-            setMonth(e.target.value);
-            getInfo(url,e.target.value,year).then(data => {
-                setInfo(data);
-            });
-        } else {
-            setYear(e.target.value);
-            getInfo(url,month,e.target.value).then(data => {
+    function change(ranges) {
+        if(ranges.selection.endDate!=range.endDate && ranges.selection.startDate==range.startDate) {
+            console.log(ranges.selection.endDate,range.endDate);
+            getInfo(url,ranges.selection.startDate,ranges.selection.endDate).then(data => {
                 setInfo(data);
             });
         }
-        
-    }
+        setRange(ranges.selection);
 
-    var months = [
-        { value: 0, label: i18n.t('month.December')},
-        { value: 1, label: i18n.t('month.January')},
-        { value: 2, label: i18n.t('month.February')},
-        { value: 3, label: i18n.t('month.March')},
-        { value: 4, label: i18n.t('month.April')},
-        { value: 5, label: i18n.t('month.May')},
-        { value: 6, label: i18n.t('month.June')},
-        { value: 7, label: i18n.t('month.July')},
-        { value: 8, label: i18n.t('month.August')},
-        { value: 9, label: i18n.t('month.September')},
-        { value: 10, label: i18n.t('month.October')},
-        { value: 11, label: i18n.t('month.November')}
-    ];
-
-    var years = [];
-
-    for(let i=2022;i<=year;i++) {
-        years.push({value: i, label: i});
     }
 
     var select = 
         <div className={'row mb-4'}>
-            <div className={'col'}>
-                <select className={'form-select'} value={month} onChange={event => change(event,'m')}>
-                    {months.map((mon) => (
-                        <option value={mon.value} >{mon.label}</option>
-                    ))}
-                </select>
-            </div>
-            <div className={'col'}>
-                <select className={'form-select'} value={year} onChange={event => change(event,'y')}>
-                    {years.map((y) => (
-                        <option value={y.value}>{y.label}</option>
-                    ))}
-                </select>
+            <div className={'col-md-6 mx-auto'}>
+                <DateRangePicker 
+                    ranges={[range]}
+                    onChange={change} />
             </div>
         </div>;
     
 
     useEffect(() => {
-        getInfo(url,month,year).then(data => {
+        getInfo(url,null,null).then(data => {
             setInfo(data);
             setLoading(true);
         });
-        
     }, []);
-
 
     if(!loading) {
         return (
             <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: '40vh',
-      }}
-    >
-        <Dna
-            visible={true}
-            height="200"
-            width="200"
-            ariaLabel="dna-loading"
-            wrapperStyle={{}}
-            wrapperClass="dna-wrapper"
-        />
-
-    </div>
-            )
+                style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: '40vh',
+                }}
+                >
+                    <Dna
+                        visible={true}
+                        height="200"
+                        width="200"
+                        ariaLabel="dna-loading"
+                        wrapperStyle={{}}
+                        wrapperClass="dna-wrapper"
+                    />
+            </div>)
     } else {
         if(info.type=='delegation') {
             let delegations = info.delegations;
@@ -154,8 +121,8 @@ export const PublicIndex= () => {
         } else {
             return (
                 <section>
-                    {select}
                     {father}
+                    {select}
                     <Detail object={info}/>
                 </section>
             )

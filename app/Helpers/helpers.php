@@ -4,14 +4,14 @@ use App\Models\Answer;
 use App\Models\Store;
 
 if(!function_exists('getExtra')) {
-    function getExtra($delegation,$agent=false) {
+    function getExtra($delegation,$agent=false,$first_day=null, $last_day=null) {
         $visits = 0;
         $qc = 0;
         $send = 0;
         $resp = 0;
         
-        $first_day = first_month_day();
-        $last_day = last_month_day();
+        $first_day = $first_day==null ? first_month_day() : $first_day;
+        $last_day = $last_day==null ? last_month_day() : $last_day;
     
         $answers = Answer::where('client','=',$delegation->id)->where('status','<>','8')->whereBetween('expiration',[$first_day,$last_day])->get();
         $visits = (int)count($answers);
@@ -31,9 +31,9 @@ if(!function_exists('getExtra')) {
         $answers = Answer::where('client','=',$delegation->id)->whereIn('status',[2,4,5])->whereBetween('expiration',[$first_day,$last_day])->get();
         $answered = (int)count($answers);
     
-        $per_con = number_format(($contacts/$visits)*100,2);
-        $per_ans = number_format(($answered/$contacts)*100,2);
-        $tot_ans = number_format(($answered/$visits)*100,2);
+        $per_con = $visits==0 ? 0 : number_format(($contacts/$visits)*100,2);
+        $per_ans = $contacts==0 ? 0 : number_format(($answered/$contacts)*100,2);
+        $tot_ans = $visits==0 ? 0 : number_format(($answered/$visits)*100,2);
     
         $body = [
             'visits' => $visits,
