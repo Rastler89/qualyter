@@ -86,3 +86,6 @@ body {
     width: 50px;
     border-radius: 50%;
   }
+
+@import 'react-date-range/dist/styles.css'; // main style file
+@import 'react-date-range/dist/theme/default.css'; // theme css file

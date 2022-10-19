@@ -258,6 +258,8 @@ class ApiController extends Controller
     public function leaderboard(Request $request) {
         $type = ($request->type != null) ? $request->type : 'agent';
 
+            //visit -> 0 correctivo 1 preventivo
+
         $first = $request->init;
         $last = $request->finish;
 
@@ -295,7 +297,7 @@ class ApiController extends Controller
         $res = [];
         
         foreach($prepare as $key => $pre) {
-            $res[$key] = $this->media($pre,false,$request->leaderboard);
+            $res[$key] = $this->media($pre,false,$request->leaderboard,intval($request->visit));
             if($request->type=='agent') {
                 $res[$key]['agent'] = Agent::find($key);
             } else if($request->type=='teams') {
@@ -529,7 +531,7 @@ class ApiController extends Controller
         return $body;
     }
 
-    private function media($answers,$object=true,$leaderboard=false) {
+    private function media($answers,$object=true,$leaderboard=false,$visit=0) {
         if($leaderboard=='false') {
             $leaderboard = false;
         } else {
@@ -551,12 +553,14 @@ class ApiController extends Controller
             }
             $answer['type'] = ($leaderboard) ? $answer['type'] : 'none';
             
-            $question[0]+=($answer['type']=='PREVENTIVO')? $res->valoration[0]*0.6 : $res->valoration[0];
-            $question[1]+=($answer['type']=='PREVENTIVO')? $res->valoration[1]*0.6 : $res->valoration[1];
-            $question[2]+=($answer['type']=='PREVENTIVO')? $res->valoration[2]*0.6 : $res->valoration[2];
-            $question[3]+=($answer['type']=='PREVENTIVO')? $res->valoration[3]*0.6 : $res->valoration[3];
+            if(($visit==0 && $answer['type']!='PREVENTIVO') || ($visit==1 && $answer['type']=='PREVENTIVO')) {
+                $question[0]+=$res->valoration[0];
+                $question[1]+=$res->valoration[1];
+                $question[2]+=$res->valoration[2];
+                $question[3]+=$res->valoration[3];
             
-            $sum++;
+                $sum++;
+            }
         }
 
         if($sum != 0) {

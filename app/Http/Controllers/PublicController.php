@@ -16,11 +16,8 @@ class PublicController extends Controller
     }
 
     public function info($id, Request $request) {
-        $month = $request->month;
-        $year = $request->year;
-
-        $first_day = $this->first_day($month,$year);
-        $last_day = $this->last_day($month,$year);
+        $first_day = ($request->init!=null) ? $request->init : $this->first_day((date('m')==0 ? 11 : date('m')-1),date('Y'));
+        $last_day = ($request->final!=null) ? $request->final : $this->last_day((date('m')==0 ? 11 : date('m')-1),date('Y'));
 
         $client = Client::find($id);
 
@@ -79,11 +76,8 @@ class PublicController extends Controller
     }
 
     public function detail($central, $delegation, Request $request) {
-        $month = $request->month;
-        $year = $request->year;
-        
-        $first_day = $this->first_day($month,$year);
-        $last_day = $this->last_day($month,$year);
+        $first_day = ($request->init!=null) ? $request->init : $this->first_day((date('m')==0 ? 11 : date('m')-1),date('Y'));
+        $last_day = ($request->final!=null) ? $request->final : $this->last_day((date('m')==0 ? 11 : date('m')-1),date('Y'));
 
         $client = Client::find($delegation);
         $average = $this->getAverage($client,$first_day,$last_day);

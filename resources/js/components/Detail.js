@@ -86,15 +86,21 @@ console.log(info);
                         <li class="list-group-item"><button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#notRespond">{i18n.t('other.unanswered')}</button></li>
                     </ul>
                 </div>
-                <div className={'col-md-8'}>
-                    <div id="counter" className={'text-center mb-3'}>
-                        {i18n.t('other.answers')}: {viewAnswer+1} - {total}
+                {info.answers.length==0 ?
+                    <div className={'col-md-8'}>
+                        <h3>Elements not found</h3>
                     </div>
-                    <div className={'btn-group col-12 mb-1'} role="group" aria-label="navigation" id="navigation">
-                        {buttons}
+                 : 
+                    <div className={'col-md-8'}>
+                        <div id="counter" className={'text-center mb-3'}>
+                            {i18n.t('other.answers')}: {viewAnswer+1} - {total}
+                        </div>
+                        <div className={'btn-group col-12 mb-1'} role="group" aria-label="navigation" id="navigation">
+                            {buttons}
+                        </div>
+                        <Answer answer={info.answers[viewAnswer]} />
                     </div>
-                    <Answer answer={info.answers[viewAnswer]} />
-                </div>
+                 }
             </div>
             <div class="modal fade" id="notRespond" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1" aria-labelledby="notRespondLabel" aria-hidden="true">
             <div className={'modal-dialog modal-xl'}>
