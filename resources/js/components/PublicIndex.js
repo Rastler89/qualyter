@@ -110,7 +110,6 @@ export const PublicIndex= () => {
             return (
                 <section>
                     {select}
-                    <h3 className={'text-center mb-3'}>{i18n.t('month.label')}</h3>
                     <div className={'row'}>
                         {delegations.map((delegation) => 
                             <Delegation object={delegation} size={size}  />

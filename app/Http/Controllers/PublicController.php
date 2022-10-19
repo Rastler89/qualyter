@@ -35,7 +35,6 @@ class PublicController extends Controller
             }
 
             $response['delegations'] = $delegations;
-            $response['month'] = $month;
             $response['central'] = $client;
             $response['type'] = 'delegation';
 
