@@ -540,6 +540,38 @@ class AnswerController extends Controller
             $pre_answers->whereIn('status',$status);
         }
 
+        if(!empty($filters['priority'])) {
+            
+            switch($filters['priority']){
+                case "bajo":
+                    $tasks = Task::where('priority','like','%'.$filters['priority'].'%')
+                        ->orWhere('priority','like','%verde%')->get();
+                    break;
+                case "medio":
+                    $tasks = Task::where('priority','like','%'.$filters['priority'].'%')
+                        ->orWhere('priority','like','%amarillo%')->get();
+                    break;
+                case "gran":
+                    $tasks = Task::where('priority','like','%'.$filters['priority'].'%')
+                        ->orWhere('priority','like','%naranja%')->get();
+                    break;
+                case "urgencia":
+                    $tasks = Task::where('priority','like','%'.$filters['priority'].'%')
+                        ->orWhere('priority','like','%rojo%')->get();
+                    break;
+                case "preventivo":
+                    $tasks = Task::where('priority','like','%'.$filters['priority'].'%')->get();
+                    break;
+            }
+            
+            $answerID = [];
+            foreach($tasks as $task){
+                
+               array_push($answerID, $task->answer_id);
+            }
+            $pre_answers->whereIn('id', $answerID);
+        }
+
         if(!empty($filters['team']) && $filters['team'] != '') {
             $id=[];
             $teams = explode(",", $filters['team']);

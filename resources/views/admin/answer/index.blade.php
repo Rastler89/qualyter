@@ -109,6 +109,18 @@
                                     <label class="form-check-label" for="status8">{{__('Cancelled')}}</label>
                                 </div>
                             </div>
+                            <label class="form-label">{{__('Priority')}}</label>
+                            <div class="row mb-3">                                
+                                <select class="form-select" name="priority" id="priority">
+                                    <option disabled selected value>{{__('select an option')}}</option>
+                                    <option @if(isset($filters['priority']['bajo'])) checked @endif value="bajo">{{__('Green')}}</option>
+                                    <option @if(isset($filters['priority']['medio'])) checked @endif value="medio">{{__('Yellow')}}</option>
+                                    <option @if(isset($filters['priority']['gran'])) checked @endif value="gran">{{__('Orange')}}</option>
+                                    <option @if(isset($filters['priority']['urgencia'])) checked @endif value="urgencia">{{__('Red')}}</option>
+                                    <option @if(isset($filters['priority']['preventivo'])) checked @endif value="preventivo">{{__('Preventive')}}</option>
+                                </select>
+                                
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -139,6 +151,7 @@
     </thead>
     <tbody>
         @foreach($answers as $answer)
+        
         <?php  $respuestas = json_decode($answer->answer,true);?>
             @foreach($stores as $store)
                 @if($store->code == $answer->store && $store->client == $answer->client)
