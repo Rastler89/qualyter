@@ -11,8 +11,10 @@
 <div class="row">
   <div class="col-6 d-grid gap-2 d-md-flex mb-3">
       <a class="btn btn-outline-primary" href="{{ url()->previous() }}"><i class="align-middle" data-feather="chevron-left"></i></a>
+      
   </div>
 </div>
+{{session()->get('data')}}
 <div class="row">
     <div class="col-12">
         @switch($incidence->impact)
@@ -52,6 +54,7 @@
             </div>
             <form method="POST" action="{{route('incidences.modify',['id' => $incidence->id])}}">
                 @csrf
+                <input type="hidden" name="previousURL" id="previousURL" value="{{session()->get('data')}}">
                 <div class="card-body m-sm-3 m-md-5">
                     <div class="row">
                         <div class="col-md-6 mb-4">

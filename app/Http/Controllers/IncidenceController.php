@@ -153,6 +153,8 @@ class IncidenceController extends Controller
         $teams = Team::all();
         $tasks = Task::all();
 
+        
+
         return view('admin.incidence.index', ['incidences' => $incidences, 'tasks' => $tasks, 'stores' => $stores, 'users' => $users, 'agents' => $agents, 'clients' => $clients, 'stores' => $stores, 'filters' => $filters, 'teams' => $teams]);
     }
 
@@ -316,7 +318,14 @@ class IncidenceController extends Controller
 
         $this->notifyResponse($body,$incidence,$agent);
 
-        return redirect()->to('/incidences')->with('success','Notify agent in this moment');
+        $previousURL=$request->input('previousURL');
+
+        if(str_contains($previousURL, '?')) {
+            return redirect()->to($previousURL)->with('success','Notify agent in this moment');
+        }else {
+            return redirect()->to('/incidences')->with('success','Notify agent in this moment');
+        }
+        
     }
 
     public function response($id, Request $request) {
@@ -386,7 +395,7 @@ class IncidenceController extends Controller
         return view('public.thanksAgents');
     }
 
-    public function resend($id) {
+    public function resend($id, Request $request) {
         $incidence = Incidence::find($id);
         
         $ot = json_decode($incidence->order);
@@ -414,8 +423,10 @@ class IncidenceController extends Controller
             Mail::to($user->email)->send(new ManagerMail($body));
 
         }
+        $data = url()->previous();
+        
 
-        return redirect()->to('/incidences/'.$id)->with('success','Incidence sended!');
+        return redirect()->to('/incidences/'.$id)->with('success','Incidence sended!')->with(['data'=> $data]);
     }
 
     public function call($id) {
