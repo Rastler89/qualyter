@@ -362,7 +362,7 @@ class AnswerController extends Controller
         ];
 
         //Mirar si se envía por correo o por whatsapp
-        if($request->type == 'mail'){
+        if($request->type == 'mail' or $request->type == null){
             
             if(env('APP_NAME')=='QualyterTEST') {
                 Mail::to('test@optimaretail.es')->locale($body['locale'])->send(new StoreMail($body));
@@ -373,7 +373,7 @@ class AnswerController extends Controller
                 }
             }
             return redirect()->route('tasks')->with('success','Questionnaire sended!');
-        }else{
+        }else if($request->type == 'whatsapp'){
             $url = $request->getHttpHost() . '/store/survey/'. $body['id'] . '?code='. $body['token'];
             return redirect()->route('tasks')->with('success','Survey link: ' . $url);
         }
