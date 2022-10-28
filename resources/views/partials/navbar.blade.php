@@ -23,6 +23,7 @@
                     <li class="sidebar-item @if(Request::is('reports/leaderboard')) active @endif" ><a class="sidebar-link" href="{{route('leaderboard')}}">{{__('Leaderboard')}}</a></li>
                     <li class="sidebar-item @if(Request::is('reports/targets')) active @endif" ><a class="sidebar-link" href="{{route('reports.target')}}">{{__('KPI')}}</a></li>
                     <li class="sidebar-item @if(Request::is('reports/incidences')) active @endif" ><a class="sidebar-link" href="{{route('reports.incidences')}}">{{__('Incidences')}}</a></li>
+                    <li class="sidebar-item @if(Request::is('reports/congratulations')) active @endif"><a class="sidebar-link" href="{{route('reports.congratulations')}}">{{__('Congratulations')}}</a></li>
                 </ul>
             </li>
             @can('view-tasks')

@@ -85,6 +85,13 @@ console.log(info);
                         })}
                         <li class="list-group-item"><button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#notRespond">{i18n.t('other.unanswered')}</button></li>
                     </ul>
+
+                    <ul>
+                        <li class="list-group-item text-danger">{i18n.t('other.open_inc')}: {info.extra['per_inc']} %</li>
+                        <li class="list-group-item text-warning">{i18n.t('other.inc_close')}: {info.extra['per_inc_close']}%</li>
+                        <li class="list-group-item text-warning">{i18n.t('other.timing')}: {info.extra['timing']}</li>
+                        <li class="list-group-item text-success">{i18n.t('other.congratulations')}: {info.extra['per_cong']}%</li>
+                    </ul>
                 </div>
                 {info.answers.length==0 ?
                     <div className={'col-md-8'}>

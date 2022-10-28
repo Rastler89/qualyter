@@ -8,6 +8,7 @@ use App\Models\Agent;
 use App\Models\Task;
 use App\Models\Incidence;
 use App\Models\Store;
+use App\Models\Congratulation;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use \Debugbar;
@@ -406,6 +407,64 @@ class ApiController extends Controller
         return response()->json($prepare);
     }
 
+    public function congratulations(Request $request) {
+        $type = ($request->type != null) ? $request->type : 'agent';
+
+        $first = $request->init;
+        $last = $request->finish;
+
+        $congratulations = Congratulation::whereBetween('created_at',[$first,$last])->get();
+        $prepare = [];
+        if($type=='general') {
+            $prepare['general']['visits'] =  count(DB::select('SELECT DISTINCT answer_id FROM tasks WHERE answer_id IS NOT NULL AND expiration BETWEEN :first and :last',[
+                'first' => $first,
+                'last' => $last
+            ]));
+
+            $prepare['general']['total'] = count($congratulations);
+            $prepare['general']['percentage'] = number_format(($prepare['general']['total']/$prepare['general']['visits'])*100,2);
+
+
+            return response()->json($prepare);
+        } else {
+            foreach($congratulations as $congratulation) {
+                $agent = Agent::find($congratulation->agent);
+                if($type=='agent') {
+                    $prepare[$congratulation->agent]['congratulation'][] = $congratulation;
+                    $prepare[$congratulation->agent]['agent']=$agent;
+                } else {
+                    $prepare[$agent->team]['congratulation'][] = $congratulation;
+                    $prepare[$agent->team]['team']=$agent->team;
+
+                    
+                }
+            }
+        }
+        foreach($prepare as $key => $line) {
+            if($type=='agent') {
+                $prepare[$key]['visits'] =  count(DB::select('SELECT DISTINCT answer_id FROM tasks WHERE owner = :agent AND answer_id IS NOT NULL AND expiration BETWEEN :first and :last',[
+                    'agent' => $key,
+                    'first' => $first,
+                    'last' => $last
+                ]));
+            } else {
+                $prepare[$key]['visits'] =  count(DB::select('SELECT DISTINCT answer_id FROM tasks WHERE owner IN (SELECT id FROM agents WHERE team = :team) AND answer_id IS NOT NULL AND expiration BETWEEN :first and :last',[
+                    'team' => $key,
+                    'first' => $first,
+                    'last' => $last
+                ]));
+            }
+            $prepare[$key]['total'] = count($line['congratulation']);
+            $prepare[$key]['percentage'] = number_format(($prepare[$key]['total']/$prepare[$key]['visits'])*100,2);
+        }
+        return response()->json($prepare);
+    }
+
+    /**
+     * 
+     * PRIVATE FUNCTIONS (ONLY)
+     * 
+     */
     private function information_incidence($incidences,$first,$last) {
         $answers = 0;
         $id = [];

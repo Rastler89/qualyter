@@ -53,7 +53,11 @@ i18next
                 valoration: 'Valoration',
                 comment: 'Comment',
                 previous: 'Previous',
-                next: 'Next'
+                next: 'Next',
+                open_inc: 'Openc incidence',
+                inc_close: 'Incidence close',
+                timing: 'Time average',
+                congratulations: 'Congratulations'
             },
             answer: {
               first: 'What overall score would you give us?',
@@ -106,7 +110,11 @@ i18next
                 valoration: 'Valoración',
                 comment: 'Comentario',
                 previous: 'Anterior',
-                next: 'Siguiente'
+                next: 'Siguiente',
+                open_inc: 'Incidencias abiertas',
+                inc_close: 'Incidencias cerradas',
+                timing: 'Tiempo promedio',
+                congratulations: 'Felicitaciones'
             },
             answer: {
               first: '¿Qué puntuación global nos darías?',
