@@ -1,8 +1,8 @@
 {
     "name": "laravel/laravel",
     "type": "project",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "description": "Quality system to manage surveys with incident generation and control capabilities, also allows the extraction of data via files or statistics screens.",
+    "keywords": ["incidence", "quality"],
     "license": "MIT",
     "require": {
         "php": "^8.0",
