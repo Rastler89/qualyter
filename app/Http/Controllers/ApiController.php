@@ -476,7 +476,7 @@ class ApiController extends Controller
         $id = array_unique($id);
 
         if($general!==true) {
-            $ots = DB::select('SELECT tasks.answer_id FROM answers, tasks WHERE answers.status IN (2,4,5) AND tasks.owner = :id AND answers.updated_at BETWEEN :first AND :last GROUP BY tasks.answer_id', [
+            $ots = DB::select('SELECT tasks.answer_id FROM answers, tasks WHERE answers.status IN (2,4,5) AND tasks.owner in (:id) AND answers.updated_at BETWEEN :first AND :last GROUP BY tasks.answer_id', [
                 'first' => $first,
                 'last' => $last,
                 'id' => $incidences[0]->owner
