@@ -26,11 +26,24 @@ const getInfo = (url,m,y) => {
 }
 
 export const PublicIndex= () => {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+    if(urlParams.get('firstDay')==null) {
+        var date = new Date(), y = date.getFullYear(), m = date.getMonth();
+        var firstDay = new Date(y, m-1, 1);
+    
+        if(m===11) m=-1;
+        var lastDay = new Date(y, m, 0);
+    } else {
+        var firstDay = new Date(urlParams.get('firstDay'));
+        var lastDay = new Date(urlParams.get('lastDay'));
+    }
 
     const [info, setInfo] = useState([]);
     const [range, setRange] = useState({
-        startDate: new Date(),
-        endDate: new Date(),
+        startDate: firstDay,
+        endDate: lastDay,
         key: 'selection',
       });
     const [loading, setLoading] = useState(false);
@@ -48,7 +61,8 @@ export const PublicIndex= () => {
 
     function change(ranges) {
         if(ranges.selection.endDate!=range.endDate && ranges.selection.startDate==range.startDate) {
-            console.log(ranges.selection.endDate,range.endDate);
+            firstDay = ranges.selection.startDate;
+            lastDay = ranges.selection.endDate;
             getInfo(url,ranges.selection.startDate,ranges.selection.endDate).then(data => {
                 setInfo(data);
             });
@@ -112,7 +126,7 @@ export const PublicIndex= () => {
                     {select}
                     <div className={'row'}>
                         {delegations.map((delegation) => 
-                            <Delegation object={delegation} size={size}  />
+                            <Delegation object={delegation} size={size} firstDay={range.startDate} lastDay={range.endDate} />
                         )}
                     </div>
                 </section>

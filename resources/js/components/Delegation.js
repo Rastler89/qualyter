@@ -6,7 +6,7 @@ export default function Delegation(props) {
 
     let info = props.object;
     let clase = 'col-md-'+props.size;
-    let url = info.father+'/detail/'+info.id;
+    let url = info.father+'/detail/'+info.id+'?firstDay='+props.firstDay+'&lastDay='+props.lastDay;
     let stars = [];
 
     for(let i=1; i<=info.average; i++) {
