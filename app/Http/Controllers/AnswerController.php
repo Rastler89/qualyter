@@ -541,28 +541,26 @@ class AnswerController extends Controller
         }
 
         if(!empty($filters['priority'])) {
-            
-            switch($filters['priority']){
-                case "bajo":
-                    $tasks = Task::where('priority','like','%'.$filters['priority'].'%')
-                        ->orWhere('priority','like','%verde%')->get();
-                    break;
-                case "medio":
-                    $tasks = Task::where('priority','like','%'.$filters['priority'].'%')
-                        ->orWhere('priority','like','%amarillo%')->get();
-                    break;
-                case "gran":
-                    $tasks = Task::where('priority','like','%'.$filters['priority'].'%')
-                        ->orWhere('priority','like','%naranja%')->get();
-                    break;
-                case "urgencia":
-                    $tasks = Task::where('priority','like','%'.$filters['priority'].'%')
-                        ->orWhere('priority','like','%rojo%')->get();
-                    break;
-                case "preventivo":
-                    $tasks = Task::where('priority','like','%'.$filters['priority'].'%')->get();
-                    break;
+            $array = $filters['priority'];
+
+            $tasks = Task::query();
+            if(!empty($array[0])) {
+                $tasks->whereLike('priority','verde')->whereLike('priority','bajo');
             }
+            if(!empty($array[1])) {
+                $tasks->whereLike('priority','amarillo')->whereLike('priority','medio');
+            }
+            if(!empty($array[2])) {
+                $tasks->whereLike('priority','naranja')->whereLike('priority','gran');
+            }
+            if(!empty($array[3])) {
+                $tasks->whereLike('priority','rojo')->whereLike('priority','urgencia');
+            }
+            if(!empty($array[4])) {
+                $tasks->whereLike('priority','preventivo');
+            }
+
+            $tasks = $tasks->get();
             
             $answerID = [];
             foreach($tasks as $task){

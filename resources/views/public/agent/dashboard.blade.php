@@ -39,7 +39,7 @@
                             {{__('Open')}}
                             @break
                         @case(1)
-                            {{__('Pending reply')}}
+                            {{__('Pending review')}}
                             @break
                         @case(2)
                             {{__('In process')}}
