@@ -29,7 +29,7 @@ Route::get('/password/reset/{token}', [App\Http\Controllers\Auth\ResetPasswordCo
 Route::post('/password/email', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     // AUDTION
     Route::get('audit', [App\Http\Controllers\AuditionController::class, 'viewAudit'])->name('audition');
     // LOG
