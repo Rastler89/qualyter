@@ -129,6 +129,36 @@ class ExportController extends Controller
             $pre_answers->whereIn('status',[2,3,4,5,8]);
         }
 
+        if(!empty($filters['priority'])) {
+            $array = $filters['priority'];
+
+            $tasks = Task::query();
+            if(!empty($array[0])) {
+                $tasks->whereLike('priority','verde')->whereLike('priority','bajo');
+            }
+            if(!empty($array[1])) {
+                $tasks->whereLike('priority','amarillo')->whereLike('priority','medio');
+            }
+            if(!empty($array[2])) {
+                $tasks->whereLike('priority','naranja')->whereLike('priority','gran');
+            }
+            if(!empty($array[3])) {
+                $tasks->whereLike('priority','rojo')->whereLike('priority','urgencia');
+            }
+            if(!empty($array[4])) {
+                $tasks->whereLike('priority','preventivo');
+            }
+
+            $tasks = $tasks->get();
+            
+            $answerID = [];
+            foreach($tasks as $task){
+                
+               array_push($answerID, $task->answer_id);
+            }
+            $pre_answers->whereIn('id', $answerID);
+        }
+
         if(!empty($filters['team']) && $filters['team'] != '') {
             $id=[];
             $agents = Agent::where('team','=',$filters['team'])->get();
