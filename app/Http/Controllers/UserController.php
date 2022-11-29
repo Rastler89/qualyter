@@ -39,7 +39,7 @@ class UserController extends Controller
             $user->roles()->attach($role);
         }
 
-        return redirect()->route('users')->with('success','User updated successfuly!');;
+        return redirect()->route('users')->with('success','User updated successfuly!');
     }
 
     public function new() {

@@ -1,6 +1,14 @@
 {
     "name": "laravel/laravel",
     "type": "project",
+    "authors": [
+        {
+            "name": "Daniel Molina",
+            "email": "rastler89@gmail.com",
+            "homepage": "https://rastler.com",
+            "role": "Developer"
+        }
+    ],
     "description": "Quality system to manage surveys with incident generation and control capabilities, also allows the extraction of data via files or statistics screens.",
     "keywords": ["incidence", "quality"],
     "license": "MIT",

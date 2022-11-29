@@ -123,6 +123,10 @@ Route::group(['middleware' => 'auth'], function () {
     // CONGRATULATIONS
     Route::post('congratulations', [App\Http\Controllers\CongratulationController::class, 'create'])->name('congratulation.new');
 
+    // TECHNICIAN
+    Route::get('technicians', [App\Http\Controllers\TechnicianController::class, 'index'])->name('technician.index');
+    Route::get('technicians/{id}', [App\Http\Controllers\TechnicianController::class, 'view'])->name('technician.view');
+
 });
 //Special
 //Route::get('leaderboard',[App\Http\Controllers\ReportsController::class, 'leaderboard_animated']);
@@ -139,4 +143,9 @@ Route::post('store/survey/{id}', [App\Http\Controllers\AnswerController::class, 
 Route::get('public/{id}', [App\Http\Controllers\PublicController::class,'index'])->name('public.index');
 Route::get('public/{central}/detail/{delegation}', [App\Http\Controllers\PublicController::class, 'index'])->name('public.detail');
 
-Route::get('test/{id}',[App\Http\Controllers\TestController::class,'handle']);
+Route::get('technician/new', [App\Http\Controllers\TechnicianController::class,'create']);
+Route::post('technician/new', [App\Http\Controllers\TechnicianController::class, 'store']);
+
+
+Route::get('test',[App\Http\Controllers\TestController::class,'handle']);
+Route::post('test',[App\Http\Controllers\TestController::class,'post']);
