@@ -52,7 +52,6 @@ class UploadController extends Controller
                 $task->code = $resp['Código'];
                 $task->name = utf8_encode($resp['Nombre']);
                 $task->priority = utf8_encode($resp['Prioridad']);
-                $task->owner = ($owner==null) ? 11 : $owner->id;
                 $task->store = $resp['Proyecto Código'];
                 if($task->owner == 11) {
                     echo $resp['Código']." -- ";print_r(purge_accent(utf8_encode($resp['Responsable'])));die();
@@ -61,6 +60,7 @@ class UploadController extends Controller
                 $answerid = $task->answer_id;
             }
             
+            $task->owner = ($owner==null) ? 11 : $owner->id;
             $task->expiration = date('Y-m-d h:i:s', strtotime(str_replace('/','-',$resp['Fecha Vencimiento'])));
 
             if($store->name=='.' || $store->name=='......' || $store->name=='...') {

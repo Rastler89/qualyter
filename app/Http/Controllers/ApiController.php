@@ -264,18 +264,20 @@ class ApiController extends Controller
         $first = $request->init;
         $last = $request->finish;
 
-        $results = DB::select('SELECT answers.answer, tasks.owner, answers.id, tasks.priority FROM answers, tasks WHERE answers.id = tasks.answer_id AND answers.status IN (2,4,5) AND answers.updated_at BETWEEN :first AND :last', [
+        $results = DB::select('SELECT answers.answer, tasks.owner, answers.id, tasks.priority FROM answers, tasks WHERE answers.id = tasks.answer_id AND answers.status IN (2,4,5) AND answers.created_at BETWEEN :first AND :last', [
             'first' => $first,
             'last' => $last
         ]);
-        $calc = DB::select('SELECT COUNT(answers.id) as total FROM answers WHERE answers.status IN (2,4,5) AND answers.updated_at BETWEEN :first AND :last', [
+        $calc = DB::select('SELECT COUNT(answers.id) as total FROM answers WHERE answers.status IN (2,4,5) AND answers.created_at BETWEEN :first AND :last', [
             'first' => $first,
             'last' => $last
         ]);
         $total = $calc[0]->total;
         $prepare = [];
+        $extra = [];
         $general = [];
         $arr = [];
+        $id = []; 
         foreach($results as $result) {
             $arr['answer'] = $result->answer;
             $arr['type'] = $result->priority;
@@ -283,9 +285,13 @@ class ApiController extends Controller
                 $agent = Agent::find($result->owner);
                 if($agent->active==1) {
                     $prepare[$result->owner][] = $arr;
+                    $cong = count(Congratulation::whereBetween('created_at',[$first,$last])->where('agent','=',$result->owner)->get());
+                    $inc = count(Incidence::whereBetween('created_at',[$first,$last])->where('owner','=',$result->owner)->get());
+                    $extra[$result->owner] = $cong-$inc;
                 }
             } else if($type=='teams') {
                 $agent = Agent::find($result->owner);
+                $id[$agent->team][] = $agent->id;
                 $prepare[$agent->team][] = $arr;
             } else {
                 $string = $result->owner.' - '.$result->id;
@@ -294,6 +300,17 @@ class ApiController extends Controller
                     $prepare['general'][]=$arr;
                 }
             }
+        }
+        if($type=='teams') {
+            foreach($id as $key => $i) {
+                $cong = count(Congratulation::whereBetween('created_at',[$first,$last])->whereIn('agent',$i)->get());
+                $inc = count(Incidence::whereBetween('created_at',[$first,$last])->whereIn('owner',$i)->get());
+                $extra[$key] = $cong-$inc;
+            }
+        } else if($type!='agent') {
+            $cong = count(Congratulation::whereBetween('created_at',[$first,$last])->get());
+            $inc = count(Incidence::whereBetween('created_at',[$first,$last])->get());
+            $extra['general'] = $cong-$inc;
         }
         $res = [];
         
@@ -308,7 +325,7 @@ class ApiController extends Controller
         if(count($res)!=0) {
             foreach($res as $key => $values) {
                 $percentatge = $values['total']/$total;
-                $points = $percentatge*0.75+$values[0]*0.025;
+                $points = $percentatge*0.75+$values[0]*0.025;//+$extra[$key]*0.03;
                 $order1[$key] = $points;
                 $res[$key]['points'] = number_format($points*10,2);
             }
@@ -330,10 +347,9 @@ class ApiController extends Controller
         $resp = 0;
 
         if($first==$last) {
-            $ots = Task::whereBetween('updated_at',[$first.' 00:00:01',$last.' 23:59:59'])->where('answer_id','<>',null)->get(); 
-                 
+            $ots = Task::whereBetween('expiration',[$first.' 00:00:01',$last.' 23:59:59'])->where('answer_id','<>',null)->get();        
         } else {
-            $ots = Task::whereBetween('updated_at',[$first,$last])->where('answer_id','<>',null)->get();
+            $ots = Task::whereBetween('expiration',[$first,$last])->where('answer_id','<>',null)->get();
         }
 
         $prepare=[];
@@ -355,9 +371,9 @@ class ApiController extends Controller
 
             case 'general':
                 if($first==$last) {
-                    $ots = Task::whereBetween('updated_at',[$first.' 00:00:01',$last.' 23:59:59'])->where('answer_id','<>',null)->get();
+                    $ots = Task::whereBetween('expiration',[$first.' 00:00:01',$last.' 23:59:59'])->where('answer_id','<>',null)->get();
                 } else {
-                    $ots = Task::whereBetween('updated_at',[$first,$last])->where('answer_id','<>',null)->get();
+                    $ots = Task::whereBetween('expiration',[$first,$last])->where('answer_id','<>',null)->get();
                 }
                 foreach($ots as $ot) {
                     $prepare['all'][] = $ot->answer_id;
@@ -474,20 +490,24 @@ class ApiController extends Controller
             array_push($id,$agent->id);
         }
         $id = array_unique($id);
-
+        
         if($general!==true) {
-            $ots = DB::select('SELECT tasks.answer_id FROM answers, tasks WHERE answers.status IN (2,4,5) AND tasks.owner in (:id) AND answers.updated_at BETWEEN :first AND :last GROUP BY tasks.answer_id', [
-                'first' => $first,
-                'last' => $last,
-                'id' => $incidences[0]->owner
-            ]);
+            if($first==$last) {
+                $ots = Task::whereBetween('expiration',[$first.' 00:00:01',$last.' 23:59:59'])->where('answer_id','<>',null)->whereIn('owner',$id)->get();  
+            } else {
+                $ots = Task::whereBetween('expiration',[$first,$last])->where('answer_id','<>',null)->whereIn('owner',$id)->get();
+            }
         } else {
-            $ots = DB::select('SELECT tasks.answer_id FROM answers, tasks WHERE answers.status IN (2,4,5) AND answers.updated_at BETWEEN :first AND :last GROUP BY tasks.answer_id', [
+            $ots = DB::select('SELECT tasks.answer_id FROM answers, tasks WHERE answers.id = tasks.answer_id AND answers.status != 8 AND answers.created_at BETWEEN :first AND :last GROUP BY tasks.answer_id', [
                 'first' => $first,
                 'last' => $last
             ]);
         }
-        $answers = count($ots);
+        $id=[];
+        foreach($ots as $ot) {
+            array_push($id,$ot->answer_id);
+        }    
+        $answers = count(Answer::whereIn('id',$id)->where('status','<>',8)->get());  
 
         $num_incidences = count($incidences);
         $per_incidences = number_format(($num_incidences/$answers)*100,2);
@@ -611,7 +631,7 @@ class ApiController extends Controller
 
         $sum = 0;
 
-        foreach($answers as $answer) {
+        foreach($answers as $key => $answer) {
             if($object) {
                 $res = json_decode($answer->answer);
             } else {
