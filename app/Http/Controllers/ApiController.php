@@ -498,10 +498,11 @@ class ApiController extends Controller
                 $ots = Task::whereBetween('expiration',[$first,$last])->where('answer_id','<>',null)->whereIn('owner',$id)->get();
             }
         } else {
-            $ots = DB::select('SELECT tasks.answer_id FROM answers, tasks WHERE answers.id = tasks.answer_id AND answers.status != 8 AND answers.created_at BETWEEN :first AND :last GROUP BY tasks.answer_id', [
-                'first' => $first,
-                'last' => $last
-            ]);
+            if($first==$last) {
+                $ots = Task::whereBetween('expiration',[$first.' 00:00:01',$last.' 23:59:59'])->where('answer_id','<>',null)->get();  
+            } else {
+                $ots = Task::whereBetween('expiration',[$first,$last])->where('answer_id','<>',null)->get();
+            }
         }
         $id=[];
         foreach($ots as $ot) {
