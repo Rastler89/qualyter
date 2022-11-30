@@ -432,10 +432,18 @@ class ApiController extends Controller
         $congratulations = Congratulation::whereBetween('created_at',[$first,$last])->get();
         $prepare = [];
         if($type=='general') {
-            $prepare['general']['visits'] =  count(DB::select('SELECT DISTINCT answer_id FROM tasks WHERE answer_id IS NOT NULL AND expiration BETWEEN :first and :last',[
-                'first' => $first,
-                'last' => $last
-            ]));
+            if($first==$last) {
+                $ots = Task::whereBetween('expiration',[$first.' 00:00:01',$last.' 23:59:59'])->where('answer_id','<>',null)->get();  
+            } else {
+                $ots = Task::whereBetween('expiration',[$first,$last])->where('answer_id','<>',null)->get();
+            }
+
+            $id=[];
+            foreach($ots as $ot) {
+                array_push($id,$ot->answer_id);
+            }    
+            $prepare['general']['visits'] = count(Answer::whereIn('id',$id)->where('status','<>',8)->get());  
+    
 
             $prepare['general']['total'] = count($congratulations);
             $prepare['general']['percentage'] = number_format(($prepare['general']['total']/$prepare['general']['visits'])*100,2);
@@ -450,28 +458,32 @@ class ApiController extends Controller
                     $prepare[$congratulation->agent]['agent']=$agent;
                 } else {
                     $prepare[$agent->team]['congratulation'][] = $congratulation;
-                    $prepare[$agent->team]['team']=$agent->team;
-
-                    
+                    $prepare[$agent->team]['team']=$agent->team;         
                 }
             }
         }
+        print_r($prepare);die();
         foreach($prepare as $key => $line) {
-            if($type=='agent') {
-                $prepare[$key]['visits'] =  count(DB::select('SELECT DISTINCT answer_id FROM tasks WHERE owner = :agent AND answer_id IS NOT NULL AND expiration BETWEEN :first and :last',[
-                    'agent' => $key,
-                    'first' => $first,
-                    'last' => $last
-                ]));
-            } else {
-                $prepare[$key]['visits'] =  count(DB::select('SELECT DISTINCT answer_id FROM tasks WHERE owner IN (SELECT id FROM agents WHERE team = :team) AND answer_id IS NOT NULL AND expiration BETWEEN :first and :last',[
-                    'team' => $key,
-                    'first' => $first,
-                    'last' => $last
-                ]));
+            echo"hola";die();
+            $clave = $key;
+            if($type!='agent') {
+                $key = DB::select('SELECT agents.id FROM agents where team = :team',[
+                    'team' => $key
+                ]);
             }
-            $prepare[$key]['total'] = count($line['congratulation']);
-            $prepare[$key]['percentage'] = number_format(($prepare[$key]['total']/$prepare[$key]['visits'])*100,2);
+            if($first==$last) {
+                $ots = Task::whereBetween('expiration',[$first.' 00:00:01',$last.' 23:59:59'])->where('answer_id','<>',null)->get();  
+            } else {
+                $ots = Task::whereBetween('expiration',[$first,$last])->where('answer_id','<>',null)->get();
+            }
+echo('hola');die();
+            $id=[];
+            foreach($ots as $ot) {
+                array_push($id,$ot->answer_id);
+            }    
+            $prepare[$clave]['visits'] = count(Answer::whereIn('id',$id)->where('status','<>',8)->get());  
+            $prepare[$clave]['total'] = count($line['congratulation']);
+            $prepare[$clave]['percentage'] = number_format(($prepare[$key]['total']/$prepare[$key]['visits'])*100,2);
         }
         return response()->json($prepare);
     }
