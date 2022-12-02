@@ -150,7 +150,7 @@ class ClientController extends Controller
         //$average = getAverage($client);
         foreach($delegations as $delegation){
             $datosDelegacion = [];
-            $answers = Answer::where('client','=',$delegation->id)->whereIn('status',[2,4,5])->whereBetween('updated_at',[$first_day,$last_day])->get();
+            $answers = Answer::where('client','=',$delegation->id)->whereIn('status',[2,4,5])->whereBetween('created_at',[$first_day,$last_day])->get();
             foreach($answers as $answer) {
                 $datosAnswer = [];
                 $store =  Store::where('code','=',$answer->store)->first();
