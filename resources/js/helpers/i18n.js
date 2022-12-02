@@ -85,7 +85,7 @@ i18next
                 December: 'December'
             },
             surveys: {
-                conducted: 'Encuentas realizadas'
+                conducted: 'Encuestas realizadas'
             },
             other: {
                 call: 'calls',
