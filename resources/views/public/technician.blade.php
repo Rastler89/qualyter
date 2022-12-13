@@ -9,7 +9,7 @@
 <form method="post" action="" id="formTechnician"  enctype="multipart/form-data">
   @csrf
 <section id="section1" class="row">
-  <h3>Dades de contacte</h3>
+  <h3>{{__("Contact details")}}</h3>
   <div class="col-md-4 p-3">
     <label for="company_name" class="form-label">{{__('Company Name')}}</label>
     <input type="email" class="form-control" id="company_name" name="company_name" required/>
@@ -65,7 +65,7 @@
   <button type="button" class="col-md-12 btn btn-success btnNext" id="firstStep" style="display:none">{{__('Next')}}</button>
 </section>
 <section id="section2" class="row">
-  <h3>Serveis</h3>
+  <h3>{{__('Services')}}</h3>
   <div class="col-md-12 p-3 row services">
     <h4>{{__('What services do you offer?')}}</h4>
     <div class="form-check col-md-3">
@@ -176,7 +176,7 @@
   <button type="button" class="col-md-12 btn btn-success btnNext" id="secondStep" style="display:none">{{__('Next')}}</button>
 </section>
 <section id="section3" id="row">
-  <h3>treballadors</h3>
+  <h3>{{__('Employees')}}</h3>
   <div class="form-check col-md-4 m-auto">
     <label class="form-check-label" for="employees">{{__('Number of employees')}}</label>
     <input type="number" class="form-control" id="employees" name="employees" min="1" require/>
@@ -186,7 +186,7 @@
   <button type="button" class="col-md-12 btn btn-success btnNext" id="thirdStep" style="display:none">{{__('Next')}}</button>
 </section>
 <section id="section4" class="row">
-  <h3>Tarifes</h3>
+  <h3>{{__('Rates')}}</h3>
   <div class="col-md-6 p-3">
     <label class="form-label" for="travel">{{__('Travel')}}</label>
     <input type="number" class="form-control" id="travel" name="travel" required/>
@@ -203,21 +203,23 @@
     <label class="form-label" for="after-hour">{{__('After hour')}}</label>
     <input type="number" class="form-control" id="after-hour" name="after-hour" required/>
   </div>
+  <strong>{{__("We cannot receive VAT invoices from any EUROPEAN country except UK, SWEDEN AND DENMARK.")}}</strong>
   <div class="col-md-12 p-3">
     <label class="form-label" for="type_payment">{{__('Type of payment')}}</label>
     <select class="form-select" aria-label="" id="type_payment" name="type_payment">
       <option selected>{{__('Please select one')}}</option>
       <option value="standard">{{__('30-day transfer')}}</option>
       <option value="confirmin">{{__('Confirming Standard 30 day')}}</option>
+    </select>
   </div>
   <div class="col-md-12 p-3">
     <label class="form-label" for="iban">{{__('IBAN')}}</label>
-    <input type="text" class="form-´control" id="iban" name="iban" required/>
+    <input type="text" class="form-control" id="iban" name="iban" required/>
   </div>
   <button type="button" class="col-md-12 btn btn-success btnNext" id="fourthStep" style="display:none">{{__('Next')}}</button>
 </section>
 <section id="section5" class="row">
-  <h3>Documentación</h3>
+  <h3>{{__("Documentation")}}</h3>
   <div class="col-md-12 p-3">
     <label class="form-label" for="risk">{{__('Risk assessment')}}</label>
     <input type="file" class="form-control" id="risk" aria-describedby="inputGroupFileAddon01" name="risk">

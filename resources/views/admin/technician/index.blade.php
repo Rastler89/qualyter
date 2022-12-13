@@ -31,7 +31,7 @@
                 @endforeach
             </td>
             <td>
-                <a href="{{route('technician.view',['id'=>$technician->id]}}" class="btn btn-outline-info"><i class="align-middle" data-feather="eye"></i></a>
+                <a href="{{route('technician.view',['id'=>$technician->id])}}" class="btn btn-outline-info"><i class="align-middle" data-feather="eye"></i></a>
             </td>
         </tr>
     @endforeach

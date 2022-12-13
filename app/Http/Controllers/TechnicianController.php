@@ -137,9 +137,10 @@ class TechnicianController extends Controller
      * @param  \App\Models\Technician  $technician
      * @return \Illuminate\Http\Response
      */
-    public function show(Technician $technician)
-    {
-        //
+    public function show($id) {
+        $technician = Technician::find($id);
+
+        return view('admin.technician.view', ['technician' => $technician]);
     }
 
     /**

@@ -25,6 +25,7 @@ class Technician extends Model
         'admin_email',
         'all_email',
         'services',
+        'area',
         'workers',
         'info_workers',
         'travel',

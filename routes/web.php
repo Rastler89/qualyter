@@ -125,7 +125,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     // TECHNICIAN
     Route::get('technicians', [App\Http\Controllers\TechnicianController::class, 'index'])->name('technician.index');
-    Route::get('technicians/{id}', [App\Http\Controllers\TechnicianController::class, 'view'])->name('technician.view');
+    Route::get('technicians/{id}', [App\Http\Controllers\TechnicianController::class, 'show'])->name('technician.view');
 
 });
 //Special
