@@ -7,6 +7,16 @@
         </a>
 
         <ul class="sidebar-nav">
+            @can('view-technicians')
+            <li class="sidebar-header">
+                {{__('Technicians')}}
+            </li>
+            <li class="sidebar-item @if(Request::is('home')) active @endif">
+                <a class="sidebar-link" href="{{route('technician.index')}}">
+                    <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">{{__('Technicians')}}</span>
+                </a>
+            </li>
+            @endcan
             <li class="sidebar-header">
                 {{__('Reports')}}
             </li>
