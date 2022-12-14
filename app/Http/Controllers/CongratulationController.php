@@ -15,12 +15,15 @@ class CongratulationController extends Controller
         //poner nombres
         foreach($congratulations as &$congratulation) {
             $client = Client::where('id','=',$congratulation->client)->first();
-            $congratulation->client = $client->name;
+            $congratulation->client_name = $client->name;
             $agent = Agent::where('id','=',$congratulation->agent)->first();
-            $congratulation->agent = $agent->name;
+            $congratulation->agent_name = $agent->name;
         }
 
-        return view('admin.congratulations.index', ['congratulations' => $congratulations]);
+        $agents = Agent::all();
+        $clients = Client::all();
+
+        return view('admin.congratulations.index', ['congratulations' => $congratulations, 'agents' => $agents, 'clients' => $clients]);
     }
 
     public function create(Request $request)
@@ -34,7 +37,21 @@ class CongratulationController extends Controller
 
         $cong->save();
 
-        return redirect()->route('reports.congratulations')->with('success','New congratulation created');
+        return redirect()->route('congratulations')->with('success','New congratulation created');
+
+    }
+
+    public function update(Request $request) {
+        $cong = Congratulation::find($request->id);
+
+        $cong->agent = $request->agent;
+        $cong->client = $request->client;
+        $cong->weight = $request->weight;
+        $cong->comments = $request->comments;
+
+        $cong->save();
+
+        return redirect()->route('congratulations')->with('success','Congratulation updated');
 
     }
 

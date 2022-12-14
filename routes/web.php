@@ -123,6 +123,7 @@ Route::group(['middleware' => 'auth'], function () {
     // CONGRATULATIONS
     Route::get('congratulations', [App\Http\Controllers\CongratulationController::class, 'index'])->name('congratulations');
     Route::post('congratulations', [App\Http\Controllers\CongratulationController::class, 'create'])->name('congratulation.new');
+    Route::post('congratulations/update', [App\Http\Controllers\CongratulationController::class, 'update'])->name('congratulation.edit');
 
     // TECHNICIAN
     Route::get('technicians', [App\Http\Controllers\TechnicianController::class, 'index'])->name('technician.index');
