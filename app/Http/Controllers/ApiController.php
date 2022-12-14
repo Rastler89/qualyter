@@ -462,9 +462,7 @@ class ApiController extends Controller
                 }
             }
         }
-        print_r($prepare);die();
         foreach($prepare as $key => $line) {
-            echo"hola";die();
             $clave = $key;
             if($type!='agent') {
                 $key = DB::select('SELECT agents.id FROM agents where team = :team',[
@@ -476,7 +474,6 @@ class ApiController extends Controller
             } else {
                 $ots = Task::whereBetween('expiration',[$first,$last])->where('answer_id','<>',null)->get();
             }
-echo('hola');die();
             $id=[];
             foreach($ots as $ot) {
                 array_push($id,$ot->answer_id);
