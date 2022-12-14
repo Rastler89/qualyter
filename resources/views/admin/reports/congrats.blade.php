@@ -68,6 +68,14 @@
                                 @endforeach
                             </datalist>
                         </div>
+                        <div class="col-md-6">
+                            <label for="weight" class="form-label">{{__('Weight')}}</label>
+                            <input class="form-control" type="number" id="weight" name="weight" min="1" step="1" />
+                        </div>
+                        <div class="col-md-6">
+                            <label for="comments">{{__('Comments')}}</label>
+                            <textarea class="form-control" id="comments" name="comments" rows="3"></textarea>
+                        </div>
                     </div>
                 </div>
             </div>

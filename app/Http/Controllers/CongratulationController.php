@@ -13,6 +13,8 @@ class CongratulationController extends Controller
 
         $cong->agent = $request->agent;
         $cong->client = $request->client;
+        $cong->weight = $request->weight;
+        $cong->comments = $request->comments;
 
         $cong->save();
 

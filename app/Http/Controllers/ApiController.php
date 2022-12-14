@@ -285,9 +285,9 @@ class ApiController extends Controller
                 $agent = Agent::find($result->owner);
                 if($agent->active==1) {
                     $prepare[$result->owner][] = $arr;
-                    $cong = count(Congratulation::whereBetween('created_at',[$first,$last])->where('agent','=',$result->owner)->get());
+                    $cong = Congratulation::whereBetween('created_at',[$first,$last])->where('agent','=',$result->owner)->get();
                     $inc = count(Incidence::whereBetween('created_at',[$first,$last])->where('owner','=',$result->owner)->get());
-                    $extra[$result->owner] = $cong-$inc;
+                    $extra[$result->owner] = $cong->sum('weight') - $inc;
                 }
             } else if($type=='teams') {
                 $agent = Agent::find($result->owner);
@@ -303,14 +303,14 @@ class ApiController extends Controller
         }
         if($type=='teams') {
             foreach($id as $key => $i) {
-                $cong = count(Congratulation::whereBetween('created_at',[$first,$last])->whereIn('agent',$i)->get());
+                $cong = Congratulation::whereBetween('created_at',[$first,$last])->whereIn('agent',$i)->get();  
                 $inc = count(Incidence::whereBetween('created_at',[$first,$last])->whereIn('owner',$i)->get());
-                $extra[$key] = $cong-$inc;
+                $extra[$key] = $cong->sum('weight') - $inc;
             }
         } else if($type!='agent') {
-            $cong = count(Congratulation::whereBetween('created_at',[$first,$last])->get());
+            $cong = Congratulation::whereBetween('created_at',[$first,$last])->get();
             $inc = count(Incidence::whereBetween('created_at',[$first,$last])->get());
-            $extra['general'] = $cong-$inc;
+            $extra['general'] = $cong->sum('weight') - $inc;
         }
         $res = [];
         
@@ -325,7 +325,7 @@ class ApiController extends Controller
         if(count($res)!=0) {
             foreach($res as $key => $values) {
                 $percentatge = $values['total']/$total;
-                $points = $percentatge*0.75+$values[0]*0.025;//+$extra[$key]*0.03;
+                $points = $percentatge*0.75+$values[0]*0.025+($extra[$key]*0.03)/10;
                 $order1[$key] = $points;
                 $res[$key]['points'] = number_format($points*10,2);
             }
