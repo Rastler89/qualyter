@@ -121,6 +121,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('incidence/call/{id}', [App\Http\Controllers\IncidenceController::class, 'call'])->name('call.incidence');
 
     // CONGRATULATIONS
+    Route::get('congratulations', [App\Http\Controllers\CongratulationController::class, 'index'])->name('congratulations');
     Route::post('congratulations', [App\Http\Controllers\CongratulationController::class, 'create'])->name('congratulation.new');
 
     // TECHNICIAN

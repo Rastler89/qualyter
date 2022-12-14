@@ -50,6 +50,12 @@
                 </a>
             </li>
             @endcan
+            <li class="sidebar-item @if(Request::is('congratulations')) active @endif">
+                <a class="sidebar-link" href="{{route('congratulations')}}">
+                    <i class="align-middle" data-feather="star"></i>
+                    <span class="align-middle">{{__("Congratulations")}}</span>
+                </a>
+            </li>
             @can('view-work-order')
             <li class="sidebar-item">
                 <a class="sidebar-link" href="#">

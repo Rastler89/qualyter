@@ -6,6 +6,24 @@
 @endsection
 
 @section('content')
+<div class="alert alert-info alert-dismissible" role="alert">
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  <h4 class="alert-heading">{{__("OPTIMA RETAIL REGULATIONS")}}</h4>
+  <p>{{__("Identify yourself in the shops as an OPTIMA RETAIL technician.")}}<br/>
+    {{__("Wear Optima Retail corporate clothing. If you do not have it, please request it to mireia.navarro@optimaretail.es and we will send it to you as soon as possible. During the first interventions wear neurtra clothing without logos.")}}<br/>
+    {{__("Make a MOREAPP report in the shop (no other type of report is valid).")}}<br/>
+    {{__("Do not leave any documentation in the shop (delivery notes, invoices, etc.) Always send it to us by email.")}}<br/>
+    {{__("No subcontracting is allowed. Always work with your own staff.")}}<br/>
+    {{__("The priority is ALWAYS that the shop staff is happy after your intervention, even if it has not been possible to solve the incident. Be polite and if you detect any problem, promptly notify the corresponding Optima Retail coordinator.")}}</p>
+  <p>{{__("These rules are MANDATORY to collaborate with OPTIMA RETAIL.")}}</p>
+  <p>{{__("As soon as you start working with us, we will need your Civil Liability Insurance.")}}<br/>
+    {{__("The obligatory information on the invoice is: Order Number (OT), E-mail, NIF, IBAN.")}}</p>
+  <p>{{__("The first 5 interventions will be paid as soon as we receive the invoice. In the case of regular collaborations, payment will be due within 30 days, being the 10th and 25th of each month.")}}<br/>
+    {{__("Invoices should always be sent to: administration@optimaretail.es")}}</p>
+  <p>{{__("If you have any doubts or general queries about the collaboration, you can contact the technical team at tecnicos@optimaretail.es. For issues related to the interventions, you should always contact the coodinator who commissioned the work, and in the event that he/she is not available, you can call 24h (+34) 911 43 80 61. ")}}</p>
+  <p>{{__("Please note that this collaboration is completely voluntary and if at any time you wish to stop collaborating, you should contact the technical department by sending an email to tecnicos@optimaretail.es.")}}</p>
+
+</div>
 <form method="post" action="" id="formTechnician"  enctype="multipart/form-data">
   @csrf
 <section id="section1" class="row">
