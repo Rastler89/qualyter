@@ -14,13 +14,14 @@ use App\Models\Technician;
 use Mail;
 use App\Mail\ReminderAgent;
 use App\Mail\ReminderManager;
+use PDF;
 
 class TestController extends Controller
 {
     public function handle()
     {
         
-        return view('public.technician');
+  
     }
 
     public function post(Request $request) {
