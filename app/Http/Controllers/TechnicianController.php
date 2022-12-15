@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Technician;
 use Illuminate\Http\Request;
+use PDF;
+use Mail;
 
 class TechnicianController extends Controller
 {
@@ -157,7 +159,7 @@ class TechnicianController extends Controller
                     ->subject($data["title"])
                     ->attachData($pdf->output(), "OptimaRetail.pdf");
         });
-        
+
         $tec->save();
 
         return view('public.technicianThanks');
@@ -207,5 +209,15 @@ class TechnicianController extends Controller
     public function destroy(Technician $technician)
     {
         //
+    }
+
+    public function exportPDF($id) {
+
+        $technician = Technician::find($id);
+
+        $array = json_decode(json_encode($technician), true);
+        $pdf = PDF::loadView('pdf.technician', $array);
+
+        return $pdf->download($technician->company.'.pdf');
     }
 }

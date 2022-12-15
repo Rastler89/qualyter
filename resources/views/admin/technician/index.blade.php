@@ -32,6 +32,7 @@
             </td>
             <td>
                 <a href="{{route('technician.view',['id'=>$technician->id])}}" class="btn btn-outline-info"><i class="align-middle" data-feather="eye"></i></a>
+                <a href="{{route('technician.download',['id'=>$technician->id])}}" class="btn btn-outline-success"><i class="align-middle" data-feather="download"></i></a>
             </td>
         </tr>
     @endforeach
