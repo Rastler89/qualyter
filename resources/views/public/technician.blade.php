@@ -262,7 +262,7 @@
     <label class="form-label" for="tax">{{__('Tax clearance certificate')}}</label>
     <input type="file" class="form-control" id="tax" aria-describedby="tax" name="tax">
   </div>
-  <button type="button" class="col-md-12 btn btn-success" id="btnSend">{{__('Next')}}</button>
+  <button type="button" class="col-md-12 btn btn-success" id="btnSend">{{__('Send')}}</button>
 </section>
 </form>
 
