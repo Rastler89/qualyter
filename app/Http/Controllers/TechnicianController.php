@@ -145,7 +145,7 @@ class TechnicianController extends Controller
             $request->tax->move(public_path('uploads'), $fileName);
             $tec->tax = $fileName;
         }
-
+        $technician = $tec;
         $tec->save();
 
         $array = json_decode(json_encode($technician), true);
