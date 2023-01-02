@@ -125,10 +125,18 @@
                     <div class="col-md-4">
                         <div class="text-muted">{{__('Files')}}</div>
                         <ul>
+                            @if(isset($worker['ppe']))
                             <li><a target="_blank" href={{ asset('uploads/'.$worker['ppe']) }}>{{__('PPE')}}</a></li>
+                            @endif
+                            @if(isset($worker['art18']))
                             <li><a target="_blank" href={{ asset('uploads/'.$worker['art18']) }}>{{__('Art18')}}</a></li>
+                            @endif
+                            @if(isset($worker['art19']))
                             <li><a target="_blank" href={{ asset('uploads/'.$worker['art19']) }}>{{__('Art19')}}</a></li>
+                            @endif
+                            @if(isset($worker['medical']))
                             <li><a target="_blank" href={{ asset('uploads/'.$worker['medical']) }}>{{__('Medical')}}</a></li>
+                            @endif
                         </ul>
                     </div>
                     @endforeach
@@ -138,12 +146,24 @@
                     <div class="col-md-12">
                         <div class="text-muted">{{__("PRL")}}</div>
                         <ul>
+                            @if(isset($technician->risk))
                             <li><a target="_blank" href={{ asset('uploads/'.$technician->risk) }}>{{__('Risk')}}</a></li>
+                            @endif
+                            @if(isset($technician->preventive))
                             <li><a target="_blank" href={{ asset('uploads/'.$technician->preventive) }}>{{__('Preventive')}}</a></li>
+                            @endif
+                            @if(isset($technician->certificate_pay))
                             <li><a target="_blank" href={{ asset('uploads/'.$technician->certificate_pay) }}>{{__('Certificate Payment')}}</a></li>
+                            @endif
+                            @if(isset($technician->rnt))
                             <li><a target="_blank" href={{ asset('uploads/'.$technician->rnt) }}>{{__('RNT')}}</a></li>
+                            @endif
+                            @if(isset($technician->rlc))
                             <li><a target="_blank" href={{ asset('uploads/'.$technician->rlc) }}>{{__('RLC')}}</a></li>
+                            @endif
+                            @if(isset($technician->tax))
                             <li><a target="_blank" href={{ asset('uploads/'.$technician->tax) }}>{{__('Tax')}}</a></li>
+                            @endif
                         </ul>
                     </div>
                 </div>
