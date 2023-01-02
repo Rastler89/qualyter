@@ -76,25 +76,25 @@ class TechnicianController extends Controller
 
             if($request->art19!=null) {
                 $fileName = $tec->company.'_art19-'.$key.'_'.time().'.'.$request->art19[$key]->extension();  
-                $request->art19[$key]->move(public_path('uploads'), $fileName);
+                $request->art19[$key]->move(public_path('../../public_html/uploads'), $fileName);
                 $worker[$key]['art19'] = $fileName;
             }
 
             if($request->art18!=null) {
                 $fileName = $tec->company.'_art18-'.$key.'_'.time().'.'.$request->art18[$key]->extension();  
-                $request->art18[$key]->move(public_path('uploads'), $fileName);
+                $request->art18[$key]->move(public_path('../../public_html/uploads'), $fileName);
                 $worker[$key]['art18'] = $fileName;
             }
 
             if($request->medical!=null) {
                 $fileName = $tec->company.'_medical-'.$key.'_'.time().'.'.$request->medical[$key]->extension();  
-                $request->medical[$key]->move(public_path('uploads'), $fileName);
+                $request->medical[$key]->move(public_path('../../public_html/uploads'), $fileName);
                 $worker[$key]['medical'] = $fileName;
             }
 
             if($request->ppe!=null) {
                 $fileName = $tec->company.'_ppe-'.$key.'_'.time().'.'.$request->ppe[$key]->extension();  
-                $request->ppe[$key]->move(public_path('uploads'), $fileName);
+                $request->ppe[$key]->move(public_path('../../public_html/uploads'), $fileName);
                 $worker[$key]['ppe'] = $fileName;
             }
         }
@@ -112,37 +112,37 @@ class TechnicianController extends Controller
         //Section 6
         if($request->risk!=null) {
             $fileName = $tec->company.'_risk_'.time().'.'.$request->risk->extension();  
-            $request->risk->move(public_path('uploads'), $fileName);
+            $request->risk->move(public_path('../../public_html/uploads'), $fileName);
             $tec->risk = $fileName;
         }
 
         if($request->preventive!=null) {
             $fileName = $tec->company.'_preventive_'.time().'.'.$request->preventive->extension();  
-            $request->preventive->move(public_path('uploads'), $fileName);
+            $request->preventive->move(public_path('../../public_html/uploads'), $fileName);
             $tec->preventive = $fileName;
         }
 
         if($request->payment!=null) {
             $fileName = $tec->company.'_payment_'.time().'.'.$request->payment->extension();  
-            $request->payment->move(public_path('uploads'), $fileName);
+            $request->payment->move(public_path('../../public_html/uploads'), $fileName);
             $tec->certificate_pay = $fileName;
         }
 
         if($request->rnt!=null) {
             $fileName = $tec->company.'_rnt_'.time().'.'.$request->rnt->extension();  
-            $request->rnt->move(public_path('uploads'), $fileName);
+            $request->rnt->move(public_path('../../public_html/uploads'), $fileName);
             $tec->rnt = $fileName;
         }
 
         if($request->rlc!=null) {
             $fileName = $tec->company.'_rlc_'.time().'.'.$request->rlc->extension();  
-            $request->rlc->move(public_path('uploads'), $fileName);
+            $request->rlc->move(public_path('../../public_html/uploads'), $fileName);
             $tec->rlc = $fileName;
         }
 
         if($request->tax!=null) {
             $fileName = $tec->company.'_tax_'.time().'.'.$request->tax->extension();  
-            $request->tax->move(public_path('uploads'), $fileName);
+            $request->tax->move(public_path('../../public_html/uploads'), $fileName);
             $tec->tax = $fileName;
         }
         $technician = $tec;
