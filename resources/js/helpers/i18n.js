@@ -54,7 +54,7 @@ i18next
                 comment: 'Comment',
                 previous: 'Previous',
                 next: 'Next',
-                open_inc: 'Openc incidence',
+                open_inc: 'Open incidence',
                 inc_close: 'Incidence close',
                 timing: 'Time average',
                 congratulations: 'Congratulations'

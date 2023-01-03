@@ -58,6 +58,14 @@ class UploadController extends Controller
                 }
             }else{
                 $answerid = $task->answer_id;
+                if(  $task->expiration != date('Y-m-d h:i:s', strtotime(str_replace('/','-',$resp['Fecha Vencimiento'])))) {
+                    //es canviara la data...
+                    if(count(Task::where('answer_id',$answerid)->get())==0) {
+                        $ans = Answer::find($answerid);
+                        $ans->status = 8;
+                        $ans->save();
+                    }
+                }
             }
             
             $task->owner = ($owner==null) ? 11 : $owner->id;
@@ -77,7 +85,7 @@ class UploadController extends Controller
         
             Answer::disableAuditing();
             //Si no volen contacte no generem cap visita...
-            if($store != null && $store->contact) {
+            if($store != null && $store->contact==1) {
                 $answer = Answer::where('expiration','=',date('Y-m-d', strtotime(str_replace('/','-',$resp['Fecha Vencimiento']))))->where('store','=',$task->store)->where('client','=',$resp['Código cliente'])->where('status','<>',-1)->first();
                
                 if($answer == null || $task->priority == 'CÓDIGO ROJO - URGENCIA') {
@@ -92,16 +100,6 @@ class UploadController extends Controller
                 $answer->save();
 
                 $answer->tasks()->save($task);  
-
-                if(isset($answerid)) {
-                $taskCount = Task::where('answer_id','=',$answerid)->get()->count();
-               
-                if($taskCount == 0){
-                    $pastAnswer = Answer::find($answerid);
-                    
-                    $pastAnswer->status = 8;
-                    $pastAnswer->save();
-                }}
             }
 
         }

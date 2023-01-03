@@ -44,7 +44,8 @@ class AnswerController extends Controller
 
         if(!empty($filters['store']) && $filters['store'] != '') {
             $id = [];
-            $stores = Store::where('name','LIKE','%'.$filters['store'].'%')->get();
+            $search = str_replace(' ','%',$filters['store']);
+            $stores = Store::where('name','LIKE','%'.$search.'%')->get();
             foreach($stores as $s) {
                 $id[] = $s->code;
             }
@@ -179,14 +180,14 @@ class AnswerController extends Controller
         return response()->json($output);
     }
     
-    public function view($id) {
+    public function view(Request $request, $id) {
         $log = new AuditionController();
         $answer = Answer::find($id);
         $old_answer = Answer::find($id);
         
         $store = Store::where('code','=',$answer->store)->where('client','=',$answer->client)->first();
 
-        if(env('APP_NAME')!='QualyterTEST') {
+        if(env('APP_NAME')!='QualyterTEST' && $request->url()!=url()->previous()) {
             $artisan = Artisan::call('call:store',['user'=>auth()->user()->id, 'id'=>$answer->id, 'type'=>'answer','phonenumber'=>'']);
             $output = Artisan::output();
         }
