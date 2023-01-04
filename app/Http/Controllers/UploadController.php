@@ -60,8 +60,9 @@ class UploadController extends Controller
                 $answerid = $task->answer_id;
                 if(  $task->expiration != date('Y-m-d h:i:s', strtotime(str_replace('/','-',$resp['Fecha Vencimiento'])))) {
                     //es canviara la data...
-                    if(count(Task::where('answer_id',$answerid)->get())==0) {
+                    if(count(Task::where('answer_id',$answerid)->get())==1) {
                         $ans = Answer::find($answerid);
+                        $ans->answer = 'reprogramada';
                         $ans->status = 8;
                         $ans->save();
                     }

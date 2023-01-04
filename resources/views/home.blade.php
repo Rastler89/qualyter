@@ -173,6 +173,7 @@
 						</div>-->
 					</div>
 
+					<!--
 					<div class="row">
 						<div class="col-12 col-md-6 col-xxl-3 d-flex order-2 order-xxl-3">
 							<div class="card flex-fill w-100">
@@ -317,7 +318,7 @@
 									</tbody>
 								</table>
 							</div>
-						</div>
+						</div>-->
 						<div class="col-12 col-lg-4 col-xxl-3 d-flex" id="evolution">
 							<div class="card flex-fill w-100">
 								<div class="card-header" onclick="pantallaCompleta('evolution') "id="actevolution">
