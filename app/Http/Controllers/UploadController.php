@@ -62,7 +62,7 @@ class UploadController extends Controller
                     //es canviara la data...
                     if(count(Task::where('answer_id',$answerid)->get())==1) {
                         $ans = Answer::find($answerid);
-                        $ans->answer = 'reprogramada';
+                        $ans->answer = json_encode('reprogramada');
                         $ans->status = 8;
                         $ans->save();
                     }
