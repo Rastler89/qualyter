@@ -480,7 +480,11 @@ class ApiController extends Controller
             }    
             $prepare[$clave]['visits'] = count(Answer::whereIn('id',$id)->where('status','<>',8)->get());  
             $prepare[$clave]['total'] = count($line['congratulation']);
-            $prepare[$clave]['percentage'] = number_format(($prepare[$key]['total']/$prepare[$key]['visits'])*100,2);
+            if($type=='teams') {
+                $prepare[$clave]['percentage'] = number_format(($prepare[$clave]['total']/$prepare[$clave]['visits'])*100,2);
+            } else {
+                $prepare[$clave]['percentage'] = number_format(($prepare[$key]['total']/$prepare[$key]['visits'])*100,2);
+            }
         }
         return response()->json($prepare);
     }
