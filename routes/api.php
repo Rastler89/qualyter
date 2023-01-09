@@ -28,6 +28,7 @@ Route::post('leaderboard', [App\Http\Controllers\ApiController::class, 'leaderbo
 Route::post('reports/targets', [App\Http\Controllers\ApiController::class, 'targets']);
 Route::post('reports/incidences', [App\Http\Controllers\ApiController::class, 'incidences']);
 Route::post('reports/congratulations',[App\Http\Controllers\ApiController::class, 'congratulations']);
+Route::get('incidence/today',[App\Http\Controllers\ApiController::class, 'incidence_control_today']);
 
 Route::post('public/{id}', [App\Http\Controllers\PublicController::class,'info']);
 Route::post('public/{central}/detail/{delegation}', [App\Http\Controllers\PublicController::class, 'detail']);

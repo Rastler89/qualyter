@@ -9,6 +9,7 @@ use App\Models\Task;
 use App\Models\Incidence;
 use App\Models\Store;
 use App\Models\Congratulation;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use \Debugbar;
@@ -63,11 +64,17 @@ class ApiController extends Controller
         $response['total'] = $total_today;
         $response['complete'] = $porcentaje_dia;
 
-        $total_cancelled = count(Answer::where('updated_at','like','%'.date('Y-m-d').'%')->where('status','=','8')->get());
+        /*$total_cancelled = count(Answer::where('updated_at','like','%'.date('Y-m-d').'%')->where('status','=','8')->get());
         $total_cancelled_yesterday = count(Answer::where('status','=','8')->where('updated_at','like','%'.date('Y-m-d',strtotime("-1 days")).'%')->get());
 
         $response['cancelled'] = $total_cancelled;
-        $response['cancelled_yesterday'] = $total_cancelled_yesterday;
+        $response['cancelled_yesterday'] = $total_cancelled_yesterday;*/
+
+        $total_incidence = count(Incidence::where('created_at','like','%'.date('Y-m-d').'%')->get());
+        $total_incidence_yesterday = count(Incidence::where('created_at','like','%'.date('Y-m-d').'%')->get());
+
+        $response['incidence'] = $total_incidence;
+        $response['incidence_yesterday'] =  $total_incidence_yesterday;
 
         return response()->json($response);
     }
@@ -113,11 +120,17 @@ class ApiController extends Controller
         $response['total'] = $total_today;
         $response['complete'] = $porcentaje_dia;
 
-        $total_cancelled = count(Answer::whereBetween('updated_at',[$first_month,$last_month])->where('status','=','8')->get());
+        /*$total_cancelled = count(Answer::whereBetween('updated_at',[$first_month,$last_month])->where('status','=','8')->get());
         $total_cancelled_yesterday = count(Answer::where('status','=','8')->whereBetween('updated_at',[$first_month_pre,$last_month_pre])->get());
 
         $response['cancelled'] = $total_cancelled;
-        $response['cancelled_yesterday'] = $total_cancelled_yesterday;
+        $response['cancelled_yesterday'] = $total_cancelled_yesterday;*/
+
+        $total_incidence = count(Incidence::whereBetween('created_at',[$first_month,$last_month])->get());
+        $total_incidence_yesterday = count(Incidence::whereBetween('created_at',[$first_month_pre,$last_month_pre])->get());
+
+        $response['incidence'] = $total_incidence;
+        $response['incidence_yesterday'] =  $total_incidence_yesterday;
 
         return response()->json($response);
     }
@@ -487,6 +500,19 @@ class ApiController extends Controller
             }
         }
         return response()->json($prepare);
+    }
+
+    public function incidence_control_today() {
+        $incidences = Incidence::where('closed','like','%'.date('Y-m-d').'%')->get();
+
+        foreach($incidences as &$incidence) {
+            $store = Store::where('code','=',$incidence->store)->first();
+            $incidence->store_name = $store->name;
+            $user = User::find($incidence->responsable);
+            $incidence->responsable = $user->name;
+        }
+
+        return response()->json($incidences);
     }
 
     /**

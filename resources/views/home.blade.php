@@ -98,7 +98,7 @@
 											<div class="card-body">
 												<div class="row">
 													<div class="col mt-0">
-														<h5 class="card-title">{{__("Surveys cancelled today")}}</h5>
+														<h5 class="card-title">{{__("Incidence today")}}</h5>
 													</div>
 
 													<div class="col-auto">
@@ -107,10 +107,10 @@
 														</div>
 													</div>
 												</div>
-												<h1 class="mt-1 mb-3" id="survey_cancel_day"></h1>
+												<h1 class="mt-1 mb-3" id="survey_incidence_day"></h1>
 												<div class="mb-0">
-													<span class="text-success" id="survey_cancel_percentatge"></span>
-													<span class="text-muted">{{__('Cancelled today')}}</span>
+													<span class="text-success" id="survey_incidence_percentatge"></span>
+													<span class="text-muted">{{__('Incidence today')}}</span>
 												</div>
 											</div>
 										</div>
@@ -118,7 +118,7 @@
 											<div class="card-body">
 												<div class="row">
 													<div class="col mt-0">
-														<h5 class="card-title">{{__("Surveys cancelled month")}}</h5>
+														<h5 class="card-title">{{__("Incidence month")}}</h5>
 													</div>
 
 													<div class="col-auto">
@@ -127,10 +127,10 @@
 														</div>
 													</div>
 												</div>
-												<h1 class="mt-1 mb-3" id="survey_cancel_month"></h1>
+												<h1 class="mt-1 mb-3" id="survey_incidence_month"></h1>
 												<div class="mb-0">
-													<span class="text-danger" id="survey_cancel_percentatge_month"></span>
-													<span class="text-muted">{{__('Cancelled month')}}</span>
+													<span class="text-danger" id="survey_incidence_percentatge_month"></span>
+													<span class="text-muted">{{__('Incidence month')}}</span>
 												</div>
 											</div>
 										</div>
@@ -239,86 +239,27 @@
 								</div>
 							</div>
 						</div>
-					</div>
+					</div>-->
 
 					<div class="row">
 						<div class="col-12 col-lg-8 col-xxl-9 d-flex">
 							<div class="card flex-fill">
 								<div class="card-header">
-
-									<h5 class="card-title mb-0">Latest Projects</h5>
+									<h5 class="card-title mb-0">{{__("Incidence Control Today")}}</h5>
 								</div>
 								<table class="table table-hover my-0">
 									<thead>
 										<tr>
-											<th>Name</th>
-											<th class="d-none d-xl-table-cell">Start Date</th>
-											<th class="d-none d-xl-table-cell">End Date</th>
-											<th>Status</th>
-											<th class="d-none d-md-table-cell">Assignee</th>
+											<th>{{__("Store's code")}}</th>
+											<th class="d-none d-md-table-cell">{{__("Store's name")}}</th>
+											<th class="d-none d-md-table-cell">{{__("Owner")}}</th>
+											<th></th>
 										</tr>
 									</thead>
-									<tbody>
-										<tr>
-											<td>Project Apollo</td>
-											<td class="d-none d-xl-table-cell">01/01/2021</td>
-											<td class="d-none d-xl-table-cell">31/06/2021</td>
-											<td><span class="badge bg-success">Done</span></td>
-											<td class="d-none d-md-table-cell">Vanessa Tucker</td>
-										</tr>
-										<tr>
-											<td>Project Fireball</td>
-											<td class="d-none d-xl-table-cell">01/01/2021</td>
-											<td class="d-none d-xl-table-cell">31/06/2021</td>
-											<td><span class="badge bg-danger">Cancelled</span></td>
-											<td class="d-none d-md-table-cell">William Harris</td>
-										</tr>
-										<tr>
-											<td>Project Hades</td>
-											<td class="d-none d-xl-table-cell">01/01/2021</td>
-											<td class="d-none d-xl-table-cell">31/06/2021</td>
-											<td><span class="badge bg-success">Done</span></td>
-											<td class="d-none d-md-table-cell">Sharon Lessman</td>
-										</tr>
-										<tr>
-											<td>Project Nitro</td>
-											<td class="d-none d-xl-table-cell">01/01/2021</td>
-											<td class="d-none d-xl-table-cell">31/06/2021</td>
-											<td><span class="badge bg-warning">In progress</span></td>
-											<td class="d-none d-md-table-cell">Vanessa Tucker</td>
-										</tr>
-										<tr>
-											<td>Project Phoenix</td>
-											<td class="d-none d-xl-table-cell">01/01/2021</td>
-											<td class="d-none d-xl-table-cell">31/06/2021</td>
-											<td><span class="badge bg-success">Done</span></td>
-											<td class="d-none d-md-table-cell">William Harris</td>
-										</tr>
-										<tr>
-											<td>Project X</td>
-											<td class="d-none d-xl-table-cell">01/01/2021</td>
-											<td class="d-none d-xl-table-cell">31/06/2021</td>
-											<td><span class="badge bg-success">Done</span></td>
-											<td class="d-none d-md-table-cell">Sharon Lessman</td>
-										</tr>
-										<tr>
-											<td>Project Romeo</td>
-											<td class="d-none d-xl-table-cell">01/01/2021</td>
-											<td class="d-none d-xl-table-cell">31/06/2021</td>
-											<td><span class="badge bg-success">Done</span></td>
-											<td class="d-none d-md-table-cell">Christina Mason</td>
-										</tr>
-										<tr>
-											<td>Project Wombat</td>
-											<td class="d-none d-xl-table-cell">01/01/2021</td>
-											<td class="d-none d-xl-table-cell">31/06/2021</td>
-											<td><span class="badge bg-warning">In progress</span></td>
-											<td class="d-none d-md-table-cell">William Harris</td>
-										</tr>
-									</tbody>
+									<tbody id="body_incidence"></tbody>
 								</table>
 							</div>
-						</div>-->
+						</div>
 						<div class="col-12 col-lg-4 col-xxl-3 d-flex" id="evolution">
 							<div class="card flex-fill w-100">
 								<div class="card-header" onclick="pantallaCompleta('evolution') "id="actevolution">
@@ -552,7 +493,7 @@
     });
 </script>
 <script>
-/* Petición a la api: Daniel Molina */
+
 function dashboards() {
 	$.get('/api/answers/today/carried', function(data) {
 		//Panel 1
@@ -570,11 +511,11 @@ function dashboards() {
 			$('#survey_total_percentatge').addClass('text-success');
 		}
 		//Panel 3
-		$('#survey_cancel_day').html(data.cancelled);
-		$('#survey_cancel_percentatge').html('<i class="mdi mdi-arrow-bottom-right"></i>'+data.cancelled_yesterday+'%');
-		if(data.cancelled_yesterday<0) {
-			$('#survey_cancel_percentatge').removeClass();
-			$('#survey_cancel_percentatge').addClass('text-success');
+		$('#survey_incidence_day').html(data.incidence);
+		$('#survey_incidence_percentatge').html('<i class="mdi mdi-arrow-bottom-right"></i>'+data.incidence_yesterday+'%');
+		if(data.incidence_yesterday<0) {
+			$('#survey_incidence_percentatge').removeClass();
+			$('#survey_incidence_percentatge').addClass('text-success');
 		}
 	});
 	$.get('/api/answers/month/carried', function(data) {
@@ -593,22 +534,14 @@ function dashboards() {
 			$('#survey_total_percentatge_month').addClass('text-success');
 		}
 		//Panel 6
-		$('#survey_cancel_month').html(data.cancelled);
-		$('#survey_cancel_percentatge_month').html('<i class="mdi mdi-arrow-bottom-right"></i>'+data.cancelled_yesterday+'%');
-		if(data.cancelled_yesterday<0) {
-			$('#survey_cancel_percentatge_month').removeClass();
-			$('#survey_cancel_percentatge_month').addClass('text-success');
+		$('#survey_incidence_month').html(data.incidence);
+		$('#survey_incidence_percentatge_month').html('<i class="mdi mdi-arrow-bottom-right"></i>'+data.incidence_yesterday+'%');
+		if(data.incidence_yesterday<0) {
+			$('#survey_incidence_percentatge_month').removeClass();
+			$('#survey_incidence_percentatge_month').addClass('text-success');
 		}
 	});
 	$.get('/api/answers/month/type', function(res) {
-		/*text = '<table class="table mb-0"><tbody><tr><td>Abiertos</td><td class="text-end">'+res.open+'</td></tr>';
-		text += '<tr><td>Asignados</td><td class="text-end">'+res.assigned+'</td></tr>';
-		text += '<tr><td>Cerrados por QC</td><td class="text-end">'+res.qc+'</td></tr>';
-		text += '<tr><td>Enviados</td><td class="text-end">'+res.send+'</td></tr>';
-		text += '<tr><td>Pendientes Revision</td><td class="text-end">'+res.review+'</td></tr>';
-		text += '<tr><td>Completados</td><td class="text-end">'+res.complete+'</td></tr>';
-		text += '<tr><td>Cancelados</td><td class="text-end">'+res.cancel+'</td></tr></tbody></table>';
-		$('#pie_answer_body').html(text);*/
 		new Chart(document.getElementById("pie_answer_status"), {
             type: "bar",
             data: {
@@ -640,6 +573,16 @@ function dashboards() {
         });
 		
 	})
+
+	$.get('/api/incidence/today', function(res) {
+		console.log(res);
+		res.forEach(function(incidence){
+			$tr = "<tr><td>"+incidence['store']+"</td><td>"+incidence['store_name']+"</td><td>"+incidence['responsable']+"</td><td><a href='/incidences/"+incidence['id']+"' class='btn btn-outline-info'>{{__('View more')}}</a></td></tr>";
+			$("#body_incidence").append($tr);
+			console.log(incidence);
+		})
+
+	});
 
 	$.get('/api/evolution', function(res) {
 		// Bar chart
