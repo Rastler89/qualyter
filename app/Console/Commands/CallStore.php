@@ -79,7 +79,7 @@ class CallStore extends Command
                 
             }
             $post['timeout'] = 30;
-            $post['device'] = 'SIP';
+            $post['device'] = $user->device;
             //lanzar curl
             $callback = curl_init();
             curl_setopt($callback, CURLOPT_URL, "https://public-api.ringover.com/v2/callback");

@@ -93,6 +93,7 @@ class UserController extends Controller
         $user->name = $request->get('name');
         $user->token = $request->get('token');
         $user->phone = $request->get('phone');
+        $user->device = $request->get('device');
         $user->save();
 
         return redirect()->route('profile')->with('success','Update your name!');

@@ -45,6 +45,16 @@
                                             <label class="form-label" for="phone">{{__('Phone Number')}}</label>
                                             <input type="phone" class="form-control" id="phone" placeholder="PhoneNumber" name="phone" value="{{$user->phone}}" />
                                         </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="device">{{__("Device")}}</label>
+                                            <select class="form-control" name="device" id="device">
+                                                <option>{{__("Please select one")}}</option>
+                                                <option value="ALL" @if($user->device == 'ALL') selected @endif>{{__("All")}}</option>
+                                                <option value="APP" @if($user->device == 'APP') selected @endif>{{__("App")}}</option>
+                                                <option value="WEB" @if($user->device == 'WEB') selected @endif>{{__("Web")}}</option>
+                                                <option value="SIP" @if($user->device == 'SIP') selected @endif>{{__("Sip")}}</option>
+                                            </select>
+                                        </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="text-center">
