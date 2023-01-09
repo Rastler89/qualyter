@@ -515,6 +515,21 @@ class ApiController extends Controller
         return response()->json($incidences);
     }
 
+    public function answers_waiting() {
+        if(date("D")=="Mon") {
+            $week_start = date("Y-m-d 00:00:00");
+        } else {
+            $week_start = date("Y-m-d 00:00:00",strtotime('last Monday', time()));
+        }
+        
+        $week_end = date("Y-m-d 23:59:59",strtotime('next Sunday',time()));
+
+        $total = count(Answer::whereBetween('created_at',[$week_start,$week_end])->where('status','=','3')->get());
+
+
+        return response()->json($total);
+    }
+
     /**
      * 
      * PRIVATE FUNCTIONS (ONLY)
