@@ -603,7 +603,7 @@ function dashboards() {
 	})
 
 	$.get('/api/incidence/today', function(res) {
-		$("#body_incidence").html();
+		$("#body_incidence").html('');
 		res.forEach(function(incidence){
 			$tr = "<tr><td>"+incidence['store']+"</td><td>"+incidence['store_name']+"</td><td>"+incidence['responsable']+"</td><td><a href='/incidences/"+incidence['id']+"' class='btn btn-outline-info'>{{__('View more')}}</a></td></tr>";
 			$("#body_incidence").append($tr);
