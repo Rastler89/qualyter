@@ -14,6 +14,7 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="alertas">
                     <div class="dropdown-menu-header" id="alertas_text"></div>
+                    <div class="list-group" id="alertas_body"></div>
                     <div class="dropdown-menu-footer">
                         <a href="{{route('answers',['status[4]' => 'true'])}}" class="text-muted">{{__("Show all surveys responded")}}</a>
                     </div>

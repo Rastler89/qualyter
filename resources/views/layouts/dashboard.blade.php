@@ -51,8 +51,12 @@
 	<script>
 		function notifications() {
 			$.get('/api/answers/answered', function(data) {
-				$('#alertas_id').html(data);
-				$('#alertas_text').html(data+' {{__("surveys responded")}}');
+				$('#alertas_id').html(data.full);
+				$('#alertas_text').html(data.full+' {{__("surveys responded")}}');
+				data.data.forEach(function(alert){
+					text = '<a href="#" class="list-group-item"><div class="row g-0 align-items-center"><div class="col-2">'+alert.total+'</div><div class="col-10"><div class="text-dark">'+alert.name+'</div></div></div></a>';
+					$("#alertas_body").append(text);
+				});
 			})
 		}
 

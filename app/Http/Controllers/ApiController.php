@@ -153,7 +153,9 @@ class ApiController extends Controller
     }
 
     public function answered() {
-        $response = count(Answer::where('status','=','4')->get());
+        $answers = DB::select('SELECT count(answers.id) as total, users.name from answers, users where answers.user = users.id and answers.status = 4 group by answers.user');
+        $response['full'] = count(Answer::where('status','=','4')->get());
+        $response['data'] = $answers;
 
         return response()->json($response);
     }
