@@ -381,7 +381,7 @@ class ApiController extends Controller
 
             case 'general':
 
-                $answers = DB::select('SELECT id FROM answers WHERE answers.status IN (2,4,5) AND answers.created_at BETWEEN :first AND :last', [
+                $answers = DB::select('SELECT id FROM answers WHERE answers.created_at BETWEEN :first AND :last', [
                     'first' => $first,
                     'last' => $last
                 ]);
