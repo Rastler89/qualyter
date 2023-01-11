@@ -49,6 +49,12 @@
                     <span class="align-middle">{{__('Answers')}}</span>
                 </a>
             </li>
+            <li class="sidebar-item @if(Request::is('workorders')) active @endif">
+                <a class="sidebar-link" href="{{route('workorder')}}">
+                    <i class="align-middle" data-feather="file-text"></i>
+                    <span class="align-middle">{{__("Work orders")}}</span>
+                </a>
+            </li>
             @endcan
             <li class="sidebar-item @if(Request::is('congratulations')) active @endif">
                 <a class="sidebar-link" href="{{route('congratulations')}}">

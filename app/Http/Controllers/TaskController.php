@@ -11,6 +11,13 @@ use Illuminate\Support\Str;
 
 class TaskController extends Controller
 {
+    public function index() {
+
+        $workorders = Task::paginate(25);
+
+        return view('admin.workorder.index', ['workorders' => $workorders]);
+    }
+
     public function new() {
         $stores = Store::all();
         $owners = Agent::all();
@@ -61,7 +68,19 @@ class TaskController extends Controller
     }
 
     
+    public function cancel($id) {
+        $id = str_replace('_','/',$id);
 
+        $task = Task::where('code','=',$id)->first();
+        if(count(DB::select('SELECT * FROM tasks where answer_id = "'.$task->answer_id).'"') == 1 ) {
+            $answer = Answer::find($task->answer_id);
+            $answer->status = 8;
+            $answer->save();
+        }
+        $task->answer_id = NULL;
+
+        $task->save();
+    }
 
     
 }

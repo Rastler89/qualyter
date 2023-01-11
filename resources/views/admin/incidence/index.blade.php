@@ -90,10 +90,10 @@
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="typology" class="form-label">{{__("Typology")}}</label>
-                            <select class="form-select form-select mb-3" id="typology" name="typology" required>
+                            <select class="form-select form-select mb-3" id="typology" name="typology" @if(!empty($filters) && isset($filters['typology'])) value="{{$filters['typology']}}" @endif>
                                 <option selected>{{__("Please select typology")}}</option>
                                 @foreach($typologies as $typology)
-                                <option value="{{$typology->id}}" @if(!empty($filters) && $filters['typology']==$typology->id) selected @endif>{{$typology->name}}</option>
+                                <option value="{{$typology->id}}" >{{$typology->name}}</option>
                                 @endforeach
                             </select>
                         </div>

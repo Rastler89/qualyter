@@ -88,8 +88,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('answers/reactivate/{id}', [App\Http\Controllers\AnswerController::class, 'reactivate'])->middleware('permission:response-tasks')->name('answers.reactivate');
     Route::post('answers/send/{id}', [App\Http\Controllers\AnswerController::class, 'sendTechnician'])->name('answers.send');
     // WORK ORDER
+    Route::get('workorders', [App\Http\Controllers\TaskController::class, 'index'])->name('workorder');
     Route::get('workorder/new', [App\Http\Controllers\TaskController::class, 'new'])->name('workorder.new');
     Route::post('workorder/new', [App\Http\Controllers\TaskController::class, 'create'])->name('workorder.create');
+    Route::delete('workorder/{id}/cancel', [App\Http\Controllers\TaskController::class, 'cancel'])->name('workorder.cancel');
     
     //INCIDENCE
     Route::get('incidences', [App\Http\Controllers\IncidenceController::class, 'index'])->middleware('permission:view-incidences')->name('incidences');
