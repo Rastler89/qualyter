@@ -175,7 +175,9 @@ class IncidenceController extends Controller
         $incidence->calls = $this->getCalls($incidence->id);
 
         $typology = Typology::find($incidence->typology);
-        $incidence->typology = $typology->name;
+        if(isset($typology)) {
+            $incidence->typology = $typology->name;
+        }
         
         return view('admin.incidence.view', ['incidence' => $incidence, 'store' => $store[0], 'user' => $user, 'agent' => $agent, 'order' => $order, 'comments' => $comments, 'agents' => $agents, 'owner' => $owner]);
     }
