@@ -139,6 +139,13 @@
                 @endforeach;
                 @endif
               </select>
+              <label for="typology" class="form-label">{{__("Typology")}}</label>
+              <select class="form-select form-select-lg mb-3" id="typology[]" name="typology[]" required>
+                <option selected>{{__('Please selecte one')}}</option>
+                @foreach($typologies as $typology)
+                <option value="{{$typology->id}}">{{$typology->name}}</option>
+                @endforeach
+              </select>
               <label for="impact" class="form-label">{{__('Impact')}}</label>
               <select class="form-select form-select-lg mb-3" id="impact[]" name="impact[]" required>
                 <option selected>{{__('Please select impact')}}</option>

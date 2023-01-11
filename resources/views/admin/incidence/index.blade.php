@@ -86,9 +86,17 @@
                             <span class="input-group-text"><-></span>
                             <input type="date" name="end_date_closing" class="form-control" aria-label="{{__('End date')}}" @if(!empty($filters) && isset($filters['end_date_closing'])) value="{{$filters['end_date_closing']}}" @endif>
                         </div>
-
                     </div>
                     <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="typology" class="form-label">{{__("Typology")}}</label>
+                            <select class="form-select form-select mb-3" id="typology" name="typology" required>
+                                <option selected>{{__("Please select typology")}}</option>
+                                @foreach($typologies as $typology)
+                                <option value="{{$typology->id}}" @if(!empty($filters) && $filters['typology']==$typology->id) selected @endif>{{$typology->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         <label class="form-label">{{__('Status')}}</label>
                         <div class="row mb-3">
                             <div class="form-check col-6">
@@ -192,6 +200,16 @@
                             </div>
                         </div>
                         <div class="col-md-4">
+                            
+                            <div class="mb-3">
+                                <label for="typology" class="form-label">{{__("Typology")}}</label>
+                                <select class="form-select form-select mb-3" id="typology" name="typology" required>
+                                    <option selected>{{__("Please select typology")}}</option>
+                                    @foreach($typologies as $typology)
+                                    <option value="{{$typology->id}}">{{$typology->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="mb-3">
                                 <label for="impact" class="form-label">{{__('Impact')}}</label>
                                 <select class="form-select form-select mb-3" id="impact" name="impact" required>
@@ -226,6 +244,7 @@
         <th scope="col">@sortablelink('status',__('Status'))</th>
         <th scope="col">@sortablelink('impact',__('Impact'))</th>
         <th scope="col">@sortablelink('responsable',__('Responsable'))</th>
+        <th scope="col">@sortablelink('typology',__('Typology'))</th>
         <th scope="col">@sortablelink('owner',__('Agent'))</th>
         <th scope="col">@sortablelink('created_at',__('Created'))</th>
         <th scope="col">@sortablelink('closed',__('Control day'))</th>
@@ -293,6 +312,13 @@
                     @foreach($users as $user)
                     @if($user->id == $incidence->responsable)
                     {{$user->name}}
+                    @endif
+                    @endforeach
+                </td>
+                <td>
+                    @foreach($typologies as $typology)
+                    @if($incidence->typology == $typology->id)
+                    {{$typology->name}}
                     @endif
                     @endforeach
                 </td>

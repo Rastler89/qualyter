@@ -116,6 +116,8 @@
                             <strong>
                                 {{$order->name}}
                             </strong>
+                            <div class="text-muted">{{__("Typology")}}</div>
+                            <strong>{{$incidence->typology}}</strong>
                             <div class="text-muted">{{__('Created day')}}</div>
                             <strong>{{$incidence->created_at}}</strong>
                         </div>

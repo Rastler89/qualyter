@@ -25,7 +25,8 @@ class Incidence extends Model implements Auditable
         'comments',
         'closed',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'typology'
     ];
 
     public $sortable = [
@@ -35,6 +36,7 @@ class Incidence extends Model implements Auditable
         'responsable',
         'owner',
         'created_at',
-        'closed'
+        'closed',
+        'typology'
     ];
 }

@@ -11,6 +11,7 @@ use App\Models\Task;
 use App\Models\Log;
 use App\Models\Team;
 use App\Models\Call;
+use App\Models\Typology;
 use Illuminate\Http\Request;
 use Mail;
 use Carbon\Carbon;
@@ -122,6 +123,9 @@ class IncidenceController extends Controller
         if(!empty($filters['workOrder']) && $filters['workOrder'] != '') {
             $incidences->where('order','LIKE','%'.str_replace('/','%',$filters['workOrder']).'%');
         }
+        if(!empty($filters['typology']) && $filters['typology'] != '') {
+            $incidences->where('typology','=',$filters['typology']);
+        }
         /* End filters */
 
         $rol = auth()->user()->roles;
@@ -152,10 +156,10 @@ class IncidenceController extends Controller
         $clients = Client::all();
         $teams = Team::all();
         $tasks = Task::all();
-
+        $typologies = Typology::all();
         
 
-        return view('admin.incidence.index', ['incidences' => $incidences, 'tasks' => $tasks, 'stores' => $stores, 'users' => $users, 'agents' => $agents, 'clients' => $clients, 'stores' => $stores, 'filters' => $filters, 'teams' => $teams]);
+        return view('admin.incidence.index', ['incidences' => $incidences, 'tasks' => $tasks, 'stores' => $stores, 'users' => $users, 'agents' => $agents, 'clients' => $clients, 'stores' => $stores, 'filters' => $filters, 'teams' => $teams, 'typologies' => $typologies]);
     }
 
     public function view($id) {
@@ -169,6 +173,9 @@ class IncidenceController extends Controller
         $owner = auth()->user();
 
         $incidence->calls = $this->getCalls($incidence->id);
+
+        $typology = Typology::find($incidence->typology);
+        $incidence->typology = $typology->name;
         
         return view('admin.incidence.view', ['incidence' => $incidence, 'store' => $store[0], 'user' => $user, 'agent' => $agent, 'order' => $order, 'comments' => $comments, 'agents' => $agents, 'owner' => $owner]);
     }

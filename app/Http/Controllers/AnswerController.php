@@ -11,6 +11,7 @@ use App\Models\Incidence;
 use App\Models\User;
 use App\Models\Team;
 use App\Models\Call;
+use App\Models\Typology;
 use App\Http\Controllers\AuditionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -233,8 +234,9 @@ class AnswerController extends Controller
         $incidence = Incidence::join('answers', 'answers.store','=','incidences.store')->where('incidences.status','!=',4)->where('answers.store','=',$answer->store)->count();
         $answer->incidence = $incidence;
         
+        $typologies = Typology::all();
         
-        return view('admin.task.view', ['answer' => $answer, 'store' => $store, 'tasks' => $tasks, 'agents' => $agents, 'owners' => $owners]);
+        return view('admin.task.view', ['answer' => $answer, 'store' => $store, 'tasks' => $tasks, 'agents' => $agents, 'owners' => $owners, 'typologies' => $typologies]);
     }
 
     public function response(Request $request, $id) {
@@ -658,7 +660,9 @@ class AnswerController extends Controller
         }
         $answer->calls = $this->getCalls($answer->id);
 
-        return view('admin.answer.view', ['answer' => $answer, 'store' => $store, 'answers' => $res, 'tasks' => $tasks, 'agents' => $agents, 'owners' => $owners, 'incidences' => $incidence]);
+        $typologies = Typology::all();
+
+        return view('admin.answer.view', ['answer' => $answer, 'store' => $store, 'answers' => $res, 'tasks' => $tasks, 'agents' => $agents, 'owners' => $owners, 'incidences' => $incidence, 'typologies' => $typologies]);
     }
 
     public function revised(Request $request, $id) {
@@ -717,6 +721,7 @@ class AnswerController extends Controller
                 $incidence = new Incidence();
     
                 $incidence->responsable = auth()->user()->id; 
+                $incidence->typology = $request['typology'][$index];
                 $incidence->owner = $task[0];
                 $incidence->impact = $request['impact'][$index];
                 $incidence->status = 0;

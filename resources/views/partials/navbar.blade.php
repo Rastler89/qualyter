@@ -167,6 +167,17 @@
                 </a>
             </li>
             @endcan
+            @can('settings')
+            <li class="sidebar-header">
+                {{__("Settings")}}
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{route('typologies')}}">
+                    <i class="align-middle" data-feather="tag"></i>
+                    <span class="align-middle">{{__("Typologies")}}</span>
+                </a>
+            </li>
+            @endcan
             @can('view-bulks')
             <li class="sidebar-header">
                     {{__('Bulk data upload')}}
@@ -178,7 +189,6 @@
                 </a>
             </li>
             @endcan
-            
         </ul>
 
         <!--<div class="sidebar-cta">

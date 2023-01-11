@@ -125,6 +125,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('congratulations', [App\Http\Controllers\CongratulationController::class, 'create'])->name('congratulation.new');
     Route::post('congratulations/update', [App\Http\Controllers\CongratulationController::class, 'update'])->name('congratulation.edit');
 
+    // TYPOLOGIES
+    Route::get('typologies', [App\Http\Controllers\TypologyController::class, 'index'])->name('typologies');
+    Route::post('typologies', [App\Http\Controllers\TypologyController::class, 'store'])->name('typologies.add');
+    Route::post('typologies/{id}', [App\Http\Controllers\TypologyController::class, 'update'])->name('typologies.update');
+    Route::delete('typologies/{id}', [App\Http\Controllers\TypologyController::class, 'destroy'])->name('typologies.delete');
+
     // TECHNICIAN
     Route::get('technicians', [App\Http\Controllers\TechnicianController::class, 'index'])->name('technician.index');
     Route::get('technicians/{id}', [App\Http\Controllers\TechnicianController::class, 'show'])->name('technician.view');
