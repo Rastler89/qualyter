@@ -11,11 +11,20 @@ use Illuminate\Support\Str;
 
 class TaskController extends Controller
 {
-    public function index() {
+    public function index(Request $request) {
+        $filters = $request->query();
+        if(isset($filters['filtered']) && isset($filters['filters'])) {
+            $filters = $filters['filters'];
+        }
+        $workorders = Task::query();
 
-        $workorders = Task::paginate(25);
+        if(!empty($filters['code']) && $filters['code'] != '') {
+            $workorders->where('code','=',$filters['code']);
+        }
 
-        return view('admin.workorder.index', ['workorders' => $workorders]);
+        $workorders = $workorders->paginate(25);
+
+        return view('admin.workorder.index', ['workorders' => $workorders, 'filters' => $filters]);
     }
 
     public function new() {

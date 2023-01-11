@@ -24,7 +24,7 @@
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="workOrder" class="form-label">{{__('Work Order')}}</label>
-                                <input type="text" list="workOrder" class="form-control" name="workOrder" placeholder="{{__('Work Order')}}" @if(!empty($filters) && isset($filters['workOrder'])) value="{{$filters['client']}}" @endif/>
+                                <input type="text" list="workOrder" class="form-control" name="workOrder" placeholder="{{__('Work Order')}}" @if(!empty($filters) && isset($filters['workOrder'])) value="{{$filters['workOrder']}}" @endif/>
                                 <datalist id="workOrder">
                                     @foreach($tasks as $workOrder)
                                         <option value="{{$workOrder->code}}">{{$workOrder->code}} - {{$workOrder->name}}</option>
