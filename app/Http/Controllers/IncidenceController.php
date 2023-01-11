@@ -124,6 +124,8 @@ class IncidenceController extends Controller
             $incidences->where('order','LIKE','%'.str_replace('/','%',$filters['workOrder']).'%');
         }
         if(!empty($filters['typology']) && $filters['typology'] != '') {
+            echo"<pre>";print_r($filters);echo"</pre>";die();
+            echo"hola";die();
             $incidences->where('typology','=',$filters['typology']);
         }
         /* End filters */

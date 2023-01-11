@@ -91,7 +91,7 @@
                         <div class="mb-3">
                             <label for="typology" class="form-label">{{__("Typology")}}</label>
                             <select class="form-select form-select mb-3" id="typology" name="typology" @if(!empty($filters) && isset($filters['typology'])) value="{{$filters['typology']}}" @endif>
-                                <option selected>{{__("Please select typology")}}</option>
+                                <option value='' selected>{{__("Please select typology")}}</option>
                                 @foreach($typologies as $typology)
                                 <option value="{{$typology->id}}" >{{$typology->name}}</option>
                                 @endforeach
