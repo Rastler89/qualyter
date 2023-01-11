@@ -274,8 +274,6 @@ class ApiController extends Controller
     public function leaderboard(Request $request) {
         $type = ($request->type != null) ? $request->type : 'agent';
 
-            //visit -> 0 correctivo 1 preventivo
-
         $first = $request->init;
         $last = $request->finish;
 
@@ -345,6 +343,7 @@ class ApiController extends Controller
                 $res[$key]['points'] = number_format($points*10,2);
             }
             array_multisort($order1, SORT_DESC, $res);
+            if($type=='general') $res['general']['total'] = $total;
             return response()->json($res);
         }
         return response()->json(0);
@@ -361,11 +360,7 @@ class ApiController extends Controller
         $send = 0;
         $resp = 0;
 
-        if($first==$last) {
-            $ots = Task::whereBetween('expiration',[$first.' 00:00:01',$last.' 23:59:59'])->where('answer_id','<>',null)->get();        
-        } else {
-            $ots = Task::whereBetween('expiration',[$first,$last])->where('answer_id','<>',null)->get();
-        }
+        $ots = Task::whereBetween('expiration',[$first.' 00:00:00',$last.' 23:59:59'])->where('answer_id','<>',null)->get();        
 
         $prepare=[];
         switch($type) {
@@ -385,13 +380,14 @@ class ApiController extends Controller
                 break;
 
             case 'general':
-                if($first==$last) {
-                    $ots = Task::whereBetween('expiration',[$first.' 00:00:01',$last.' 23:59:59'])->where('answer_id','<>',null)->get();
-                } else {
-                    $ots = Task::whereBetween('expiration',[$first,$last])->where('answer_id','<>',null)->get();
-                }
-                foreach($ots as $ot) {
-                    $prepare['all'][] = $ot->answer_id;
+
+                $answers = DB::select('SELECT id FROM answers WHERE answers.status IN (2,4,5) AND answers.created_at BETWEEN :first AND :last', [
+                    'first' => $first,
+                    'last' => $last
+                ]);
+
+                foreach($answers as $ot) {
+                    $prepare['all'][] = $ot->id;
                 }
 
                 $res['general']['targets'] = $this->information($prepare['all']);
@@ -637,7 +633,7 @@ class ApiController extends Controller
     
         $answers = Answer::whereIn('id',$id)->whereIn('status',[2,3,4,5])->get();
         $contacts = (int)count($answers);
-    
+
         $answers = Answer::whereIn('id',$id)->where('status','=','2')->get();
         $qc = (int)count($answers);
     
