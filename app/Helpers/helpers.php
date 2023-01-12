@@ -9,6 +9,10 @@ use Carbon\Carbon;
 
 if(!function_exists('getExtra')) {
     function getExtra($delegation,$agent=false,$first_day=false,$last_day=false) {
+        $stores = Store::where('client','=',$delegation->id)->get();
+        foreach($stores as $store) {
+            $id[] = $store->id;
+        }
         $visits = 0;
         $qc = 0;
         $send = 0;
@@ -17,31 +21,31 @@ if(!function_exists('getExtra')) {
         $first_day = ($first_day==false) ? first_month_day() : $first_day;
         $last_day = ($last_day==false) ? last_month_day() : $last_day;
     
-        $answers = Answer::where('client','=',$delegation->id)->where('status','<>','8')->whereBetween('expiration',[$first_day,$last_day])->get();
+        $answers = Answer::whereIn('store',$id)->where('status','<>','8')->whereBetween('expiration',[$first_day,$last_day])->get();
         $visits = (int)count($answers);
     
-        $answers = Answer::where('client','=',$delegation->id)->whereIn('status',[2,3,4,5])->whereBetween('expiration',[$first_day,$last_day])->get();
+        $answers = Answer::whereIn('store',$id)->whereIn('status',[2,3,4,5])->whereBetween('expiration',[$first_day,$last_day])->get();
         $contacts = (int)count($answers);
     
-        $answers = Answer::where('client','=',$delegation->id)->where('status','=','2')->whereBetween('expiration',[$first_day,$last_day])->get();
+        $answers = Answer::whereIn('store',$id)->where('status','=','2')->whereBetween('expiration',[$first_day,$last_day])->get();
         $qc = (int)count($answers);
     
-        $answers = Answer::where('client','=',$delegation->id)->whereIn('status',[3,4,5])->whereBetween('expiration',[$first_day,$last_day])->get();
+        $answers = Answer::whereIn('store',$id)->whereIn('status',[3,4,5])->whereBetween('expiration',[$first_day,$last_day])->get();
         $send = (int)count($answers);
     
-        $answers = Answer::where('client','=',$delegation->id)->whereIn('status',[4,5])->whereBetween('expiration',[$first_day,$last_day])->get();
+        $answers = Answer::whereIn('store',$id)->whereIn('status',[4,5])->whereBetween('expiration',[$first_day,$last_day])->get();
         $resp = (int)count($answers);
     
-        $answers = Answer::where('client','=',$delegation->id)->whereIn('status',[2,4,5])->whereBetween('expiration',[$first_day,$last_day])->get();
+        $answers = Answer::whereIn('store',$id)->whereIn('status',[2,4,5])->whereBetween('expiration',[$first_day,$last_day])->get();
         $answered = (int)count($answers);
     
         $per_con = $visits==0 ? 0 : number_format(($contacts/$visits)*100,2);
         $per_ans = $contacts==0 ? 0 : number_format(($answered/$contacts)*100,2);
         $tot_ans = $visits==0 ? 0 : number_format(($answered/$visits)*100,2);
     
-        $incidences = Incidence::where('client','=',$delegation->id)->whereBetween('created_at',[$first_day,$last_day])->get();
+        $incidences = Incidence::whereIn('store',$id)->whereBetween('created_at',[$first_day,$last_day])->get();
         $incidence_total = count($incidences);
-        $incidence_close = count(Incidence::where('client','=',$delegation->id)->whereBetween('created_at',[$first_day,$last_day])->where('status','=',4)->get());
+        $incidence_close = count(Incidence::whereIn('store',$id)->whereBetween('created_at',[$first_day,$last_day])->where('status','=',4)->get());
 
         $per_inc = $visits==0 ? 0 : number_format(($incidence_total/$visits)*100,2);
         $per_inc_close = $incidence_total==0 ? 0 : number_format(($incidence_close/$incidence_total)*100,2);

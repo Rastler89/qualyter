@@ -116,7 +116,7 @@ class PublicController extends Controller
 
         $stores = Store::where('client','=',$client->id)->get();
         foreach($stores as $store) {
-            $answer = Answer::where('store','=',$store->code)->whereIn('status',[2,4,5])->whereBetween('created_at',[$first_day,$last_day])->get();
+            $answer = Answer::where('store','=',$store->code)->whereIn('status',[2,4,5])->whereBetween('expiration',[$first_day,$last_day])->get();
             if(count($answer) > 0) {
                 foreach($answer as $ans) {
                     $response = json_decode($ans->answer,true);
