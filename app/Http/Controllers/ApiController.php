@@ -606,7 +606,7 @@ class ApiController extends Controller
             'per_incidences' => $per_incidences,
             'num_incidences' => $num_incidences,
             'per_completed'  => $per_completed,
-            'average_time'   => $this->calcMinutes($time_average),
+            'average_time'   => calcMinutes($time_average),
             'per_urgent'      => $per_urgent,
             'per_high'       => $per_high,
             'per_medium'     => $per_medium,
@@ -750,19 +750,4 @@ class ApiController extends Controller
         return date('Y-m-d', mktime(0,0,0, $month-$diff, 1, $year));
     }
 
-    private function calcMinutes($minutes) {
-        $time = ['days' => 0, 'hours' => 0, 'minutes' => 0];
-
-        while ($minutes >= 60) {
-            if ($minutes >= 1440) {
-                $time['days']++;
-                $minutes = $minutes - 1440;
-            } else if ($minutes >= 60) {
-                $time['hours']++;
-                $minutes = $minutes - 60;
-            }
-        }
-        $time['minutes'] = number_format($minutes,2);
-        return $time;
-    }
 }
