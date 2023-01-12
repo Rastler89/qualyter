@@ -4,6 +4,7 @@ use App\Models\Answer;
 use App\Models\Store;
 use App\Models\Incidence;
 use App\Models\Congratulation;
+use App\Models\Log;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
@@ -11,7 +12,7 @@ if(!function_exists('getExtra')) {
     function getExtra($delegation,$agent=false,$first_day=false,$last_day=false) {
         $stores = Store::where('client','=',$delegation->id)->get();
         foreach($stores as $store) {
-            $id[] = $store->id;
+            $id[] = $store->code;
         }
         $visits = 0;
         $qc = 0;
@@ -54,19 +55,13 @@ if(!function_exists('getExtra')) {
 
         $per_cong = $visits==0 ? 0 : number_format(($congratulations/$visits)*100,2);
 
-        $time = 0;
+        $time_total = 0;
+        $count = 0;
         foreach($incidences as $incidence) {
-            $log = DB::select("SELECT * FROM logs WHERE logs.table = 'i' AND logs.new IN (3,4) AND logs.old != 3 AND logs.row_id = :incidence",[
-                'incidence' => $incidence->id
-            ]);
-            if($log!=null) {
-                $init = Carbon::parse($incidence->created_at);
-                $finish = Carbon::parse($log[0]->created);
-    
-                $time = $time + $init->diffInMinutes($finish,false);
-            }
+            $count += 1;
+            $time_total += timeLive($incidence);
         }
-        $timing = intToDays($incidence_total==0 ? 0 : $time/$incidence_total);
+        $timing = calcMinutes(($count>0) ? $time_total/$count : 0);
 
         $body = [
             'visits' => $visits,
@@ -79,7 +74,7 @@ if(!function_exists('getExtra')) {
             'per_inc' => $per_inc,
             'per_inc_close' => $per_inc_close,
             'per_cong' => $per_cong,
-            'timing' => $timing
+            'timing' => $timing['days'].'d '.$timing['hours'].'m'
         ];
     
         return $body;
@@ -183,5 +178,50 @@ if(!function_exists('intToDays')) {
         }else{
             return $dias.'d '.$horas.'h '.$minutos.'m';
         }
+    }
+}
+
+if(!function_exists('timeLive')) {
+    function timeLive($incidence) {
+        $time_total = 0;
+        
+        $pause = Log::where('table','=','i')->where('row_id','=',$incidence->id)->where('new','=',5)->orderBy('created','ASC')->get();
+        $open = $incidence->created_at;
+        
+        if(count($pause)>0) {
+            foreach($pause as $key => $init) {
+                $close = Carbon::parse($init->created);
+                
+                $time_total += $open->diffInMinutes($close);
+                
+                $finish = Log::where('table','=','i')->where('row_id','=',$incidence->id)->where('old','=',5)->orderBy('created','ASC')->first();
+                if($finish!=null) {
+                    $open = Carbon::parse($finish->created);
+                }
+            }
+        }
+        $close = Carbon::parse($incidence->updated_at);
+
+        $time_total += $open->diffInMinutes($close,false);
+
+        return $time_total;
+    }
+}
+
+if(!function_exists('calcMinutes')) {
+    function calcMinutes($minutes) {
+        $time = ['days' => 0, 'hours' => 0, 'minutes' => 0];
+
+        while ($minutes >= 60) {
+            if ($minutes >= 1440) {
+                $time['days']++;
+                $minutes = $minutes - 1440;
+            } else if ($minutes >= 60) {
+                $time['hours']++;
+                $minutes = $minutes - 60;
+            }
+        }
+        $time['minutes'] = number_format($minutes,2);
+        return $time;
     }
 }

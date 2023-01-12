@@ -574,26 +574,24 @@ class ApiController extends Controller
 
         foreach($incidences as $incidence) {
             if($incidence->status==4) {
-                $count = $count + 1;
-                
-                $init = Carbon::parse($incidence->created_at);
-                $finish = Carbon::parse($incidence->updated_at);
-
-                $time_total = $time_total + $init->diffInMinutes($finish,false);
-                switch($incidence->impact) {
+                $count += 1;
+                $time_total += timeLive($incidence);
+            }
+            switch($incidence->impact) {
+                case 0: 
                     case 0: 
-                        $urgent = $urgent+1;
-                        break;
-                    case 1:
-                        $high = $high+1;
-                        break;
-                    case 2:
-                        $medium = $medium+1;
-                        break;
-                    case 3:
-                        $low = $low+1;
-                        break;
-                }
+                case 0: 
+                    $urgent = $urgent+1;
+                    break;
+                case 1:
+                    $high = $high+1;
+                    break;
+                case 2:
+                    $medium = $medium+1;
+                    break;
+                case 3:
+                    $low = $low+1;
+                    break;
             }
         }
 
@@ -752,7 +750,7 @@ class ApiController extends Controller
         return date('Y-m-d', mktime(0,0,0, $month-$diff, 1, $year));
     }
 
-    function calcMinutes($minutes) {
+    private function calcMinutes($minutes) {
         $time = ['days' => 0, 'hours' => 0, 'minutes' => 0];
 
         while ($minutes >= 60) {

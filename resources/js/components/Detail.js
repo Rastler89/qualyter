@@ -5,7 +5,7 @@ import Answer from "./Answer";
 
 export default function Detail(props)  {
     const info = props.object;
-console.log(info);
+
     let stars = [];
     let buttons = [];
 
